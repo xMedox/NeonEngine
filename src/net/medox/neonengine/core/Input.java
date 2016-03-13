@@ -187,7 +187,6 @@ public class Input{
 	
 	public static void mousePos(double x, double y){
 		mouseX = (int)x;
-//		mouseY = (int)y;
 		mouseY = Window.getHeight()-1 - (int)y;
 	}
 	
@@ -222,27 +221,23 @@ public class Input{
 	public static InputKey getCurrentKey(){
 		final InputKey result = new InputKey(-1, -1);
 		
-		int count = 0;
-		
 		for(int i = 0; i < NUM_KEYCODES; i++){
 			if(getKey(i)){
-				if(count == 0){
-					result.setDevice(KEYBOARD);
-					result.setKeycode(i);
-				}
+				result.setDevice(KEYBOARD);
+				result.setKeycode(i);
 				
-				count++;
+				break;
 			}
 		}
 		
-		for(int i = 0; i < NUM_MOUSEBUTTONS; i++){
-			if(getMouse(i)){
-				if(count == 0){
+		if(result.getDevice() == -1 && result.getKeycode() == -1){
+			for(int i = 0; i < NUM_MOUSEBUTTONS; i++){
+				if(getMouse(i)){
 					result.setDevice(MOUSE);
 					result.setKeycode(i);
+					
+					break;
 				}
-				
-				count++;
 			}
 		}
 		
@@ -251,38 +246,14 @@ public class Input{
 	
 	public static boolean inputKey(InputKey key){
 		return key.getDevice() == MOUSE ? getMouse(key.getKeycode()) : key.getDevice() == KEYBOARD ? getKey(key.getKeycode()) : false;
-		
-//		if(key.getDevice() == MOUSE){
-//			return getMouse(key.getKeycode());
-//		}else if(key.getDevice() == KEYBOARD){
-//			return getKey(key.getKeycode());
-//		}
-//		
-//		return false;
 	}
 	
 	public static boolean inputKeyDown(InputKey key){
 		return key.getDevice() == MOUSE ? getMouseDown(key.getKeycode()) : key.getDevice() == KEYBOARD ? getKeyDown(key.getKeycode()) : false;
-		
-//		if(key.getDevice() == MOUSE){
-//			return getMouseDown(key.getKeycode());
-//		}else if(key.getDevice() == KEYBOARD){
-//			return getKeyDown(key.getKeycode());
-//		}
-//		
-//		return false;
 	}
 	
 	public static boolean inputKeyUp(InputKey key){
 		return key.getDevice() == MOUSE ? getMouseUp(key.getKeycode()) : key.getDevice() == KEYBOARD ? getKeyUp(key.getKeycode()) : false;
-		
-//		if(key.getDevice() == MOUSE){
-//			return getMouseUp(key.getKeycode());
-//		}else if(key.getDevice() == KEYBOARD){
-//			return getKeyUp(key.getKeycode());
-//		}
-//		
-//		return false;
 	}
 	
 	public static boolean getKey(int keyCode){
@@ -310,18 +281,6 @@ public class Input{
 	}
 	
 	public static boolean getMouseWheelDirection(int wheelDirection){
-//		int dir = 0;
-//		
-//		if(wheelY < 0){
-//			dir = -1;
-//	    }
-//		
-//		if(wheelY > 0){
-//	    	dir = 1;
-//	    }
-//				
-//		return wheelDirection == dir;
-		
 		return wheelY < 0 ? wheelDirection == -1 : wheelY > 0 ? wheelDirection == 1 : wheelDirection == 0;
 	}
 	
@@ -330,28 +289,12 @@ public class Input{
 	}
 	
 	public static Vector2f getMousePosition(){
-//		ByteBuffer xPos = ByteBuffer.allocateDirect(8);
-//		ByteBuffer yPos = ByteBuffer.allocateDirect(8);
-//		glfwGetCursorPos(Window.window, xPos, yPos);
-//		
-//		xPos.order(ByteOrder.LITTLE_ENDIAN);
-//		yPos.order(ByteOrder.LITTLE_ENDIAN);
-//		
-//		int x = (int)xPos.getDouble();
-//		int y = (((int)yPos.getDouble()) - Window.getHeight()+1) * -1;
-//		
-//		return new Vector2f(x, y);
-		
 		return new Vector2f(mouseX, mouseY);
 	}
 	
 	public static void setMousePosition(Vector2f pos){
 		mouseX = (int)pos.getX();
 		mouseY = (int)pos.getY();
-		
-//		double x = (double)mouseX;
-//		double y = (double)(Window.getHeight()-1 - mouseY);
-//		double y = (double)mouseY;
 		
 		glfwSetCursorPos(Window.window, (double)mouseX, (double)(Window.getHeight()-1 - mouseY));
 	}
