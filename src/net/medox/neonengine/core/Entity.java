@@ -7,11 +7,11 @@ import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Shader;
 
 public class Entity{
-	private Entity parent;
-	
 	private final List<Entity> children;
 	private final List<EntityComponent> components;
 	private final Transform transform;
+	
+	private Entity parent;
 	
 	public Entity(){
 		children = new ArrayList<Entity>();

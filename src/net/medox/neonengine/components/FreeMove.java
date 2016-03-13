@@ -6,11 +6,12 @@ import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.math.Vector3f;
 
 public class FreeMove extends EntityComponent{
-	private float speed;
 	private final InputKey forwardKey;
 	private final InputKey backKey;
 	private final InputKey leftKey;
 	private final InputKey rightKey;
+	
+	private float speed;
 	
 	public FreeMove(float speed){
 		this(speed, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D));

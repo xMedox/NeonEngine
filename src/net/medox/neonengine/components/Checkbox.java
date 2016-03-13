@@ -8,9 +8,10 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.RenderingEngine;
 
 public class Checkbox extends Entity2DComponent{
-	private boolean pressed;
 	private final Vector3f color;
 	private final Vector3f colorChecked;
+	
+	private boolean pressed;
 	
 	public Checkbox(boolean pressed){
 		this(pressed, new Vector3f(1, 1, 1), new Vector3f(1, 0, 0));

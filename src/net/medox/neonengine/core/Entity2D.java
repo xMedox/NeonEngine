@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Entity2D{
-	private Entity2D parent;
-	
 	private final List<Entity2D> children;
 	private final List<Entity2DComponent> components;
 	private final Transform2D transform;
+	
+	private Entity2D parent;
 	
 	public Entity2D(){
 		children = new ArrayList<Entity2D>();

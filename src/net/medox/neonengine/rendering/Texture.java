@@ -16,8 +16,10 @@ import net.medox.neonengine.rendering.resourceManagement.OpenGL.TextureDataGL;
 
 public class Texture{
 	private static Map<String, TextureData> loadedTextures = new HashMap<String, TextureData>();
-	private TextureData resource;
+	
 	private final String fileName;
+	
+	private TextureData resource;
 	
 	private int width;
 	private int height;

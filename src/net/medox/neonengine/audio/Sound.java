@@ -12,9 +12,11 @@ import net.medox.neonengine.math.Vector3f;
 public class Sound{
 	private static Map<String, SoundData> loadedAudios = new HashMap<String, SoundData>();
 	private static Map<String, SourceData> loadedSources = new HashMap<String, SourceData>();
-	private SoundData resource;
+	
 	private final SourceData source;
 	private final String fileName;
+	
+	private SoundData resource;
 	
 	public Sound(String fileName){
 		this.fileName = fileName;

@@ -21,8 +21,9 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 public class CubeMapDataGL extends CubeMapData{
-	private int textureID;
 	private final int textureTarget;
+	
+	private int textureID;
 	private int frameBuffer;
 	private int renderBuffer;
 	

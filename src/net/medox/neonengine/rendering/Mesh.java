@@ -11,8 +11,10 @@ import net.medox.neonengine.rendering.resourceManagement.OpenGL.MeshDataGL;
 
 public class Mesh{
 	private static Map<String, MeshData> loadedModels = new HashMap<String, MeshData>();
-	private MeshData resource;
+	
 	private final String fileName;
+	
+	private MeshData resource;
 	
 	public Mesh(String fileName/*, boolean createShape*/){
 		this.fileName = fileName;

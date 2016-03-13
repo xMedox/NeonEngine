@@ -13,8 +13,9 @@ import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.Transform;
 
 public class Collider{
-	private RigidBody body;
 	private final List<Collider> hitList;
+	
+	private RigidBody body;
 	
 	private int group;
 	private Object object;

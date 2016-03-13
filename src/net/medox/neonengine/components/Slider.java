@@ -10,11 +10,12 @@ import net.medox.neonengine.rendering.RenderingEngine;
 
 public class Slider extends Entity2DComponent{
 	private final int orientation;
-	private float progress;
-	private boolean grabbed;
-	private Vector2f oldPos;	
 	private final Vector3f color;
 	private final Vector3f colorSlider;
+	
+	private float progress;
+	private boolean grabbed;
+	private Vector2f oldPos;
 	
 	public Slider(float progress){
 		this(progress, new Vector3f(1, 0, 0));

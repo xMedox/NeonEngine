@@ -8,8 +8,9 @@ import net.medox.neonengine.rendering.RenderingEngine;
 
 public class Progressbar extends Entity2DComponent{
 	private final int orientation;
-	private float progress;
 	private final Vector3f color;
+	
+	private float progress;
 	
 	public Progressbar(float progress){
 		this(progress, 0);

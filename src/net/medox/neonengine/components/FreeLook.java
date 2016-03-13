@@ -11,9 +11,10 @@ import net.medox.neonengine.rendering.Window;
 public class FreeLook extends EntityComponent{
 	public static final Vector3f Y_AXIS = new Vector3f(0, 1, 0);
 	
-	private float sensitivity;
 	private final InputKey unlockMouseKey;
 	private final InputKey setMouse;
+	
+	private float sensitivity;
 	
 	private float x;
 	private float y;

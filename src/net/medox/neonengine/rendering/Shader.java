@@ -13,8 +13,9 @@ import net.medox.neonengine.rendering.resourceManagement.OpenGL.ShaderDataGL;
 public class Shader{
 	private static Map<String, ShaderData> loadedShaders = new HashMap<String, ShaderData>();
 	
-	private ShaderData resource;
 	private final String fileName;
+	
+	private ShaderData resource;
 	
 	public Shader(String fileName){
 		this.fileName = fileName;

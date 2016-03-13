@@ -22,11 +22,12 @@ import org.lwjgl.opengl.GL30;
 public class TextureDataGL extends TextureData{
 //	public static int bound;
 	
-	private int[] textureID;
 	private final int textureTarget;
+	private final int numTextures;
+	
+	private int[] textureID;
 	private int frameBuffer;
 	private int renderBuffer;
-	private final int numTextures;
 	private int width;
 	private int height;
 	

@@ -17,6 +17,7 @@ public class OBJModel{
 	private final List<Vector2f> texCoords;
 	private final List<Vector3f> normals;
 	private final List<OBJIndex> indices;
+	
 	private boolean hasTexCoords;
 	private boolean hasNormals;
 	

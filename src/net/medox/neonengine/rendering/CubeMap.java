@@ -16,8 +16,10 @@ import net.medox.neonengine.rendering.resourceManagement.OpenGL.CubeMapDataGL;
 
 public class CubeMap{
 	private static Map<String[], CubeMapData> loadedCubeMaps = new HashMap<String[], CubeMapData>();
-	private CubeMapData resource;
+	
 	private final String fileNames[];
+	
+	private CubeMapData resource;
 	
 	private int width[] = new int[6];
 	private int height[] = new int[6];

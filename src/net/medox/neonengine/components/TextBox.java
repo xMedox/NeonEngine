@@ -8,11 +8,12 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.RenderingEngine;
 
 public class TextBox extends Entity2DComponent{
-	private String text;
-	private boolean pressed;
 	private final int max;
 	private final Vector3f color;
 	private final Vector3f colorText;
+	
+	private String text;
+	private boolean pressed;
 	
 	public TextBox(int max){
 		this(max, "");
