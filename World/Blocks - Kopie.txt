@@ -1,0 +1,3 @@
+blender remesh
+blocks
+7octree 0.8size

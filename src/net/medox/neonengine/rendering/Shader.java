@@ -1,0 +1,288 @@
+package net.medox.neonengine.rendering;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.Transform;
+import net.medox.neonengine.math.Matrix4f;
+import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.resourceManagement.ShaderData;
+import net.medox.neonengine.rendering.resourceManagement.OpenGL.ShaderDataGL;
+
+public class Shader{
+	private static Map<String, ShaderData> loadedShaders = new HashMap<String, ShaderData>();
+	
+	private ShaderData resource;
+	private final String fileName;
+	
+	public Shader(String fileName){
+		this.fileName = fileName;
+		
+		String actualFileName = fileName;
+		if(CoreEngine.PROFILING_DISABLE_SHADING != 0){
+			actualFileName = "nullShader";
+		}
+		
+		resource = loadedShaders.get(actualFileName);
+		
+		if(resource == null){
+			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
+				resource = new ShaderDataGL(fileName);
+			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
+				resource = new ShaderData(fileName);
+			}
+			loadedShaders.put(actualFileName, resource);
+		}else{
+			resource.addReference();
+		}
+	}
+	
+	@Override
+	protected void finalize(){
+		if(resource.removeReference() && !fileName.isEmpty()){
+			resource.dispose();
+			loadedShaders.remove(fileName);
+		}
+	}
+	
+	public void bind(){
+		resource.bind();
+	}
+	
+	public void updateUniforms(Transform transform, Material material, Camera camera){
+		final Matrix4f worldMatrix = transform.getTransformation();
+		final Matrix4f MVPMatrix = camera.getViewProjection().mul(worldMatrix);
+		
+		for(int i = 0; i < resource.getUniformNames().size(); i++){
+			final String uniformName = resource.getUniformNames().get(i);
+			final String uniformType = resource.getUniformTypes().get(i);
+			
+			if(uniformName.charAt(0) == 'T' && Character.isDigit(uniformName.charAt(1))){
+				final String unprefixedUniformName = uniformName.substring(1);
+				
+				if(uniformType.equals("sampler2D")){
+					if(unprefixedUniformName.startsWith("0_")){
+						setUniformi(uniformName, 0);
+					}else if(unprefixedUniformName.startsWith("1_")){
+						setUniformi(uniformName, 1);
+					}else if(unprefixedUniformName.startsWith("2_")){
+						setUniformi(uniformName, 2);
+					}else if(unprefixedUniformName.startsWith("3_")){
+						setUniformi(uniformName, 3);
+					}else if(unprefixedUniformName.startsWith("4_")){
+						setUniformi(uniformName, 4);
+					}else if(unprefixedUniformName.startsWith("5_")){
+						setUniformi(uniformName, 5);
+					}else if(unprefixedUniformName.startsWith("6_")){
+						setUniformi(uniformName, 6);
+					}else if(unprefixedUniformName.startsWith("7_")){
+						setUniformi(uniformName, 7);
+					}else if(unprefixedUniformName.startsWith("8_")){
+						setUniformi(uniformName, 8);
+					}else if(unprefixedUniformName.startsWith("9_")){
+						setUniformi(uniformName, 9);
+					}else if(unprefixedUniformName.startsWith("10_")){
+						setUniformi(uniformName, 10);
+					}else if(unprefixedUniformName.startsWith("11_")){
+						setUniformi(uniformName, 11);
+					}else if(unprefixedUniformName.startsWith("12_")){
+						setUniformi(uniformName, 12);
+					}else if(unprefixedUniformName.startsWith("13_")){
+						setUniformi(uniformName, 13);
+					}else if(unprefixedUniformName.startsWith("14_")){
+						setUniformi(uniformName, 14);
+					}else if(unprefixedUniformName.startsWith("15_")){
+						setUniformi(uniformName, 15);
+					}else if(unprefixedUniformName.startsWith("16_")){
+						setUniformi(uniformName, 16);
+					}else if(unprefixedUniformName.startsWith("17_")){
+						setUniformi(uniformName, 17);
+					}else if(unprefixedUniformName.startsWith("18_")){
+						setUniformi(uniformName, 18);
+					}else if(unprefixedUniformName.startsWith("19_")){
+						setUniformi(uniformName, 19);
+					}else if(unprefixedUniformName.startsWith("20_")){
+						setUniformi(uniformName, 20);
+					}else if(unprefixedUniformName.startsWith("21_")){
+						setUniformi(uniformName, 21);
+					}else if(unprefixedUniformName.startsWith("22_")){
+						setUniformi(uniformName, 22);
+					}else if(unprefixedUniformName.startsWith("23_")){
+						setUniformi(uniformName, 23);
+					}else if(unprefixedUniformName.startsWith("24_")){
+						setUniformi(uniformName, 24);
+					}else if(unprefixedUniformName.startsWith("25_")){
+						setUniformi(uniformName, 25);
+					}else if(unprefixedUniformName.startsWith("26_")){
+						setUniformi(uniformName, 26);
+					}else if(unprefixedUniformName.startsWith("27_")){
+						setUniformi(uniformName, 27);
+					}else if(unprefixedUniformName.startsWith("28_")){
+						setUniformi(uniformName, 28);
+					}else if(unprefixedUniformName.startsWith("29_")){
+						setUniformi(uniformName, 29);
+					}else if(unprefixedUniformName.startsWith("30_")){
+						setUniformi(uniformName, 30);
+					}else if(unprefixedUniformName.startsWith("31_")){
+						setUniformi(uniformName, 31);
+					}
+				}
+			}/*if(uniformName.startsWith("R_0")){
+				String unprefixedUniformName = uniformName.substring(3);
+				
+				if(uniformType.equals("sampler2D")){
+//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+					RenderingEngine.getTexture(unprefixedUniformName).bind(7, 0);
+					setUniformi(uniformName, 7);
+				}
+			}else if(uniformName.startsWith("R_1")){
+				String unprefixedUniformName = uniformName.substring(3);
+				
+				if(uniformType.equals("sampler2D")){
+//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+					RenderingEngine.getTexture(unprefixedUniformName).bind(8, 1);
+					setUniformi(uniformName, 8);
+				}
+			}else if(uniformName.startsWith("R_2")){
+				String unprefixedUniformName = uniformName.substring(3);
+				
+				if(uniformType.equals("sampler2D")){
+//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+					RenderingEngine.getTexture(unprefixedUniformName).bind(9, 2);
+					setUniformi(uniformName, 9);
+				}
+			}else if(uniformName.startsWith("R_3")){
+				String unprefixedUniformName = uniformName.substring(3);
+				
+				if(uniformType.equals("sampler2D")){
+//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+					RenderingEngine.getTexture(unprefixedUniformName).bind(10, 3);
+					setUniformi(uniformName, 10);
+				}
+			}else if(uniformName.startsWith("R_4")){
+				String unprefixedUniformName = uniformName.substring(3);
+				
+				if(uniformType.equals("sampler2D")){
+//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+					RenderingEngine.getTexture(unprefixedUniformName).bind(11, 4);
+					setUniformi(uniformName, 11);
+				}
+			}*/else if(uniformName.startsWith("R_")){
+				final String unprefixedUniformName = uniformName.substring(2);
+				
+				if(unprefixedUniformName.equals("lightMatrix")){
+					setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix().mul(worldMatrix));
+				}else if(uniformType.equals("sampler2D")){
+					final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+					RenderingEngine.getTexture(unprefixedUniformName).bind(samplerSlot);
+					setUniformi(uniformName, samplerSlot);
+				}else if(uniformType.equals("vec3")){
+					setUniformVector3f(uniformName, RenderingEngine.getVector3f(unprefixedUniformName));
+				}/*else if(uniformType.equals("vec2")){
+					setUniformVector2f(uniformName, RenderingEngine.getVector2f(unprefixedUniformName));
+				}*/else if(uniformType.equals("float")){
+					setUniformf(uniformName, RenderingEngine.getFloat(unprefixedUniformName));
+				}else if(uniformType.equals("DirectionalLight")){
+					setUniformDirectionalLight(uniformName, (DirectionalLight)RenderingEngine.getActiveLight());
+				}else if(uniformType.equals("PointLight")){
+					setUniformPointLight(uniformName, (PointLight)RenderingEngine.getActiveLight());
+				}else if(uniformType.equals("SpotLight")){
+					setUniformSpotLight(uniformName, (SpotLight)RenderingEngine.getActiveLight());
+				}else{
+					RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
+				}
+			}else if(uniformType.equals("sampler2D")){
+				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
+				material.getTexture(uniformName).bind(samplerSlot);
+				setUniformi(uniformName, samplerSlot);
+			}else if(uniformType.equals("samplerCube")){
+				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
+				material.getCubeMap(uniformName).bind(samplerSlot);
+				setUniformi(uniformName, samplerSlot);
+			}else if(uniformName.startsWith("T_")){
+				if(uniformName.equals("T_MVP")){
+					setUniformMatrix4f(uniformName, MVPMatrix);
+				}else if(uniformName.equals("T_model")){
+					setUniformMatrix4f(uniformName, worldMatrix);
+				}else{
+					throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
+				}
+			}/*else if(uniformName.startsWith("C_0")){
+				if(uniformName.equals("C_0eyePos")){
+					setUniformVector3f(uniformName, RenderingEngine.getMainCamera().getTransform().getTransformedPos());
+				}else{
+					throw new IllegalArgumentException(uniformName + " is not a valid component of Camera");
+				}
+			}*/else if(uniformName.startsWith("C_")){
+				if(uniformName.equals("C_eyePos")){
+					setUniformVector3f(uniformName, camera.getTransform().getTransformedPos());
+				}else{
+					throw new IllegalArgumentException(uniformName + " is not a valid component of Camera");
+				}
+			}else{
+				if(uniformType.equals("vec3")){
+					setUniformVector3f(uniformName, material.getVector3f(uniformName));
+				}else if(uniformType.equals("float")){
+					setUniformf(uniformName, material.getFloat(uniformName));
+				}else{
+					throw new IllegalArgumentException(uniformType + " is not a supported type in Material");
+				}
+			}
+		}
+	}
+	
+	public void setUniformi(String uniformName, int value){
+		resource.setUniformi(uniformName, value);
+	}
+	
+	public void setUniformf(String uniformName, float value){
+		resource.setUniformf(uniformName, value);
+	}
+	
+	public void setUniformVector3f(String uniformName, Vector3f value){
+		resource.setUniformVector3f(uniformName, value);
+	}
+	
+//	public void setUniformVector2f(String uniformName, Vector2f value){
+//		resource.setUniformVector2f(uniformName, value);
+//	}
+	
+	public void setUniformMatrix4f(String uniformName, Matrix4f value){
+		resource.setUniformMatrix4f(uniformName, value);
+	}
+	
+	public void setUniformDirectionalLight(String uniformName, DirectionalLight directionalLight){
+		setUniformVector3f(uniformName + ".direction", directionalLight.getTransform().getTransformedRot().getForward());
+		setUniformVector3f(uniformName + ".base.color", directionalLight.getColor());
+		setUniformf(uniformName + ".base.intensity", directionalLight.getIntensity());
+	}
+	
+	public void setUniformPointLight(String uniformName, PointLight pointLight){
+		setUniformVector3f(uniformName + ".base.color", pointLight.getColor());
+		setUniformf(uniformName + ".base.intensity", pointLight.getIntensity());
+		setUniformf(uniformName + ".atten.constant", pointLight.getAttenuation().getConstant());
+		setUniformf(uniformName + ".atten.linear", pointLight.getAttenuation().getLinear());
+		setUniformf(uniformName + ".atten.exponent", pointLight.getAttenuation().getExponent());
+		setUniformVector3f(uniformName + ".position", pointLight.getTransform().getTransformedPos());
+		setUniformf(uniformName + ".range", pointLight.getRange());
+	}
+	
+	public void setUniformSpotLight(String uniformName, SpotLight spotLight){
+		setUniformVector3f(uniformName + ".pointLight.base.color", spotLight.getColor());
+		setUniformf(uniformName + ".pointLight.base.intensity", spotLight.getIntensity());
+		setUniformf(uniformName + ".pointLight.atten.constant", spotLight.getAttenuation().getConstant());
+		setUniformf(uniformName + ".pointLight.atten.linear", spotLight.getAttenuation().getLinear());
+		setUniformf(uniformName + ".pointLight.atten.exponent", spotLight.getAttenuation().getExponent());
+		setUniformVector3f(uniformName + ".pointLight.position", spotLight.getTransform().getTransformedPos());
+		setUniformf(uniformName + ".pointLight.range", spotLight.getRange());
+		setUniformVector3f(uniformName + ".direction", spotLight.getTransform().getTransformedRot().getForward());
+		setUniformf(uniformName + ".cutoff", spotLight.getCutoff());
+	}
+	
+	public static void dispose(){
+		for(final ShaderData data : loadedShaders.values()){
+			data.dispose();
+		}
+	}
+}

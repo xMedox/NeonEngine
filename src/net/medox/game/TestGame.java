@@ -1,0 +1,998 @@
+package net.medox.game;
+
+import net.medox.neonengine.audio.Listener;
+import net.medox.neonengine.components.FreeLook;
+import net.medox.neonengine.components.FullscreenSetter;
+import net.medox.neonengine.components.Lock2D;
+import net.medox.neonengine.components.MeshRenderer;
+import net.medox.neonengine.components.MeshRenderer2D;
+import net.medox.neonengine.components.ParticleRenderer;
+import net.medox.neonengine.components.ScreenshotTaker;
+import net.medox.neonengine.components.Slider;
+import net.medox.neonengine.components.TextBox;
+import net.medox.neonengine.core.Entity;
+import net.medox.neonengine.core.Entity2D;
+import net.medox.neonengine.core.Game;
+import net.medox.neonengine.core.Transform;
+import net.medox.neonengine.math.Quaternion;
+import net.medox.neonengine.math.Vector2f;
+import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.physics.Box;
+import net.medox.neonengine.physics.PhysicsComponent;
+import net.medox.neonengine.physics.PhysicsEngine;
+import net.medox.neonengine.physics.PlayerPhysicsComponent;
+import net.medox.neonengine.physics.PointConstraint;
+import net.medox.neonengine.physics.Sphere;
+import net.medox.neonengine.physics.StaticPhysicsComponent;
+import net.medox.neonengine.rendering.Attenuation;
+import net.medox.neonengine.rendering.Camera;
+import net.medox.neonengine.rendering.DirectionalLight;
+import net.medox.neonengine.rendering.Material;
+import net.medox.neonengine.rendering.Mesh;
+import net.medox.neonengine.rendering.ParticleMaterial;
+import net.medox.neonengine.rendering.PointLight;
+import net.medox.neonengine.rendering.Skybox;
+import net.medox.neonengine.rendering.SpotLight;
+import net.medox.neonengine.rendering.Texture;
+import net.medox.neonengine.rendering.Window;
+
+public class TestGame extends Game{
+	@Override
+	public void init(){
+//		RenderingEngine.setSkybox(new Skybox("left.png", "back.png", "right.png", "front.png", "top.png", "bottom.png"));
+//		RenderingEngine.useSkybox(true);
+		
+		Entity skyboxEntity = new Entity();
+		Skybox skybox = new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png");
+//		RotateComponent rotate = new RotateComponent();
+		
+		skyboxEntity.addComponent(skybox);
+//		skyboxEntity.addComponent(rotate);
+		
+		addEntity(skyboxEntity);
+		
+		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
+		
+		addEntity(gameObject);
+		
+////		Camera mainCamera = new Camera((float)Math.toRadians(70.0f), 0.01f, 1000.0f);
+//		Camera mainCamera = new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f);
+////		Camera mainCamera = new Camera((float)Math.toRadians(70.0f), (float)(Window.getWidth() / 4) / (float)(Window.getHeight() / 4), 0.01f, 1000.0f, false);
+////		Entity cameraObject = new Entity().addComponent(new FreeMove(10f*0.016666668f)).addComponent(mainCamera);
+////		Entity cameraObject = new Entity().addComponent(new FreeMove(15f*0.016666668f)).addComponent(mainCamera);
+//		Entity cameraObject = new Entity().addComponent(new SprintMove(15f*0.016666668f, 15f*0.016666668f*2)).addComponent(mainCamera);
+//		
+//		FreeLook freelook = new FreeLook(0.25f);
+//		
+//		cameraObject.addComponent(freelook);
+//		
+//		addObject(cameraObject);
+		
+//		Player player = new Player(new Camera((float)Math.toRadians(65.0f), 0.01f, 500.0f), new FreeLook(0.15f), new SprintMove(15f, 15f*2));
+		
+		
+		Entity player = new Entity();
+		Entity playerHead = new Entity();
+		
+		player.getTransform().setPos(new Vector3f(0, 2, 0));
+		playerHead.getTransform().setPos(new Vector3f(0, 0.75f, 0));
+		
+		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
+		
+		playerHead.addComponent(cam);
+		playerHead.addComponent(new FreeLook(0.15f));
+		
+		Sphere sphere2 = new Sphere(1);
+		sphere2.setMassProps(1f);
+		PhysicsComponent testphys = new PhysicsComponent(sphere2);
+//		testphys.getSphere().setMassProps(0);
+		
+		PlayerPhysicsComponent p = new PlayerPhysicsComponent(cam);
+		
+		player.addComponent(p);
+		
+		Listener listener = new Listener();
+		
+		playerHead.addComponent(listener);
+		
+		player.addChild(playerHead);
+		
+//		player.addComponent(new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f)).addComponent(new FreeLook(0.15f)).addComponent(new SprintMove(15f, 15f*2));
+		
+		addEntity(player);
+				
+//		float fieldDepth = 4.0f;
+//		float fieldWidth = 4.0f;
+//		
+//		Vertex[] vertices = new Vertex[]{new Vertex(new Vector3f(-fieldWidth, 0.0f, -fieldDepth), new Vector2f(0.0f, 1.0f)),
+//									new Vertex(new Vector3f(-fieldWidth, 0.0f, fieldDepth * 3), new Vector2f(0.0f, 0.0f)),
+//									new Vertex(new Vector3f(fieldWidth * 3, 0.0f, -fieldDepth), new Vector2f(1.0f, 1.0f)),
+//									new Vertex(new Vector3f(fieldWidth * 3, 0.0f, fieldDepth * 3), new Vector2f(1.0f, 0.0f))};
+//		
+//		int[] indices = new int[]{0, 1, 2, 2, 1, 3};
+		
+//		Mesh mesh = new Mesh(vertices, indices, true);
+//		Mesh mesh = new Mesh("backdrop(2.59).obj");
+		Mesh mesh = new Mesh("planeScale.obj");
+		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
+//		material.setTexture("diffuse", new Texture("Medox 5.png"));
+		
+//		material.setTexture("diffuse", new Texture("bricks2.jpg"));
+		material.setTexture("diffuse", new Texture("bricks2.jpg"));
+		
+		material.setTexture("normalMap", new Texture("bricks2_normal.jpg"));
+//		material.setTexture("dispMap", new Texture("bricks2_disp.jpg"));//TODO add back in?
+		
+//		material.setTexture("diffuse", new Texture("brickwork2.jpg"));
+//		material.setTexture("normalMap", new Texture("brickwork_normal2.jpg"));
+//		material.setTexture("dispMap", new Texture("brickwork_disp2.png"));
+		
+//		material.setTexture("diffuse", new Texture("rock2.jpg"));
+//		material.setTexture("diffuse", new Texture("rock22.jpg"));
+//		material.setTexture("diffuse", new Texture("rock23.jpg"));
+		
+//		material.setTexture("diffuse", new Texture("rock22.jpg"));
+//		material.setTexture("dispMap", new Texture("rock2_disp.jpg"));
+//		material.setTexture("normalMap", new Texture("rock2_normal3.jpg"));
+		
+		
+		material.setTexture("specMap", new Texture("bricks2_spec.jpg"));
+		
+//		material.setTexture("glowMap", new Texture("bricks2_glow.jpg"));
+		material.setFloat("specularIntensity", 0.5f + 0.15f/2);
+		material.setFloat("specularPower", 4f + 1f/2);
+//		material.setFloat("dispMapScale", 0.05f);//TODO add back in?
+//		material.setFloat("dispMapBias", 0f/*-1.0*/);//TODO add back in?
+		
+//		Mesh mesh = new Mesh("plane.obj");
+//		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
+////		material.setTexture("diffuse", new Texture("Medox 5.png"));
+//		
+////		material.setTexture("diffuse", new Texture("bricks2.jpg"));
+//		material.setTexture("diffuse", new Texture("toy_box_diffuse.png"));
+//		material.setTexture("dispMap", new Texture("toy_box_disp.png"));
+//		material.setTexture("normalMap", new Texture("toy_box_normal.png"));
+//		
+////		material.setTexture("glowMap", new Texture("bricks2_glow.jpg"));
+//		material.setFloat("specularIntensity", 0.5f + 0.15f/2);
+//		material.setFloat("specularPower", 4f + 1f/2);
+//		material.setFloat("dispMapScale", 0.1f);
+//		material.setFloat("dispMapBias", -1.0f);
+		
+		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
+		
+		Entity planeObject = new Entity();
+		planeObject.getTransform().getPos().set(0, -1, 5);
+//		planeObject.getTransform().setScale(new Vector3f(25f, 25f, 25f));
+		planeObject.getTransform().setScale(new Vector3f(20, 20, 20));
+//		planeObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180));
+		planeObject.addComponent(meshRenderer);
+		
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(new Box(new Vector3f(200, 1f, 200)));
+		
+		Transform t = new Transform();
+		
+		t.setPos(new Vector3f(0, -1-1f, 5));
+		
+		physic.getCollider().setTransform(t);
+		
+		physic.getCollider().setMassProps(0);
+		
+		planeObject.addComponent(physic);
+		
+		
+//		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
+////		material.setTexture("diffuse", new Texture("Medox 5.png"));
+//		materialx.setTexture("diffuse", new Texture("bricks2.jpg"));
+//		materialx.setTexture("normalMap", new Texture("bricks2_normal.jpg"));
+//		materialx.setTexture("dispMap", new Texture("bricks2_disp.jpg"));
+//		
+////		material.setTexture("diffuse", new Texture("rock2.jpg"));
+////		material.setTexture("diffuse", new Texture("rock22.jpg"));
+////		material.setTexture("diffuse", new Texture("rock23.jpg"));
+//		
+////		material.setTexture("diffuse", new Texture("rock22.jpg"));
+////		material.setTexture("dispMap", new Texture("rock2_disp.jpg"));
+////		material.setTexture("normalMap", new Texture("rock2_normal3.jpg"));
+//		
+//		
+//		materialx.setTexture("specMap", new Texture("bricks2_spec.jpg"));
+//		materialx.setTexture("glowMap", new Texture("Blue.png"));
+//		materialx.setFloat("specularIntensity", 0.5f + 0.15f/2);
+//		materialx.setFloat("specularPower", 4f + 1f/2);
+//		materialx.setFloat("dispMapScale", 0.02f);
+//		materialx.setFloat("dispMapBias", -1.0f);
+		
+		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
+//		material.setTexture("diffuse", new Texture("Medox 5.png"));
+		
+		materialx.setTexture("diffuse", new Texture("wood2.png"));
+//		materialx.setTexture("normalMap", new Texture("bricks2_normal.jpg"));
+//		materialx.setTexture("dispMap", new Texture("bricks2_disp.jpg"));
+//		material.setTexture("diffuse", new Texture("brickwork2.jpg"));
+//		material.setTexture("normalMap", new Texture("brickwork_normal2.jpg"));
+//		material.setTexture("dispMap", new Texture("brickwork_disp2.png"));
+		
+//		material.setTexture("diffuse", new Texture("rock2.jpg"));
+//		material.setTexture("diffuse", new Texture("rock22.jpg"));
+//		material.setTexture("diffuse", new Texture("rock23.jpg"));
+		
+//		material.setTexture("diffuse", new Texture("rock22.jpg"));
+//		material.setTexture("dispMap", new Texture("rock2_disp.jpg"));
+//		material.setTexture("normalMap", new Texture("rock2_normal3.jpg"));
+		
+		
+//		materialx.setTexture("specMap", new Texture("bricks2_spec.jpg"));
+		
+//		material.setTexture("glowMap", new Texture("bricks2_glow.jpg"));
+		materialx.setFloat("specularIntensity", 0.5f + 0.15f/2);
+		materialx.setFloat("specularPower", 4f + 1f/2);
+//		materialx.setFloat("dispMapScale", 0.03f);
+//		materialx.setFloat("dispMapBias", -1.0f);
+		
+		
+		Mesh meshx = new Mesh("plane.obj");
+		MeshRenderer meshRendererx = new MeshRenderer(meshx, materialx);
+		
+		Entity planeObjectx = new Entity();
+		planeObjectx.getTransform().getPos().set(0-20+3, 2.5f, 5-20+3);
+//		planeObject.getTransform().setScale(new Vector3f(25f, 25f, 25f));
+		planeObjectx.getTransform().setScale(new Vector3f(1, 1, 1));
+//		planeObject.getTransform().rotate(new Vector3f(1, 0, -1), (float)Math.toRadians(90));
+//		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 0), (float)Math.toRadians(90));
+		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 0), (float)Math.toRadians(90));
+		planeObjectx.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(-90));
+		planeObjectx.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
+//		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 1), (float)Math.toRadians(45));
+		planeObjectx.addComponent(meshRendererx);
+		
+		
+		
+//		Mesh meshBox = new Mesh("box.obj");
+//		Material materialBox = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		materialBox.setTexture("diffuse", new Texture("bricks.jpg"));
+//		materialBox.setTexture("dispMap", new Texture("bricks_disp.png"));
+//		materialBox.setTexture("normalMap", new Texture("bricks_normal.jpg"));
+//		materialBox.setFloat("specularIntensity", 0.25f);
+//		materialBox.setFloat("specularPower", 2f);
+//		materialBox.setFloat("dispMapScale", 0.02f);
+//		materialBox.setFloat("dispMapBias", -1.0f);
+		
+//		Mesh meshTree = new Mesh("Tree 3.obj");
+//		Material materialTree = new Material();
+////		materialRock.setTexture("diffuse", new Texture("wood.jpg"));
+////		materialRock.setFloat("specularIntensity", 0.25f);
+////		materialRock.setFloat("specularPower", 1);
+//		materialTree.setTexture("diffuse", new Texture("icon.png"));
+////		materialTree.setTexture("dispMap", new Texture("rock2_disp.jpg"));
+////		materialTree.setTexture("normalMap", new Texture("rock2_normal322.png"));
+//		materialTree.setFloat("specularIntensity", 0.25f);
+//		materialTree.setFloat("specularPower", 2);
+////		materialTree.setFloat("dispMapScale", 0.02f);
+////		materialTree.setFloat("dispMapBias", -1.0f);
+//		
+//		MeshRenderer meshRendererTree = new MeshRenderer(meshTree, materialTree);
+//		
+//		Entity planeObjectTree = new Entity();
+//		planeObjectTree.addComponent(meshRendererTree);
+//		planeObjectTree.getTransform().getPos().set(10, -1, 15);
+//		planeObjectTree.getTransform().setScale(new Vector3f(2, 2, 2));
+		
+		Mesh meshRock = new Mesh("rock 7.obj");
+		Material materialRock = new Material();
+//		materialRock.setTexture("diffuse", new Texture("wood.jpg"));
+//		materialRock.setFloat("specularIntensity", 0.25f);
+//		materialRock.setFloat("specularPower", 1);
+		materialRock.setTexture("diffuse", new Texture("rock232.jpg"));
+//		materialRock.setTexture("dispMap", new Texture("rock2_disp.jpg"));
+		materialRock.setTexture("normalMap", new Texture("rock2_normal322.png"));
+		materialRock.setFloat("specularIntensity", 0.25f);
+		materialRock.setFloat("specularPower", 2);
+//		materialRock.setFloat("dispMapScale", 0.02f);
+//		materialRock.setFloat("dispMapBias", -1.0f);
+		
+		MeshRenderer meshRendererRock = new MeshRenderer(meshRock, materialRock);
+		
+		Entity planeObjectRock = new Entity();
+		planeObjectRock.addComponent(meshRendererRock);
+		planeObjectRock.getTransform().getPos().set(8, -1, 15);
+		planeObjectRock.getTransform().setScale(new Vector3f(2, 2, 2));
+		
+////		Mesh meshBox = new Mesh("ak.obj");
+//		Mesh meshBox = new Mesh("crate 2 c.obj");
+////		Mesh meshBox = new Mesh("box.obj");
+//		Material materialBox = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+////		materialBox.setTexture("diffuse", new Texture("ak.png"));
+//		materialBox.setTexture("diffuse", new Texture("wood.jpg"));
+////		materialBox.setTexture("dispMap", new Texture("bricks_disp.png"));
+////		materialBox.setTexture("normalMap", new Texture("bricks_normal.jpg"));
+////		materialBox.setFloat("specularIntensity", 0.25f);
+////		materialBox.setFloat("specularPower", 2f);
+////		materialBox.setFloat("dispMapScale", 0.02f);
+////		materialBox.setFloat("dispMapBias", -1.0f);
+//		materialBox.setFloat("specularIntensity", 0.25f);
+//		materialBox.setFloat("specularPower", 1);
+//		
+////		materialBox.setFloat("dispMapScale", 0.02f);
+////		materialBox.setFloat("dispMapBias", -1.0f);
+//		
+//		MeshRenderer meshRendererBox = new MeshRenderer(meshBox, materialBox);
+//				
+//		Entity planeObjectBox = new Entity();
+//		planeObjectBox.addComponent(meshRendererBox);
+//		planeObjectBox.getTransform().getPos().set(0, 0, 0);
+		
+////		Mesh meshBox = new Mesh("ak.obj");
+//		Mesh meshBox2 = new Mesh("crate 2 c.obj");
+////		Mesh meshBox = new Mesh("box.obj");
+//		Material materialBox2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+////		materialBox.setTexture("diffuse", new Texture("ak.png"));
+//		materialBox2.setTexture("diffuse", new Texture("test_tl.png"));
+////		materialBox.setTexture("dispMap", new Texture("bricks_disp.png"));
+////		materialBox.setTexture("normalMap", new Texture("bricks_normal.jpg"));
+////		materialBox.setFloat("specularIntensity", 0.25f);
+////		materialBox.setFloat("specularPower", 2f);
+////		materialBox.setFloat("dispMapScale", 0.02f);
+////		materialBox.setFloat("dispMapBias", -1.0f);
+//		materialBox2.setFloat("specularIntensity", 0.25f);
+//		materialBox2.setFloat("specularPower", 1);
+//		
+////		materialBox.setFloat("dispMapScale", 0.02f);
+////		materialBox.setFloat("dispMapBias", -1.0f);
+//		
+//		MeshRenderer meshRendererBox2 = new MeshRenderer(meshBox2, materialBox2);
+//				
+//		Entity planeObjectBox2 = new Entity();
+//		planeObjectBox2.addComponent(meshRendererBox2);
+//		planeObjectBox2.getTransform().getPos().set(17, 4, 5);
+		
+//		planeObjectBox.getTransform().setScale(new Vector3f(0.25f*2, 0.25f*2, 0.25f*2));
+		
+//		planeObjectBox.getTransform().rotate(new Vector3f(1, 0, 0), (float)Math.toRadians(-90));
+//		planeObjectBox.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(110));
+		
+		Entity directionalLightObject = new Entity();
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f, 12, 80.0f, 1.0f, 0.2f, 0.00002f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f, 12, 80.0f, 1.0f, 0.2f, 0.0000001f);
+		
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 10.0f, 1.0f, 0.9f, 0.000001f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 80.0f, 1.0f, 0.9f, 0.000001f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, 60.0f, 1.0f, 0.9f, 0.000001f);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 0.975f, 0.95f), 0.6f, 10, 20.0f, 1.0f, 0.7f, 0.000001f);
+		directionalLightObject.addComponent(directionalLight);
+		
+		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
+		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
+		
+		Entity pointLightObject = new Entity();
+//		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 3f, new Vector3f(0, 0, 1));
+//		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 1f, new Attenuation(0, 0, 1));
+		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 4f, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+		pointLightObject.addComponent(pointLight);
+		
+//		Entity pointLightObjectw = new Entity();
+//		SpotLight spotLightw = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);
+//		pointLightObjectw.addComponent(spotLightw);
+////		pointLightObjectw.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90)));
+//		pointLightObject.addChild(pointLightObjectw);
+//		
+//		Entity pointLightObjecta = new Entity();
+//		SpotLight spotLighta = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);
+//		pointLightObjecta.addComponent(spotLighta);
+//		pointLightObjecta.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
+//		pointLightObject.addChild(pointLightObjecta);
+//		
+//		Entity pointLightObjects = new Entity();
+//		SpotLight spotLights = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);
+//		pointLightObjects.addComponent(spotLights);
+//		pointLightObjects.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180)));
+//		pointLightObject.addChild(pointLightObjects);
+//		
+//		Entity pointLightObjectd = new Entity();
+//		SpotLight spotLightd = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);
+//		pointLightObjectd.addComponent(spotLightd);
+//		pointLightObjectd.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(270)));
+//		pointLightObject.addChild(pointLightObjectd);
+//		
+//		Entity pointLightObjectf = new Entity();
+//		SpotLight spotLightf = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);
+//		pointLightObjectf.addComponent(spotLightf);
+//		pointLightObjectf.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90)));
+//		pointLightObject.addChild(pointLightObjectf);
+//		
+//		Entity pointLightObjectg = new Entity();
+//		SpotLight spotLightg = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);
+//		pointLightObjectg.addComponent(spotLightg);
+//		pointLightObjectg.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90)));
+//		pointLightObject.addChild(pointLightObjectg);
+		
+		Entity spotLightObject = new Entity();
+//		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 3f, new Vector3f(0, 0, 0.1f), 0.7f);
+//		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), 0.7f);
+//		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(91.1f), 7, 1.0f, 0.5f, 0.00002f);
+//		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 1f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 7, 1.0f, 0.5f, 0.0000001f);
+		SpotLight spotLight = new SpotLight(new Vector3f(1, 1, 1), 4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		spotLightObject.addComponent(spotLight);
+		spotLightObject.addComponent(new Light(spotLight));
+		
+		Entity spotLightObject2 = new Entity();
+		
+		SpotLight spotLight2 = new SpotLight(new Vector3f(1, 1, 1), 4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		spotLightObject2.addComponent(spotLight2);
+		
+		pointLightObject.getTransform().getPos().set(5, 0, 5);
+		
+		spotLightObject.getTransform().getPos().set(10, 0, 6.6f);
+		spotLightObject.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f)));
+		
+		spotLightObject2.getTransform().getPos().set(10, 0, 0);
+		spotLightObject2.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f)));
+		
+		Mesh mesh2 = new Mesh("untitled.obj");
+		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
+//		material2.addTexture("diffuse", new Texture("untitled.png"));
+		material2.setTexture("diffuse", new Texture("untitled.png"));
+		material2.setTexture("glowMap", new Texture("untitled_glow22.png"));
+//		material2.addTexture("normalMap", new Texture("bricks_normal.jpg"));
+//		material2.addTexture("dispMap", new Texture("bricks_disp.png"));
+		material2.setFloat("specularIntensity", 0.5f);
+		material2.setFloat("specularPower", 1);
+//		material2.addFloat("dispMapScale", 0.03f);
+//		material2.addFloat("dispMapBias", -0.5f);
+		
+		MeshRenderer meshRenderer2 = new MeshRenderer(mesh2, material2);
+		
+		Entity monkeyObject = new Entity().addComponent(new LookAtComponent()).addComponent(meshRenderer2);
+		monkeyObject.getTransform().getPos().set(0, 0, 5);
+		
+//		Mesh mesh3 = new Mesh("Ak-47.obj");
+//		Material material3 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 2, 8
+//		material3.setTexture("diffuse", new Texture("white.png"));
+//		material3.setFloat("specularIntensity", 2);
+//		material3.setFloat("specularPower", 8);
+//		
+//		MeshRenderer meshRenderer3 = new MeshRenderer(mesh3, material3);
+		
+//		Weapon weapon = new Weapon(meshRenderer3, mainCamera);
+//		
+//		getRootObject().addChild(weapon);
+		
+//		Entity ar_15Object = new Entity();
+//		ar_15Object.addComponent(meshRenderer3);
+//		
+//		ar_15Object.getTransform().setScale(new Vector3f(0.01f, 0.01f, 0.01f));
+//		ar_15Object.getTransform().getPos().set(12, -1f, 8);
+//		ar_15Object.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
+//		ar_15Object.getTransform().setScale(new Vector3f(0.000001f, 0.000001f, 0.000001f));
+//		ar_15Object.getTransform().getPos().set(0.7394085f, -1.0639834f, 1.9975371f);
+//		ar_15Object.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
+//		
+//		cameraObject.addChild(ar_15Object);
+		
+		
+//		Mesh mesh4 = new Mesh("us_assault.obj");
+//		Material material4 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		material4.setTexture("diffuse", new Texture("white.png"));
+//		material4.setFloat("specularIntensity", 0);
+//		material4.setFloat("specularPower", 4);
+//		
+//		MeshRenderer meshRenderer4 = new MeshRenderer(mesh4, material4);
+//		
+//		Entity us_assaultObject = new Entity();
+//		us_assaultObject.getTransform().setScale(new Vector3f(0.035f, 0.035f, 0.035f));
+//		us_assaultObject.getTransform().getPos().set(5, -1f, 2);
+//		
+//		us_assaultObject.addComponent(meshRenderer4);
+		
+//		Mesh sword2mesh = new Mesh("sword 2.obj");
+//		Material sword2material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		sword2material.setTexture("diffuse", new Texture("sword2_final_cm.jpg"));
+//		sword2material.setFloat("specularIntensity", 4);
+//		sword2material.setFloat("specularPower", 16);
+//		
+//		MeshRenderer swordmesh2Renderer = new MeshRenderer(sword2mesh, sword2material);
+//		
+//		Entity sword2Object = new Entity();
+//		sword2Object.getTransform().setScale(new Vector3f(0.4f, 0.4f, 0.4f));
+//		sword2Object.getTransform().getPos().set(15, 3f, 15);
+//		
+//		sword2Object.addComponent(swordmesh2Renderer);
+		
+		Mesh kpmesh = new Mesh("kp.obj");
+		Material kpmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		kpmaterial.setTexture("diffuse", new Texture("kp.png"));
+		kpmaterial.setFloat("specularIntensity", 2);
+		kpmaterial.setFloat("specularPower", 16);
+		
+		MeshRenderer kpRenderer = new MeshRenderer(kpmesh, kpmaterial);
+		
+		Entity kpObject = new Entity();
+		kpObject.getTransform().getPos().set(-15, 0f, 15);
+		
+		kpObject.addComponent(kpRenderer);
+		
+//		Mesh swordmesh = new Mesh("sword.obj");
+		Mesh swordmesh = new Mesh("Sword R.obj");
+		Material swordmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		swordmaterial.setTexture("diffuse", new Texture("sword.png"));
+		swordmaterial.setTexture("diffuse", new Texture("Sword R.png"));
+		swordmaterial.setFloat("specularIntensity", 2f);
+		swordmaterial.setFloat("specularPower", 8f);
+		
+		Mesh swordmesh2 = new Mesh("Shield R.obj");
+		Material sword4material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		sword4material.setTexture("diffuse", new Texture("Shield R.png"));
+		sword4material.setFloat("specularIntensity", 2f);
+		sword4material.setFloat("specularPower", 8f);
+		
+		Mesh swordmesh3 = new Mesh("Round Shield R.obj");
+		Material sword5material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		sword5material.setTexture("diffuse", new Texture("Round Shield R.png"));
+		sword5material.setFloat("specularIntensity", 2f);
+		sword5material.setFloat("specularPower", 8f);
+		
+		MeshRenderer swordmeshRenderer = new MeshRenderer(swordmesh, swordmaterial);
+		MeshRenderer swordmeshRenderer2 = new MeshRenderer(swordmesh2, sword4material);
+		MeshRenderer swordmeshRenderer3 = new MeshRenderer(swordmesh3, sword5material);
+		
+		Entity swordObject = new Entity();
+//		swordObject.getTransform().setScale(new Vector3f(0.0125f*12, 0.0125f*12, 0.0125f*12));
+		swordObject.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+//		swordObject.getTransform().getPos().set(0.2f*12, /*-0.08f*/-0.0625f*12, 0.25f*12);
+		swordObject.getTransform().getPos().set(0.2f*12, 1, 0.25f*12);
+		swordObject.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
+		
+		Entity swordObject2 = new Entity();
+		swordObject2.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+		swordObject2.getTransform().getPos().set(3f, 3f, 0f);
+		
+		Entity swordObject3 = new Entity();
+		swordObject3.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+		swordObject3.getTransform().getPos().set(6f, 3f, 0f);
+		
+		swordObject.addComponent(swordmeshRenderer);
+		
+		swordObject2.addComponent(swordmeshRenderer2);
+		
+		swordObject3.addComponent(swordmeshRenderer3);
+		
+		addEntity(swordObject);
+		
+		addEntity(swordObject3);
+		
+		addEntity(planeObjectRock);
+//		addEntity(planeObjectTree);
+		
+//		addEntity(planeObjectBox);
+		
+//		addEntity(planeObjectBox2);
+		
+//		Mesh m = new Mesh("Human.obj", true);
+//		PhysicsComponent physc = new PhysicsComponent(m.getMeshShape());
+		
+		Mesh humanmesh = new Mesh("Human.obj");
+		Material humanmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		humanmaterial.setTexture("diffuse", new Texture("white.png"));
+		humanmaterial.setFloat("specularIntensity", 0);
+		humanmaterial.setFloat("specularPower", 0);
+//		humanmaterial.addVector3f("color", new Vector3f(1, 0, 0));
+		
+		MeshRenderer humanmeshRenderer = new MeshRenderer(humanmesh, humanmaterial);
+		
+		Entity humanObject = new Entity();
+		humanObject.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+		humanObject.getTransform().getPos().set(12f, 10f, 10f);
+		
+		humanObject.addComponent(humanmeshRenderer);
+//		humanObject.addComponent(physc);
+		
+		addEntity(humanObject);
+		
+//		addObject(ar_15Object);
+//		addObject(us_assaultObject);
+//		addObject(sword2Object);
+		addEntity(kpObject);
+		addEntity(swordObject2);
+		
+		addEntity(planeObject);
+		addEntity(planeObjectx);
+		addEntity(directionalLightObject);
+		addEntity(pointLightObject);
+		addEntity(spotLightObject);
+		addEntity(spotLightObject2);
+		addEntity(monkeyObject);		
+		
+//		Material gui = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		try{
+//			gui.setTexture("diffuse", new Texture(ImageIO.read(new File("icon_16.png"))));
+//		}catch(IOException e){
+//			e.printStackTrace();
+//		}
+//		gui.setVector3f("color", new Vector3f(1, 0f, 0f));
+//		
+//		GuiEntity guiObject = new GuiEntity();
+//		guiObject.setMaterial(gui);
+//		
+//		guiObject.getTransform().setPos(new Vector2f(0, 0));
+//		guiObject.getTransform().setDimension(new Vector2f(128*2, 128*2));
+//		guiObject.getTransform().setScale(new Vector2f(1, 1));
+//		guiObject.getTransform().setRotation((float)Math.toRadians(45));
+//		
+//		addGuiEntity(guiObject);
+		
+//		RenderingEngine.setClearColor(new Vector3f(135f/4f/255f, 206f/4f/255f, 250f/4f/255f));
+		
+//		PhysicsEngine physicsEngine = new PhysicsEngine();
+		
+//		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(0.0f, 0.0f, 0.0f), 1.0f), new Vector3f(0.0f, 0.0f, 1.141f/2.0f)));
+//		
+//		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(1.414f/2.0f * 7.0f, 0.0f, 1.414f/2.0f * 7.0f), 1.0f), new Vector3f(-1.414f/2.0f, 0.0f, -1.414f/2.0f))); 
+		
+		
+		
+//		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(-1.414f/4.0f * 7.0f, 0.0f, -1.414f/4.0f * 7.0f), 1.0f), new Vector3f(1.414f/2.0f, 0.0f, 1.414f/2.0f))); 
+		
+//		PhysicsEngineComponent physicsEngineComponent = new PhysicsEngineComponent(physicsEngine);
+		
+//		PhysicsComponent physicsEngineComponent = new PhysicsComponent();
+		
+		Material bricks = new Material();
+//		bricks.setTexture("diffuse", new Texture("bricks.jpg"));
+		bricks.setTexture("diffuse", new Texture("Lava22.png"));
+//		bricks.setTexture("dispMap", new Texture("Lava_disp.png"));
+		bricks.setTexture("normalMap", new Texture("Lava_normal22.jpg"));
+		bricks.setTexture("glowMap", new Texture("Lava_glow22.png"));
+		bricks.setFloat("specularIntensity", 0.25f);
+		bricks.setFloat("specularPower", 2);
+//		bricks.setFloat("dispMapScale", 0.01f);
+//		bricks.setFloat("dispMapBias", -0.5f);
+		
+//		for(int i = 0; i < physicsEngineComponent.getPhysicsEngine().getNumObjects(); i++){
+//			Entity entity = new Entity();
+////			entity.getTransform().setScale(new Vector3f(physicsEngineComponent.getPhysicsEngine().getObject(i).getRadius(), physicsEngineComponent.getPhysicsEngine().getObject(i).getRadius(), physicsEngineComponent.getPhysicsEngine().getObject(i).getRadius()));
+//			
+//			addEntity(entity.addComponent(new PhysicsComponent(physicsEngineComponent.getPhysicsEngine().getObject(i))).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)));
+//		}
+		
+		Entity entity = new Entity();
+		
+		addEntity(entity.addComponent(testphys).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
+		
+		Sphere sphere = new Sphere(1);
+		sphere.setMassProps(1f);
+		PhysicsComponent testphys2 = new PhysicsComponent(sphere);
+		
+		Entity entity5 = new Entity();
+		
+		addEntity(entity5.addComponent(testphys2).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
+		
+		
+		Transform tk = new Transform();
+		tk.setPos(new Vector3f(3, 15, 0));
+		
+		sphere.setTransform(tk);
+//		testphys2.getSphere().setMassProps(0);
+		
+		tk.setPos(new Vector3f(5, 15, 0));
+		
+		sphere2.setTransform(tk);
+//		testphys2.getSphere().setMassProps(0);
+		
+		
+		Transform tkA = new Transform();
+		tkA.setPos(new Vector3f(1, 0, 0));
+		
+		Transform tkB = new Transform();
+		tkB.setPos(new Vector3f(-1, 0, 0));
+		
+		PointConstraint constraint = new PointConstraint(sphere2, sphere, new Vector3f(-1, 0, 0), new Vector3f(1, 0, 0));
+//		SliderConstraint constraint = new SliderConstraint(testphys.getSphere(), testphys2.getSphere(), tkA, tkB, false);
+		
+		PhysicsEngine.addConstraint(constraint);
+		
+//		testphys.getSphere().setMassProps(4);
+//		testphys2.getSphere().setMassProps(4);
+		
+		
+		
+		Entity entity2 = new Entity();
+		entity2.addComponent(new AddComponent());
+		
+		addEntity(entity2);
+		
+		
+		Entity stair1 = new Entity();
+		
+		Box box1 = new Box(new Vector3f(0.5f, 0.15f, 0.75f));
+		
+		stair1.getTransform().setPos(new Vector3f(5, -1 + 0.15f, 10));
+		stair1.getTransform().setScale(new Vector3f(0.5f, 0.15f, 0.75f));
+		
+		box1.setTransform(stair1.getTransform());
+		
+		box1.setMassProps(0, new Vector3f(0, 0, 0));
+		
+		PhysicsComponent phy1 = new PhysicsComponent(box1);
+		
+		stair1.addComponent(phy1);
+		stair1.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		
+		addEntity(stair1);
+		
+		
+		Entity stair2 = new Entity();
+		
+		Box box2 = new Box(new Vector3f(0.5f, 0.3f, 0.75f));
+		
+		stair2.getTransform().setPos(new Vector3f(6, -1 + 0.3f, 10));
+		stair2.getTransform().setScale(new Vector3f(0.5f, 0.3f, 0.75f));
+		
+		box2.setTransform(stair2.getTransform());
+		
+		box2.setMassProps(0, new Vector3f(0, 0, 0));
+		
+		PhysicsComponent phy2 = new PhysicsComponent(box2);
+		
+		stair2.addComponent(phy2);
+		stair2.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		
+		addEntity(stair2);
+		
+		
+		Entity stair3 = new Entity();
+		
+		Box box3 = new Box(new Vector3f(0.5f, 0.45f, 0.75f));
+		
+		stair3.getTransform().setPos(new Vector3f(7, -1 + 0.45f, 10));
+		stair3.getTransform().setScale(new Vector3f(0.5f, 0.45f, 0.75f));
+		
+		box3.setTransform(stair3.getTransform());
+		
+		box3.setMassProps(0, new Vector3f(0, 0, 0));
+		
+		PhysicsComponent phy3 = new PhysicsComponent(box3);
+		
+		stair3.addComponent(phy3);
+		stair3.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		
+		addEntity(stair3);
+		
+		
+		Entity stair4 = new Entity();
+		
+		Box box4 = new Box(new Vector3f(0.5f, 0.6f, 0.75f));
+		
+		stair4.getTransform().setPos(new Vector3f(8, -1 + 0.6f, 10));
+		stair4.getTransform().setScale(new Vector3f(0.5f, 0.6f, 0.75f));
+		
+		box4.setTransform(stair4.getTransform());
+		
+		box4.setMassProps(0, new Vector3f(0, 0, 0));
+		
+		PhysicsComponent phy4 = new PhysicsComponent(box4);
+		
+		stair4.addComponent(phy4);
+		stair4.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		
+		addEntity(stair4);
+		
+		
+//		addEntity((new Entity()).addComponent(physicsEngineComponent));
+		
+		Entity2D e = new Entity2D();
+		
+//		Move2D m = new Move2D();
+//		e.addComponent(m);
+		
+//		MeshRenderer2D c = new MeshRenderer2D(new Texture("testeroonie2.jpg"));
+		MeshRenderer2D c = new MeshRenderer2D(new Texture("testeroonie2.png", true));
+		Lock2D l = new Lock2D(-16/2, -16/2, new Vector2f(0.5f, 0.5f));
+		e.addComponent(c);
+		e.addComponent(l);
+		
+		e.getTransform().setPos(new Vector2f(Window.getWidth()/2-16/2, Window.getHeight()/2-16/2));
+		e.getTransform().setScale(new Vector2f(16, 16));
+//		e.getTransform().setRot((float)Math.toRadians(45));
+		
+		addEntity2D(e);
+		
+		Entity2D e2 = new Entity2D();
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
+		Lock2D l2 = new Lock2D(-256, -40, new Vector2f(1f, 1f));
+//		e2.addComponent(c2);
+		e2.addComponent(l2);
+//		e2.addComponent(new Button());
+//		e2.addComponent(new Checkbox(false));
+//		e2.addComponent(new Progressbar(0));
+		
+		e2.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40));
+		e2.getTransform().setScale(new Vector2f(256, 40));
+		
+		Slider slider = new Slider(1f);
+		
+		e2.addComponent(slider);
+		
+		Entity b = new Entity();
+		b.addComponent(new VolumeSetter(slider));
+		
+		addEntity(b);
+		
+		addEntity2D(e2);
+		
+		Entity2D e22 = new Entity2D();
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
+		Lock2D l22 = new Lock2D(-256, -40-29, new Vector2f(1f, 1f));
+//		e2.addComponent(c2);
+		e22.addComponent(l22);
+//		e2.addComponent(new Button());
+//		e2.addComponent(new Checkbox(false));
+//		e22.addComponent(new Progressbar(0));
+		e22.addComponent(new TextBox(10));
+		
+		e22.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40-29));
+		e22.getTransform().setScale(new Vector2f(256, 29));
+//		e2.getTransform().
+		
+//		e.addChild(e2);
+		addEntity2D(e22);
+		
+		Entity2D e3 = new Entity2D();
+//		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("test_tl2.png"));
+//		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("test_tl2.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
+		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("Medox 5.png", true));
+		Lock2D l3 = new Lock2D(0, 0, new Vector2f(0f, 0f));
+		e3.addComponent(c3);
+		e3.addComponent(l3);
+		
+		e3.getTransform().setPos(new Vector2f(0, 0));
+		e3.getTransform().setScale(new Vector2f(256, 256));
+//		e2.getTransform().
+		
+//		e2.addChild(e3);
+		addEntity2D(e3);
+		
+		
+		Slider s1 = new Slider(1);
+		Slider s2 = new Slider(1);
+		Slider s3 = new Slider(1);
+		
+		
+		Entity2D e10 = new Entity2D();
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
+		Lock2D l10 = new Lock2D(0, -40, new Vector2f(0f, 1f));
+//		e2.addComponent(c2);
+		e10.addComponent(l10);
+//		e2.addComponent(new Button());
+//		e2.addComponent(new Checkbox(false));
+		e10.addComponent(s1);
+		
+		e10.getTransform().setPos(new Vector2f(0, Window.getHeight()-40));
+		e10.getTransform().setScale(new Vector2f(256, 40));
+//		e2.getTransform().
+		
+//		e.addChild(e2);
+		addEntity2D(e10);
+		
+		
+		Entity2D e11 = new Entity2D();
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
+		Lock2D l11 = new Lock2D(0, -80, new Vector2f(0f, 1f));
+//		e2.addComponent(c2);
+		e11.addComponent(l11);
+//		e2.addComponent(new Button());
+//		e2.addComponent(new Checkbox(false));
+		e11.addComponent(s2);
+		
+		e11.getTransform().setPos(new Vector2f(0, Window.getHeight()-80));
+		e11.getTransform().setScale(new Vector2f(256, 40));
+//		e2.getTransform().
+		
+//		e.addChild(e2);
+		addEntity2D(e11);
+		
+		
+		Entity2D e12 = new Entity2D();
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
+//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
+		Lock2D l12 = new Lock2D(0, -120, new Vector2f(0f, 1f));
+//		e2.addComponent(c2);
+		e12.addComponent(l12);
+//		e2.addComponent(new Button());
+//		e2.addComponent(new Checkbox(false));
+		e12.addComponent(s3);
+		
+		e12.getTransform().setPos(new Vector2f(0, Window.getHeight()-120));
+		e12.getTransform().setScale(new Vector2f(256, 40));
+//		e2.getTransform().
+		
+//		e.addChild(e2);
+		addEntity2D(e12);
+		
+		
+		spotLightObject2.addComponent(new LightSlider(spotLight2, s1, s2, s3));
+		
+		
+//		MeshRenderer meshRendererBox3 = new MeshRenderer(meshBox, materialBox);
+//		
+//		Entity planeObjectBox3 = new Entity();
+//		planeObjectBox3.addComponent(meshRendererBox3);
+//		planeObjectBox3.getTransform().getPos().set(10, 0, 0);
+////		planeObjectBox3.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(45));
+//		
+////		addEntity(planeObjectBox3);
+//		
+//		MeshRenderer meshRendererBox4 = new MeshRenderer(meshBox, materialBox);
+//		
+//		Entity planeObjectBox4 = new Entity();
+//		planeObjectBox4.addComponent(meshRendererBox4);
+//		planeObjectBox4.getTransform().getPos().set(2, 0, 0);
+//		
+//		planeObjectBox3.addChild(planeObjectBox4);
+//		
+//		MeshRenderer meshRendererBox5 = new MeshRenderer(meshBox, materialBox);
+//		
+//		Entity planeObjectBox5 = new Entity();
+//		planeObjectBox5.addComponent(meshRendererBox5);
+//		planeObjectBox5.getTransform().getPos().set(2, 0, 0);
+//		
+//		planeObjectBox4.addChild(planeObjectBox5);
+		
+		Entity particle2 = new Entity();
+		
+		particle2.addComponent(new SmokeComponent());
+		particle2.addComponent(new SmokeComponent());
+		
+//		particle2.getTransform().setPos(new Vector3f(0, 0.5f, 0));
+		
+		addEntity(particle2);
+		
+//		for(int i = 0; i < 5; i++){
+//			for(int j = 0; j < 5; j++){
+				Entity particle = new Entity();
+				
+				ParticleMaterial pMat = new ParticleMaterial();
+				pMat.setTexture("diffuse", new Texture("fire.png", true));
+//				pMat.setTexture("diffuse", new Texture("base.png")); 
+				pMat.setFloat("glow", 1);
+				
+				particle.addComponent(new ParticleRenderer(pMat));
+				
+//				particle.getTransform().setScale(new Vector3f(1.5f, 1.5f, 1.5f));
+				particle.getTransform().setScale(new Vector3f(1, 1, 1));
+//				particle.getTransform().setPos(new Vector3f(i*2-2.5f*2, 5, 1+j*2));
+				particle.getTransform().setPos(new Vector3f(0, -0.5f, 0));
+				
+				addEntity(particle);
+				
+				Entity particle4 = new Entity();
+				
+				ParticleMaterial pMat2 = new ParticleMaterial();
+				pMat2.setTexture("diffuse", new Texture("rock2222.jpg"));
+//				pMat2.setTexture("diffuse", new Texture("base.png")); 
+				pMat2.setFloat("glow", 1);
+				
+				particle4.addComponent(new ParticleRenderer(pMat2));
+				
+//				particle.getTransform().setScale(new Vector3f(1.5f, 1.5f, 1.5f));
+				particle4.getTransform().setScale(new Vector3f(1, 1, 1));
+//				particle.getTransform().setPos(new Vector3f(i*2-2.5f*2, 5, 1+j*2));
+				particle4.getTransform().setPos(new Vector3f(12, 0, 0));
+				
+				addEntity(particle4);
+//			}
+//		}
+	}
+	
+	@Override
+	public void cleanUp(){
+		System.out.println("--------------------------------------------------------------");
+		System.out.println("Shutting down");
+	}
+}
