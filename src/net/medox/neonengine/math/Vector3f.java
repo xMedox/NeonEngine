@@ -36,10 +36,6 @@ public class Vector3f{
 	}
 	
 	public Vector3f cross(Vector3f r){
-//		float x_ = y * r.getZ() - z * r.getY();
-//		float y_ = z * r.getX() - x * r.getZ();
-//		float z_ = x * r.getY() - y * r.getX();
-		
 		return new Vector3f(y * r.getZ() - z * r.getY(), z * r.getX() - x * r.getZ(), x * r.getY() - y * r.getX());
 	}
 	
@@ -50,16 +46,12 @@ public class Vector3f{
 	}
 	
 	public Vector3f rotate(Vector3f axis, float angle){
-//		float sinAngle = (float)Math.sin(-angle);
 		final float cosAngle = (float)Math.cos(-angle);
-
-//		return this.cross(axis.mul(sinAngle)).add((this.mul(cosAngle)).add(axis.mul(this.dot(axis.mul(1 - cosAngle)))));
+		
 		return this.cross(axis.mul((float)Math.sin(-angle))).add(this.mul(cosAngle).add(axis.mul(this.dot(axis.mul(1 - cosAngle)))));
 	}
 	
 	public Vector3f rotate(Quaternion rotation){
-//		Quaternion conjugate = rotation.conjugate();
-		
 		final Quaternion w = rotation.mul(this).mul(rotation.conjugate());
 		
 		return new Vector3f(w.getX(), w.getY(), w.getZ());
@@ -146,7 +138,6 @@ public class Vector3f{
 	}
 	
 	public Vector3f set(Vector3f r){
-//		return set(r.getX(), r.getY(), r.getZ());
 		this.x = r.getX();
 		this.y = r.getY();
 		this.z = r.getZ();

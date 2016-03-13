@@ -98,7 +98,6 @@ public class Vector2f{
 	}
 	
 	public Vector2f set(Vector2f r){
-//		set(r.getX(), r.getY());
 		this.x = r.getX();
 		this.y = r.getY();
 		

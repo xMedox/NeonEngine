@@ -94,16 +94,10 @@ public class Matrix4f{
 		Vector3f r = up.normalized();
 		r = r.cross(f);
 		
-//		Vector3f u = f.cross(r);
-		
 		return initRotation(f, f.cross(r), r);
 	}
 	
 	public Matrix4f initRotation(Vector3f forward, Vector3f up, Vector3f right){
-//		Vector3f f = forward;
-//		Vector3f r = right;
-//		Vector3f u = up;
-		
 		m[0][0] = right.getX();		m[0][1] = right.getY();		m[0][2] = right.getZ();		m[0][3] = 0;
 		m[1][0] = up.getX();		m[1][1] = up.getY();		m[1][2] = up.getZ();		m[1][3] = 0;
 		m[2][0] = forward.getX();	m[2][1] = forward.getY();	m[2][2] = forward.getZ();	m[2][3] = 0;
