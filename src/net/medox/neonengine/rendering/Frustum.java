@@ -3,13 +3,6 @@ package net.medox.neonengine.rendering;
 import net.medox.neonengine.math.Vector3f;
 
 public class Frustum{
-//    public static final int TOP = 0;
-//    public static final int BOTTOM = 1;
-//    public static final int LEFT = 2;
-//    public static final int RIGHT = 3;
-//    public static final int NEARP = 4;
-//    public static final int FARP = 5;
-    
 	private final Plane[] pl;
 	
 	public Frustum(Camera camera){		
@@ -18,15 +11,6 @@ public class Frustum{
 		final Vector3f z = camera.getTransform().getTransformedRot().getForward();
 		final Vector3f x = camera.getTransform().getTransformedRot().getRight();
 		final Vector3f y = camera.getTransform().getTransformedRot().getUp();
-		
-//		float nearDist = zNear;
-//		float Hnear = 2 * (float)Math.tan(fov / 2) * nearDist;
-//		float Wnear = Hnear * ratio;
-//		float farDist = zFar;
-//		float Hfar = 2 * (float)Math.tan(fov / 2) * farDist;
-//		float Wfar = Hfar * ratio;
-		
-//		float tang = (float)Math.tan(fov/* * (float)Math.PI/180.0*/ * 0.5f);
 		
 		float nh;
 		float nw;
@@ -37,13 +21,6 @@ public class Frustum{
 		Vector3f fc;
 		
 		 if(camera.getFov() == -1){
-//			10
-//			-halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea
-			
-//			float left = camera.getLeft();
-//			float right = camera.getRight();
-//			float bottom = camera.getBottom();
-//			float top = camera.getTop();
 			final float near = camera.getNear();
 			final float far = camera.getFar();
 			
@@ -71,11 +48,6 @@ public class Frustum{
 			fc = p.add(z.mul(zFar));
 		}
 		
-//		Vector3f nc = p.sub(z).mul(zNear);
-//		Vector3f fc = p.sub(z).mul(zFar);
-		
-		
-		
 		final Vector3f n1 = y.mul(nh);
 		final Vector3f n2 = x.mul(nw);
 		
@@ -92,25 +64,6 @@ public class Frustum{
 		final Vector3f fbl = fc.sub(f1).sub(f2);
 		final Vector3f fbr = fc.sub(f1).add(f2);
 		
-		
-		
-//		Vector3f ntl = nc.add(y).mul(nh).sub(x).mul(nw);
-//		Vector3f ntr = nc.add(y).mul(nh).add(x).mul(nw);
-//		Vector3f nbl = nc.sub(y).mul(nh).sub(x).mul(nw);
-//		Vector3f nbr = nc.sub(y).mul(nh).add(x).mul(nw);
-//		
-//		Vector3f ftl = fc.add(y).mul(fh).sub(x).mul(fw);
-//		Vector3f ftr = fc.add(y).mul(fh).add(x).mul(fw);
-//		Vector3f fbl = fc.sub(y).mul(fh).sub(x).mul(fw);
-//		Vector3f fbr = fc.sub(y).mul(fh).add(x).mul(fw);
-		
-//		System.out.println(ftl + "|" + fbl + "|" + ftr + "|" + fbr);
-//		System.out.println(ntl + "|" + nbl + "|" + ntr + "|" + nbr);
-		
-//		nbl.setY(-nbl.getY());
-//		nbr.setY(-nbr.getY());
-		
-//		pl = new Plane[6];
 		pl = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
 		
 //		pl[0] = new Plane(ntr, ntl, ftl);
@@ -155,31 +108,17 @@ public class Frustum{
 	}
 	
 	public boolean sphereInFrustum(Vector3f p, float raio){
-//		boolean result = true;
-		
 		for(int i = 0; i < 6; i++){
 			if(pl[i].distance(p) < -raio){
 				return false;
-//				result = false;
-//				break;
 			}
 		}
+		
 		return true;
-//		return result;
 	}
 	
 	public boolean boxInFrustum(Vector3f min, Vector3f max){
-//		for(int i=0; i < 6; i++){
-//			if (pl[i].distance(getVertexP(pl[i].normal, min, max)) < 0)
-//				return false;
-//			else if (pl[i].distance(getVertexN(pl[i].normal, min, max)) < 0)
-//				return true;
-//		}
-//		return true;
-//		return pointInFrustum(min);
-		
 	    for(int i = 0; i < 6; i++){
-	        // Reset counters for corners in and out
 	        int in = 0;
 	        
 	        if(pl[i].distance(new Vector3f(min.getX(), min.getY(), min.getZ())) < 0){
@@ -213,7 +152,7 @@ public class Frustum{
 	        if(pl[i].distance(new Vector3f(max.getX(), max.getY(), max.getZ())) < 0){
 	            in++;
 	        }
-	        // If some corners are out and others are in
+	        
 	        if(in == 8){
 	        	return false;
 	        }

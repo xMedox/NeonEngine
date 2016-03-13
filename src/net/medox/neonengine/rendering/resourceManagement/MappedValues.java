@@ -65,13 +65,4 @@ public abstract class MappedValues{
 		
 		return result == null ? 0 : result;
 	}
-	
-//	public void cleanUp(){
-//		for(int i = 0; i < textureHashMap.size(); i++){
-//			textureHashMap.get(i).cleanUp();
-//		}
-//		for(int i = 0; i < cubeMapHashMap.size(); i++){
-//			cubeMapHashMap.get(i).cleanUp();
-//		}
-//	}
 }

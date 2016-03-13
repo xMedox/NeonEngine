@@ -9,12 +9,6 @@ public class Camera extends EntityComponent{
 	
 	private Base base;
 	
-//	public Camera(Matrix4f projection){
-//		this.projection = projection;
-//		
-////		RenderingEngine.setMainCamera(this);
-//	}
-	
 	public Camera(){
 		base = new Base();
 	}
@@ -31,84 +25,25 @@ public class Camera extends EntityComponent{
 		base = new Orthographic(left, right, bottom, top, near, far);
 	}
 	
-//	public Camera(float fov, float aspect, float zNear, float zFar){
-//		this.fov = fov;
-//		this.zNear = zNear;
-//		this.zFar = zFar;
-//		this.aspect = aspect;
-//		
-//		this.projection = new Matrix4f().initPerspective(fov, aspect, zNear, zFar);
-//		
-////		RenderingEngine.setMainCamera(this);
-//	}
-//	
-//	public Camera(float fov, float zNear, float zFar){
-//		this.fov = fov;
-//		this.zNear = zNear;
-//		this.zFar = zFar;
-//		this.aspect = 1;
-//		
-//		this.projection = new Matrix4f().initPerspective(fov, 1, zNear, zFar);
-//		
-////		RenderingEngine.setMainCamera(this);
-//	}
-	
-//	public void setProjection(Matrix4f projection){
-//		this.projection = projection;
-//	}
-	
 	public void update(){
 		base.update();
 	}
 	
 	public Matrix4f getViewProjection(){
-//		Matrix4f cameraRotation = getTransform().getTransformedRot().conjugate().toRotationMatrix();
 		final Vector3f cameraPos = getTransform().getTransformedPos().mul(-1);
 		
-//		Matrix4f cameraTranslation = new Matrix4f().initTranslation(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ());
-		
-//		return base.getProjection().mul(cameraRotation.mul(cameraTranslation));
 		return base.getProjection().mul(getTransform().getTransformedRot().conjugate().toRotationMatrix().mul(new Matrix4f().initTranslation(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ())));
 	}
-	
-//	public float getFov(){
-//		return fov;
-//	}
-//	
-//	public float getZNear(){
-//		return zNear;
-//	}
-//	
-//	public float getZFar(){
-//		return zFar;
-//	}
-//	
-//	public float getAspect(){
-//		return aspect;
-//	}
-	
-//	public void setFov(float fov){
-//		this.fov = fov;
-//		this.projection = new Matrix4f().initPerspective(fov, 0, zNear, zFar);
-//		changeAspect();
-//	}
 	
 	@Override
 	public void addToEngine(){
 		RenderingEngine.setMainCamera(this);
 	}
 	
-//	@Override
-//	public void cleanUp(){
-//		RenderingEngine.removeLight(this);
-//	}
-	
 	public void updateFrustum(){
-//		if(getFov() != -1){
-			frustum = new Frustum(this);
-//		}
+		frustum = new Frustum(this);
 	}
-//	
+	
 	public Frustum getFrustum(){
 		return frustum;
 	}

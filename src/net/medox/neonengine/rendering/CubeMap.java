@@ -28,9 +28,7 @@ public class CubeMap{
 		this.fileNames = fileNames;
 		resource = loadedCubeMaps.get(fileNames);
 		
-		if(resource != null){
-			resource.addReference();
-		}else{			
+		if(resource == null){
 			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
 				resource = new CubeMapDataGL(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, clamp, attachment);
 			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
@@ -38,6 +36,8 @@ public class CubeMap{
 			}
 			
 			loadedCubeMaps.put(fileNames, resource);
+		}else{
+			resource.addReference();
 		}
 	}
 	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, boolean clamp){
@@ -100,75 +100,73 @@ public class CubeMap{
 	private ByteBuffer[] loadTexture(String[] fileNames/*, boolean flipped*/){
 		ByteBuffer[] byteBuffer = new ByteBuffer[6];
 		
-//		String[] splitArray = fileName.split("\\.");
-//		String ext = splitArray[splitArray.length - 1];
 		for(int i = 0; i < fileNames.length; i++){
-			try{
-				BufferedImage image;
+			BufferedImage image = null;
 				
-//				if(flipped){
-//					image = flipBufferedImageVertical(ImageIO.read(new File("./res/textures/" + fileName)));
-//				}else{
+//			if(flipped){
+//				image = flipBufferedImageVertical(ImageIO.read(new File("./res/textures/" + fileName)));
+//			}else{
+				try{
 					image = ImageIO.read(new File("./res/textures/" + fileNames[i]));
-//				}
+				}catch(Exception e){
+					e.printStackTrace();
+					System.exit(1);
+				}
+//			}
+			
+			if(CoreEngine.OPTION_TEXTURE_QUALITY >= 1){
+				BufferedImage before = image;
+				int w = before.getWidth();
+				int h = before.getHeight();
+				BufferedImage after = new BufferedImage(w/2, h/2, BufferedImage.TYPE_INT_ARGB);
+				AffineTransform at = new AffineTransform();
+				at.scale(0.5, 0.5);
+				AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+				after = scaleOp.filter(before, after);
 				
-				if(CoreEngine.OPTION_TEXTURE_QUALITY >= 1){
-					BufferedImage before = image;
-					int w = before.getWidth();
-					int h = before.getHeight();
-					BufferedImage after = new BufferedImage(w/2, h/2, BufferedImage.TYPE_INT_ARGB);
-					AffineTransform at = new AffineTransform();
+				image = after;
+				
+				if(CoreEngine.OPTION_TEXTURE_QUALITY >= 2){
+					before = image;
+					w = before.getWidth();
+					h = before.getHeight();
+					after = new BufferedImage(w/2, h/2, BufferedImage.TYPE_INT_ARGB);
+					at = new AffineTransform();
 					at.scale(0.5, 0.5);
-					AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+					scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 					after = scaleOp.filter(before, after);
 					
 					image = after;
-					
-					if(CoreEngine.OPTION_TEXTURE_QUALITY >= 2){
-						before = image;
-						w = before.getWidth();
-						h = before.getHeight();
-						after = new BufferedImage(w/2, h/2, BufferedImage.TYPE_INT_ARGB);
-						at = new AffineTransform();
-						at.scale(0.5, 0.5);
-						scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-						after = scaleOp.filter(before, after);
-						
-						image = after;
-					}
 				}
-				
-				width[i] = image.getWidth();
-				height[i] = image.getHeight();
-				
-				final int[] pixels = image.getRGB(0, 0, width[i], height[i], null, 0, width[i]);
-				
-				final ByteBuffer buffer = DataUtil.createByteBuffer(height[i] * width[i] * 4);
-				final boolean hasAlpha = image.getColorModel().hasAlpha();
-				
-				for(int y = 0; y < height[i]; y++){
-					for(int x = 0; x < width[i]; x++){
-						final int pixel = pixels[y * width[i] + x];
-						
-						buffer.put((byte)((pixel >> 16) & 0xFF));
-						buffer.put((byte)((pixel >> 8) & 0xFF));
-						buffer.put((byte)((pixel) & 0xFF));
-						
-						if(hasAlpha){
-							buffer.put((byte)((pixel >> 24) & 0xFF));
-						}else{
-							buffer.put((byte)(0xFF));
-						}
-					}
-				}
-				
-				buffer.flip();
-				
-				byteBuffer[i] = buffer;
-			}catch(Exception e){
-				e.printStackTrace();
-				System.exit(1);
 			}
+			
+			width[i] = image.getWidth();
+			height[i] = image.getHeight();
+			
+			final int[] pixels = image.getRGB(0, 0, width[i], height[i], null, 0, width[i]);
+			
+			final ByteBuffer buffer = DataUtil.createByteBuffer(height[i] * width[i] * 4);
+			final boolean hasAlpha = image.getColorModel().hasAlpha();
+			
+			for(int y = 0; y < height[i]; y++){
+				for(int x = 0; x < width[i]; x++){
+					final int pixel = pixels[y * width[i] + x];
+					
+					buffer.put((byte)((pixel >> 16) & 0xFF));
+					buffer.put((byte)((pixel >> 8) & 0xFF));
+					buffer.put((byte)((pixel) & 0xFF));
+					
+					if(hasAlpha){
+						buffer.put((byte)((pixel >> 24) & 0xFF));
+					}else{
+						buffer.put((byte)(0xFF));
+					}
+				}
+			}
+			
+			buffer.flip();
+			
+			byteBuffer[i] = buffer;
 		}
 		
 		return byteBuffer;

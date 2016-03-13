@@ -18,8 +18,8 @@ public class Transform2D{
 		pos = new Vector2f(0, 0);
 		scale = new Vector2f(1, 1);
 		
-		oldPos = pos;//
-		oldScale = scale;//
+		oldPos = pos;
+		oldScale = scale;
 		
 		parentMatrix = new Matrix4f().initIdentity();
 	}
@@ -60,16 +60,6 @@ public class Transform2D{
 //	}
 	
 	public boolean hasChanged(){
-//		if(parent != null && parent.hasChanged()){
-//			return true;
-//		}else if(!pos.equals(oldPos)){
-//			return true;
-//		}else if(!scale.equals(oldScale)){
-//			return true;
-//		}
-//		
-//		return false;
-		
 		return parent != null && parent.hasChanged() ? true :
 			!pos.equals(oldPos) ? true:
 			!scale.equals(oldScale) ? true:
@@ -77,10 +67,6 @@ public class Transform2D{
 	}
 	
 	public Matrix4f getTransformation(){
-//		Matrix4f translationMatrix = new Matrix4f().initTranslation(pos.getX(), pos.getY(), 0);
-//		Matrix4f rotationMatrix = new Quaternion(0, 0, 0, 1).toRotationMatrix();
-//		Matrix4f scaleMatrix = new Matrix4f().initScale(scale.getX(), scale.getY(), 0);
-		
 		return getParentMatrix().mul(/*translationMatrix*/new Matrix4f().initTranslation(pos.getX(), pos.getY(), 0).mul(/*rotationMatrix*/new Quaternion(0, 0, 0, 1).toRotationMatrix().mul(/*scaleMatrix*/new Matrix4f().initScale(scale.getX(), scale.getY(), 0))));
 	}
 	

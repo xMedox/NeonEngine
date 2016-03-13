@@ -21,9 +21,9 @@ public class Transform{
 		rot = new Quaternion(0, 0, 0, 1);
 		scale = new Vector3f(1, 1, 1);
 		
-		oldPos = pos;//
-		oldRot = rot;//
-		oldScale = scale;//
+		oldPos = pos;
+		oldRot = rot;
+		oldScale = scale;
 		
 		parentMatrix = new Matrix4f().initIdentity();
 	}
@@ -65,18 +65,6 @@ public class Transform{
 	}
 	
 	public boolean hasChanged(){
-//		if(parent != null && parent.hasChanged()){
-//			return true;
-//		}else if(!pos.equals(oldPos)){
-//			return true;
-//		}else if(!rot.equals(oldRot)){
-//			return true;
-//		}else if(!scale.equals(oldScale)){
-//			return true;
-//		}
-//		
-//		return false;
-		
 		return parent != null && parent.hasChanged() ? true :
 				!pos.equals(oldPos) ? true:
 				!rot.equals(oldRot) ? true:
@@ -85,10 +73,6 @@ public class Transform{
 	}
 	
 	public Matrix4f getTransformation(){
-//		Matrix4f translationMatrix = new Matrix4f().initTranslation(pos.getX(), pos.getY(), pos.getZ());
-//		Matrix4f rotationMatrix = rot.toRotationMatrix();
-//		Matrix4f scaleMatrix = new Matrix4f().initScale(scale.getX(), scale.getY(), scale.getZ());
-		
 		return getParentMatrix().mul(/*translationMatrix*/new Matrix4f().initTranslation(pos.getX(), pos.getY(), pos.getZ()).mul(rot.toRotationMatrix().mul(/*scaleMatrix*/new Matrix4f().initScale(scale.getX(), scale.getY(), scale.getZ()))));
 	}
 	

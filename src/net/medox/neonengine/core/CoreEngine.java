@@ -119,9 +119,6 @@ public class CoreEngine{
 					totalMeasuredTime += engineInputTimer.displayAndReset("Engine Input Time: ", (double)frames);
 					totalMeasuredTime += RenderingEngine.displayWindowSyncTime((double)frames);
 					
-	//				System.out.println(frames);
-	//				System.out.println(frames + " fps(" + 1000.0/((double)frames) + " ms)");
-	//				System.out.println();
 					System.out.println("Other Time:                             " + (totalTime - totalMeasuredTime) + " ms");
 					System.out.println("Total Time:                             " + totalTime + " ms (" + frames + "fps)");
 					System.out.println("");
@@ -211,8 +208,6 @@ public class CoreEngine{
 	}
 	
 	private static void cleanUp(){
-//		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-		
 		Texture.dispose();
 		CubeMap.dispose();
 		Mesh.dispose();

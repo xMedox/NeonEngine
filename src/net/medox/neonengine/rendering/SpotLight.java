@@ -17,11 +17,6 @@ public class SpotLight extends PointLight{
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, 
             		 int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
 		this(color, intensity, attenuation, viewAngle);
-//		super(color, intensity, attenuation, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance);
-//		
-//		cutoff = (float)Math.cos(viewAngle/2);
-//		
-//		setShader(new Shader("forward-spot"));
 		
 		if(CoreEngine.OPTION_SHADOW_QUALITY >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;
@@ -35,8 +30,6 @@ public class SpotLight extends PointLight{
 			}
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
-//			setShadowInfo(new ShadowInfo(new Matrix4f().initPerspective(viewAngle, 1.0f, 0.1f, getRange()), false, shadowMapSizeAsPowerOf2,
-//            shadowSoftness, lightBleedReductionAmount, minVariance));
 			setShadowInfo(new ShadowInfo(new Perspective(viewAngle, 1.0f, 0.1f, getRange()), false, shadowMapSizeAsPowerOf2,
 				shadowSoftness, lightBleedReductionAmount, minVariance));
 		}

@@ -62,18 +62,10 @@ public abstract class Game{
 	}
 	
 	public Entity getRootEntity(){
-//		if(root == null){
-//			root = new Entity();
-//		}
-//		
 		return root;
 	}
 	
 	public Entity2D getRootEntity2D(){
-//		if(root2D == null){
-//			root2D = new Entity2D();
-//		}
-//		
 		return root2D;
 	}
 }

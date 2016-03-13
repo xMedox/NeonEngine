@@ -130,9 +130,6 @@ public class Texture{
 	}
 	
 	private ByteBuffer loadTexture(String fileName/*, boolean flipped*/){
-//		String[] splitArray = fileName.split("\\.");
-//		String ext = splitArray[splitArray.length - 1];
-		
 		BufferedImage image = null;
 		
 //		if(flipped){
@@ -202,9 +199,6 @@ public class Texture{
 	}
 	
 	private ByteBuffer loadTexture(BufferedImage image/*, boolean flipped*/){
-//		String[] splitArray = fileName.split("\\.");
-//		String ext = splitArray[splitArray.length - 1];
-		
 //		if(flipped){
 //			image = flipBufferedImageVertical(image);
 //		}
