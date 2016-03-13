@@ -130,53 +130,42 @@ public class Window{
 			glfwSwapInterval(0);
 		}
 		
-//		glfwSetKeyCallback(window, key = new GLFWKeyCallback(){
 		key = new GLFWKeyCallback(){
 			@Override
 			public void invoke(long window, int key, int scancode, int action, int mods){
 				Input.key(key, scancode, action, mods);
 			}
-//		});
 		}.set(window);
 		
-//		glfwSetMouseButtonCallback(window, mouseButton = new GLFWMouseButtonCallback(){
 		mouseButton = new GLFWMouseButtonCallback(){
 			@Override
 			public void invoke(long window, int button, int action, int mods){
 				Input.mouseButton(button, action, mods);
 			}
-//		});
 		}.set(window);
 		
-//		glfwSetCursorPosCallback(window, mousePos = new GLFWCursorPosCallback(){
 		mousePos = new GLFWCursorPosCallback(){
 			@Override
 			public void invoke(long window, double xpos, double ypos){
 				Input.mousePos(xpos, ypos);
 			}
-//		});
 		}.set(window);
 		
-//		glfwSetScrollCallback(window, scroll = new GLFWScrollCallback(){
 		scroll = new GLFWScrollCallback(){
 			@Override
 			public void invoke(long window, double xoffset, double yoffset){
 				Input.scroll(/*xoffset, */yoffset);
 			}
-//		});
 		}.set(window);
 		
-//		glfwSetWindowPosCallback(window, pos = new GLFWWindowPosCallback(){
 		pos = new GLFWWindowPosCallback(){
 			@Override
 			public void invoke(long window, int xpos, int ypos){
 				Window.xPos = xpos;
 				Window.yPos = ypos;
 			}
-//		});
 		}.set(window);
 		
-//		glfwSetFramebufferSizeCallback(window, size = new GLFWFramebufferSizeCallback(){
 		size = new GLFWFramebufferSizeCallback(){
 			@Override
 			public void invoke(long window, int width, int height){
@@ -185,23 +174,18 @@ public class Window{
 				Window.width = width;
 				Window.height = height;
 			}
-//		});
 		}.set(window);
 		
-//		glfwSetCharCallback(window, text = new GLFWCharCallback(){
 		text = new GLFWCharCallback(){
 			@Override
 			public void invoke(long window, int codepoint){
 				Input.chars(codepoint);
 			}
-//		});
 		}.set(window);
 		
 		glfwShowWindow(window);
 		
 		createContext();
-		
-//		Window.gotResized = true;
 		
 		gotCreated = true;
 	}
@@ -269,21 +253,25 @@ public class Window{
 	}
 	
 	public static void takeScreenshot(){
-	    GL11.glReadBuffer(GL11.GL_FRONT);
+		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
+			takeScreenshotGL();
+		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
+			takeScreenshotVK();
+		}
+	}
+	
+	private static void takeScreenshotGL(){
+		GL11.glReadBuffer(GL11.GL_FRONT);
 	    final int width = getWidth();
 	    final int height = getHeight();
-//	    final int bpp = 4;
 	    final ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * /*bpp*/4);
 	    GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	    
-//	    GL11.glFlush();
-		
-//	    ScreenshotSaver screen = new ScreenshotSaver("screenshots/", buffer, width, height);
-//		
-//		screen.start();
 	    new ScreenshotSaver("screenshots/", buffer, width, height).start();
+	}
+	
+	private static void takeScreenshotVK(){
 		
-//		screen = null;
 	}
 	
 	public static void setStartTitle(String title){
@@ -383,10 +371,7 @@ public class Window{
 			}
 			
 			final ImageData pixels = Util.imageToByteBuffer("./res/textures/" + fileName);
-	
-//			ByteBuffer img = GLFWimage.malloc(pixels.width, pixels.height, pixels.data);
-//			
-//			cursor = glfwCreateCursor(img, -x, y);
+			
 			final GLFWImage img = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
 			cursor = glfwCreateCursor(img, -xPos, yPos);
@@ -465,6 +450,14 @@ public class Window{
 	}
 	
     public static void bindAsRenderTarget(){
+    	if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
+    		bindAsRenderTargetGL();
+    	}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
+    		bindAsRenderTargetVK();
+    	}
+    }
+    
+    private static void bindAsRenderTargetGL(){
     	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
     	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
     	if(CoreEngine.PROFILING_SET_1x1_VIEWPORT == 0){
@@ -472,6 +465,10 @@ public class Window{
     	}else{
     		GL11.glViewport(0, 0, 1, 1);
     	}
+    }
+    
+    private static void bindAsRenderTargetVK(){
+    	
     }
 	
 	public static int getX(){
