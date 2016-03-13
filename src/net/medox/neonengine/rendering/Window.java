@@ -341,10 +341,10 @@ public class Window{
 	public static void setIcon(String icon16, String icon32/*, String icon128*/){
 		GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
 		
-		final ImageData pixels16 = Util.ioImageResourceToByteBuffer(icon16);
+		final ImageData pixels16 = Util.imageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
-		final ImageData pixels32 = Util.ioImageResourceToByteBuffer(icon32);
+		final ImageData pixels32 = Util.imageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 		
 //		final ImageData pixels128 = Util.ioImageResourceToByteBuffer(icon128);
@@ -382,7 +382,7 @@ public class Window{
 				glfwDestroyCursor(cursor);
 			}
 			
-			final ImageData pixels = Util.ioImageResourceToByteBuffer("./res/textures/" + fileName);
+			final ImageData pixels = Util.imageToByteBuffer("./res/textures/" + fileName);
 	
 //			ByteBuffer img = GLFWimage.malloc(pixels.width, pixels.height, pixels.data);
 //			

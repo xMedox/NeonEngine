@@ -28,8 +28,6 @@ import net.medox.neonengine.rendering.DataUtil;
 import net.medox.neonengine.rendering.Texture;
 
 public class Util{
-//	public static final Vector3f BLACK = new Vector3f(0, 0, 0);
-	
 	private static Random random;
 	
 	private static Key key;
@@ -111,8 +109,6 @@ public class Util{
 	
 	public static void saveToFile(String filePath, String text){
 		try{
-//			final FileWriter fstream = new FileWriter(filePath);
-//	    	BufferedWriter out = new BufferedWriter(fstream);
 			final BufferedWriter out = new BufferedWriter(new FileWriter(filePath));
 	    	
 	    	out.write(text);
@@ -187,33 +183,6 @@ public class Util{
 	    return ret;
 	}
 	
-//	public static ByteBuffer loadIcon(String path){
-//        InputStream inputStream = null;
-//        ByteBuffer bytebuf = null;
-//        
-//		try{
-//			inputStream = new FileInputStream(path);
-//		}catch(FileNotFoundException e1){
-//			e1.printStackTrace();
-//		}
-//        try{
-//            PNGDecoder decoder = new PNGDecoder(inputStream);
-//            bytebuf = ByteBuffer.allocateDirect(decoder.getWidth()*decoder.getHeight()*4);
-//            decoder.decode(bytebuf, decoder.getWidth()*4, PNGDecoder.Format.RGBA);
-//            bytebuf.flip();
-//        }catch(IOException e){
-//			e.printStackTrace();
-//		}finally{
-//            try{
-//				inputStream.close();
-//			}catch(IOException e){
-//				e.printStackTrace();
-//			}
-//        }
-//        
-//        return bytebuf;
-//    }
-	
 	public static Texture createWhite(){
 		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
 	}
@@ -271,10 +240,6 @@ public class Util{
 	
 	public static BufferedImage getDefaultIcon32(){
 		return createImage(getDefaultIcon32Red(), getDefaultIcon32Green(), getDefaultIcon32Blue(), 32, 32);
-//		final BufferedImage before = getDefaultIcon16();
-//		final AffineTransform affineTransform = new AffineTransform();
-//		affineTransform.scale(2.0, 2.0);
-//		return new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR).filter(before, new BufferedImage(before.getWidth(), before.getHeight(), BufferedImage.TYPE_INT_ARGB));
 	}
 	
 //	public static BufferedImage getDefaultIcon128(){
@@ -447,14 +412,6 @@ public class Util{
 	}
 	
 	public static float clamp(float value, float min, float max){
-//		if(a < min){
-//			return min;
-//		}else if(a > max){
-//			return max;
-//		}else{
-//			return a;
-//		}
-		
 		return value < min ? min : value > max ? max : value;
 	}
 	
@@ -488,56 +445,9 @@ public class Util{
 		return new ImageData(width, height, buffer);
 	}
 	
-	public static ImageData ioImageResourceToByteBuffer(String file){
-//		final File fileR = new File(file);
-		
-//		URL sourceURL = Thread.currentThread().getContextClassLoader().getResource(file);
-//		if ( sourceURL == null )
-//			throw new FileNotFoundException(file);
-		
-//		final ImageInputStream input = ImageIO.createImageInputStream(/*sourceURL.openStream()*/fileR);
-//		final ImageInputStream input = ImageIO.createImageInputStream(/*sourceURL.openStream()*//*fileR*/new File(file));
-//		try{
-//			final ImageReader reader = ImageIO.getImageReaders(input).next();
-//			try{
-//				reader.setInput(input);
-//				
-//				final int width = reader.getWidth(0);
-//				final int height = reader.getHeight(0);
-//				
-//				final ImageTypeSpecifier type = reader.getImageTypes(0).next();
-//				final SampleModel sampleModel = type.getColorModel().createCompatibleSampleModel(width, height);
-//				
-//				final ByteBuffer pixels = DataUtil.createByteBuffer(width * height * sampleModel.getNumDataElements());
-//				
-//				final ImageReadParam param = reader.getDefaultReadParam();
-//				param.setDestination(new BufferedImage(type.getColorModel(), new ByteBufferWritableRaster(
-//					sampleModel,
-//					new DataBuffer(sampleModel.getTransferType(), pixels.capacity(), 1){
-//						@Override
-//						public int getElem(int bank, int i){
-//							return pixels.get(i);
-//						}
-//						
-//						@Override
-//						public void setElem(int bank, int i, int val){
-//							pixels.put(i, (byte)(val & 0xFF));
-//						}
-//					},
-//					new Point()
-//				), type.getColorModel().isAlphaPremultiplied(), null));
-//				
-//				reader.read(0, param);
-//				
-//				return new ImageData(width, height, pixels);
-//			}finally{
-//				reader.dispose();
-//			}
-//		}finally{
-//			input.close();
-//		}
-		
+	public static ImageData imageToByteBuffer(String file){
 		BufferedImage image = null;
+		
 		try{
 			image = ImageIO.read(new File(file));
 		}catch(IOException e){
@@ -552,25 +462,25 @@ public class Util{
 		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
 		final boolean hasAlpha = image.getColorModel().hasAlpha();
 		
-//		String le = "return new int[][]{{";
+//		String output = "return new int[][]{{";
 		
 		for(int y = 0; y < height; y++){
 //			if(y != 0){
-//				le += "}, \n{";
+//				output += "}, \n{";
 //			}
 			for(int x = 0; x < width; x++){
 //				if((image.getRGB(x, y) & 0x00ff0000) >> 16 < 10){
-//					le += " ";
-//					le += " ";
-//					le += (image.getRGB(x, y) & 0x00ff0000) >> 16;
+//					output += " ";
+//					output += " ";
+//					output += (image.getRGB(x, y) & 0x00ff0000) >> 16;
 //				}else if((image.getRGB(x, y) & 0x00ff0000) >> 16 < 100){
-//					le += " ";
-//					le += (image.getRGB(x, y) & 0x00ff0000) >> 16;
+//					output += " ";
+//					output += (image.getRGB(x, y) & 0x00ff0000) >> 16;
 //				}else{
-//					le += (image.getRGB(x, y) & 0x00ff0000) >> 16;
+//					output += (image.getRGB(x, y) & 0x00ff0000) >> 16;
 //				}
 //				if(x != width-1){
-//					le += ",";
+//					output += ",";
 //				}
 				
 				final int pixel = pixels[y * width + x];
@@ -587,20 +497,14 @@ public class Util{
 			}
 		}
 		
-//		le += "}};";
+//		output += "}};";
 //		
-//		System.out.println(le);
+//		System.out.println(output);
 		
 		buffer.flip();
 		
 		return new ImageData(width, height, buffer);
 	}
-	
-//	private static class ByteBufferWritableRaster extends WritableRaster{
-//		ByteBufferWritableRaster(SampleModel model, DataBuffer buffer, Point origin){
-//			super(model, buffer, origin);
-//		}
-//	}
 	
 	public static class ImageData{
 		public final int        width;
