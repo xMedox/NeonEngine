@@ -100,10 +100,6 @@ public class IndexedModel{
 			final int i1 = indices.get(i + 1);
 			final int i2 = indices.get(i + 2);
 			
-//			final Vector3f v1 = positions.get(i1).sub(positions.get(i0));
-//			final Vector3f v2 = positions.get(i2).sub(positions.get(i0));
-			
-//			Vector3f normal = v1.cross(v2).normalized();
 			final Vector3f normal = positions.get(i1).sub(positions.get(i0)).cross(positions.get(i2).sub(positions.get(i0))).normalized();
 			
 			normals.get(i0).set(normals.get(i0).add(normal));
@@ -125,12 +121,9 @@ public class IndexedModel{
 			final Vector3f edge1 = positions.get(i1).sub(positions.get(i0));
 			final Vector3f edge2 = positions.get(i2).sub(positions.get(i0));
 			
-//			final float deltaU1 = texCoords.get(i1).getX() - texCoords.get(i0).getX();
-//			final float deltaU2 = texCoords.get(i2).getX() - texCoords.get(i0).getX();
 			final float deltaV1 = texCoords.get(i1).getY() - texCoords.get(i0).getY();
 			final float deltaV2 = texCoords.get(i2).getY() - texCoords.get(i0).getY();
 			
-//			final float dividend = (deltaU1 * deltaV2 - deltaU2 * deltaV1);
 			final float dividend = (texCoords.get(i1).getX() - texCoords.get(i0).getX()) * deltaV2 - (texCoords.get(i2).getX() - texCoords.get(i0).getX()) * deltaV1;
 			final float f = dividend == 0 ? 0.0f : 1.0f/dividend;
 			

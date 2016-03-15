@@ -88,16 +88,14 @@ public class Sound{
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
-		if(!ext.equals("wav") && !ext.equals("ogg")){
-			System.err.println("Error: '" + ext + "' file format not supported for audio data.");
-			new Exception().printStackTrace();
-			System.exit(1);
-		}
-		
 		if(ext.equals("wav")){
 			resource = new SoundData(new WAVSound("./res/sounds/" + fileName).toIndexedAudio());
 		}else if(ext.equals("ogg")){
 			resource = new SoundData(new OGGSound("./res/sounds/" + fileName).toIndexedAudio());
+		}else{
+			System.err.println("Error: '" + ext + "' file format not supported for audio data.");
+			new Exception().printStackTrace();
+			System.exit(1);
 		}
 		
 		return this;

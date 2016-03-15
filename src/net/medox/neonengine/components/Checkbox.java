@@ -56,16 +56,6 @@ public class Checkbox extends Entity2DComponent{
 		transform.setPos(getTransform().getTransformedPos().add(1/*2*/));
 		transform.setScale(getTransform().getScale().sub(2/*4*/).mul(new Vector2f(1, 1)));
 		
-//		RenderingEngine.add2DMesh(transform, -1, new Vector3f(0.8f, 0.8f, 0.8f));
-//		
-//		transform.setPos(getTransform().getTransformedPos().add(getTransform().getScale().mul(0.25f*0.5f)));
-//		transform.setScale(getTransform().getScale().mul(0.75f));
-//		
-//		RenderingEngine.add2DMesh(transform, -1, new Vector3f(0f, 0f, 0f));
-//		
-//		transform.setPos(getTransform().getTransformedPos().add(1/*2*/).add(getTransform().getScale().mul(0.25f*0.5f)));
-//		transform.setScale(getTransform().getScale().sub(2/*4*/).mul(0.75f));
-		
 		if(pressed){
 			RenderingEngine.add2DMesh(transform, -1, colorChecked);
 		}else{

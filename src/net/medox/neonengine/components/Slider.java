@@ -150,48 +150,5 @@ public class Slider extends Entity2DComponent{
 		transform.setScale(transform.getScale().sub(2));
 		
 		RenderingEngine.add2DMesh(transform, -1, colorSlider);
-		
-//		RenderingEngine.add2DMesh(getTransform(), -3);
-//		
-//		Transform2D transform = new Transform2D();
-//		transform.setPos(getTransform().getTransformedPos().add(1));
-//		transform.setScale(getTransform().getScale().sub(2));
-//		
-//		RenderingEngine.add2DMesh(transform, -1);
-//		
-//		transform.setPos(getTransform().getTransformedPos().add(1));
-//		
-//		if(orientation == 0){
-//			transform.setScale(getTransform().getScale().sub(2).mul(new Vector2f(progress, 1)));
-//		}else if(orientation == 1){
-//			transform.setScale(getTransform().getScale().sub(2).mul(new Vector2f(1, progress)));
-//		}
-//		
-//		RenderingEngine.add2DMesh(transform, -2);
-		
-		
-//		RenderingEngine.add2DMesh(getTransform(), -1);
-//		
-//		Transform2D transform = new Transform2D();
-//		transform.setPos(getTransform().getTransformedPos().add(1));
-//		
-//		if(orientation == 0){
-//			transform.setScale(getTransform().getScale().mul(new Vector2f(progress, 1)).sub(new Vector2f(2, 2)));
-//		}else if(orientation == 1){
-//			transform.setScale(getTransform().getScale().mul(new Vector2f(1, progress)).sub(new Vector2f(2, 2)));
-//		}
-//		
-//		RenderingEngine.add2DMesh(transform, -2);
-		
-//		progress
-		
-//		transform.setPos(getTransform().getTransformedPos().add(getTransform().getScale().mul(0.25f*0.5f)));
-//		transform.setScale(getTransform().getScale().mul(0.75f));
-//		
-//		if(pressed){
-//			RenderingEngine.add2DMesh(transform, -2);
-//		}else{
-//			RenderingEngine.add2DMesh(transform, -1);
-//		}
 	}
 }

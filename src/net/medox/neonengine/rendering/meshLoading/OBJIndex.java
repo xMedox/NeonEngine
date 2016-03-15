@@ -40,14 +40,11 @@ public class OBJIndex{
 	
 	@Override
 	public int hashCode(){
-//		final int BASE = 17;
-//		final int MULTIPLIER = 31;
+		int result = 17;
 		
-		int result = /*BASE*/17;
-		
-		result = /*MULTIPLIER*/31 * result + vertexIndex;
-		result = /*MULTIPLIER*/31 * result + texCoordIndex;
-		result = /*MULTIPLIER*/31 * result + normalIndex;
+		result = 31 * result + vertexIndex;
+		result = 31 * result + texCoordIndex;
+		result = 31 * result + normalIndex;
 		
 		return result;
 	}
