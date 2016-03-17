@@ -1,6 +1,5 @@
 package net.medox.neonengine.rendering;
 
-//import net.medox.neonengine.core.Vector3f;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.rendering.resourceManagement.MappedValues;
 

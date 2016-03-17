@@ -3,7 +3,6 @@ package net.medox.neonengine.rendering.resourceManagement;
 import java.util.HashMap;
 import java.util.Map;
 
-//import net.medox.neonengine.rendering.CubeMap;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.CubeMap;
 import net.medox.neonengine.rendering.Material;

@@ -1,6 +1,5 @@
 package net.medox.neonengine.physics;
 
-//import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector3f;

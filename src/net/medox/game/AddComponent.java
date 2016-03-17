@@ -1,6 +1,5 @@
 package net.medox.game;
 
-//import net.medox.neonengine.core.CoreEngine;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;

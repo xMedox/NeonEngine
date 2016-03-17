@@ -1,7 +1,5 @@
 package net.medox.block;
 
-//import net.medox.neonengine.core.Util;
-//import net.medox.neonengine.physics.Ray;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Quaternion;

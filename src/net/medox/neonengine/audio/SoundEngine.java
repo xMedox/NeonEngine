@@ -1,15 +1,12 @@
 package net.medox.neonengine.audio;
 
 import java.nio.FloatBuffer;
-//import java.nio.IntBuffer;
 
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
-//import org.lwjgl.openal.ALC10;
-//import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.openal.ALContext;
 import org.lwjgl.openal.ALDevice;
 

@@ -1,7 +1,5 @@
 package net.medox.game;
 
-//import java.util.Random;
-
 import net.medox.neonengine.components.Slider;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.math.Vector3f;

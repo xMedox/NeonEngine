@@ -1,7 +1,5 @@
 package net.medox.game;
 
-//import org.lwjgl.Sys;
-//import org.lwjgl.opengl.GL11;
 import net.medox.neonengine.core.CoreEngine;
 import net.medox.neonengine.rendering.Window;
 
