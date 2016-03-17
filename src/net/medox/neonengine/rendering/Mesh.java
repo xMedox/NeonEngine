@@ -81,39 +81,16 @@ public class Mesh{
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
-		if(!ext.equals("obj")){
+		if(ext.equals("obj")){
+			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
+				resource = new MeshDataGL(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
+			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
+				resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
+			}
+		}else{
 			System.err.println("Error: '" + ext + "' file format not supported for mesh data.");
 			new Exception().printStackTrace();
 			System.exit(1);
-		}
-		
-//		OBJModel test = new OBJModel("./res/models/" + fileName);
-//		IndexedModel model = test.toIndexedModel();
-		
-//		model.calcNormals();
-//		model.calcTangents();
-
-//		ArrayList<Vertex> vertices = new ArrayList<Vertex>();
-//
-//		for(int i = 0; i < model.getPositions().size(); i++){
-//			vertices.add(new Vertex(model.getPositions().get(i),
-//					model.getTexCoords().get(i),
-//					model.getNormals().get(i),
-//					model.getTangents().get(i)));
-//		}
-//
-//		Vertex[] vertexData = new Vertex[vertices.size()];
-//		vertices.toArray(vertexData);
-//
-//		Integer[] indexData = new Integer[model.getIndices().size()];
-//		model.getIndices().toArray(indexData);
-
-//		addVertices(vertexData, Util.toIntArray(indexData), false);
-//		resource = new MeshData(model/*, createShape*/);
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new MeshDataGL(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
 		}
 
 		return this;

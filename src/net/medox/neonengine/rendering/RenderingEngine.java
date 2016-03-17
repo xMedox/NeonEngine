@@ -256,8 +256,8 @@ public class RenderingEngine{
             e.printStackTrace();
         }
 		
-		font = new TrueTypeFont(customFont, false, new char[]{'�', '�', '�', '�'});
-//		font = new TrueTypeFont(fontOld, true, new char[]{'�', '�', '�', '�'});
+		font = new TrueTypeFont(customFont, false/*, new char[]{'�', '�', '�', '�'}*/);
+//		font = new TrueTypeFont(fontOld, true/*, new char[]{'�', '�', '�', '�'}*/);
 	}
 	
 	public static void changeRenderingMode(int RenderingMode){
