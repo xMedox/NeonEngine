@@ -1,29 +1,42 @@
 package net.medox.neonengine.audio;
 
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
-import org.lwjgl.openal.ALContext;
-import org.lwjgl.openal.ALDevice;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALC10;
+import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.system.MemoryUtil;
 
 public class SoundEngine{
-	private static ALContext context;
-	private static ALDevice device;
+	private static long context;
+	private static long device;
 	
 	private static FloatBuffer listenerPos;
 	private static FloatBuffer listenerVel;
 	private static FloatBuffer listenerOri;
 	
 	public static void init(){
-		context = ALContext.create();
-		device = context.getDevice();
-//		device = ALDevice.create(null);
+		device = ALC10.alcOpenDevice((ByteBuffer)null);
+		if(device == MemoryUtil.NULL){
+			throw new IllegalStateException("Failed to open the default device.");
+		}
 		
-		context.makeCurrent();
+		ALCCapabilities deviceCaps = ALC.createCapabilities(device);
+		
+		context = ALC10.alcCreateContext(device, (ByteBuffer)null);
+		if(context == MemoryUtil.NULL){
+			throw new IllegalStateException("Failed to create an OpenAL context.");
+		}
+		
+		ALC10.alcMakeContextCurrent(context);
+		AL.createCapabilities(deviceCaps);
 		
 //		ALCCapabilities capabilities = device.getCapabilities();
 //		
@@ -99,8 +112,7 @@ public class SoundEngine{
 	}
 	
 	public static void dispose(){
-		context.destroy();
-//		device.destroy();
-		device.close();
+		ALC10.alcDestroyContext(context);
+		ALC10.alcCloseDevice(device);
 	}
 }
