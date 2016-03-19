@@ -44,6 +44,11 @@ public class Window{
 	private static long cursor;
 	
 	private static String title = "NeonEngine";
+	private static int oldXPos;
+	private static int oldYPos;
+	private static int oldWidth = 854;
+	private static int oldHeight = 480;
+	
 	private static int xPos;
 	private static int yPos;
 	private static int width = 854;
@@ -85,11 +90,15 @@ public class Window{
 			window = glfwCreateWindow(width, height, title, NULL, NULL);
 		}else{
 			final GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-			
 			window = glfwCreateWindow(vidMode.width(), vidMode.height(), title, glfwGetPrimaryMonitor(), NULL);
 			
-			Window.width = vidMode.width();
-			Window.height = vidMode.height();
+			width = vidMode.width();
+			height = vidMode.height();
+			
+			oldXPos = (vidMode.width() - oldWidth) / 2;
+			oldYPos = (vidMode.height() - oldHeight) / 2;
+			oldWidth = 854;
+			oldHeight = 480;
 			
 			gotResized = true;
 		}
@@ -100,12 +109,12 @@ public class Window{
 		}
 		
 		if(!isFullscreen){
-			final GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+			final GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		    
-			Window.xPos = (vidmode.width() - Window.width) / 2;
-			Window.yPos = (vidmode.height() - Window.height) / 2;
+			xPos = (vidMode.width() - width) / 2;
+			yPos = (vidMode.height() - height) / 2;
 	        
-	        glfwSetWindowPos(window, Window.xPos, Window.yPos);
+	        glfwSetWindowPos(window, xPos, yPos);
 		}
 		
 		glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
@@ -169,7 +178,7 @@ public class Window{
 		size = new GLFWFramebufferSizeCallback(){
 			@Override
 			public void invoke(long window, int width, int height){
-				Window.gotResized = true;
+				gotResized = true;
 				
 				Window.width = width;
 				Window.height = height;
@@ -420,11 +429,38 @@ public class Window{
 	public static void setFullscreen(boolean value){
 		if(value){
 			if(!isFullscreen){
+				oldXPos = xPos;
+				oldYPos = yPos;
+				oldWidth = width;
+				oldHeight = height;
 				
+				final GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+				glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, vidMode.width(), vidMode.height(), vidMode.refreshRate());
+				
+				if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+					glfwSwapInterval(1);
+				}else{
+					glfwSwapInterval(0);
+				}
+				
+				isFullscreen = true;
 			}
 		}else{
 			if(isFullscreen){
+				xPos = oldXPos;
+				yPos = oldYPos;
+				width = oldWidth;
+				height = oldHeight;
 				
+				glfwSetWindowMonitor(window, NULL, oldXPos, oldYPos, oldWidth, oldHeight, 0);
+				
+				if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+					glfwSwapInterval(1);
+				}else{
+					glfwSwapInterval(0);
+				}
+				
+				isFullscreen = false;
 			}
 		}
 	}

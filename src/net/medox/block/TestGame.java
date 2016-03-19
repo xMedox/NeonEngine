@@ -2,6 +2,7 @@ package net.medox.block;
 
 import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.FreeLook;
+import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.Lock2D;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.MeshRenderer2D;
@@ -91,7 +92,7 @@ public class TestGame extends Game{
 		addEntity(skybox);
 		
 		Entity changeMode = new Entity();
-		changeMode/*.addComponent(new FullscreenSetter())*/.addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
+		changeMode.addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		addEntity(changeMode);
 //		addEntity(new Entity()/*.addComponent(new FullscreenSetter())*/.addComponent(new ScreenshotTaker()).addComponent(new ChangeMode()));
 		
