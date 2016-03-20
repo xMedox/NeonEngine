@@ -39,36 +39,22 @@ public class Slider extends Entity2DComponent{
 	@Override
 	public void input(float delta){
 		if(!Input.isGrabbed() && Input.getMouseDown(1)){
-////			Vector2f mousePos = Input.getMousePosition();
-//			
-////			Vector2f pos = getTransform().getTransformedPos();
-////			Vector2f scale = getTransform().getScale();
-//			
 			if(!grabbed){
 				if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
-	////			if(mousePos.getX() >= pos.getX() && mousePos.getY() >= pos.getY() && mousePos.getX() < pos.getX() + scale.getX() && mousePos.getY() < pos.getY() + scale.getY()){
-	//				pressed = !pressed;
-					
 					grabbed = true;
 					oldPos = Input.getMousePosition();
 					
 					final float oldProgress = progress;
 					
 					if(orientation == 0){
-//						float pro = (oldPos.sub(getTransform().getPos().add(new Vector2f(7, 0))).div(getTransform().getScale().sub(new Vector2f(14, 0)))).getX();
-						
 						progress = Util.clamp(oldPos.sub(getTransform().getTransformedPos().add(new Vector2f(7, 0))).div(getTransform().getScale().sub(new Vector2f(14, 0))).getX(), 0, 1);
 					}else if(orientation == 1){
-//						float pro = (oldPos.sub(getTransform().getPos().add(new Vector2f(0, 7))).div(getTransform().getScale().sub(new Vector2f(0, 14)))).getY();
-						
 						progress = Util.clamp(oldPos.sub(getTransform().getTransformedPos().add(new Vector2f(0, 7))).div(getTransform().getScale().sub(new Vector2f(0, 14))).getY(), 0, 1);
 					}
 					
 					if(oldProgress != progress){
 						changed();
 					}
-	//				
-	//				changed(progress);
 				}
 			}
 		}
@@ -78,17 +64,9 @@ public class Slider extends Entity2DComponent{
 				if(!oldPos.equals(Input.getMousePosition())){
 					oldPos = Input.getMousePosition();
 					
-//					progress = box.getPos().add(box.getScale().mul(0.5f)).div(getTransform().getPos());
-//					System.out.println(oldPos.sub(getTransform().getPos().add(new Vector2f(7, 0))).div(getTransform().getScale().add(new Vector2f(14, 0)))/*.div(getTransform().getPos())*/);
-//					Vector2f vec = oldPos.sub(getTransform().getPos().add(new Vector2f(7, 0))).div(getTransform().getScale().add(new Vector2f(14, 0)));
-					
 					if(orientation == 0){
-//						float pro = (oldPos.sub(getTransform().getPos().add(new Vector2f(7, 0))).div(getTransform().getScale().sub(new Vector2f(14, 0)))).getX();
-						
 						progress = Util.clamp(oldPos.sub(getTransform().getTransformedPos().add(new Vector2f(7, 0))).div(getTransform().getScale().sub(new Vector2f(14, 0))).getX(), 0, 1);
 					}else if(orientation == 1){
-//						float pro = (oldPos.sub(getTransform().getPos().add(new Vector2f(0, 7))).div(getTransform().getScale().sub(new Vector2f(0, 14)))).getY();
-						
 						progress = Util.clamp(oldPos.sub(getTransform().getTransformedPos().add(new Vector2f(0, 7))).div(getTransform().getScale().sub(new Vector2f(0, 14))).getY(), 0, 1);
 					}
 					
@@ -116,31 +94,25 @@ public class Slider extends Entity2DComponent{
 	
 	@Override
 	public void render(){
-		RenderingEngine.add2DMesh(getTransform(), -1, /*new Vector3f(0.25f, 0.25f, 0.25f)*/new Vector3f(0f, 0f, 0f));
+		RenderingEngine.add2DMesh(getTransform(), -1, new Vector3f(0f, 0f, 0f));
 		
 		final Transform2D transform = new Transform2D();
 		
 		transform.setPos(getTransform().getTransformedPos().add(1/*2*/));
 		
 		if(orientation == 0){
-			transform.setScale(getTransform().getScale().sub(new Vector2f(7, 0)).sub(2/*4*/).mul(new Vector2f(progress, 1)));
+			transform.setScale(getTransform().getScale().sub(new Vector2f(7, 0)).sub(2).mul(new Vector2f(progress, 1)));
 		}else if(orientation == 1){
-			transform.setScale(getTransform().getScale().sub(new Vector2f(0, 7)).sub(2/*4*/).mul(new Vector2f(1, progress)));
+			transform.setScale(getTransform().getScale().sub(new Vector2f(0, 7)).sub(2).mul(new Vector2f(1, progress)));
 		}
 		
 		RenderingEngine.add2DMesh(transform, -1, color);
 		
 		if(orientation == 0){
-//			transform.setPos(getTransform().getPos().add(getTransform().getScale().sub(2/*4*/).mul(new Vector2f(progress, 1))));
 			transform.setPos(getTransform().getTransformedPos().add(new Vector2f(7, 0)).add(getTransform().getScale().sub(new Vector2f(14, 0)).mul(new Vector2f(progress, 0)).sub(new Vector2f(7, 0))));
-//			transform.setScale(getTransform().getScale().sub(2/*4*/).sub(new Vector2f(7, 0)).mul(new Vector2f(progress, 1)).mul(new Vector2f(0, 1)).add(new Vector2f(16, 0)));
-//			transform.setPos(transform.getTransformedPos().add(transform.getScale().mul(new Vector2f(1, 0)).sub(new Vector2f(8, 1))));
 			transform.setScale(getTransform().getScale().mul(new Vector2f(0, 1)).add(new Vector2f(14, 0)));
 		}else if(orientation == 1){
-//			transform.setPos(getTransform().getPos().add(getTransform().getScale().sub(2/*4*/).sub(new Vector2f(7, 0)).mul(new Vector2f(progress, 0)).sub(new Vector2f(7, 0))));
 			transform.setPos(getTransform().getTransformedPos().add(new Vector2f(0, 7)).add(getTransform().getScale().sub(new Vector2f(0, 14)).mul(new Vector2f(0, progress)).sub(new Vector2f(0, 7))));
-//			transform.setScale(getTransform().getScale().sub(2/*4*/).sub(new Vector2f(0, 7)).mul(new Vector2f(1, progress)).mul(new Vector2f(1, 0)).add(new Vector2f(0, 16)));
-//			transform.setPos(transform.getTransformedPos().add(transform.getScale().mul(new Vector2f(0, 1)).sub(new Vector2f(1, 8))));
 			transform.setScale(getTransform().getScale().mul(new Vector2f(1, 0)).add(new Vector2f(0, 14)));
 		}
 		

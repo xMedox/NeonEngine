@@ -11,7 +11,6 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALC10;
-import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.system.MemoryUtil;
 
 public class SoundEngine{
@@ -27,16 +26,14 @@ public class SoundEngine{
 		if(device == MemoryUtil.NULL){
 			throw new IllegalStateException("Failed to open the default device.");
 		}
-		
-		ALCCapabilities deviceCaps = ALC.createCapabilities(device);
-		
+				
 		context = ALC10.alcCreateContext(device, (ByteBuffer)null);
 		if(context == MemoryUtil.NULL){
 			throw new IllegalStateException("Failed to create an OpenAL context.");
 		}
 		
 		ALC10.alcMakeContextCurrent(context);
-		AL.createCapabilities(deviceCaps);
+		AL.createCapabilities(ALC.createCapabilities(device));
 		
 //		ALCCapabilities capabilities = device.getCapabilities();
 //		

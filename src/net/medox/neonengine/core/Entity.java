@@ -67,8 +67,6 @@ public class Entity{
 		child.cleanUp();
 		children.remove(child);
 		
-//		child = null;
-		
 		return this;
 	}
 	
@@ -85,8 +83,6 @@ public class Entity{
 	public Entity removeComponent(EntityComponent component){
 		component.cleanUp();
 		components.remove(component);
-		
-//		component = null;
 		
 		return this;
 	}

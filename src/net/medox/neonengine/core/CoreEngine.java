@@ -194,8 +194,6 @@ public class CoreEngine{
 				}
 				sleepTimer.stopInvocation();
 			}
-			
-//			System.gc();
 		}
 		
 		cleanUp();
@@ -204,7 +202,6 @@ public class CoreEngine{
 		game.dispose();
 		
 		System.exit(0);
-//		Runtime.getRuntime().exit(0);
 	}
 	
 	private static void cleanUp(){

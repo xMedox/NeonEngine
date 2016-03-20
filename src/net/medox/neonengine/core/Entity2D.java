@@ -36,8 +36,6 @@ public class Entity2D{
 		child.cleanUp();
 		children.remove(child);
 		
-//		child = null;
-		
 		return this;
 	}
 	
@@ -54,8 +52,6 @@ public class Entity2D{
 	public Entity2D removeComponent(Entity2DComponent component){
 		component.cleanUp();
 		components.remove(component);
-		
-//		component = null;
 		
 		return this;
 	}

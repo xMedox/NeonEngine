@@ -188,19 +188,19 @@ class Base{
 	}
 	
 	public void setFov(float fov){
-//		return -1;
+		
 	}
 	
 	public void setAspectRatio(float aspectRatio){
-//		return -1;
+		
 	}
 	
 	public void setZNear(float zNear){
-//		return -1;
+		
 	}
 	
 	public void setZFar(float zFar){
-//		return -1;
+		
 	}
 	
 	
@@ -229,27 +229,27 @@ class Base{
 	}
 	
 	public void setLeft(float left){
-//		return -1;
+		
 	}
 	
 	public void setRight(float right){
-//		return -1;
+		
 	}
 	
 	public void setBottom(float bottom){
-//		return -1;
+		
 	}
 	
 	public void setTop(float top){
-//		return -1;
+		
 	}
 	
 	public void setNear(float near){
-//		return -1;
+		
 	}
 	
 	public void setFar(float far){
-//		return -1;
+		
 	}
 }
 

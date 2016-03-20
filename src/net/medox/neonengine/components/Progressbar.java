@@ -55,15 +55,15 @@ public class Progressbar extends Entity2DComponent{
 	
 	@Override
 	public void render(){
-		RenderingEngine.add2DMesh(getTransform(), -1, /*new Vector3f(0.25f, 0.25f, 0.25f)*/new Vector3f(0, 0, 0));
+		RenderingEngine.add2DMesh(getTransform(), -1, new Vector3f(0, 0, 0));
 		
 		final Transform2D transform = new Transform2D();
-		transform.setPos(getTransform().getTransformedPos().add(1/*2*/));
+		transform.setPos(getTransform().getTransformedPos().add(1));
 		
 		if(orientation == 0){
-			transform.setScale(getTransform().getScale().sub(2/*4*/).mul(new Vector2f(progress, 1)));
+			transform.setScale(getTransform().getScale().sub(2).mul(new Vector2f(progress, 1)));
 		}else if(orientation == 1){
-			transform.setScale(getTransform().getScale().sub(2/*4*/).mul(new Vector2f(1, progress)));
+			transform.setScale(getTransform().getScale().sub(2).mul(new Vector2f(1, progress)));
 		}
 		
 		RenderingEngine.add2DMesh(transform, -1, color);
