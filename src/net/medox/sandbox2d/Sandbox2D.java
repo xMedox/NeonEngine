@@ -9,8 +9,7 @@ import net.medox.neonengine.rendering.Camera;
 public class Sandbox2D extends Game{
 	@Override
 	public void init(){
-		addEntity(new Entity().addComponent(new Camera(0, 0, 0)));
-		addEntity(new Entity().addComponent(new ScreenshotTaker()));
+		addEntity(new Entity().addComponent(new Camera(0, 0, 0)).addComponent(new ScreenshotTaker()));
 		
 //		Entity2D player = new Entity2D();
 //		MeshRenderer2D playerRenderer = new MeshRenderer2D(new Texture("wolf.png", true));
