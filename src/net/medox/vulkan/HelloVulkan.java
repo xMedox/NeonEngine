@@ -6,12 +6,14 @@ package net.medox.vulkan;
 
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.*;
+import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;
 
 import java.nio.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFWVulkan.*;
+import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.vulkan.EXTDebugReport.*;
 import static org.lwjgl.vulkan.KHRSurface.*;
@@ -308,7 +310,7 @@ public final class HelloVulkan {
 
 	private static void check(int errcode) {
 		if ( errcode != 0 )
-			throw new IllegalStateException(Integer.toString(errcode));
+			throw new IllegalStateException(VKUtil.translateVulkanResult(errcode));
 	}
 
 	private void demo_init_connection() {
@@ -345,19 +347,21 @@ public final class HelloVulkan {
 	}
 
 	private void demo_init_vk() {
-		device_validation_layers
-			//.put(memEncodeASCII("VK_LAYER_LUNARG_standard_validation", BufferAllocator.MALLOC))
-			//.put(memEncodeASCII("VK_LAYER_LUNARG_api_dump", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_device_limits", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_draw_state", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_image", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_mem_tracker", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_object_tracker", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_param_checker", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_swapchain", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_LUNARG_threading", BufferAllocator.MALLOC))
-			.put(memEncodeASCII("VK_LAYER_GOOGLE_unique_objects", BufferAllocator.MALLOC))
-			.flip();
+		if ( validate ) {
+			device_validation_layers
+				//.put(memEncodeASCII("VK_LAYER_LUNARG_standard_validation", BufferAllocator.MALLOC))
+				//.put(memEncodeASCII("VK_LAYER_LUNARG_api_dump", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_device_limits", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_draw_state", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_image", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_mem_tracker", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_object_tracker", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_param_checker", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_swapchain", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_LUNARG_threading", BufferAllocator.MALLOC))
+				.put(memEncodeASCII("VK_LAYER_GOOGLE_unique_objects", BufferAllocator.MALLOC));
+		}
+		device_validation_layers.flip();
 
 		PointerBuffer instance_validation_layers = memAllocPointer(device_validation_layers.remaining());
 		instance_validation_layers.put(device_validation_layers);
@@ -427,6 +431,18 @@ public final class HelloVulkan {
 			.ppEnabledLayerNames(instance_validation_layers)
 			.ppEnabledExtensionNames(extension_names);
 		extension_names.clear();
+
+		VkDebugReportCallbackCreateInfoEXT dbgCreateInfo = null;
+		if ( validate ) {
+			dbgCreateInfo = VkDebugReportCallbackCreateInfoEXT.malloc()
+				.sType(VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT)
+				.pNext(NULL)
+				.flags(VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_WARNING_BIT_EXT)
+				.pfnCallback(dbgFunc)
+				.pUserData(NULL);
+
+			inst_info.pNext(dbgCreateInfo.address());
+		}
 
 		try {
 			err = vkCreateInstance(inst_info, null, pp);
@@ -503,13 +519,6 @@ public final class HelloVulkan {
 			throw new IllegalStateException("vkEnumerateDeviceExtensionProperties failed to find the " + VK_KHR_SWAPCHAIN_EXTENSION_NAME + " extension.");
 
 		if ( validate ) {
-			VkDebugReportCallbackCreateInfoEXT dbgCreateInfo = VkDebugReportCallbackCreateInfoEXT.malloc()
-				.sType(VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT)
-				.pNext(NULL)
-				.flags(VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_WARNING_BIT_EXT)
-				.pfnCallback(dbgFunc)
-				.pUserData(NULL);
-
 			err = vkCreateDebugReportCallbackEXT(inst, dbgCreateInfo, null, lp);
 			dbgCreateInfo.free();
 			switch ( err ) {
@@ -1575,38 +1584,42 @@ public final class HelloVulkan {
 	}
 
 	private void demo_prepare_descriptor_pool() {
-		VkDescriptorPoolSize.Buffer type_count = VkDescriptorPoolSize.malloc(1)
+		stackPush();
+
+		VkDescriptorPoolSize.Buffer type_count = VkDescriptorPoolSize.mallocStack(1)
 			.type(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER)
 			.descriptorCount(DEMO_TEXTURE_COUNT);
 
-		VkDescriptorPoolCreateInfo descriptor_pool = VkDescriptorPoolCreateInfo.calloc()
+		VkDescriptorPoolCreateInfo descriptor_pool = VkDescriptorPoolCreateInfo.callocStack()
 			.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO)
 			.pNext(NULL)
 			.maxSets(1)
 			.pPoolSizes(type_count);
 
 		int err = vkCreateDescriptorPool(device, descriptor_pool, null, lp);
-		descriptor_pool.free();
-		type_count.free();
+		stackPop();
 		check(err);
 		desc_pool = lp.get(0);
 	}
 
 	private void demo_prepare_descriptor_set() {
-		LongBuffer layouts = memAllocLong(1).put(0, desc_layout);
-		VkDescriptorSetAllocateInfo alloc_info = VkDescriptorSetAllocateInfo.malloc()
+		MemoryStack stack = stackPush();
+
+		LongBuffer layouts = stack.mallocLong(1).put(0, desc_layout);
+		VkDescriptorSetAllocateInfo alloc_info = VkDescriptorSetAllocateInfo.malloc(stack)
 			.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO)
 			.pNext(NULL)
 			.descriptorPool(desc_pool)
 			.pSetLayouts(layouts);
 
 		int err = vkAllocateDescriptorSets(device, alloc_info, lp);
-		alloc_info.free();
-		memFree(layouts);
+		stack.pop();
 		check(err);
 		desc_set = lp.get(0);
 
-		VkDescriptorImageInfo.Buffer tex_descs = VkDescriptorImageInfo.calloc(DEMO_TEXTURE_COUNT);
+		stack.push();
+
+		VkDescriptorImageInfo.Buffer tex_descs = VkDescriptorImageInfo.calloc(DEMO_TEXTURE_COUNT, stack);
 
 		for ( int i = 0; i < DEMO_TEXTURE_COUNT; i++ ) {
 			tex_descs.get(i)
@@ -1615,15 +1628,15 @@ public final class HelloVulkan {
 				.imageLayout(VK_IMAGE_LAYOUT_GENERAL);
 		}
 
-		VkWriteDescriptorSet.Buffer write = VkWriteDescriptorSet.calloc(1)
+		VkWriteDescriptorSet.Buffer write = VkWriteDescriptorSet.calloc(1, stack)
 			.sType(VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET)
 			.dstSet(desc_set)
 			.descriptorType(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER)
 			.pImageInfo(tex_descs);
 
 		vkUpdateDescriptorSets(device, write, null);
-		write.free();
-		tex_descs.free();
+
+		stack.pop();
 	}
 
 	private void demo_prepare_framebuffers() {
@@ -1990,10 +2003,9 @@ public final class HelloVulkan {
 
 		vkDestroyDevice(device, null);
 		vkDestroySurfaceKHR(inst, surface, null);
-		if ( msg_callback != NULL ) {
+		if ( msg_callback != NULL )
 			vkDestroyDebugReportCallbackEXT(inst, msg_callback, null);
-			dbgFunc.free();
-		}
+		dbgFunc.free();
 		vkDestroyInstance(inst, null);
 
 		gpu_props.free();
