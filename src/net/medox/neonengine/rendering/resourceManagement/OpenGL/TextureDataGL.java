@@ -1,8 +1,5 @@
 package net.medox.neonengine.rendering.resourceManagement.OpenGL;
 
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
-
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -15,6 +12,7 @@ import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -56,7 +54,7 @@ public class TextureDataGL extends TextureData{
 	@Override
 	public void bind(int samplerSlot){
 		assert(samplerSlot >= 0 && samplerSlot <= 31);
-		glActiveTexture(GL_TEXTURE0 + samplerSlot);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 //		resource.bind(0);
 		GL11.glBindTexture(textureTarget, textureID[0]);
 	}
@@ -64,7 +62,7 @@ public class TextureDataGL extends TextureData{
 	@Override
 	public void bind(int samplerSlot, int id){
 		assert(samplerSlot >= 0 && samplerSlot <= 31);
-		glActiveTexture(GL_TEXTURE0 + samplerSlot);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 //		resource.bind(id);
 		GL11.glBindTexture(textureTarget, textureID[id]);
 	}

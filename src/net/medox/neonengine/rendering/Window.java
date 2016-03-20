@@ -10,6 +10,7 @@ import net.medox.neonengine.core.Util.ImageData;
 import net.medox.neonengine.math.Vector2f;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCharCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -24,11 +25,10 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import org.lwjgl.system.MemoryUtil;
 
 public class Window{
-	public static final int DONT_CARE = GLFW_DONT_CARE;
+	public static final int DONT_CARE = GLFW.GLFW_DONT_CARE;
 	
     public static long window;
     
@@ -77,20 +77,20 @@ public class Window{
 	public static void createWindow(){
 		errorCallback = GLFWErrorCallback.createPrint().set();
 		
-		if(glfwInit() != GLFW_TRUE){
+		if(GLFW.glfwInit() != GLFW.GLFW_TRUE){
             throw new IllegalStateException("Unable to initialize GLFW");
 		}
 		
-		glfwDefaultWindowHints();
-		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		GLFW.glfwDefaultWindowHints();
+		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         
         setResizable(startResizable);
         
 		if(!isFullscreen){
-			window = glfwCreateWindow(width, height, title, NULL, NULL);
+			window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
 		}else{
-			final GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-			window = glfwCreateWindow(vidMode.width(), vidMode.height(), title, glfwGetPrimaryMonitor(), NULL);
+			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+			window = GLFW.glfwCreateWindow(vidMode.width(), vidMode.height(), title, GLFW.glfwGetPrimaryMonitor(), MemoryUtil.NULL);
 			
 			width = vidMode.width();
 			height = vidMode.height();
@@ -103,21 +103,21 @@ public class Window{
 			gotResized = true;
 		}
 		
-		if(window == NULL){
-	        glfwTerminate();
+		if(window == MemoryUtil.NULL){
+			GLFW.glfwTerminate();
             throw new RuntimeException("Failed to create the GLFW window");
 		}
 		
 		if(!isFullscreen){
-			final GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 		    
 			xPos = (vidMode.width() - width) / 2;
 			yPos = (vidMode.height() - height) / 2;
 	        
-	        glfwSetWindowPos(window, xPos, yPos);
+			GLFW.glfwSetWindowPos(window, xPos, yPos);
 		}
 		
-		glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_TRUE);
 		
 		if(!startIcon16.equals("") && !startIcon32.equals("")/* && !startIcon128.equals("")*/){
 			setIcon(startIcon16, startIcon32/*, startIcon128*/);
@@ -129,14 +129,14 @@ public class Window{
 			setCursor(startCursor, startCursorX, startCursorY);
 		}
 		
-		glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
+		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
 		
-		glfwMakeContextCurrent(window);
+		GLFW.glfwMakeContextCurrent(window);
 		
 		if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
-			glfwSwapInterval(1);
+			GLFW.glfwSwapInterval(1);
 		}else{
-			glfwSwapInterval(0);
+			GLFW.glfwSwapInterval(0);
 		}
 		
 		key = new GLFWKeyCallback(){
@@ -192,7 +192,7 @@ public class Window{
 			}
 		}.set(window);
 		
-		glfwShowWindow(window);
+		GLFW.glfwShowWindow(window);
 		
 		createContext();
 		
@@ -202,7 +202,7 @@ public class Window{
 	private static void createContext(){
 //		System.out.println(GL.getCapabilities().OpenGL33);
 		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
-			if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
+			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				createWindowVK();
 			}else{
@@ -218,7 +218,7 @@ public class Window{
 //				createWindowVK();
 //			}
 		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
-			if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
+			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				createWindowVK();
 			}else{
@@ -229,12 +229,12 @@ public class Window{
 	}
 	
 	private static void createWindowGL(){
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
 		
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+		GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);
 		
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
         
 		GL.createCapabilities();
 	}
@@ -244,7 +244,7 @@ public class Window{
 	}
 	
 	public static void dispose(){
-		glfwDestroyWindow(window);
+		GLFW.glfwDestroyWindow(window);
 	    key.free();
 	    mouseButton.free();
 		mousePos.free();
@@ -253,11 +253,11 @@ public class Window{
 		size.free();
 		text.free();
 		
-		if(cursor != NULL){
-			glfwDestroyCursor(cursor);
+		if(cursor != MemoryUtil.NULL){
+			GLFW.glfwDestroyCursor(cursor);
 		}
         
-        glfwTerminate();
+		GLFW.glfwTerminate();
         errorCallback.free();
 	}
 	
@@ -349,7 +349,7 @@ public class Window{
 	    
 	    icons.position(0);
 		
-		glfwSetWindowIcon(window, icons);
+	    GLFW.glfwSetWindowIcon(window, icons);
 		
 		icons.free();
 	}
@@ -368,61 +368,61 @@ public class Window{
 		
 	    icons.position(0);
 		
-		glfwSetWindowIcon(window, icons);
+	    GLFW.glfwSetWindowIcon(window, icons);
 		
 		icons.free();
 	}
 	
 	public static void setCursor(String fileName, int xPos, int yPos){
 		if(!fileName.equals("")){
-			if(cursor != NULL){
-				glfwDestroyCursor(cursor);
+			if(cursor != MemoryUtil.NULL){
+				GLFW.glfwDestroyCursor(cursor);
 			}
 			
 			final ImageData pixels = Util.imageToByteBuffer("./res/textures/" + fileName);
 			
 			final GLFWImage img = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
-			cursor = glfwCreateCursor(img, -xPos, yPos);
+			cursor = GLFW.glfwCreateCursor(img, -xPos, yPos);
 			img.free();
 			
-			if(cursor == NULL){
+			if(cursor == MemoryUtil.NULL){
 	            throw new RuntimeException("Failed to create the GLFW cursor");
 			}
 			
-			glfwSetCursor(window, cursor);
+			GLFW.glfwSetCursor(window, cursor);
 		}else{
-			if(cursor != NULL){
-				glfwSetCursor(window, NULL);
+			if(cursor != MemoryUtil.NULL){
+				GLFW.glfwSetCursor(window, MemoryUtil.NULL);
 				
-				glfwDestroyCursor(cursor);
+				GLFW.glfwDestroyCursor(cursor);
 				
-				cursor = NULL;
+				cursor = MemoryUtil.NULL;
 			}
 		}
 	}
 	
 	public static void render(){
 		gotResized = false;
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+		GLFW.glfwSwapBuffers(window);
+		GLFW.glfwPollEvents();
 	}
 	
 	public static boolean isCloseRequested(){
-		return glfwWindowShouldClose(window) == GLFW_TRUE;
+		return GLFW.glfwWindowShouldClose(window) == GLFW.GLFW_TRUE;
 	}
 	
 	public static void setTitle(String title){
 		Window.title = title;
 		
-		glfwSetWindowTitle(window, title);
+		GLFW.glfwSetWindowTitle(window, title);
 	}
 	
 	public static void setResizable(boolean value){
 		if(value){
-			glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
 		}else{
-			glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 		}
 	}
 	
@@ -434,13 +434,13 @@ public class Window{
 				oldWidth = width;
 				oldHeight = height;
 				
-				final GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-				glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, vidMode.width(), vidMode.height(), vidMode.refreshRate());
+				final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+				GLFW.glfwSetWindowMonitor(window, GLFW.glfwGetPrimaryMonitor(), 0, 0, vidMode.width(), vidMode.height(), vidMode.refreshRate());
 				
 				if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
-					glfwSwapInterval(1);
+					GLFW.glfwSwapInterval(1);
 				}else{
-					glfwSwapInterval(0);
+					GLFW.glfwSwapInterval(0);
 				}
 				
 				isFullscreen = true;
@@ -452,12 +452,12 @@ public class Window{
 				width = oldWidth;
 				height = oldHeight;
 				
-				glfwSetWindowMonitor(window, NULL, oldXPos, oldYPos, oldWidth, oldHeight, 0);
+				GLFW.glfwSetWindowMonitor(window, MemoryUtil.NULL, oldXPos, oldYPos, oldWidth, oldHeight, 0);
 				
 				if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
-					glfwSwapInterval(1);
+					GLFW.glfwSwapInterval(1);
 				}else{
-					glfwSwapInterval(0);
+					GLFW.glfwSwapInterval(0);
 				}
 				
 				isFullscreen = false;
@@ -468,13 +468,13 @@ public class Window{
 	public static void setMinSizeLimit(int width, int height){
 		minWidth = width;
 		minHeight = height;
-		glfwSetWindowSizeLimits(window, width, height, maxWidth, maxHeight);
+		GLFW.glfwSetWindowSizeLimits(window, width, height, maxWidth, maxHeight);
 	}
 	
 	public static void setMaxSizeLimit(int width, int height){
 		maxWidth = width;
 		maxHeight = height;
-		glfwSetWindowSizeLimits(window, minWidth, minHeight, width, height);
+		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, width, height);
 	}
 	
 	public static void setSizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight){
@@ -482,7 +482,7 @@ public class Window{
 		Window.minHeight = minHeight;
 		Window.maxWidth = maxWidth;
 		Window.maxHeight = maxHeight;
-		glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
+		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
 	}
 	
     public static void bindAsRenderTarget(){
@@ -532,7 +532,7 @@ public class Window{
 	}
 	
 	public static boolean isResizable(){
-		return glfwGetWindowAttrib(window, GLFW_RESIZABLE) == 1;
+		return GLFW.glfwGetWindowAttrib(window, GLFW.GLFW_RESIZABLE) == 1;
 	}
 	
 	public static boolean gotResized(){

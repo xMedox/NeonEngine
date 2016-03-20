@@ -1,10 +1,5 @@
 package net.medox.neonengine.audio.audioLoading;
 
-import static org.lwjgl.openal.AL10.AL_FORMAT_MONO16;
-import static org.lwjgl.openal.AL10.AL_FORMAT_MONO8;
-import static org.lwjgl.openal.AL10.AL_FORMAT_STEREO16;
-import static org.lwjgl.openal.AL10.AL_FORMAT_STEREO8;
-
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +13,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import org.lwjgl.openal.AL10;
 
 public class WAVSound{
 	private ByteBuffer data;
@@ -65,17 +62,17 @@ public class WAVSound{
 		int channels = 0;
 		if(audioformat.getChannels() == 1){
 			if(audioformat.getSampleSizeInBits() == 8){
-				channels = AL_FORMAT_MONO8;
+				channels = AL10.AL_FORMAT_MONO8;
 			}else if(audioformat.getSampleSizeInBits() == 16){
-				channels = AL_FORMAT_MONO16;
+				channels = AL10.AL_FORMAT_MONO16;
 			}else{
 				assert false : "Illegal sample size";
 			}
 		}else if(audioformat.getChannels() == 2){
 			if(audioformat.getSampleSizeInBits() == 8){
-				channels = AL_FORMAT_STEREO8;
+				channels = AL10.AL_FORMAT_STEREO8;
 			}else if(audioformat.getSampleSizeInBits() == 16){
-				channels = AL_FORMAT_STEREO16;
+				channels = AL10.AL_FORMAT_STEREO16;
 			}else{
 				throw new RuntimeException("Illegal sample size: " + audioformat.getSampleSizeInBits());
 			}

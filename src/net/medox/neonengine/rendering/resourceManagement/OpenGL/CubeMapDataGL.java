@@ -1,8 +1,5 @@
 package net.medox.neonengine.rendering.resourceManagement.OpenGL;
 
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
-
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -64,7 +61,7 @@ public class CubeMapDataGL extends CubeMapData{
 	@Override
 	public void bind(int samplerSlot){
 		assert(samplerSlot >= 0 && samplerSlot <= 31);
-		glActiveTexture(GL_TEXTURE0 + samplerSlot);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 //		resource.bind();
 		GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
 	}
