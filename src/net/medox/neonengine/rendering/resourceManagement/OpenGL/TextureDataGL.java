@@ -55,7 +55,6 @@ public class TextureDataGL extends TextureData{
 	public void bind(int samplerSlot){
 		assert(samplerSlot >= 0 && samplerSlot <= 31);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-//		resource.bind(0);
 		GL11.glBindTexture(textureTarget, textureID[0]);
 	}
 	
@@ -63,36 +62,8 @@ public class TextureDataGL extends TextureData{
 	public void bind(int samplerSlot, int id){
 		assert(samplerSlot >= 0 && samplerSlot <= 31);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-//		resource.bind(id);
 		GL11.glBindTexture(textureTarget, textureID[id]);
 	}
-	
-//	public void clear(int textureNum, int mask){
-////		glBindTexture(textureTarget, textureID[textureNum]);
-////		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
-//		
-//		ByteBuffer b = BufferUtils.createByteBuffer(4);
-//		b.put((byte)1);
-//		b.put((byte)1);
-//		b.put((byte)0);
-//		b.put((byte)0);
-//		
-//		b.flip();
-//		
-//		GL30.glClearBufferiv(frameBuffer, renderBuffer, b);
-//		
-////		glClear(mask);
-//	}
-	
-//	public void bind(int samplerSlot){
-//		assert(samplerSlot >= 0 && samplerSlot <= 31);
-//		glActiveTexture(GL_TEXTURE0 + samplerSlot);
-////		if(!fileName.equals("")){
-////			glBindTexture(GL_TEXTURE_2D, resource.getId());
-////		}else{
-//		bindWithNumber(0);
-////		}
-//	}
 	
 	@Override
     public void bindAsRenderTarget(){
@@ -117,9 +88,6 @@ public class TextureDataGL extends TextureData{
 	}
 	
 	public void initTextures(ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, boolean clamp){
-//		this.internalFormat = internalFormat;
-//		this.format = format;
-		
 		for(int i = 0; i < numTextures; i++){
 			textureID[i] = GL11.glGenTextures();
 			

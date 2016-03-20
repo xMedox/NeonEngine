@@ -138,9 +138,6 @@ public class OBJModel{
 			result.getTangents().add(normalModel.getTangents().get(indexMap.get(i)));
 		}
 
-//		for(int i = 0; i < result.GetTexCoords().size(); i++)
-//			result.GetTexCoords().Get(i).SetY(1.0f - result.GetTexCoords().Get(i).GetY());
-
 		return result;
 	}
 	

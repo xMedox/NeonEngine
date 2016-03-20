@@ -612,13 +612,6 @@ public class RenderingEngine{
 		
 		camera2D.update();
 		
-//		int width = Window.getWidth();
-//		int height = Window.getHeight();
-		
-//		ByteBuffer data = BufferUtils.createByteBuffer(4 * width * height);
-		
-//		tempTarget = new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL_TEXTURE_2D, GL_NEAREST, GL_RGBA, GL_RGBA, false, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
-		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
@@ -647,30 +640,6 @@ public class RenderingEngine{
 		floatMap.put(name, floatValue);
 	}
 	
-//	public void setTexture(String name, Texture value){
-//		if(textureHashMap == null){
-//			textureHashMap = new HashMap<String, Texture>();
-//		}
-//		textureHashMap.remove(name);
-//		textureHashMap.put(name, value);
-//	}
-//	
-//	public void setFloat(String name, float value){
-//		if(floatHashMap == null){
-//			floatHashMap = new HashMap<String, Float>();
-//		}
-//		floatHashMap.remove(name);
-//		floatHashMap.put(name, value);
-//	}
-//	
-//	public void setVector3f(String name, Vector3f value){
-//		if(vector3fHashMap == null){
-//			vector3fHashMap = new HashMap<String, Vector3f>();
-//		}
-//		vector3fHashMap.remove(name);
-//		vector3fHashMap.put(name, value);
-//	}
-	
 	public static Texture getTexture(String name){
 		final Texture result = textureMap.get(name);
 		
@@ -678,13 +647,9 @@ public class RenderingEngine{
 	}
 	
 //	public static CubeMap getCubeMap(String name){
-//		CubeMap result = cubeMapHashMap.get(name);
-//		if(result != null){
-//			return result;
-//		}
-//
-////		return Material.defaultCubeMap;
-//		return null;
+//		final CubeMap result = cubeMapHashMap.get(name);
+//		
+//		return result == null ? Material.DEFAULT_CUBE_MAP : result;
 //	}
 	
 	public static Vector3f getVector3f(String name){
@@ -694,12 +659,9 @@ public class RenderingEngine{
 	}
 	
 //	public static Vector2f getVector2f(String name){
-//		Vector2f result = vector2fHashMap.get(name);
-//		if(result != null){
-//			return result;
-//		}
-//
-//		return new Vector2f(0, 0);
+//		final Vector2f result = vector2fHashMap.get(name);
+//		
+//		return result == null ? new Vector2f(0, 0) : result;
 //	}
 	
 	public static float getFloat(String name){

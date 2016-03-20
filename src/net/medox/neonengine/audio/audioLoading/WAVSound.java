@@ -45,15 +45,11 @@ public class WAVSound{
 	}
 	
 	private void create(InputStream is){
-//		try{
 		try{
 			create(AudioSystem.getAudioInputStream(is));
 		}catch(UnsupportedAudioFileException | IOException e){
 			org.lwjgl.system.APIUtil.apiLog("Unable to create from inputstream, " + e.getMessage());
 		}
-//		}catch(){
-//			org.lwjgl.system.APIUtil.apiLog("Unable to create from inputstream, " + e.getMessage());
-//		}
 	}
 	
 	private void create(AudioInputStream ais){

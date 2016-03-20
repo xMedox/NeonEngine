@@ -461,28 +461,9 @@ public class Util{
 		
 		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
 		final boolean hasAlpha = image.getColorModel().hasAlpha();
-		
-//		String output = "return new int[][]{{";
-		
-		for(int y = 0; y < height; y++){
-//			if(y != 0){
-//				output += "}, \n{";
-//			}
-			for(int x = 0; x < width; x++){
-//				if((image.getRGB(x, y) & 0x00ff0000) >> 16 < 10){
-//					output += " ";
-//					output += " ";
-//					output += (image.getRGB(x, y) & 0x00ff0000) >> 16;
-//				}else if((image.getRGB(x, y) & 0x00ff0000) >> 16 < 100){
-//					output += " ";
-//					output += (image.getRGB(x, y) & 0x00ff0000) >> 16;
-//				}else{
-//					output += (image.getRGB(x, y) & 0x00ff0000) >> 16;
-//				}
-//				if(x != width-1){
-//					output += ",";
-//				}
 				
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
 				final int pixel = pixels[y * width + x];
 				
 				buffer.put((byte)((pixel >> 16) & 0xFF));
@@ -496,10 +477,6 @@ public class Util{
 				}
 			}
 		}
-		
-//		output += "}};";
-//		
-//		System.out.println(output);
 		
 		buffer.flip();
 		

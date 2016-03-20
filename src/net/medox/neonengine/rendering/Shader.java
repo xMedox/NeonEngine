@@ -209,8 +209,8 @@ public class Shader{
 				}else{
 					throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
 				}
-			}/*else if(uniformName.startsWith("C_0")){
-				if(uniformName.equals("C_0eyePos")){
+			}/*else if(uniformName.startsWith("C0_")){
+				if(uniformName.equals("C0_eyePos")){
 					setUniformVector3f(uniformName, RenderingEngine.getMainCamera().getTransform().getTransformedPos());
 				}else{
 					throw new IllegalArgumentException(uniformName + " is not a valid component of Camera");

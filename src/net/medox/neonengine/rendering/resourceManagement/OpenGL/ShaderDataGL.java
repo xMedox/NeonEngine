@@ -107,13 +107,9 @@ public class ShaderDataGL extends ShaderData{
 			}
 
 			final int begin = attributeStartLocation + ATTRIBUTE_KEYWORD.length() + 1;
-//			int end = shaderText.indexOf(";", begin);
 			
 			final String attributeLine = shaderText.substring(begin, shaderText.indexOf(";", begin)).trim();
-//			final String attributeLine = shaderText.substring(begin, end).trim();
-//			String attributeName = attributeLine.substring(attributeLine.indexOf(' ') + 1, attributeLine.length()).trim();
-
-//			setAttribLocation(attributeName, attribNumber);
+			
 			setAttribLocation(attributeLine.substring(attributeLine.indexOf(' ') + 1, attributeLine.length()).trim(), attribNumber);
 			attribNumber++;
 
@@ -122,8 +118,6 @@ public class ShaderDataGL extends ShaderData{
 	}
 	
 	private void addShaderUniforms(String shaderText){
-//		final HashMap<String, ArrayList<GLSLStruct>> structs = findUniformStructs(shaderText);
-		
 		final String UNIFORM_KEYWORD = "uniform";
 		int uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD);
 		
@@ -136,9 +130,7 @@ public class ShaderDataGL extends ShaderData{
 			}
 			
 			final int begin = uniformStartLocation + UNIFORM_KEYWORD.length() + 1;
-//			int end = shaderText.indexOf(";", begin);
 			
-//			String uniformLine = shaderText.substring(begin, end).trim();
 			final String uniformLine = shaderText.substring(begin, shaderText.indexOf(";", begin)).trim();
 			
 			final int whiteSpacePos = uniformLine.indexOf(' ');
@@ -147,7 +139,7 @@ public class ShaderDataGL extends ShaderData{
 			
 			uniformNames.add(uniformName);
 			uniformTypes.add(uniformType);
-			addUniform(uniformName, uniformType, /*structs*/findUniformStructs(shaderText));
+			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
 			
 			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
 		}
@@ -212,9 +204,9 @@ public class ShaderDataGL extends ShaderData{
 		
 		if(success == 0){
 			if(isProgram){
-				error = GL20.glGetProgramInfoLog(shader, 1024)/*glGetProgramInfoLog(shader, sizeof(error), NULL, error)*/;
+				error = GL20.glGetProgramInfoLog(shader, 1024);
 			}else{
-				error = GL20.glGetShaderInfoLog(shader, 1024)/*glGetShaderInfoLog(shader, sizeof(error), NULL, error)*/;
+				error = GL20.glGetShaderInfoLog(shader, 1024);
 			}
 			
 			System.err.println(errorMessage + ": " +error);
@@ -297,7 +289,6 @@ public class ShaderDataGL extends ShaderData{
 			final int braceBegin = shaderText.indexOf("{", nameBegin);
 			final int braceEnd = shaderText.indexOf("}", braceBegin);
 
-//			String structName = shaderText.substring(nameBegin, braceBegin).trim();
 			final ArrayList<GLSLStruct> glslStructs = new ArrayList<GLSLStruct>();
 
 			int componentSemicolonPos = shaderText.indexOf(";", braceBegin);
@@ -327,9 +318,6 @@ public class ShaderDataGL extends ShaderData{
 					componentTypeStart--;
 				}
 
-//				String componentName = shaderText.substring(componentNameStart, componentNameEnd);
-//				String componentType = shaderText.substring(componentTypeStart, componentTypeEnd);
-
 				final GLSLStruct glslStruct = new GLSLStruct();
 				glslStruct.name = shaderText.substring(componentNameStart, componentNameEnd);
 				glslStruct.type = shaderText.substring(componentTypeStart, componentTypeEnd);
@@ -340,7 +328,6 @@ public class ShaderDataGL extends ShaderData{
 			}
 			
 			result.put(shaderText.substring(nameBegin, braceBegin).trim(), glslStructs);
-//			result.put(structName, glslStructs);
 
 			structStartLocation = shaderText.indexOf(STRUCT_KEYWORD, structStartLocation + STRUCT_KEYWORD.length());
 		}

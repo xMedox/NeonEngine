@@ -24,23 +24,22 @@ public class Frustum{
 			final float near = camera.getNear();
 			final float far = camera.getFar();
 			
-			nh = /*top*/camera.getTop() - /*bottom*/camera.getBottom();
-			nw = /*right*/camera.getRight() - /*left*/camera.getLeft();
+			nh = camera.getTop() - camera.getBottom();
+			nw = camera.getRight() - camera.getLeft();
 			fh = nh;
 			fw = nw;
 			
 			nc = p.add(z.mul((near - far)*2)); //add offset to remove clipping bug
 			fc = p.add(z.mul((far - near)*2)); //add offset to remove clipping bug
 		}else{
-//			float fov = camera.getFov();
 			final float zNear = camera.getZNear();
 			final float zFar = camera.getZFar();
 			final float ratio = camera.getAspectRatio();
 			
-			final float tang = (float)Math.tan(/*fov*/camera.getFov()/* * (float)Math.PI/180.0*/ * 0.5f);
+			final float tang = (float)Math.tan(camera.getFov()/* * (float)Math.PI/180.0*/ * 0.5f);
 			
 			nh = zNear * tang;
-			nw = nh * ratio; 
+			nw = nh * ratio;
 			fh = zFar * tang;
 			fw = fh * ratio;
 			

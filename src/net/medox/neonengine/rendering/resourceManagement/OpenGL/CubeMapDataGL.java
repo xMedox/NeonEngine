@@ -62,19 +62,8 @@ public class CubeMapDataGL extends CubeMapData{
 	public void bind(int samplerSlot){
 		assert(samplerSlot >= 0 && samplerSlot <= 31);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-//		resource.bind();
 		GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
 	}
-	
-//	public void bind(int samplerSlot){
-//		assert(samplerSlot >= 0 && samplerSlot <= 31);
-//		glActiveTexture(GL_TEXTURE0 + samplerSlot);
-////		if(!fileName.equals("")){
-////			glBindTexture(GL_TEXTURE_2D, resource.getId());
-////		}else{
-//		bindWithNumber(0);
-////		}
-//	}
 	
 //    public void bindAsRenderTarget(){
 //    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
