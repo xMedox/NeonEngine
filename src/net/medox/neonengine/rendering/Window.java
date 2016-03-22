@@ -380,7 +380,6 @@ public class Window{
 			}
 			
 			final ImageData pixels = Util.imageToByteBuffer("./res/textures/" + fileName);
-			
 			final GLFWImage img = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
 			cursor = GLFW.glfwCreateCursor(img, -xPos, yPos);

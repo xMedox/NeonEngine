@@ -24,28 +24,28 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 public class BatchRendererGL extends BatchRenderer{
-	private final int RENDERER_MAX_SPRITES = /*30000*//*20*/1000;
-	private final int RENDERER_MAX_TEXTURES = 32;
+	private final static int RENDERER_MAX_SPRITES = /*30000*//*20*/1000;
+	private final static int RENDERER_MAX_TEXTURES = 32;
 	
-	private final int VERTEX_INDEX = 0;
-	private final int UV_INDEX = 1;
-	private final int TID_INDEX = 2;
-	private final int COLOR_INDEX = 3;
-	private final int INDEX_INDEX = 4;
+	private final static int VERTEX_INDEX = 0;
+	private final static int UV_INDEX = 1;
+	private final static int TID_INDEX = 2;
+	private final static int COLOR_INDEX = 3;
+	private final static int INDEX_INDEX = 4;
 	
-	private final int NUM_BUFFERS = 5;
+	private final static int NUM_BUFFERS = 5;
 	
 	private final Transform TRANSFORM = new Transform();
 	private final Material MATERIAL = new Material();
 	
-	private List<Vector3f> vertices;
-	private List<Vector2f> uvs;
-	private List<Integer> texturesids;
-	private List<TextureSlot> textures;
-	private List<Vector3f> colors;
+	private final List<Vector3f> vertices;
+	private final List<Vector2f> uvs;
+	private final List<Integer> texturesids;
+	private final List<TextureSlot> textures;
+	private final List<Vector3f> colors;
 	
-	private int vertexArrayObject;
-	private IntBuffer vertexArrayBuffers;
+	private final int vertexArrayObject;
+	private final IntBuffer vertexArrayBuffers;
 	
 	private int indexCount;
 	

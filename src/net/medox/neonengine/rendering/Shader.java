@@ -129,7 +129,7 @@ public class Shader{
 						setUniformi(uniformName, 31);
 					}
 				}
-			}/*if(uniformName.startsWith("R0_")){
+			}/*else if(uniformName.startsWith("R0_")){
 				String unprefixedUniformName = uniformName.substring(3);
 				
 				if(uniformType.equals("sampler2D")){

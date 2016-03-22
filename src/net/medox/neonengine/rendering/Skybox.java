@@ -4,7 +4,7 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
-public class Skybox extends EntityComponent{	
+public class Skybox extends EntityComponent{
 	private Mesh mesh;
 	private Material material;
 	
