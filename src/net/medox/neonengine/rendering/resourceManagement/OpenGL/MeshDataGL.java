@@ -116,7 +116,7 @@ public class MeshDataGL extends MeshData{
 			
 //			bound = vertexArrayObject;
 //		}else{
-//			if(Profiling.PROFILING_DISABLE_MESH_DRAWING == 0){
+//			if(CoreEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
 //				GL11.glDrawElements(GL11.GL_TRIANGLES, drawCount, GL11.GL_UNSIGNED_INT, 0);
 //			}
 //		}

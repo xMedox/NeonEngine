@@ -51,7 +51,7 @@ public class CubeMapDataGL extends CubeMapData{
 //    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 //    	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
 //    	
-//    	if(Profiling.PROFILING_SET_1x1_VIEWPORT == 0){
+//    	if(CoreEngine.PROFILING_SET_1x1_VIEWPORT == 0){
 //    		GL11.glViewport(0, 0, width, height);
 //    	}else{
 //    		GL11.glViewport(0, 0, 1, 1);
@@ -69,7 +69,7 @@ public class CubeMapDataGL extends CubeMapData{
 //    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 //    	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
 //    	
-//    	if(Profiling.PROFILING_SET_1x1_VIEWPORT == 0){
+//    	if(CoreEngine.PROFILING_SET_1x1_VIEWPORT == 0){
 //    		GL11.glViewport(0, 0, width, height);
 //    	}else{
 //    		GL11.glViewport(0, 0, 1, 1);

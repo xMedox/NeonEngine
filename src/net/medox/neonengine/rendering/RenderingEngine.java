@@ -42,7 +42,7 @@ public class RenderingEngine{
 	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
 	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
 	
-	public static int RENDERING_MODE = 0; //0 = OpenGL 1 = Vulkan
+	public static int RENDERING_MODE = 0;
 	
 	public static int TEXTURE_2D = GL11.GL_TEXTURE_2D;
 	public static int LINEAR = GL11.GL_LINEAR;
