@@ -167,8 +167,11 @@ public class TestGame extends Game{
 		
 		Entity sword = new Entity();
 		Material swordM = new Material();
-		swordM.setTexture("diffuse", new Texture("block31.png", true));
-//		swordM.setTexture("glowMap", new Texture("block60_glow.png", true));
+//		swordM.setTexture("diffuse", new Texture("block31.png", true));
+		swordM.setTexture("diffuse", new Texture("block60.png", true));
+		swordM.setTexture("glowMap", new Texture("block60_glow.png", true));
+//		swordM.setTexture("diffuse", new Texture("block40.png", true));
+//		swordM.setTexture("glowMap", new Texture("block40_glow.png", true));
 		sword.addComponent(new MeshRenderer(new Mesh("Sword R Block.obj"), swordM));
 		sword.getTransform().setScale(0.5f);
 		sword.getTransform().setPos(0.75f, 0, 1.25f);
@@ -178,7 +181,7 @@ public class TestGame extends Game{
 		Material mushdM = new Material();
 		mushdM.setTexture("diffuse", new Texture("mushroom.png", true));
 		
-		Mesh mushm = new Mesh("mushroom.obj");;
+		Mesh mushm = new Mesh("mushroom.obj");
 		
 		Entity mush = new Entity();
 		mush.addComponent(new MeshRenderer(mushm, mushdM));

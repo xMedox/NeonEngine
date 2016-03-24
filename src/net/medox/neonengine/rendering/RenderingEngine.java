@@ -182,8 +182,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		
-		setTexture("bloomTexture1", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-		setTexture("bloomTexture2", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		defaultShader = new Shader("forward-ambient");
 		defaultParticleShader = new Shader("forward-particle-ambient");
@@ -681,8 +681,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		
-		setTexture("bloomTexture1", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-		setTexture("bloomTexture2", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){
