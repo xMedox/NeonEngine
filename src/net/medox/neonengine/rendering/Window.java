@@ -83,6 +83,14 @@ public class Window{
 		
 		GLFW.glfwDefaultWindowHints();
 		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
+		
+//		if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+//			GLFW.glfwWindowHint(GLFW.GLFW_REFRESH_RATE, GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).refreshRate());
+//		}else{
+//			GLFW.glfwWindowHint(GLFW.GLFW_REFRESH_RATE, GLFW.GLFW_DONT_CARE);
+//		}
+		
+		initContext();
         
         setResizable(startResizable);
         
@@ -199,36 +207,78 @@ public class Window{
 		gotCreated = true;
 	}
 	
+	private static void initContext(){
+//		System.out.println(GL.getCapabilities().OpenGL33);
+		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
+			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
+				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
+				initContextVK();
+			}else{
+				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
+				initContextGL();
+			}
+		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
+//			if(1 == 1){
+				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
+				initContextGL();
+//			/*}else */if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
+//				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
+//				initContextVK();
+//			}
+		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
+			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
+				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
+				initContextVK();
+			}else{
+				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
+				initContextGL();
+			}
+		}
+	}
+	
+	private static void initContextGL(){
+		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
+		
+		GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);
+		
+		GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
+	}
+	
+	private static void initContextVK(){
+		
+	}
+	
 	private static void createContext(){
 //		System.out.println(GL.getCapabilities().OpenGL33);
 		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
 			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-				createWindowVK();
+				createContextVK();
 			}else{
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				createWindowGL();
+				createContextGL();
 			}
 		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
 //			if(1 == 1){
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				createWindowGL();
+				createContextGL();
 //			/*}else */if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
 //				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-//				createWindowVK();
+//				createContextVK();
 //			}
 		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
 			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-				createWindowVK();
+				createContextVK();
 			}else{
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				createWindowGL();
+				createContextGL();
 			}
 		}
 	}
 	
-	private static void createWindowGL(){
+	private static void createContextGL(){
 		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
 		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
 		
@@ -239,7 +289,7 @@ public class Window{
 		GL.createCapabilities();
 	}
 	
-	private static void createWindowVK(){
+	private static void createContextVK(){
 		
 	}
 	
