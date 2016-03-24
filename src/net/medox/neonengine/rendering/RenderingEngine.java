@@ -67,7 +67,6 @@ public class RenderingEngine{
 	private static Shader defaultParticleShader;
 	private static Shader combineFilter;
 	private static Shader switchFilter;
-	private static Shader bloomBlurFilter;
 	private static Shader forwardParticleShader;
 	private static Shader shadowMapShader;
 	private static Shader particleShadowMapShader;
@@ -190,7 +189,6 @@ public class RenderingEngine{
 		defaultParticleShader = new Shader("forward-particle-ambient");
 		combineFilter = new Shader("combine");
 		switchFilter = new Shader("switch");
-		bloomBlurFilter = new Shader("filter-bloomBlur");
 		forwardParticleShader = new Shader("forward-particle-forward");
 		shadowMapShader =  new Shader("shadowMapGenerator");
 		particleShadowMapShader = new Shader("paricleShadowMapGenerator");
@@ -512,18 +510,18 @@ public class RenderingEngine{
 		
 //		for(int i = 0; i < 1; i++){
 			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
-			applyFilter(bloomBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 			
 			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
-			applyFilter(bloomBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 //		}
 		
 //		for(int i = 0; i < 1; i++){
 			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
-			applyFilter(bloomBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 			
 			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
-			applyFilter(bloomBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 //		}
 		
 		applyFilter(combineFilter, getTexture("bloomTexture1"), getTexture("displayTexture"));
