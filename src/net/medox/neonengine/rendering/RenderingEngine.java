@@ -66,6 +66,7 @@ public class RenderingEngine{
 	private static Shader defaultShader;
 	private static Shader defaultParticleShader;
 	private static Shader combineFilter;
+	private static Shader switchFilter;
 	private static Shader bloomBlurFilter;
 	private static Shader forwardParticleShader;
 	private static Shader shadowMapShader;
@@ -182,11 +183,13 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		
-//		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		defaultShader = new Shader("forward-ambient");
 		defaultParticleShader = new Shader("forward-particle-ambient");
 		combineFilter = new Shader("combine");
+		switchFilter = new Shader("switch");
 		bloomBlurFilter = new Shader("filter-bloomBlur");
 		forwardParticleShader = new Shader("forward-particle-forward");
 		shadowMapShader =  new Shader("shadowMapGenerator");
@@ -505,15 +508,25 @@ public class RenderingEngine{
 		
 		windowSyncProfileTimer.startInvocation();
 		
-		for(int i = 0; i < 2; i++){
-			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/3f), 1f/(getTexture("displayTexture").getHeight()/3f), 0.0f));
-			applyFilter(bloomBlurFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+		applyFilter(switchFilter, getTexture("displayTexture"), getTexture("bloomTexture1"));
+		
+		for(int i = 0; i < 1; i++){
+			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/4f), 1f/(getTexture("displayTexture").getHeight()/4f), 0.0f));
+			applyFilter(bloomBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 			
-			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/3f), 1f/(getTexture("displayTexture").getHeight()/3f), 0.0f));
-			applyFilter(bloomBlurFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/4f), 1f/(getTexture("displayTexture").getHeight()/4f), 0.0f));
+			applyFilter(bloomBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 		}
 		
-		applyFilter(combineFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+		for(int i = 0; i < 1; i++){
+			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
+			applyFilter(bloomBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+			
+			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
+			applyFilter(bloomBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+		}
+		
+		applyFilter(combineFilter, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		
 		if(CoreEngine.OPTION_ENABLE_FXAA == 1){
 			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
@@ -670,7 +683,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		
-//		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){
