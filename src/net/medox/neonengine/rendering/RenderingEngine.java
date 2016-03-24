@@ -65,6 +65,8 @@ public class RenderingEngine{
 	
 	private static Shader defaultShader;
 	private static Shader defaultParticleShader;
+	private static Shader combineFilter;
+	private static Shader bloomBlurFilter;
 	private static Shader forwardParticleShader;
 	private static Shader shadowMapShader;
 	private static Shader particleShadowMapShader;
@@ -158,10 +160,34 @@ public class RenderingEngine{
 		setFloat("fxaaReduceMul", 1.0f/8.0f);
 		setFloat("fxaaAspectDistortion", 150.0f);
 		
-		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		ByteBuffer[] data = new ByteBuffer[2];
+		data[0] = (ByteBuffer)null;
+		data[1] = (ByteBuffer)null;
+		
+		int[] filter = new int[2];
+		filter[0] = GL11.GL_LINEAR;
+		filter[1] = GL11.GL_LINEAR;
+		
+		int[] internalFormat = new int[2];
+		internalFormat[0] = GL11.GL_RGBA;
+		internalFormat[1] = GL11.GL_RGBA;
+		
+		int[] format = new int[5];
+		format[0] = GL11.GL_RGBA;
+		format[1] = GL11.GL_RGBA;
+		
+		int[] attachment = new int[2];
+		attachment[0] = ARBFramebufferObject.GL_COLOR_ATTACHMENT0;
+		attachment[1] = ARBFramebufferObject.GL_COLOR_ATTACHMENT1;
+		
+		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
+		
+//		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		defaultShader = new Shader("forward-ambient");
 		defaultParticleShader = new Shader("forward-particle-ambient");
+		combineFilter = new Shader("combine");
+		bloomBlurFilter = new Shader("filter-bloomBlur");
 		forwardParticleShader = new Shader("forward-particle-forward");
 		shadowMapShader =  new Shader("shadowMapGenerator");
 		particleShadowMapShader = new Shader("paricleShadowMapGenerator");
@@ -479,6 +505,16 @@ public class RenderingEngine{
 		
 		windowSyncProfileTimer.startInvocation();
 		
+		for(int i = 0; i < 2; i++){
+			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/3f), 1f/(getTexture("displayTexture").getHeight()/3f), 0.0f));
+			applyFilter(bloomBlurFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+			
+			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/3f), 1f/(getTexture("displayTexture").getHeight()/3f), 0.0f));
+			applyFilter(bloomBlurFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+		}
+		
+		applyFilter(combineFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+		
 		if(CoreEngine.OPTION_ENABLE_FXAA == 1){
 			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
 		}else{
@@ -612,7 +648,29 @@ public class RenderingEngine{
 		
 		camera2D.update();
 		
-		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		ByteBuffer[] data = new ByteBuffer[2];
+		data[0] = (ByteBuffer)null;
+		data[1] = (ByteBuffer)null;
+		
+		int[] filter = new int[2];
+		filter[0] = GL11.GL_LINEAR;
+		filter[1] = GL11.GL_LINEAR;
+		
+		int[] internalFormat = new int[2];
+		internalFormat[0] = GL11.GL_RGBA;
+		internalFormat[1] = GL11.GL_RGBA;
+		
+		int[] format = new int[5];
+		format[0] = GL11.GL_RGBA;
+		format[1] = GL11.GL_RGBA;
+		
+		int[] attachment = new int[2];
+		attachment[0] = ARBFramebufferObject.GL_COLOR_ATTACHMENT0;
+		attachment[1] = ARBFramebufferObject.GL_COLOR_ATTACHMENT1;
+		
+		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
+		
+//		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){

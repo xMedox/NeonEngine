@@ -129,7 +129,7 @@ public class Shader{
 						setUniformi(uniformName, 31);
 					}
 				}
-			}/*else if(uniformName.startsWith("R0_")){
+			}else if(uniformName.startsWith("R0_")){
 				String unprefixedUniformName = uniformName.substring(3);
 				
 				if(uniformType.equals("sampler2D")){
@@ -145,7 +145,7 @@ public class Shader{
 					RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
 					setUniformi(uniformName, 11);
 				}
-			}else if(uniformName.startsWith("R2_")){
+			}/*else if(uniformName.startsWith("R2_")){
 				String unprefixedUniformName = uniformName.substring(3);
 				
 				if(uniformType.equals("sampler2D")){
