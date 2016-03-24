@@ -183,8 +183,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		
-		setTexture("bloomTexture1", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-		setTexture("bloomTexture2", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		defaultShader = new Shader("forward-ambient");
 		defaultParticleShader = new Shader("forward-particle-ambient");
@@ -510,21 +510,21 @@ public class RenderingEngine{
 		
 		applyFilter(switchFilter, getTexture("displayTexture"), getTexture("bloomTexture1"));
 		
-		for(int i = 0; i < 1; i++){
-			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/4f), 1f/(getTexture("displayTexture").getHeight()/4f), 0.0f));
+//		for(int i = 0; i < 1; i++){
+			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
 			applyFilter(bloomBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 			
-			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/4f), 1f/(getTexture("displayTexture").getHeight()/4f), 0.0f));
+			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
 			applyFilter(bloomBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
-		}
+//		}
 		
-		for(int i = 0; i < 1; i++){
+//		for(int i = 0; i < 1; i++){
 			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
 			applyFilter(bloomBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 			
 			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
 			applyFilter(bloomBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
-		}
+//		}
 		
 		applyFilter(combineFilter, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		
@@ -683,8 +683,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		
-		setTexture("bloomTexture1", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-		setTexture("bloomTexture2", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth()/4, Window.getHeight()/4, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){
