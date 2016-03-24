@@ -8,11 +8,13 @@ public class Main{
 		System.out.println("Starting up");
 		
 		CoreEngine.OPTION_ENABLE_VSYNC = 1;
+		CoreEngine.OPTION_ENABLE_MSAA = 1;
 		CoreEngine.OPTION_ENABLE_FXAA = 0;
 		CoreEngine.OPTION_ENABLE_MIPMAPPING = 0;
 		CoreEngine.OPTION_ENABLE_SHADOWS = 1;
 		CoreEngine.OPTION_ENABLE_2D = 1;
 		CoreEngine.OPTION_ENABLE_PARTICLES = 0;
+		CoreEngine.OPTION_ENABLE_BLOOM = 1;
 		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 		
