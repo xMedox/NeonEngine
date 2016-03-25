@@ -129,70 +129,74 @@ public class Shader{
 						setUniformi(uniformName, 31);
 					}
 				}
-			}else if(uniformName.startsWith("R0_")){
-				String unprefixedUniformName = uniformName.substring(3);
+			}else if(uniformName.charAt(0) == 'R'){
+				final String unprefixedName = uniformName.substring(1);
 				
-				if(uniformType.equals("sampler2D")){
-//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-					RenderingEngine.getTexture(unprefixedUniformName).bind(10, 0);
-					setUniformi(uniformName, 10);
-				}
-			}else if(uniformName.startsWith("R1_")){
-				String unprefixedUniformName = uniformName.substring(3);
-				
-				if(uniformType.equals("sampler2D")){
-//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-					RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
-					setUniformi(uniformName, 11);
-				}
-			}/*else if(uniformName.startsWith("R2_")){
-				String unprefixedUniformName = uniformName.substring(3);
-				
-				if(uniformType.equals("sampler2D")){
-//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-					RenderingEngine.getTexture(unprefixedUniformName).bind(12, 2);
-					setUniformi(uniformName, 12);
-				}
-			}else if(uniformName.startsWith("R3_")){
-				String unprefixedUniformName = uniformName.substring(3);
-				
-				if(uniformType.equals("sampler2D")){
-//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-					RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
-					setUniformi(uniformName, 13);
-				}
-			}else if(uniformName.startsWith("R4_")){
-				String unprefixedUniformName = uniformName.substring(3);
-				
-				if(uniformType.equals("sampler2D")){
-//					int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-					RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
-					setUniformi(uniformName, 14);
-				}
-			}*/else if(uniformName.startsWith("R_")){
-				final String unprefixedUniformName = uniformName.substring(2);
-				
-				if(unprefixedUniformName.equals("lightMatrix")){
-					setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix().mul(worldMatrix));
-				}else if(uniformType.equals("sampler2D")){
-					final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-					RenderingEngine.getTexture(unprefixedUniformName).bind(samplerSlot);
-					setUniformi(uniformName, samplerSlot);
-				}else if(uniformType.equals("vec3")){
-					setUniformVector3f(uniformName, RenderingEngine.getVector3f(unprefixedUniformName));
-				}/*else if(uniformType.equals("vec2")){
-					setUniformVector2f(uniformName, RenderingEngine.getVector2f(unprefixedUniformName));
-				}*/else if(uniformType.equals("float")){
-					setUniformf(uniformName, RenderingEngine.getFloat(unprefixedUniformName));
-				}else if(uniformType.equals("DirectionalLight")){
-					setUniformDirectionalLight(uniformName, (DirectionalLight)RenderingEngine.getActiveLight());
-				}else if(uniformType.equals("PointLight")){
-					setUniformPointLight(uniformName, (PointLight)RenderingEngine.getActiveLight());
-				}else if(uniformType.equals("SpotLight")){
-					setUniformSpotLight(uniformName, (SpotLight)RenderingEngine.getActiveLight());
-				}else{
-					RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
-				}
+				if(unprefixedName.charAt(0) == '_'){
+					final String unprefixedUniformName = uniformName.substring(2);
+					
+					if(unprefixedUniformName.equals("lightMatrix")){
+						setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix().mul(worldMatrix));
+					}else if(uniformType.equals("sampler2D")){
+						final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(samplerSlot);
+						setUniformi(uniformName, samplerSlot);
+					}else if(uniformType.equals("vec3")){
+						setUniformVector3f(uniformName, RenderingEngine.getVector3f(unprefixedUniformName));
+					}/*else if(uniformType.equals("vec2")){
+						setUniformVector2f(uniformName, RenderingEngine.getVector2f(unprefixedUniformName));
+					}*/else if(uniformType.equals("float")){
+						setUniformf(uniformName, RenderingEngine.getFloat(unprefixedUniformName));
+					}else if(uniformType.equals("DirectionalLight")){
+						setUniformDirectionalLight(uniformName, (DirectionalLight)RenderingEngine.getActiveLight());
+					}else if(uniformType.equals("PointLight")){
+						setUniformPointLight(uniformName, (PointLight)RenderingEngine.getActiveLight());
+					}else if(uniformType.equals("SpotLight")){
+						setUniformSpotLight(uniformName, (SpotLight)RenderingEngine.getActiveLight());
+					}else{
+						RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
+					}
+				}else if(unprefixedName.startsWith("0_")){
+					String unprefixedUniformName = uniformName.substring(3);
+					
+					if(uniformType.equals("sampler2D")){
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(10, 0);
+						setUniformi(uniformName, 10);
+					}
+				}else if(unprefixedName.startsWith("1_")){
+					String unprefixedUniformName = uniformName.substring(3);
+					
+					if(uniformType.equals("sampler2D")){
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
+						setUniformi(uniformName, 11);
+					}
+				}/*else if(unprefixedName.startsWith("2_")){
+					String unprefixedUniformName = uniformName.substring(3);
+					
+					if(uniformType.equals("sampler2D")){
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(12, 2);
+						setUniformi(uniformName, 12);
+					}
+				}else if(unprefixedName.startsWith("3_")){
+					String unprefixedUniformName = uniformName.substring(3);
+					
+					if(uniformType.equals("sampler2D")){
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
+						setUniformi(uniformName, 13);
+					}
+				}else if(unprefixedName.startsWith("4_")){
+					String unprefixedUniformName = uniformName.substring(3);
+					
+					if(uniformType.equals("sampler2D")){
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
+						setUniformi(uniformName, 14);
+					}
+				}*/
 			}else if(uniformType.equals("sampler2D")){
 				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
 				material.getTexture(uniformName).bind(samplerSlot);
