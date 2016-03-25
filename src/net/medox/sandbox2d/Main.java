@@ -14,7 +14,7 @@ public class Main{
 //		CoreEngine.OPTION_ENABLE_SHADOWS = 0;
 //		CoreEngine.OPTION_ENABLE_2D = 1;
 //		CoreEngine.OPTION_ENABLE_PARTICLES = 0;
-//		CoreEngine.OPTION_ENABLE_BLOOM = 1;
+//		CoreEngine.OPTION_ENABLE_BLOOM = 0;
 //		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 //		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 //		
@@ -27,7 +27,7 @@ public class Main{
 		CoreEngine.OPTION_ENABLE_SHADOWS = 0;
 		CoreEngine.OPTION_ENABLE_2D = 1;
 		CoreEngine.OPTION_ENABLE_PARTICLES = 0;
-		CoreEngine.OPTION_ENABLE_BLOOM = 1;
+		CoreEngine.OPTION_ENABLE_BLOOM = 0;
 		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 		
