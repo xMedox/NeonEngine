@@ -54,10 +54,10 @@ public class Window{
 	private static int width = 854;
 	private static int height = 480;
 	
-	private static int minWidth = DONT_CARE;
-	private static int minHeight = DONT_CARE;
-	private static int maxWidth = DONT_CARE;
-	private static int maxHeight = DONT_CARE;
+	private static int minWidth = GLFW.GLFW_DONT_CARE;
+	private static int minHeight = GLFW.GLFW_DONT_CARE;
+	private static int maxWidth = GLFW.GLFW_DONT_CARE;
+	private static int maxHeight = GLFW.GLFW_DONT_CARE;
 	
 	private static boolean isFullscreen;
 	private static boolean gotResized;
@@ -379,7 +379,7 @@ public class Window{
 	}
 	
 	public static void setIcon(String icon16, String icon32/*, String icon128*/){
-		GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
+		final GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
 		
 		final ImageData pixels16 = Util.imageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
@@ -398,7 +398,7 @@ public class Window{
 	}
 	
 	private static void setIcon(BufferedImage icon16, BufferedImage icon32/*, BufferedImage icon128*/){
-		GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
+		final GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
 		
 		final ImageData pixels16 = Util.bufferedImageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
