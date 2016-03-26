@@ -160,27 +160,6 @@ public class RenderingEngine{
 		setFloat("fxaaReduceMul", 1.0f/8.0f);
 		setFloat("fxaaAspectDistortion", 150.0f);
 		
-//		ByteBuffer[] data = new ByteBuffer[2];
-//		data[0] = (ByteBuffer)null;
-//		data[1] = (ByteBuffer)null;
-//		
-//		int[] filter = new int[2];
-//		filter[0] = GL11.GL_LINEAR;
-//		filter[1] = GL11.GL_LINEAR;
-//		
-//		int[] internalFormat = new int[2];
-//		internalFormat[0] = GL11.GL_RGBA;
-//		internalFormat[1] = GL11.GL_RGBA;
-//		
-//		int[] format = new int[5];
-//		format[0] = GL11.GL_RGBA;
-//		format[1] = GL11.GL_RGBA;
-//		
-//		int[] attachment = new int[2];
-//		attachment[0] = ARBFramebufferObject.GL_COLOR_ATTACHMENT0;
-//		attachment[1] = ARBFramebufferObject.GL_COLOR_ATTACHMENT1;
-//		
-//		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*CoreEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
@@ -512,21 +491,17 @@ public class RenderingEngine{
 		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
 			applyFilter(switchFilter, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
-	//		for(int i = 0; i < 1; i++){
-				setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
-				applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
-				
-				setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
-				applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
-	//		}
+			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 			
-	//		for(int i = 0; i < 1; i++){
-				setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
-				applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
-				
-				setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
-				applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
-	//		}
+			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+			
+			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+			
+			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
+			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 			
 			applyFilter(combineFilter, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		}
@@ -666,27 +641,6 @@ public class RenderingEngine{
 		
 //		getTexture("displayTexture").finalize();
 		
-//		ByteBuffer[] data = new ByteBuffer[2];
-//		data[0] = (ByteBuffer)null;
-//		data[1] = (ByteBuffer)null;
-//		
-//		int[] filter = new int[2];
-//		filter[0] = GL11.GL_LINEAR;
-//		filter[1] = GL11.GL_LINEAR;
-//		
-//		int[] internalFormat = new int[2];
-//		internalFormat[0] = GL11.GL_RGBA;
-//		internalFormat[1] = GL11.GL_RGBA;
-//		
-//		int[] format = new int[5];
-//		format[0] = GL11.GL_RGBA;
-//		format[1] = GL11.GL_RGBA;
-//		
-//		int[] attachment = new int[2];
-//		attachment[0] = ARBFramebufferObject.GL_COLOR_ATTACHMENT0;
-//		attachment[1] = ARBFramebufferObject.GL_COLOR_ATTACHMENT1;
-//		
-//		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_ENABLE_MSAA, Window.getHeight()*CoreEngine.OPTION_ENABLE_MSAA, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, true, attachment));
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*CoreEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
