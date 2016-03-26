@@ -22,7 +22,8 @@ public class Block{
 			mesh = new Mesh("block.obj");
 			
 			materialS = new Material();
-			materialS.setTexture("diffuse", new Texture("white.png", true));
+//			materialS.setTexture("diffuse", new Texture("white.png", true));
+			materialS.setDiffuseMap(new Texture("white.png", true));
 		}
 		
 		this.texture = texture;

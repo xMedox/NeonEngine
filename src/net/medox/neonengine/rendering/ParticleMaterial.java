@@ -20,19 +20,19 @@ public class ParticleMaterial extends MappedValues{
 		setFloat("glow", DEFAULT_GLOW);
 	}
 	
-//	public void setDiffuseMap(Texture texture){
-//		setTexture("diffuse", texture);
-//	}
-//	
-//	public void setSpecularIntensity(float value){
-//		setFloat("specularIntensity", value);
-//	}
-//	
-//	public void setSpecularPower(float value){
-//		setFloat("specularPower", value);
-//	}
-//	
-//	public void setGlow(float value){
-//		setFloat("glow", value);
-//	}
+	public void setDiffuseMap(Texture texture){
+		setTexture("diffuse", texture);
+	}
+	
+	public void setSpecularIntensity(float value){
+		setFloat("specularIntensity", value);
+	}
+	
+	public void setSpecularPower(float value){
+		setFloat("specularPower", value);
+	}
+	
+	public void setGlow(float value){
+		setFloat("glow", value);
+	}
 }

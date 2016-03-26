@@ -20,9 +20,11 @@ public class AddCollision extends EntityComponent{
 	
 	public AddCollision(){
 		bricks = new Material();
-		bricks.setTexture("diffuse", new Texture("block61.png", true));
+//		bricks.setTexture("diffuse", new Texture("block61.png", true));
+		bricks.setDiffuseMap(new Texture("block61.png", true));
 		bricks2 = new Material();
-		bricks2.setTexture("diffuse", new Texture("block71.png", true));
+//		bricks2.setTexture("diffuse", new Texture("block71.png", true));
+		bricks2.setDiffuseMap(new Texture("block71.png", true));
 		
 		crateM = new Mesh("block.obj");
 	}

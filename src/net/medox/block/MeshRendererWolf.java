@@ -26,6 +26,7 @@ public class MeshRendererWolf extends EntityComponent{
 	}
 	
 	public void change(Texture texture){
-		material.setTexture("diffuse", texture);
+//		material.setTexture("diffuse", texture);
+		material.setDiffuseMap(texture);
 	}
 }

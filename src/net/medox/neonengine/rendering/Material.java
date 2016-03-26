@@ -36,29 +36,29 @@ public class Material extends MappedValues{
 //		setFloat("dispMapBias", DEFAULT_DISP_MAP_OFFSET);
 	}
 	
-//	public void setDiffuseMap(Texture texture){
-//		setTexture("diffuse", texture);
-//	}
-//	
-//	public void setNormalMap(Texture texture){
-//		setTexture("normalMap", texture);
-//	}
-//	
-//	public void setSpecularMap(Texture texture){
-//		setTexture("specMap", texture);
-//	}
-//	
-//	public void setGlowMap(Texture texture){
-//		setTexture("glowMap", texture);
-//	}
-//	
-//	public void setSpecularIntensity(float value){
-//		setFloat("specularIntensity", value);
-//	}
-//	
-//	public void setSpecularPower(float value){
-//		setFloat("specularPower", value);
-//	}
+	public void setDiffuseMap(Texture texture){
+		setTexture("diffuse", texture);
+	}
+	
+	public void setNormalMap(Texture texture){
+		setTexture("normalMap", texture);
+	}
+	
+	public void setSpecularMap(Texture texture){
+		setTexture("specMap", texture);
+	}
+	
+	public void setGlowMap(Texture texture){
+		setTexture("glowMap", texture);
+	}
+	
+	public void setSpecularIntensity(float value){
+		setFloat("specularIntensity", value);
+	}
+	
+	public void setSpecularPower(float value){
+		setFloat("specularPower", value);
+	}
 	
 //	@Override
 //	public void setFloat(String name, float floatValue){
