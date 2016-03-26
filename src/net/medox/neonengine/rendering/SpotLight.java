@@ -11,7 +11,7 @@ public class SpotLight extends PointLight{
 		
 		cutoff = (float)Math.cos(viewAngle/2);
 		
-		setShader(new Shader("forward-spot"));
+		setShader(new Shader("forwardSpot"));
 	}
 	
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, 

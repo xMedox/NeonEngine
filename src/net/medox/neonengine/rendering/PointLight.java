@@ -19,7 +19,7 @@ public class PointLight extends BaseLight{
 		
 		this.range = (float)(-b + Math.sqrt(b * b - 4 * a * c))/(2 * a);
 		
-		setShader(new Shader("forward-point"));
+		setShader(new Shader("forwardPoint"));
 	}
 	
 	public PointLight(Vector3f color, float intensity, Attenuation attenuation,

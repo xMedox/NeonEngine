@@ -63,10 +63,10 @@ public class RenderingEngine{
 	private static List<BaseLight> lights;
 	private static BaseLight activeLight;
 	
-	private static Shader defaultShader;
-	private static Shader defaultParticleShader;
-	private static Shader combineFilter;
-	private static Shader switchFilter;
+	private static Shader forwardAmbientShader;
+	private static Shader forwardParticleAmbientShader;
+	private static Shader bloomCombineShader;
+	private static Shader bloomSwitchShader;
 	private static Shader forwardParticleShader;
 	private static Shader shadowMapShader;
 	private static Shader particleShadowMapShader;
@@ -167,16 +167,16 @@ public class RenderingEngine{
 			setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		}
 		
-		defaultShader = new Shader("forward-ambient");
-		defaultParticleShader = new Shader("forward-particle-ambient");
-		combineFilter = new Shader("combine");
-		switchFilter = new Shader("switch");
-		forwardParticleShader = new Shader("forward-particle-forward");
+		forwardAmbientShader = new Shader("forwardAmbient");
+		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
+		bloomCombineShader = new Shader("bloomCombine");
+		bloomSwitchShader = new Shader("bloomSwitch");
+		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMapShader =  new Shader("shadowMapGenerator");
 		particleShadowMapShader = new Shader("paricleShadowMapGenerator");
-		nullFilter = new Shader("filter-null");
-		gausBlurFilter = new Shader("filter-gausBlur7x1");
-		fxaaFilter = new Shader("filter-fxaa");
+		nullFilter = new Shader("filterNull");
+		gausBlurFilter = new Shader("filterGausBlur7x1");
+		fxaaFilter = new Shader("filterFxaa");
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
 		
@@ -358,11 +358,11 @@ public class RenderingEngine{
 		
 		renderSkybox();
 		
-		object.renderAll(defaultShader, mainCamera);
+		object.renderAll(forwardAmbientShader, mainCamera);
 		
 		if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
 			particleCamera = mainCamera;
-			particleShader = defaultParticleShader;
+			particleShader = forwardParticleAmbientShader;
 			particleFlipFaces = false;
 			
 			batchRenderer.draw(particleShader, mainCamera);
@@ -489,7 +489,7 @@ public class RenderingEngine{
 		windowSyncProfileTimer.startInvocation();
 		
 		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
-			applyFilter(switchFilter, getTexture("displayTexture"), getTexture("bloomTexture1"));
+			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
 			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
 			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
@@ -503,7 +503,7 @@ public class RenderingEngine{
 			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
 			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 			
-			applyFilter(combineFilter, getTexture("bloomTexture1"), getTexture("displayTexture"));
+			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		}
 		
 		if(CoreEngine.OPTION_ENABLE_FXAA == 1){
@@ -615,7 +615,7 @@ public class RenderingEngine{
 	}
 	
 	public static Shader getForwardAmbient(){
-		return defaultShader;
+		return forwardAmbientShader;
 	}
 
 	public static void setMainCamera(Camera mainCamera){
