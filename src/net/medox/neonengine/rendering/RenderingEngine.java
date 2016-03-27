@@ -162,10 +162,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*CoreEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
-		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
-			setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-			setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-		}
+		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		forwardAmbientShader = new Shader("forwardAmbient");
 		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
@@ -643,13 +641,11 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*CoreEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
-		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
-//			getTexture("bloomTexture1").finalize();
-//			getTexture("bloomTexture2").finalize();
-			
-			setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-			setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
-		}
+//		getTexture("bloomTexture1").finalize();
+//		getTexture("bloomTexture2").finalize();
+		
+		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){
