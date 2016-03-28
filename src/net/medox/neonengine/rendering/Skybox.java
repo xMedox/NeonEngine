@@ -5,8 +5,8 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class Skybox extends EntityComponent{
-	private Mesh mesh;
-	private Material material;
+	private final Mesh mesh;
+	private final Material material;
 	
 	public Skybox(String right, String left, String top, String bottom, String front, String back){
 		this(right, left, top, bottom, front, back, false);

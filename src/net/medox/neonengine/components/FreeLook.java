@@ -50,16 +50,18 @@ public class FreeLook extends EntityComponent{
 //			boolean rotY = deltaPos.getX() != 0;
 //			boolean rotX = deltaPos.getY() != 0;
 
-			if(deltaPos.getX() != 0){
+			if(deltaPos.getX() == 0){
+				y = 0;
+			}else{
 				y = (float)Math.toRadians(deltaPos.getX() * sensitivity);
 				getTransform().rotate(Y_AXIS, y);
 				
 				Input.setMousePosition(centerPosition);
-			}else{
-				y = 0;
 			}
 			
-			if(deltaPos.getY() != 0){
+			if(deltaPos.getY() == 0){
+				x = 0;
+			}else{
 				x = (float)-Math.toRadians(deltaPos.getY() * sensitivity);
 				
 //				float rot = Math.max(-57, Math.min(57, (float)Math.toDegrees(getTransform().getRot().getForward().getY()) + (float)Math.toDegrees(x)));
@@ -109,8 +111,6 @@ public class FreeLook extends EntityComponent{
 				getTransform().rotate(getTransform().getRot().getRight(), rot);
 				
 				Input.setMousePosition(centerPosition);
-			}else{
-				x = 0;
 			}
 			
 //			System.out.println(getTransform().getRot().getUp().toString());

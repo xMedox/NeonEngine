@@ -94,9 +94,7 @@ public class Window{
         
         setResizable(startResizable);
         
-		if(!isFullscreen){
-			window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
-		}else{
+		if(isFullscreen){
 			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 			window = GLFW.glfwCreateWindow(vidMode.width(), vidMode.height(), title, GLFW.glfwGetPrimaryMonitor(), MemoryUtil.NULL);
 			
@@ -109,6 +107,8 @@ public class Window{
 			oldHeight = 480;
 			
 			gotResized = true;
+		}else{
+			window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
 		}
 		
 		if(window == MemoryUtil.NULL){
@@ -127,10 +127,10 @@ public class Window{
 		
 		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_TRUE);
 		
-		if(!startIcon16.equals("") && !startIcon32.equals("")/* && !startIcon128.equals("")*/){
-			setIcon(startIcon16, startIcon32/*, startIcon128*/);
-		}else{
+		if(startIcon16.equals("") || startIcon32.equals("")/* || startIcon128.equals("")*/){
 			setIcon(Util.getDefaultIcon16(), Util.getDefaultIcon32()/*, Util.getDefaultIcon128()*/);
+		}else{
+			setIcon(startIcon16, startIcon32/*, startIcon128*/);
 		}
 		
 		if(!startCursor.equals("")){
@@ -417,7 +417,15 @@ public class Window{
 	}
 	
 	public static void setCursor(String fileName, int xPos, int yPos){
-		if(!fileName.equals("")){
+		if(fileName.equals("")){
+			if(cursor != MemoryUtil.NULL){
+				GLFW.glfwSetCursor(window, MemoryUtil.NULL);
+				
+				GLFW.glfwDestroyCursor(cursor);
+				
+				cursor = MemoryUtil.NULL;
+			}
+		}else{
 			if(cursor != MemoryUtil.NULL){
 				GLFW.glfwDestroyCursor(cursor);
 			}
@@ -433,14 +441,6 @@ public class Window{
 			}
 			
 			GLFW.glfwSetCursor(window, cursor);
-		}else{
-			if(cursor != MemoryUtil.NULL){
-				GLFW.glfwSetCursor(window, MemoryUtil.NULL);
-				
-				GLFW.glfwDestroyCursor(cursor);
-				
-				cursor = MemoryUtil.NULL;
-			}
 		}
 	}
 	

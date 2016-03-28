@@ -49,7 +49,7 @@ public class Util{
 		try{
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 			
-			return Base64.getEncoder().encodeToString((cipher.doFinal(text.getBytes())));
+			return Base64.getEncoder().encodeToString(cipher.doFinal(text.getBytes()));
 //			return new String(cipher.doFinal(text.getBytes()));
 		}catch(InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
 			e.printStackTrace();
