@@ -32,7 +32,7 @@ public class Util{
 	
 	private static Key key;
 	private static Cipher cipher;
-		
+	
 	public static void init(){
 		random = new Random();
 		
@@ -144,26 +144,26 @@ public class Util{
 	
 	public static String[] removeEmptyStrings(String... data){
 		final List<String> result = new ArrayList<String>();
-
+		
 		for(int i = 0; i < data.length; i++){
 			if(!data[i].equals("")){
 				result.add(data[i]);
 			}
 		}
-
+		
 		final String[] res = new String[result.size()];
 		result.toArray(res);
-
+		
 		return res;
 	}
 	
 	public static int[] toIntArray(Integer... data){
 		int[] result = new int[data.length];
-
+		
 		for(int i = 0; i < data.length; i++){
 			result[i] = data[i].intValue();
 		}
-
+		
 		return result;
 	}
 	
@@ -171,7 +171,7 @@ public class Util{
 		final BufferedImage ret = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	    
 		final WritableRaster raster = ret.getRaster();
-
+		
 	    for(int i = 0; i < height; i++){
 	        for(int j = 0; j < width; j++){
                 raster.setSample(j, i, 0, red[i][j]);
@@ -179,7 +179,7 @@ public class Util{
                 raster.setSample(j, i, 2, blue[i][j]);
 	        }
 	    }
-
+	    
 	    return ret;
 	}
 	
@@ -461,7 +461,7 @@ public class Util{
 		
 		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
 		final boolean hasAlpha = image.getColorModel().hasAlpha();
-				
+		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				final int pixel = pixels[y * width + x];
@@ -487,7 +487,7 @@ public class Util{
 		public final int        width;
 		public final int        height;
 		public final ByteBuffer data;
-
+		
 		public ImageData(int width, int height, ByteBuffer data){
 			this.width = width;
 			this.height = height;
