@@ -20,11 +20,22 @@ public class PointLight extends BaseLight{
 		this.range = (float)(-b + Math.sqrt(b * b - 4 * a * c))/(2 * a);
 		
 		setShader(new Shader("forwardPoint"));
+		
+		setShadowInfo(new ShadowInfo(null, false, 0, 0, 0, 0));
 	}
 	
 	public PointLight(Vector3f color, float intensity, Attenuation attenuation,
 			int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
-		this(color, intensity, attenuation);
+		super(color, intensity);
+		this.attenuation = attenuation;
+		
+		final float a = attenuation.getExponent();
+		final float b = attenuation.getLinear();
+		final float c = attenuation.getConstant() - COLOR_DEPTH * getIntensity() * getColor().max();
+		
+		this.range = (float)(-b + Math.sqrt(b * b - 4 * a * c))/(2 * a);
+		
+		setShader(new Shader("forwardPoint"));
 		
 		if(CoreEngine.OPTION_SHADOW_QUALITY >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;
