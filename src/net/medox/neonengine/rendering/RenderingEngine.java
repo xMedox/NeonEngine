@@ -307,6 +307,14 @@ public class RenderingEngine{
 		applyFilter(gausBlurFilter, shadowMapTempTargets[shadowMapIndex], shadowMaps[shadowMapIndex]);
 	}
 	
+	private static void blurBloomMap(float blurAmount){
+		setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
+		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+		
+		setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
+		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+	}
+	
 	private static void applyFilter(Shader filter, Texture source, Texture dest){
 //		assert(source != dest);
 		
@@ -478,17 +486,8 @@ public class RenderingEngine{
 		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
-			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
-			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
-			
-			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/8f), 1f/(getTexture("displayTexture").getHeight()/8f), 0.0f));
-			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
-			
-			setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
-			applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
-			
-			setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/2f), 1f/(getTexture("displayTexture").getHeight()/2f), 0.0f));
-			applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+			blurBloomMap(8f);
+			blurBloomMap(2f);
 			
 			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		}
