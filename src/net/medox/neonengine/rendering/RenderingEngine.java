@@ -375,33 +375,23 @@ public class RenderingEngine{
 			if(CoreEngine.OPTION_ENABLE_SHADOWS == 1){
 				int shadowMapIndex = 0;
 				
-				if(shadowInfo != null){
+				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
 					shadowMapIndex = shadowInfo.getShadowMapSizeAsPowerOf2() - 1;
 				}
 				
 //				assert(shadowMapIndex >= 0 && shadowMapIndex < NUM_SHADOW_MAPS);
 				
-//				int shadowMapSize = 1 << (shadowMapIndex + 1);
-//				shadowMaps[shadowMapIndex] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
-//				shadowMapTempTargets[shadowMapIndex] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
-				
-//				shadowMapTempTargets[shadowMapIndex].clear(0, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-//				shadowMapTempTargets[shadowMapIndex].clear(0, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-				
 				setTexture("shadowMap", shadowMaps[shadowMapIndex]);
 				shadowMaps[shadowMapIndex].bindAsRenderTarget();
 				
-//				shadowMaps[shadowMapIndex].bind(7);
 				GL11.glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 				GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
-				
-//				shadowMaps[shadowMapIndex].clear(0, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-				
-				if(shadowInfo == null){
+								
+				if(shadowInfo.getShadowMapSizeAsPowerOf2() == 0){
 					lightMatrix = new Matrix4f().initScale(0, 0, 0);
 					setFloat("shadowVarianceMin", 0.00002f);
-				}else{
 					setFloat("shadowLightBleedingReduction", 0.0f);
+				}else{
 //					lightCamera.setProjection(shadowInfo.getProjection());
 					lightCamera.changeMode(shadowInfo.getBase());
 					
@@ -446,7 +436,6 @@ public class RenderingEngine{
 					
 					if(shadowSoftness != 0){
 						blurShadowMap(shadowMapIndex, shadowSoftness);
-//						applyFilter(gausBlurFilter, getTexture("shadowMap"), getTexture("shadowMap");
 					}
 				}
 				
