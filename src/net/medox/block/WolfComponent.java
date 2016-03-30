@@ -1,5 +1,6 @@
 package net.medox.block;
 
+import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Quaternion;
@@ -18,10 +19,14 @@ public class WolfComponent extends EntityComponent{
 //	private float timer;
 	private Vector3f dir;
 	
+	private Sound damageSound;
+	private MeshRendererWolf wolfR;
 	private CharacterController controller;
 	
-	public WolfComponent(){
+	public WolfComponent(MeshRendererWolf wolfR){
 		health = 3;
+		
+		damageSound = new Sound("bullet.wav");
 		
 //		cylinder = new Cylinder(1, 2);
 //		capsule = new Cylinder(new Vector3f(0.5f, 2, 0.5f));
@@ -66,6 +71,8 @@ public class WolfComponent extends EntityComponent{
 		
 //		System.out.println(capsule.getGravity());
 //		System.out.println(controller.getGravity());
+		
+		this.wolfR = wolfR;
 	}
 	
 	public boolean isDead(){
@@ -75,6 +82,7 @@ public class WolfComponent extends EntityComponent{
 	public void damage(float amount){
 		if(!dead){
 			health -= amount;
+			damageSound.play();
 			
 			if(health <= 0){
 				dead = true;
@@ -84,6 +92,10 @@ public class WolfComponent extends EntityComponent{
 	
 	public Box getBox(){
 		return box;
+	}
+	
+	public MeshRendererWolf getMeshRenderer(){
+		return wolfR;
 	}
 	
 	@Override
@@ -148,6 +160,8 @@ public class WolfComponent extends EntityComponent{
 		
 		getTransform().setPos(controller.getPos().add(add));
 		getTransform().setRot(controller.getRot());
+		
+		damageSound.setPosition(getTransform().getTransformedPos());
 	}
 	
 	public void move(Vector3f vel){

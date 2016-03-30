@@ -1,6 +1,5 @@
 package net.medox.block;
 
-import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Transform;
@@ -11,6 +10,7 @@ import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.Ray;
 import net.medox.neonengine.rendering.Camera;
+import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Texture;
 
 public class PlayerComponent extends EntityComponent{
@@ -21,18 +21,13 @@ public class PlayerComponent extends EntityComponent{
 	
 	private CharacterController controller;
 	
-	private WolfComponent component;
-	private MeshRendererWolf wolfR;
-	private Sound audio;
-	
 	private Texture t1;
+	private Texture g1;
 	private Texture t2;
 	private Texture t3;
 	private Texture t4;
 	
-	public PlayerComponent(Camera camera, WolfComponent component, MeshRendererWolf wolfR){
-		audio = new Sound("Schlurf.wav");
-		
+	public PlayerComponent(Camera camera){
 //		cylinder = new Cylinder(1, 2);
 //		capsule = new Cylinder(new Vector3f(0.5f, 2, 0.5f));
 		box = new Box(new Vector3f(0.475f, 0.975f, 0.475f));
@@ -72,10 +67,9 @@ public class PlayerComponent extends EntityComponent{
 //		System.out.println(controller.getGravity());
 		
 		this.camera = camera;
-		this.component = component;
-		this.wolfR = wolfR;
 		
-		t1 = new Texture("block11.png", true);
+		t1 = new Texture("block60.png", true);
+		g1 = new Texture("block60_glow.png", true);
 		t2 = new Texture("block70.png", true);
 		t3 = new Texture("block21.png", true);
 		t4 = new Texture("block30.png", true);
@@ -133,31 +127,35 @@ public class PlayerComponent extends EntityComponent{
 				if(ray.getHitCollider().getGroup() == 1){
 					WolfComponent wolf = (WolfComponent)ray.getHitCollider().getObject();
 					if(!wolf.isDead()){
-						audio.play();
 //						audio.setRolloffFactor(0.25f);
 						
 						int r = Util.randomInt(0, 3);
 						
 						Texture t = null;
+						Texture g = null;
 						
 						if(r == 0){
 							t = t1;
+							g = g1;
 						}else if(r == 1){
 							t = t2;
+							g = Material.DEFAULT_GLOW_MAP_TEXTURE;
 						}else if(r == 2){
 							t = t3;
+							g = Material.DEFAULT_GLOW_MAP_TEXTURE;
 						}else if(r == 3){
 							t = t4;
+							g = Material.DEFAULT_GLOW_MAP_TEXTURE;
 						}
 						
-						wolfR.change(t);
+						wolf.getMeshRenderer().setDiffuseMap(t);
+						wolf.getMeshRenderer().setGlowMap(g);
 						
 						wolf.damage(1);
 					}
 				}
 			}
 		}
-		audio.setPosition(component.getTransform().getTransformedPos());
 		
 		if(Input.getKey(Input.KEY_LEFT_SHIFT)){
 			speed = 6;

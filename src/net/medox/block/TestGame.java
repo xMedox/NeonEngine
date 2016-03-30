@@ -110,7 +110,7 @@ public class TestGame extends Game{
 		wolf.addComponent(wolfR);
 		wolf.getTransform().setScale(1.5f);
 //		wolf.getTransform().setPos(5, 1, 2.5f);
-		WolfComponent wolfP = new WolfComponent();
+		WolfComponent wolfP = new WolfComponent(wolfR);
 		wolf.addComponent(wolfP);
 		addEntity(wolf);
 		
@@ -122,7 +122,7 @@ public class TestGame extends Game{
 		playerHead.addComponent(cam);
 		FreeLook look = new FreeLook(0.15f);
 		playerHead.addComponent(look);
-		PlayerComponent p = new PlayerComponent(cam, wolfP, wolfR);
+		PlayerComponent p = new PlayerComponent(cam);
 //		p.getCapsule().setTransform(player.getTransform());
 		p.getBox().setTransform(player.getTransform());
 		player.addComponent(p);
