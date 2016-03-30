@@ -484,8 +484,8 @@ public class Util{
 	}
 	
 	public static class ImageData{
-		public final int        width;
-		public final int        height;
+		public final int width;
+		public final int height;
 		public final ByteBuffer data;
 		
 		public ImageData(int width, int height, ByteBuffer data){

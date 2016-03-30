@@ -41,7 +41,7 @@ public class DataUtil{
 	
 //	public static IntBuffer createFlippedBufferInt(Integer[] vertices){
 //		IntBuffer buffer = createIntBuffer(vertices.length);
-//
+//		
 //		for(int i = 0; i < vertices.length; i++){
 //			buffer.put(vertices[i]);
 //		}
@@ -71,7 +71,7 @@ public class DataUtil{
 	
 	public static FloatBuffer createFlippedBuffer(Float... vertices){
 		final FloatBuffer buffer = createFloatBuffer(vertices.length);
-
+		
 		for(int i = 0; i < vertices.length; i++){
 			buffer.put(vertices[i]);
 		}
@@ -83,7 +83,7 @@ public class DataUtil{
 	
 	public static FloatBuffer createFlippedBuffer(Vector3f... vertices){
 		final FloatBuffer buffer = createFloatBuffer(vertices.length * 3);
-
+		
 		for(int i = 0; i < vertices.length; i++){
 			buffer.put(vertices[i].getX());
 			buffer.put(vertices[i].getY());
@@ -97,7 +97,7 @@ public class DataUtil{
 	
 	public static FloatBuffer createFlippedBufferTimes3(Vector3f... vertices){
 		final FloatBuffer buffer = createFloatBuffer(vertices.length * 3 * 4);
-
+		
 		for(int i = 0; i < vertices.length; i++){
 			buffer.put(vertices[i].getX());
 			buffer.put(vertices[i].getY());
@@ -123,7 +123,7 @@ public class DataUtil{
 	
 	public static FloatBuffer createFlippedBuffer(Vector2f... vertices){
 		final FloatBuffer buffer = createFloatBuffer(vertices.length * 2);
-
+		
 		for(int i = 0; i < vertices.length; i++){
 			buffer.put(vertices[i].getX());
 			buffer.put(vertices[i].getY());
@@ -136,7 +136,7 @@ public class DataUtil{
 	
 	public static IntBuffer createFlippedBuffer(Integer... vertices){
 		final IntBuffer buffer = createIntBuffer(vertices.length);
-
+		
 		for(int i = 0; i < vertices.length; i++){
 			buffer.put(vertices[i]);
 		}
