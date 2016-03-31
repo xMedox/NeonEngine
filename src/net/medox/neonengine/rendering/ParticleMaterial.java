@@ -1,17 +1,23 @@
 package net.medox.neonengine.rendering;
 
-import net.medox.neonengine.core.Util;
-import net.medox.neonengine.rendering.resourceManagement.MappedValues;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ParticleMaterial extends MappedValues{
+import net.medox.neonengine.core.Util;
+
+public class ParticleMaterial{
 	public static final Texture DEFAULT_DIFFUSE_TEXTURE = Util.createDefaultDiffuseMap();
 	
 	public static final float DEFAULT_SPECULAR_INTENSITY = 0;
 	public static final float DEFAULT_SPECULAR_POWER = 0;
 	public static final float DEFAULT_GLOW = 0;
 	
+	private final Map<String, Texture> textureMap;
+	private final Map<String, Float> floatMap;
+	
 	public ParticleMaterial(){
-		super();
+		textureMap = new HashMap<String, Texture>();
+		floatMap = new HashMap<String, Float>();
 		
 		setTexture("diffuse", DEFAULT_DIFFUSE_TEXTURE);
 		
@@ -34,5 +40,27 @@ public class ParticleMaterial extends MappedValues{
 	
 	public void setGlow(float value){
 		setFloat("glow", value);
+	}
+	
+	public void setTexture(String name, Texture texture){
+		textureMap.remove(name);
+		textureMap.put(name, texture);
+	}
+	
+	public void setFloat(String name, float floatValue){
+		floatMap.remove(name);
+		floatMap.put(name, floatValue);
+	}
+	
+	public Texture getTexture(String name){
+		final Texture result = textureMap.get(name);
+		
+		return result == null ? Material.DEFAULT_DIFFUSE_TEXTURE : result;
+	}
+	
+	public float getFloat(String name){
+		final Float result = floatMap.get(name);
+		
+		return result == null ? 0 : result;
 	}
 }
