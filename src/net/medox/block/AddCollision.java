@@ -8,23 +8,24 @@ import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.Box;
 import net.medox.neonengine.physics.PhysicsComponent;
+import net.medox.neonengine.rendering.Attenuation;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
+import net.medox.neonengine.rendering.PointLight;
 import net.medox.neonengine.rendering.Texture;
 
 public class AddCollision extends EntityComponent{
-	private Material bricks;
-	private Material bricks2;
+	private Material red;
+	private Material blue;
 	
 	private Mesh crateM;
 	
 	public AddCollision(){
-		bricks = new Material();
-//		bricks.setTexture("diffuse", new Texture("block61.png", true));
-		bricks.setDiffuseMap(new Texture("block61.png", true));
-		bricks2 = new Material();
-//		bricks2.setTexture("diffuse", new Texture("block71.png", true));
-		bricks2.setDiffuseMap(new Texture("block71.png", true));
+		red = new Material();
+		red.setDiffuseMap(new Texture("block61.png", true));
+		
+		blue = new Material();
+		blue.setDiffuseMap(new Texture("block71.png", true));
 		
 		crateM = new Mesh("block.obj");
 	}
@@ -46,12 +47,20 @@ public class AddCollision extends EntityComponent{
 			entity.addComponent(new PhysicsComponent(box));
 			
 			if(Util.randomInt(0, 1) == 0){
-				entity.addComponent(new MeshRenderer(crateM, bricks));
+				entity.addComponent(new MeshRenderer(crateM, red));
+				
+				entity.addComponent(new PointLight(new Vector3f(1, 0, 0), 4f, new Attenuation(0, 0, 1)));
 			}else{
-				entity.addComponent(new MeshRenderer(crateM, bricks2));
+				entity.addComponent(new MeshRenderer(crateM, blue));
+				
+				entity.addComponent(new PointLight(new Vector3f(0, 0, 1), 4f, new Attenuation(0, 0, 1)));
 			}
 			
-			getParent().addChild(entity);/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/
+			getParent().addChild(entity);
+		}
+		
+		if(Input.getKeyDown(Input.KEY_M)){
+			getParent().removeChildren();
 		}
 	}
 }

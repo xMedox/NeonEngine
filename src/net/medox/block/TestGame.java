@@ -27,12 +27,12 @@ import net.medox.neonengine.rendering.Window;
 public class TestGame extends Game{
 	@Override
 	public void init(){
-		String es = Util.encrypt("Hallo mein name ist günther");
-		System.out.println(es);
-		es = Util.decrypt(es);
-		System.out.println(es);
-		
-		System.out.println(Util.loadFromFile("test.txt"));
+//		String es = Util.encrypt("Hallo mein name ist günther");
+//		System.out.println(es);
+//		es = Util.decrypt(es);
+//		System.out.println(es);
+//		
+//		System.out.println(Util.loadFromFile("test.txt"));
 		
 		Entity2D life = new Entity2D();
 //		Lock2D lifeLock = new Lock2D(4, -80-27, new Vector2f(0, 1));
