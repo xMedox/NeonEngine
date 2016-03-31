@@ -178,6 +178,9 @@ public class RenderingEngine{
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
 		
+		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
+		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
+		
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		
 		GL11.glFrontFace(GL11.GL_CW);
@@ -188,9 +191,6 @@ public class RenderingEngine{
 //		glEnable(GL13.GL_MULTISAMPLE);
 //		glEnable(GL_FRAMEBUFFER_SRGB);
 		
-		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
-		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
-		
 		lightCamera = new Camera();
 		new Entity().addComponent(lightCamera);
 		lightCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
@@ -200,11 +200,10 @@ public class RenderingEngine{
 		filterCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
 		
 		planeTransform = new Transform();
-		
-		planeMaterial = new Material();
-		
 		planeTransform.rotate(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
 		planeTransform.rotate(new Quaternion(new Vector3f(0, 0, 1), (float)Math.toRadians(180.0f)));
+		
+		planeMaterial = new Material();
 		
 		final IndexedModel meshIndexed = new IndexedModel();
 		
@@ -326,20 +325,11 @@ public class RenderingEngine{
 		
 		setTexture("filterTexture", source);
 		
-//		camera.setProjection(new Matrix4f().initIdentity());
-//		camera.getTransform().setPos(new Vector3f(0, 0, 0));
-//		camera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f)));
-		
-//		Camera temp = mainCamera;
-//		mainCamera = camera;
-		
-//		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 		filter.bind();
 		filter.updateUniforms(planeTransform, planeMaterial, filterCamera);
 		plane.draw();
 		
-//		mainCamera = temp;
 		setTexture("filterTexture", null);
 	}
 	
@@ -400,7 +390,6 @@ public class RenderingEngine{
 					setFloat("shadowVarianceMin", 0.00002f);
 					setFloat("shadowLightBleedingReduction", 0.0f);
 				}else{
-//					lightCamera.setProjection(shadowInfo.getProjection());
 					lightCamera.changeMode(shadowInfo.getBase());
 					
 					final ShadowCameraTransform shadowCameraTransform = activeLight.calcShadowCameraTransform(mainCamera.getTransform().getTransformedPos(), mainCamera.getTransform().getTransformedRot());
@@ -413,7 +402,6 @@ public class RenderingEngine{
 					
 					setFloat("shadowVarianceMin", shadowInfo.getMinVariance());
 					setFloat("shadowLightBleedingReduction", shadowInfo.getLightBleedReductionAmount());
-//					final boolean flipFaces = shadowInfo.getFlipFaces();
 					
 					if(shadowInfo.getFlipFaces()){
 						GL11.glCullFace(GL11.GL_FRONT);
