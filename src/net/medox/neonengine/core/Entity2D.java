@@ -9,6 +9,7 @@ public class Entity2D{
 	private final Transform2D transform;
 	
 	private Entity2D parent;
+	private boolean added;
 	
 	public Entity2D(){
 		children = new ArrayList<Entity2D>();
@@ -21,12 +22,20 @@ public class Entity2D{
 		child.setParent(this);
 		child.getTransform().setParent(transform);
 		
+		if(added == true){
+			child.addToEngine();
+		}
+		
 		return this;
 	}
 	
 	public Entity2D addComponent(Entity2DComponent component){
 		components.add(component);
 		component.setParent(this);
+		
+		if(added == true){
+			component.addToEngine();
+		}
 		
 		return this;
 	}
@@ -72,6 +81,8 @@ public class Entity2D{
 	}
 	
 	public void cleanUp(){
+		added = false;
+		
 		for(int i = 0; i < components.size(); i++){
 			components.get(i).cleanUp();
 		}
@@ -160,6 +171,8 @@ public class Entity2D{
 	}
 	
 	public void addToEngine(){
+		added = true;
+		
 		for(int i = 0; i < children.size(); i++){
 			children.get(i).addToEngine();
 		}

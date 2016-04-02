@@ -12,6 +12,7 @@ public class Entity{
 	private final Transform transform;
 	
 	private Entity parent;
+	private boolean added;
 	
 	public Entity(){
 		children = new ArrayList<Entity>();
@@ -52,12 +53,20 @@ public class Entity{
 		child.setParent(this);
 		child.getTransform().setParent(transform);
 		
+		if(added == true){
+			child.addToEngine();
+		}
+		
 		return this;
 	}
 	
 	public Entity addComponent(EntityComponent component){
 		components.add(component);
 		component.setParent(this);
+		
+		if(added == true){
+			component.addToEngine();
+		}
 		
 		return this;
 	}
@@ -103,6 +112,8 @@ public class Entity{
 	}
 	
 	public void cleanUp(){
+		added = false;
+		
 		for(int i = 0; i < components.size(); i++){
 			components.get(i).cleanUp();
 		}
@@ -191,6 +202,8 @@ public class Entity{
 	}
 	
 	public void addToEngine(){
+		added = true;
+		
 		for(int i = 0; i < children.size(); i++){
 			children.get(i).addToEngine();
 		}
