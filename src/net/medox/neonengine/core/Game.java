@@ -32,46 +32,38 @@ public abstract class Game{
 	
 	public void input(float delta){
 		inputTimer.startInvocation();
-		getRootEntity().inputAll(delta);
-		getRootEntity2D().inputAll(delta);
+		root.inputAll(delta);
+		root2D.inputAll(delta);
 		inputTimer.stopInvocation();
 	}
 	
 	public void update(float delta){
 		updateTimer.startInvocation();
-		getRootEntity().updateAll(delta);
-		getRootEntity2D().updateAll(delta);
+		root.updateAll(delta);
+		root2D.updateAll(delta);
 		updateTimer.stopInvocation();
 	}
 
 	public void render(){
-		RenderingEngine.render(getRootEntity());
-		RenderingEngine.render(getRootEntity2D());
+		RenderingEngine.render(root);
+		RenderingEngine.render(root2D);
 	}
 	
 	public void addEntity(Entity object){
 		object.addToEngine();
-		getRootEntity().addChild(object);
+		root.addChild(object);
 	}
 	
 	public void addEntity2D(Entity2D object){
 		object.addToEngine();
-		getRootEntity2D().addChild(object);
+		root2D.addChild(object);
 	}
 	
 	public void removeEntity(Entity object){
-		getRootEntity().removeChild(object);
+		root.removeChild(object);
 	}
 	
 	public void removeEntity2D(Entity2D object){
-		getRootEntity2D().removeChild(object);
-	}
-	
-	public Entity getRootEntity(){
-		return root;
-	}
-	
-	public Entity2D getRootEntity2D(){
-		return root2D;
+		root2D.removeChild(object);
 	}
 }
