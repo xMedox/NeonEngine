@@ -508,7 +508,7 @@ public class RenderingEngine{
 	}
 	
 	public static boolean particleInFrustum(Transform transform, Camera camera){
-		return camera.getFrustum() == null ? true : camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
+		return camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
 	}
 	
 	public static void addParticle(Transform trans, ParticleMaterial material){

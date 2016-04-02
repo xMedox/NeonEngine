@@ -124,7 +124,7 @@ public class MeshDataGL extends MeshData{
 	
 	@Override
 	public boolean inFrustum(Transform transform, Camera camera){
-		return camera.getFrustum() == null ? true : camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max() * /*mesh.getRadius()*/ radius);
+		return camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max() * /*mesh.getRadius()*/ radius);
 	}
 	
 //	public MeshShape getMeshShape(){
