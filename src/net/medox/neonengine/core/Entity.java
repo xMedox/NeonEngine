@@ -51,7 +51,6 @@ public class Entity{
 		children.add(child);
 		child.setParent(this);
 		child.getTransform().setParent(transform);
-		child.setEngine();
 		
 		return this;
 	}
@@ -191,7 +190,10 @@ public class Entity{
 		return parent;
 	}
 	
-	public void setEngine(){
+	public void addToEngine(){
+		for(int i = 0; i < children.size(); i++){
+			children.get(i).addToEngine();
+		}
 		for(int i = 0; i < components.size(); i++){
 			components.get(i).addToEngine();
 		}

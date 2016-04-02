@@ -50,15 +50,21 @@ public abstract class Game{
 	}
 	
 	public void addEntity(Entity object){
+		object.addToEngine();
 		getRootEntity().addChild(object);
 	}
 	
 	public void addEntity2D(Entity2D object){
+		object.addToEngine();
 		getRootEntity2D().addChild(object);
 	}
 	
 	public void removeEntity(Entity object){
 		getRootEntity().removeChild(object);
+	}
+	
+	public void removeEntity2D(Entity2D object){
+		getRootEntity2D().removeChild(object);
 	}
 	
 	public Entity getRootEntity(){
