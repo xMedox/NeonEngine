@@ -27,8 +27,7 @@ struct SpotLight{
     float cutoff;
 };
 
-vec4 CalcLight(BaseLight base, vec3 direction, vec3 normal, vec3 worldPos, float specular,
-               float specularIntensity, float specularPower, vec3 eyePos){
+vec4 CalcLight(BaseLight base, vec3 direction, vec3 normal, vec3 worldPos, float specular, float specularIntensity, float specularPower, vec3 eyePos){
     float diffuseFactor = dot(normal, -direction);
     
     vec4 diffuseColor = vec4(0, 0, 0, 0);
@@ -48,8 +47,7 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 normal, vec3 worldPos, float
     return diffuseColor + specularColor;
 }
 
-vec4 CalcPointLight(PointLight pointLight, vec3 normal, vec3 worldPos, float specular,
-                    float specularIntensity, float specularPower, vec3 eyePos){
+vec4 CalcPointLight(PointLight pointLight, vec3 normal, vec3 worldPos, float specular, float specularIntensity, float specularPower, vec3 eyePos){
     vec3 lightDirection = worldPos - pointLight.position;
     float distanceToPoint = length(lightDirection);
     
