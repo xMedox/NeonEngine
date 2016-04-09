@@ -18,29 +18,29 @@ import org.lwjgl.BufferUtils;
 
 public class OggInputStream extends InputStream implements AudioInputStream{
 	private int convsize = 4096 * 4;
-	private byte[] convbuffer = new byte[convsize];
-	private InputStream input;
-	private Info oggInfo = new Info();
+	final private byte[] convbuffer = new byte[convsize];
+	final private InputStream input;
+	final private Info oggInfo = new Info();
 	private boolean endOfStream;
 
-	private SyncState syncState = new SyncState();
-	private StreamState streamState = new StreamState();
-	private Page page = new Page();
-	private Packet packet = new Packet();
+	final private SyncState syncState = new SyncState();
+	final private StreamState streamState = new StreamState();
+	final private Page page = new Page();
+	final private Packet packet = new Packet();
 
-	private Comment comment = new Comment();
-	private DspState dspState = new DspState();
-	private Block vorbisBlock = new Block(dspState);
+	final private Comment comment = new Comment();
+	final private DspState dspState = new DspState();
+	final private Block vorbisBlock = new Block(dspState);
 	
 	byte[] buffer;
 	int bytes = 0;
-	boolean bigEndian = ByteOrder.nativeOrder().equals(ByteOrder.BIG_ENDIAN);
+	final boolean bigEndian = ByteOrder.nativeOrder().equals(ByteOrder.BIG_ENDIAN);
 	boolean endOfBitStream = true;
 	boolean inited = false;
 	
 	private int readIndex;
-	private ByteBuffer pcmBuffer = BufferUtils.createByteBuffer(4096 * 500);
-	private int total;
+	final private ByteBuffer pcmBuffer = BufferUtils.createByteBuffer(4096 * 500);
+	final private int total;
 	
 	public OggInputStream(InputStream input) throws IOException{
 		this.input = input;
@@ -192,8 +192,8 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 				return;
 			}
 			
-			float[][][] _pcm = new float[1][][];
-			int[] _index = new int[oggInfo.channels];
+			final float[][][] _pcm = new float[1][][];
+			final int[] _index = new int[oggInfo.channels];
 			while(!endOfBitStream){
 				while(!endOfBitStream){
 					int result = syncState.pageout(page);
@@ -221,12 +221,12 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 								}
 								
 								while((samples = dspState.synthesis_pcmout(_pcm, _index)) > 0){
-									float[][] pcm = _pcm[0];
-									int bout =(samples < convsize ? samples : convsize);
+									final float[][] pcm = _pcm[0];
+									final int bout =(samples < convsize ? samples : convsize);
 									
 									for(int i = 0; i < oggInfo.channels; i++){
 										int ptr = i * 2;
-										int mono = _index[i];
+										final int mono = _index[i];
 										for(int j = 0; j < bout; j++){
 											int val = (int) (pcm[i][mono + j] * 32767.);
 											if(val > 32767){
@@ -250,7 +250,7 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 										}
 									}
 
-									int bytesToWrite = 2 * oggInfo.channels * bout;
+									final int bytesToWrite = 2 * oggInfo.channels * bout;
 									if(bytesToWrite >= pcmBuffer.remaining()){
 										org.lwjgl.system.APIUtil.apiLog("Read block from OGG that was too big to be buffered: " + bytesToWrite);
 									}else{
@@ -266,7 +266,7 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 							endOfBitStream = true;
 						} 
 						
-						if((!endOfBitStream) && (wrote)){
+						if(!endOfBitStream && wrote){
 							return;
 						}
 					}
@@ -274,7 +274,7 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 
 				if(!endOfBitStream){
 					bytes = 0;
-					int index = syncState.buffer(4096);
+					final int index = syncState.buffer(4096);
 					if(index >= 0){
 						buffer = syncState.data;
 						try{
@@ -325,13 +325,13 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 	}
 	
 	public boolean atEnd(){
-		return endOfStream && (readIndex >= pcmBuffer.position());
+		return endOfStream && readIndex >= pcmBuffer.position();
 	}
 	
 	public int read(byte[] b, int off, int len) throws IOException{
-		for(int i=0;i<len;i++){
+		for(int i = 0;i < len; i++){
 			try{
-				int value = read();
+				final int value = read();
 				if(value >= 0){
 					b[i] = (byte) value;
 				}else{

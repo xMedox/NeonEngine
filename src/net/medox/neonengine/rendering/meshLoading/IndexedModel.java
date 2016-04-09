@@ -127,7 +127,7 @@ public class IndexedModel{
 			final float dividend = (texCoords.get(i1).getX() - texCoords.get(i0).getX()) * deltaV2 - (texCoords.get(i2).getX() - texCoords.get(i0).getX()) * deltaV1;
 			final float f = dividend == 0 ? 0.0f : 1.0f/dividend;
 			
-			final Vector3f tangent = new Vector3f(0, 0, 0);
+			final Vector3f tangent = new Vector3f(0.0f, 0.0f, 0.0f);
 			
 			tangent.setX(f * (deltaV2 * edge1.getX() - deltaV1 * edge2.getX()));
 			tangent.setY(f * (deltaV2 * edge1.getY() - deltaV1 * edge2.getY()));

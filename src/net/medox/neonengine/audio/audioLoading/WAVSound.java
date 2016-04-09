@@ -22,7 +22,7 @@ public class WAVSound{
 	private int samplerate;
 	
 	public WAVSound(String fileName){
-		java.io.FileInputStream fin = null;
+		FileInputStream fin = null;
 		try{
 			fin = new FileInputStream(fileName);
 		}catch(FileNotFoundException e){

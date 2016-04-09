@@ -85,13 +85,13 @@ public class OBJModel{
 			if(hasTexCoords){
 				currentTexCoord = texCoords.get(currentIndex.getTexCoordIndex());
 			}else{
-				currentTexCoord = new Vector2f(0,0);
+				currentTexCoord = new Vector2f(0.0f, 0.0f);
 			}
 			
 			if(hasNormals){
 				currentNormal = normals.get(currentIndex.getNormalIndex());
 			}else{
-				currentNormal = new Vector3f(0,0,0);
+				currentNormal = new Vector3f(0.0f, 0.0f, 0.0f);
 			}
 			
 			Integer modelVertexIndex = resultIndexMap.get(currentIndex);
@@ -116,7 +116,7 @@ public class OBJModel{
 				normalModel.getPositions().add(currentPosition);
 				normalModel.getTexCoords().add(currentTexCoord);
 				normalModel.getNormals().add(currentNormal);
-				normalModel.getTangents().add(new Vector3f(0,0,0));
+				normalModel.getTangents().add(new Vector3f(0.0f, 0.0f, 0.0f));
 			}
 
 			result.getIndices().add(modelVertexIndex);
