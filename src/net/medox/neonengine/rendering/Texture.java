@@ -5,8 +5,8 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 
@@ -15,7 +15,7 @@ import net.medox.neonengine.rendering.resourceManagement.TextureData;
 import net.medox.neonengine.rendering.resourceManagement.OpenGL.TextureDataGL;
 
 public class Texture{
-	private static Map<String, TextureData> loadedTextures = new HashMap<String, TextureData>();
+	private static Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
 	
 	private final String fileName;
 	

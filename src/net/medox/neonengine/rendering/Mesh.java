@@ -1,7 +1,7 @@
 package net.medox.neonengine.rendering;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
@@ -10,7 +10,7 @@ import net.medox.neonengine.rendering.resourceManagement.MeshData;
 import net.medox.neonengine.rendering.resourceManagement.OpenGL.MeshDataGL;
 
 public class Mesh{
-	private static Map<String, MeshData> loadedModels = new HashMap<String, MeshData>();
+	private static Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
 	
 	private final String fileName;
 	
