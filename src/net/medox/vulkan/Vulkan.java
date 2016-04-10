@@ -25,7 +25,6 @@ import java.io.File;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWVulkan;
-import org.lwjgl.vulkan.VK10;
 
 public class Vulkan{
     public static long window;
@@ -117,7 +116,7 @@ public class Vulkan{
 		isRunning = true;
 		
 		if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
-			System.out.println("Vulkan is supported(" + VK10.VK_VERSION_MAJOR + "." + VK10.VK_VERSION_MINOR + "." + VK10.VK_VERSION_PATCH + ")");
+			System.out.println("Vulkan is supported(" + /*VK10.VK_VERSION_MAJOR + "." + VK10.VK_VERSION_MINOR + "." + VK10.VK_VERSION_PATCH + */")");
 		}else{
 			System.out.println("Vulkan is not supported");
 		}

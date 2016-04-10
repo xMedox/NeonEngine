@@ -19,7 +19,6 @@ import static org.lwjgl.vulkan.EXTDebugReport.*;
 import static org.lwjgl.vulkan.KHRSurface.*;
 import static org.lwjgl.vulkan.KHRSwapchain.*;
 import static org.lwjgl.vulkan.VK10.*;
-import static org.lwjgl.vulkan.VKUtil.*;
 
 /*
  * Copyright (c) 2015-2016 The Khronos Group Inc.
@@ -348,14 +347,13 @@ public final class HelloVulkan {
 			device_validation_layers
 				//.put(memASCII("VK_LAYER_LUNARG_standard_validation"))
 				//.put(memASCII("VK_LAYER_LUNARG_api_dump"))
+				.put(memASCII("VK_LAYER_LUNARG_core_validation"))
 				.put(memASCII("VK_LAYER_LUNARG_device_limits"))
-				.put(memASCII("VK_LAYER_LUNARG_draw_state"))
 				.put(memASCII("VK_LAYER_LUNARG_image"))
-				.put(memASCII("VK_LAYER_LUNARG_mem_tracker"))
 				.put(memASCII("VK_LAYER_LUNARG_object_tracker"))
-				.put(memASCII("VK_LAYER_LUNARG_param_checker"))
+				.put(memASCII("VK_LAYER_LUNARG_parameter_validation"))
 				.put(memASCII("VK_LAYER_LUNARG_swapchain"))
-				.put(memASCII("VK_LAYER_LUNARG_threading"))
+				.put(memASCII("VK_LAYER_GOOGLE_threading"))
 				.put(memASCII("VK_LAYER_GOOGLE_unique_objects"));
 		}
 		device_validation_layers.flip();
@@ -418,7 +416,7 @@ public final class HelloVulkan {
 				.applicationVersion(0)
 				.pEngineName(APP_SHORT_NAME)
 				.engineVersion(0)
-				.apiVersion(VK_MAKE_VERSION(1, 0, 2));
+				.apiVersion(VK_API_VERSION_1_0);
 
 			extension_names.flip();
 			VkInstanceCreateInfo inst_info = VkInstanceCreateInfo.mallocStack(stack)
@@ -1053,7 +1051,8 @@ public final class HelloVulkan {
 				.samples(VK_SAMPLE_COUNT_1_BIT)
 				.tiling(tiling)
 				.usage(usage)
-				.flags(0);
+				.flags(0)
+				.initialLayout(VK_IMAGE_LAYOUT_PREINITIALIZED);
 			image_create_info.extent()
 				.width(tex_width)
 				.height(tex_height)

@@ -16,7 +16,6 @@ import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.ARBTextureRG;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
-import org.lwjgl.vulkan.VK10;
 
 import net.medox.neonengine.core.CoreEngine;
 import net.medox.neonengine.core.Entity;
@@ -119,7 +118,7 @@ public class RenderingEngine{
 			System.out.println("Rendering Mode:   OpenGL(" + GL11.glGetString(GL11.GL_VERSION) + ")");
 //			System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
 		}else if(RENDERING_MODE == 1){
-			System.out.println("Rendering Mode:   Vulkan(" + VK10.VK_VERSION_MAJOR + "." + VK10.VK_VERSION_MINOR + "." + VK10.VK_VERSION_PATCH + ")");
+			System.out.println("Rendering Mode:   Vulkan(" + /*VK10.VK_VERSION_MAJOR + "." + VK10.VK_VERSION_MINOR + "." + VK10.VK_VERSION_PATCH + */")");
 //			System.out.println("Max Texture size: " + VK10.VK_WHOLE_SIZE);
 		}
 		System.out.println("LWJGL version:    " + Version.getVersion());
