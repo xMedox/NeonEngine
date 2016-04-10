@@ -63,70 +63,80 @@ public class Shader{
 				final String unprefixedUniformName = uniformName.substring(1);
 				
 				if(uniformType.equals("sampler2D")){
-					if(unprefixedUniformName.startsWith("0_")){
-						setUniformi(uniformName, 0);
-					}else if(unprefixedUniformName.startsWith("1_")){
-						setUniformi(uniformName, 1);
-					}else if(unprefixedUniformName.startsWith("2_")){
-						setUniformi(uniformName, 2);
-					}else if(unprefixedUniformName.startsWith("3_")){
-						setUniformi(uniformName, 3);
-					}else if(unprefixedUniformName.startsWith("4_")){
-						setUniformi(uniformName, 4);
-					}else if(unprefixedUniformName.startsWith("5_")){
-						setUniformi(uniformName, 5);
-					}else if(unprefixedUniformName.startsWith("6_")){
-						setUniformi(uniformName, 6);
-					}else if(unprefixedUniformName.startsWith("7_")){
-						setUniformi(uniformName, 7);
-					}else if(unprefixedUniformName.startsWith("8_")){
-						setUniformi(uniformName, 8);
-					}else if(unprefixedUniformName.startsWith("9_")){
-						setUniformi(uniformName, 9);
-					}else if(unprefixedUniformName.startsWith("10_")){
-						setUniformi(uniformName, 10);
-					}else if(unprefixedUniformName.startsWith("11_")){
-						setUniformi(uniformName, 11);
-					}else if(unprefixedUniformName.startsWith("12_")){
-						setUniformi(uniformName, 12);
-					}else if(unprefixedUniformName.startsWith("13_")){
-						setUniformi(uniformName, 13);
-					}else if(unprefixedUniformName.startsWith("14_")){
-						setUniformi(uniformName, 14);
-					}else if(unprefixedUniformName.startsWith("15_")){
-						setUniformi(uniformName, 15);
-					}else if(unprefixedUniformName.startsWith("16_")){
-						setUniformi(uniformName, 16);
-					}else if(unprefixedUniformName.startsWith("17_")){
-						setUniformi(uniformName, 17);
-					}else if(unprefixedUniformName.startsWith("18_")){
-						setUniformi(uniformName, 18);
-					}else if(unprefixedUniformName.startsWith("19_")){
-						setUniformi(uniformName, 19);
-					}else if(unprefixedUniformName.startsWith("20_")){
-						setUniformi(uniformName, 20);
-					}else if(unprefixedUniformName.startsWith("21_")){
-						setUniformi(uniformName, 21);
-					}else if(unprefixedUniformName.startsWith("22_")){
-						setUniformi(uniformName, 22);
-					}else if(unprefixedUniformName.startsWith("23_")){
-						setUniformi(uniformName, 23);
-					}else if(unprefixedUniformName.startsWith("24_")){
-						setUniformi(uniformName, 24);
-					}else if(unprefixedUniformName.startsWith("25_")){
-						setUniformi(uniformName, 25);
-					}else if(unprefixedUniformName.startsWith("26_")){
-						setUniformi(uniformName, 26);
-					}else if(unprefixedUniformName.startsWith("27_")){
-						setUniformi(uniformName, 27);
-					}else if(unprefixedUniformName.startsWith("28_")){
-						setUniformi(uniformName, 28);
-					}else if(unprefixedUniformName.startsWith("29_")){
-						setUniformi(uniformName, 29);
-					}else if(unprefixedUniformName.startsWith("30_")){
-						setUniformi(uniformName, 30);
-					}else if(unprefixedUniformName.startsWith("31_")){
-						setUniformi(uniformName, 31);
+					if(unprefixedUniformName.charAt(1) == '_'){
+						if(unprefixedUniformName.charAt(0) == '0'){
+							setUniformi(uniformName, 0);
+						}else if(unprefixedUniformName.charAt(0) == '1'){
+							setUniformi(uniformName, 1);
+						}else if(unprefixedUniformName.charAt(0) == '2'){
+							setUniformi(uniformName, 2);
+						}else if(unprefixedUniformName.charAt(0) == '3'){
+							setUniformi(uniformName, 3);
+						}else if(unprefixedUniformName.charAt(0) == '4'){
+							setUniformi(uniformName, 4);
+						}else if(unprefixedUniformName.charAt(0) == '5'){
+							setUniformi(uniformName, 5);
+						}else if(unprefixedUniformName.charAt(0) == '6'){
+							setUniformi(uniformName, 6);
+						}else if(unprefixedUniformName.charAt(0) == '7'){
+							setUniformi(uniformName, 7);
+						}else if(unprefixedUniformName.charAt(0) == '8'){
+							setUniformi(uniformName, 8);
+						}else if(unprefixedUniformName.charAt(0) == '9'){
+							setUniformi(uniformName, 9);
+						}
+					}else if(unprefixedUniformName.charAt(2) == '_'){
+						if(unprefixedUniformName.charAt(0) == '1'){
+							if(unprefixedUniformName.charAt(1) == '0'){
+								setUniformi(uniformName, 10);
+							}else if(unprefixedUniformName.charAt(1) == '1'){
+								setUniformi(uniformName, 11);
+							}else if(unprefixedUniformName.charAt(1) == '2'){
+								setUniformi(uniformName, 12);
+							}else if(unprefixedUniformName.charAt(1) == '3'){
+								setUniformi(uniformName, 13);
+							}else if(unprefixedUniformName.charAt(1) == '4'){
+								setUniformi(uniformName, 14);
+							}else if(unprefixedUniformName.charAt(1) == '5'){
+								setUniformi(uniformName, 15);
+							}else if(unprefixedUniformName.charAt(1) == '6'){
+								setUniformi(uniformName, 16);
+							}else if(unprefixedUniformName.charAt(1) == '7'){
+								setUniformi(uniformName, 17);
+							}else if(unprefixedUniformName.charAt(1) == '8'){
+								setUniformi(uniformName, 18);
+							}else if(unprefixedUniformName.charAt(1) == '9'){
+								setUniformi(uniformName, 19);
+							}
+						}else if(unprefixedUniformName.charAt(0) == '2'){
+							if(unprefixedUniformName.charAt(1) == '0'){
+								setUniformi(uniformName, 20);
+							}else if(unprefixedUniformName.charAt(1) == '1'){
+								setUniformi(uniformName, 21);
+							}else if(unprefixedUniformName.charAt(1) == '2'){
+								setUniformi(uniformName, 22);
+							}else if(unprefixedUniformName.charAt(1) == '3'){
+								setUniformi(uniformName, 23);
+							}else if(unprefixedUniformName.charAt(1) == '4'){
+								setUniformi(uniformName, 24);
+							}else if(unprefixedUniformName.charAt(1) == '5'){
+								setUniformi(uniformName, 25);
+							}else if(unprefixedUniformName.charAt(1) == '6'){
+								setUniformi(uniformName, 26);
+							}else if(unprefixedUniformName.charAt(1) == '7'){
+								setUniformi(uniformName, 27);
+							}else if(unprefixedUniformName.charAt(1) == '8'){
+								setUniformi(uniformName, 28);
+							}else if(unprefixedUniformName.charAt(1) == '9'){
+								setUniformi(uniformName, 29);
+							}
+						}else if(unprefixedUniformName.charAt(0) == '3'){
+							if(unprefixedUniformName.charAt(1) == '0'){
+								setUniformi(uniformName, 30);
+							}else if(unprefixedUniformName.charAt(1) == '1'){
+								setUniformi(uniformName, 31);
+							}
+						}
 					}
 				}
 			}else if(uniformName.charAt(0) == 'R'){
@@ -156,47 +166,49 @@ public class Shader{
 					}else{
 						RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
 					}
-				}else if(unprefixedName.startsWith("0_")){
-					final String unprefixedUniformName = uniformName.substring(3);
-					
-					if(uniformType.equals("sampler2D")){
-//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-						RenderingEngine.getTexture(unprefixedUniformName).bind(10, 0);
-						setUniformi(uniformName, 10);
-					}
-				}else if(unprefixedName.startsWith("1_")){
-					final String unprefixedUniformName = uniformName.substring(3);
-					
-					if(uniformType.equals("sampler2D")){
-//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-						RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
-						setUniformi(uniformName, 11);
-					}
-				}/*else if(unprefixedName.startsWith("2_")){
-					final String unprefixedUniformName = uniformName.substring(3);
-					
-					if(uniformType.equals("sampler2D")){
-//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-						RenderingEngine.getTexture(unprefixedUniformName).bind(12, 2);
-						setUniformi(uniformName, 12);
-					}
-				}else if(unprefixedName.startsWith("3_")){
-					final String unprefixedUniformName = uniformName.substring(3);
-					
-					if(uniformType.equals("sampler2D")){
-//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-						RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
-						setUniformi(uniformName, 13);
-					}
-				}else if(unprefixedName.startsWith("4_")){
-					final String unprefixedUniformName = uniformName.substring(3);
-					
-					if(uniformType.equals("sampler2D")){
-//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-						RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
-						setUniformi(uniformName, 14);
-					}
-				}*/
+				}else if(unprefixedName.charAt(1) == '_'){
+					if(unprefixedName.charAt(0) == '0'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+						if(uniformType.equals("sampler2D")){
+//							int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getTexture(unprefixedUniformName).bind(10, 0);
+							setUniformi(uniformName, 10);
+						}
+					}else if(unprefixedName.charAt(0) == '1'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+						if(uniformType.equals("sampler2D")){
+//							int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
+							setUniformi(uniformName, 11);
+						}
+					}/*else if(unprefixedName.charAt(0) == '2'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+						if(uniformType.equals("sampler2D")){
+//							int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getTexture(unprefixedUniformName).bind(12, 2);
+							setUniformi(uniformName, 12);
+						}
+					}else if(unprefixedName.charAt(0) == '3'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+						if(uniformType.equals("sampler2D")){
+//							int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
+							setUniformi(uniformName, 13);
+						}
+					}else if(unprefixedName.charAt(0) == '4'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+						if(uniformType.equals("sampler2D")){
+//							int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
+							setUniformi(uniformName, 14);
+						}
+					}*/
+				}
 			}else if(uniformType.equals("sampler2D")){
 				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
 				material.getTexture(uniformName).bind(samplerSlot);
@@ -206,9 +218,11 @@ public class Shader{
 				material.getCubeMap(uniformName).bind(samplerSlot);
 				setUniformi(uniformName, samplerSlot);
 			}else if(uniformName.startsWith("T_")){
-				if(uniformName.equals("T_MVP")){
+				final String unprefixedUniformName = uniformName.substring(2);
+				
+				if(unprefixedUniformName.equals("MVP")){
 					setUniformMatrix4f(uniformName, MVPMatrix);
-				}else if(uniformName.equals("T_model")){
+				}else if(unprefixedUniformName.equals("model")){
 					setUniformMatrix4f(uniformName, worldMatrix);
 				}else{
 					throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
@@ -220,7 +234,9 @@ public class Shader{
 					throw new IllegalArgumentException(uniformName + " is not a valid component of Camera");
 				}
 			}*/else if(uniformName.startsWith("C_")){
-				if(uniformName.equals("C_eyePos")){
+				final String unprefixedUniformName = uniformName.substring(2);
+				
+				if(unprefixedUniformName.equals("eyePos")){
 					setUniformVector3f(uniformName, camera.getTransform().getTransformedPos());
 				}else{
 					throw new IllegalArgumentException(uniformName + " is not a valid component of Camera");
