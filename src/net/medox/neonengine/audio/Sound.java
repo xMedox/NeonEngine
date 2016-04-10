@@ -10,8 +10,8 @@ import net.medox.neonengine.audio.resourceManagement.SourceData;
 import net.medox.neonengine.math.Vector3f;
 
 public class Sound{
-	private static Map<String, SoundData> loadedAudios = new ConcurrentHashMap<String, SoundData>();
-	private static Map<String, SourceData> loadedSources = new ConcurrentHashMap<String, SourceData>();
+	private static final Map<String, SoundData> loadedAudios = new ConcurrentHashMap<String, SoundData>();
+	private static final Map<String, SourceData> loadedSources = new ConcurrentHashMap<String, SourceData>();
 	
 	private final SourceData source;
 	private final String fileName;

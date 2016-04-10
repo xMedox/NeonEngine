@@ -15,7 +15,7 @@ import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
 import net.medox.neonengine.rendering.resourceManagement.OpenGL.CubeMapDataGL;
 
 public class CubeMap{
-	private static Map<String[], CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String[], CubeMapData>();
+	private static final Map<String[], CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String[], CubeMapData>();
 	
 	private final String fileNames[];
 	

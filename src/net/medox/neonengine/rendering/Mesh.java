@@ -10,7 +10,7 @@ import net.medox.neonengine.rendering.resourceManagement.MeshData;
 import net.medox.neonengine.rendering.resourceManagement.OpenGL.MeshDataGL;
 
 public class Mesh{
-	private static Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
+	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
 	
 	private final String fileName;
 	

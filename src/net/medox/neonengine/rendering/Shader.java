@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.resourceManagement.ShaderData;
 import net.medox.neonengine.rendering.resourceManagement.OpenGL.ShaderDataGL;
 
 public class Shader{
-	private static Map<String, ShaderData> loadedShaders = new ConcurrentHashMap<String, ShaderData>();
+	private static final Map<String, ShaderData> loadedShaders = new ConcurrentHashMap<String, ShaderData>();
 	
 	private final String fileName;
 	
@@ -157,7 +157,7 @@ public class Shader{
 						RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
 					}
 				}else if(unprefixedName.startsWith("0_")){
-					String unprefixedUniformName = uniformName.substring(3);
+					final String unprefixedUniformName = uniformName.substring(3);
 					
 					if(uniformType.equals("sampler2D")){
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
@@ -165,7 +165,7 @@ public class Shader{
 						setUniformi(uniformName, 10);
 					}
 				}else if(unprefixedName.startsWith("1_")){
-					String unprefixedUniformName = uniformName.substring(3);
+					final String unprefixedUniformName = uniformName.substring(3);
 					
 					if(uniformType.equals("sampler2D")){
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
@@ -173,7 +173,7 @@ public class Shader{
 						setUniformi(uniformName, 11);
 					}
 				}/*else if(unprefixedName.startsWith("2_")){
-					String unprefixedUniformName = uniformName.substring(3);
+					final String unprefixedUniformName = uniformName.substring(3);
 					
 					if(uniformType.equals("sampler2D")){
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
@@ -181,7 +181,7 @@ public class Shader{
 						setUniformi(uniformName, 12);
 					}
 				}else if(unprefixedName.startsWith("3_")){
-					String unprefixedUniformName = uniformName.substring(3);
+					final String unprefixedUniformName = uniformName.substring(3);
 					
 					if(uniformType.equals("sampler2D")){
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
@@ -189,7 +189,7 @@ public class Shader{
 						setUniformi(uniformName, 13);
 					}
 				}else if(unprefixedName.startsWith("4_")){
-					String unprefixedUniformName = uniformName.substring(3);
+					final String unprefixedUniformName = uniformName.substring(3);
 					
 					if(uniformType.equals("sampler2D")){
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
