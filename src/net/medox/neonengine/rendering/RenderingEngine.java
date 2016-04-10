@@ -286,6 +286,10 @@ public class RenderingEngine{
 //		}
 	}
 	
+	public static int getFPS(){
+		return CoreEngine.fps;
+	}
+	
 	public static double displayRenderTime(double dividend){
 		return renderProfileTimer.displayAndReset("Render Time: ", dividend);
 	}
@@ -298,20 +302,8 @@ public class RenderingEngine{
 		return windowSyncProfileTimer.displayAndReset("Window Sync Time: ", dividend);
 	}
 	
-	private static void blurShadowMap(int shadowMapIndex, float blurAmount){
-		setVector3f("blurScale", new Vector3f(blurAmount/(shadowMaps[shadowMapIndex].getWidth()), 0.0f, 0.0f));
-		applyFilter(gausBlurFilter, shadowMaps[shadowMapIndex], shadowMapTempTargets[shadowMapIndex]);
-		
-		setVector3f("blurScale", new Vector3f(0.0f, blurAmount/(shadowMaps[shadowMapIndex].getHeight()), 0.0f));
-		applyFilter(gausBlurFilter, shadowMapTempTargets[shadowMapIndex], shadowMaps[shadowMapIndex]);
-	}
-	
-	private static void blurBloomMap(float blurAmount){
-		setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
-		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
-		
-		setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
-		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+	public static void updateUniformStruct(Transform transform, Material material, Shader shader, String uniformName, String uniformType){
+		throw new IllegalArgumentException(uniformType + " is not a supported type in Rendering Engine");
 	}
 	
 	private static void applyFilter(Shader filter, Texture source, Texture dest){
@@ -333,8 +325,33 @@ public class RenderingEngine{
 		setTexture("filterTexture", null);
 	}
 	
-	public static void updateUniformStruct(Transform transform, Material material, Shader shader, String uniformName, String uniformType){
-		throw new IllegalArgumentException(uniformType + " is not a supported type in Rendering Engine");
+	private static void blurShadowMap(int shadowMapIndex, float blurAmount){
+		setVector3f("blurScale", new Vector3f(blurAmount/(shadowMaps[shadowMapIndex].getWidth()), 0.0f, 0.0f));
+		applyFilter(gausBlurFilter, shadowMaps[shadowMapIndex], shadowMapTempTargets[shadowMapIndex]);
+		
+		setVector3f("blurScale", new Vector3f(0.0f, blurAmount/(shadowMaps[shadowMapIndex].getHeight()), 0.0f));
+		applyFilter(gausBlurFilter, shadowMapTempTargets[shadowMapIndex], shadowMaps[shadowMapIndex]);
+	}
+	
+	private static void blurBloomMap(float blurAmount){
+		setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
+		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+		
+		setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
+		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
+	}
+	
+	private static void renderSkybox(){
+		if(skybox != null){
+			GL11.glDepthMask(false);
+			
+			skybox.getTransform().setPos(mainCamera.getTransform().getTransformedPos());
+			
+			skybox.draw(skyboxShader, mainCamera);
+			
+//			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+			GL11.glDepthMask(true);
+		}
 	}
 	
 	public static void render(Entity object){
@@ -551,19 +568,6 @@ public class RenderingEngine{
 		font.drawString(x, y, whatchars, scaleX, scaleY, color);
 	}
 	
-	private static void renderSkybox(){
-		if(skybox != null){
-			GL11.glDepthMask(false);
-			
-			skybox.getTransform().setPos(mainCamera.getTransform().getTransformedPos());
-			
-			skybox.draw(skyboxShader, mainCamera);
-			
-//			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glDepthMask(true);
-		}
-	}
-	
 	public static void addLight(BaseLight baseLight){
 		lights.add(baseLight);
 	}
@@ -693,10 +697,6 @@ public class RenderingEngine{
 	
 	public static boolean isWireframeMode(){ //TODO remove this
 		return wireframeMode;
-	}
-	
-	public static int getFPS(){
-		return CoreEngine.fps;
 	}
 	
 	public static void dispose(){
