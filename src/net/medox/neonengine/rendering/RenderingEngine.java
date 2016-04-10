@@ -551,7 +551,7 @@ public class RenderingEngine{
 		font.drawString(x, y, whatchars, scaleX, scaleY, color);
 	}
 	
-	public static void renderSkybox(){
+	private static void renderSkybox(){
 		if(skybox != null){
 			GL11.glDepthMask(false);
 			
