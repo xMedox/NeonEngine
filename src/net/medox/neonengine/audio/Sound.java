@@ -36,12 +36,14 @@ public class Sound{
 	}
 	
 	@Override
-	protected void finalize(){
+	protected void finalize() throws Throwable{
 		source.dispose();
 		if(resource.removeReference() && !fileName.isEmpty()){
 			resource.dispose();
 			loadedAudios.remove(fileName);
 		}
+		
+		super.finalize();
 	}
 	
 	public void play(){

@@ -74,11 +74,13 @@ public class CubeMap{
 	}
 	
 	@Override
-	protected void finalize(){
+	protected void finalize() throws Throwable{
 		if(resource.removeReference()){
 			resource.dispose();
 			loadedCubeMaps.remove(fileNames);
 		}
+		
+		super.finalize();
 	}
 	
 	public void bind(int samplerSlot){

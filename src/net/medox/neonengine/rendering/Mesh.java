@@ -66,11 +66,13 @@ public class Mesh{
 //	}
 	
 	@Override
-	protected void finalize(){
+	protected void finalize() throws Throwable{
 		if(resource.removeReference() && !fileName.isEmpty()){
 			resource.dispose();
 			loadedModels.remove(fileName);
 		}
+		
+		super.finalize();
 	}
 	
 	public void draw(){

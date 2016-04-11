@@ -98,11 +98,13 @@ public class Texture{
 	}
 	
 	@Override
-	protected void finalize(){
+	protected void finalize() throws Throwable{
 		if(resource.removeReference() && !fileName.isEmpty()){
 			resource.dispose();
 			loadedTextures.remove(fileName);
 		}
+		
+		super.finalize();
 	}
 	
 	public void bind(int samplerSlot){

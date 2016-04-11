@@ -40,11 +40,13 @@ public class Shader{
 	}
 	
 	@Override
-	protected void finalize(){
+	protected void finalize() throws Throwable{
 		if(resource.removeReference() && !fileName.isEmpty()){
 			resource.dispose();
 			loadedShaders.remove(fileName);
 		}
+		
+		super.finalize();
 	}
 	
 	public void bind(){
