@@ -44,72 +44,78 @@ layout(location = 0) out vec4 outputFS;
 void main(){
 	vec4 diffuseMap;
 	
-	if(tid0 == 0){
-		diffuseMap = texture(T0_texture, texCoord0);
-	}else if(tid0 == 1){
-		diffuseMap = texture(T1_texture, texCoord0);
-	}else if(tid0 == 2){
-		diffuseMap = texture(T2_texture, texCoord0);
-	}else if(tid0 == 3){
-		diffuseMap = texture(T3_texture, texCoord0);
-	}else if(tid0 == 4){
-		diffuseMap = texture(T4_texture, texCoord0);
-	}else if(tid0 == 5){
-		diffuseMap = texture(T5_texture, texCoord0);
-	}else if(tid0 == 6){
-		diffuseMap = texture(T6_texture, texCoord0);
-	}else if(tid0 == 7){
-		diffuseMap = texture(T7_texture, texCoord0);
-	}else if(tid0 == 8){
-		diffuseMap = texture(T8_texture, texCoord0);
-	}else if(tid0 == 9){
-		diffuseMap = texture(T9_texture, texCoord0);
-	}else if(tid0 == 10){
-		diffuseMap = texture(T10_texture, texCoord0);
-	}else if(tid0 == 11){
-		diffuseMap = texture(T11_texture, texCoord0);
-	}else if(tid0 == 12){
-		diffuseMap = texture(T12_texture, texCoord0);
-	}else if(tid0 == 13){
-		diffuseMap = texture(T13_texture, texCoord0);
-	}else if(tid0 == 14){
-		diffuseMap = texture(T14_texture, texCoord0);
-	}else if(tid0 == 15){
-		diffuseMap = texture(T15_texture, texCoord0);
-	}
-	
-	if(tid0 == 16){
-		diffuseMap = texture(T16_texture, texCoord0);
-	}else if(tid0 == 17){
-		diffuseMap = texture(T17_texture, texCoord0);
-	}else if(tid0 == 18){
-		diffuseMap = texture(T18_texture, texCoord0);
-	}else if(tid0 == 19){
-		diffuseMap = texture(T19_texture, texCoord0);
-	}else if(tid0 == 20){
-		diffuseMap = texture(T20_texture, texCoord0);
-	}else if(tid0 == 21){
-		diffuseMap = texture(T21_texture, texCoord0);
-	}else if(tid0 == 22){
-		diffuseMap = texture(T22_texture, texCoord0);
-	}else if(tid0 == 23){
-		diffuseMap = texture(T23_texture, texCoord0);
-	}else if(tid0 == 24){
-		diffuseMap = texture(T24_texture, texCoord0);
-	}else if(tid0 == 25){
-		diffuseMap = texture(T25_texture, texCoord0);
-	}else if(tid0 == 26){
-		diffuseMap = texture(T26_texture, texCoord0);
-	}else if(tid0 == 27){
-		diffuseMap = texture(T27_texture, texCoord0);
-	}else if(tid0 == 28){
-		diffuseMap = texture(T28_texture, texCoord0);
-	}else if(tid0 == 29){
-		diffuseMap = texture(T29_texture, texCoord0);
-	}else if(tid0 == 30){
-		diffuseMap = texture(T30_texture, texCoord0);
-	}else if(tid0 == 31){
-		diffuseMap = texture(T31_texture, texCoord0);
+	if(tid0 < 10){
+		if(tid0 == 0){
+			diffuseMap = texture(T0_texture, texCoord0);
+		}else if(tid0 == 1){
+			diffuseMap = texture(T1_texture, texCoord0);
+		}else if(tid0 == 2){
+			diffuseMap = texture(T2_texture, texCoord0);
+		}else if(tid0 == 3){
+			diffuseMap = texture(T3_texture, texCoord0);
+		}else if(tid0 == 4){
+			diffuseMap = texture(T4_texture, texCoord0);
+		}else if(tid0 == 5){
+			diffuseMap = texture(T5_texture, texCoord0);
+		}else if(tid0 == 6){
+			diffuseMap = texture(T6_texture, texCoord0);
+		}else if(tid0 == 7){
+			diffuseMap = texture(T7_texture, texCoord0);
+		}else if(tid0 == 8){
+			diffuseMap = texture(T8_texture, texCoord0);
+		}else if(tid0 == 9){
+			diffuseMap = texture(T9_texture, texCoord0);
+		}
+	}else if(tid0 < 20){
+		if(tid0 == 10){
+			diffuseMap = texture(T10_texture, texCoord0);
+		}else if(tid0 == 11){
+			diffuseMap = texture(T11_texture, texCoord0);
+		}else if(tid0 == 12){
+			diffuseMap = texture(T12_texture, texCoord0);
+		}else if(tid0 == 13){
+			diffuseMap = texture(T13_texture, texCoord0);
+		}else if(tid0 == 14){
+			diffuseMap = texture(T14_texture, texCoord0);
+		}else if(tid0 == 15){
+			diffuseMap = texture(T15_texture, texCoord0);
+		}else if(tid0 == 16){
+			diffuseMap = texture(T16_texture, texCoord0);
+		}else if(tid0 == 17){
+			diffuseMap = texture(T17_texture, texCoord0);
+		}else if(tid0 == 18){
+			diffuseMap = texture(T18_texture, texCoord0);
+		}else if(tid0 == 19){
+			diffuseMap = texture(T19_texture, texCoord0);
+		}
+	}else if(tid0 < 30){
+		if(tid0 == 20){
+			diffuseMap = texture(T20_texture, texCoord0);
+		}else if(tid0 == 21){
+			diffuseMap = texture(T21_texture, texCoord0);
+		}else if(tid0 == 22){
+			diffuseMap = texture(T22_texture, texCoord0);
+		}else if(tid0 == 23){
+			diffuseMap = texture(T23_texture, texCoord0);
+		}else if(tid0 == 24){
+			diffuseMap = texture(T24_texture, texCoord0);
+		}else if(tid0 == 25){
+			diffuseMap = texture(T25_texture, texCoord0);
+		}else if(tid0 == 26){
+			diffuseMap = texture(T26_texture, texCoord0);
+		}else if(tid0 == 27){
+			diffuseMap = texture(T27_texture, texCoord0);
+		}else if(tid0 == 28){
+			diffuseMap = texture(T28_texture, texCoord0);
+		}else if(tid0 == 29){
+			diffuseMap = texture(T29_texture, texCoord0);
+		}
+	}else{
+		if(tid0 == 30){
+			diffuseMap = texture(T30_texture, texCoord0);
+		}else if(tid0 == 31){
+			diffuseMap = texture(T31_texture, texCoord0);
+		}
 	}
 	
 	if(diffuseMap.a >= 0.5f){
