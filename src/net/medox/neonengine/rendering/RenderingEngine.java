@@ -483,10 +483,6 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
-		renderProfileTimer.stopInvocation();
-		
-		windowSyncProfileTimer.startInvocation();
-		
 		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
@@ -495,6 +491,10 @@ public class RenderingEngine{
 			
 			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		}
+		
+		renderProfileTimer.stopInvocation();
+		
+		windowSyncProfileTimer.startInvocation();
 		
 		if(CoreEngine.OPTION_ENABLE_FXAA == 1){
 			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
