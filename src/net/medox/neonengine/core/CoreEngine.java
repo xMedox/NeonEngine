@@ -44,13 +44,13 @@ public class CoreEngine{
 	private static double frameTime;
 	private static Game game;
 	
-	public static void init(double framerate, Game game){
+	public static void init(int framerate, Game game){
 		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
 		
 		Util.init();
 		
 		isRunning = false;
-		frameTime = 1.0/framerate;
+		frameTime = 1.0/(double)framerate;
 		
 		CoreEngine.game = game;
 		
@@ -62,8 +62,8 @@ public class CoreEngine{
 		return VERSION;
 	}
 	
-	public static void changeFramerate(double framerate){
-		frameTime = 1.0/framerate;
+	public static void changeFramerate(int framerate){
+		frameTime = 1.0/(double)framerate;
 	}
 	
 	public static void createWindow(){
