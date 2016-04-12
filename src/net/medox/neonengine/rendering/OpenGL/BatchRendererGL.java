@@ -63,21 +63,21 @@ public class BatchRendererGL extends BatchRenderer{
 				
 		GL15.glGenBuffers(vertexArrayBuffers);
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_INDEX));
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*3*4*4/**3*5*4*/, null, GL15.GL_DYNAMIC_DRAW);
+		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*3*4*4/**3*5*4*//*, null*/, GL15.GL_DYNAMIC_DRAW);
 		
 		
 		GL20.glEnableVertexAttribArray(0);
 		GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(UV_INDEX));
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*2*4*4/**2*5*4*/, null, GL15.GL_DYNAMIC_DRAW);
+		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*2*4*4/**2*5*4*//*, null*/, GL15.GL_DYNAMIC_DRAW);
 		
 		
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 0, 0);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(TID_INDEX));
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*4*4/**5*4*/, null, GL15.GL_DYNAMIC_DRAW);
+		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*4*4/**5*4*//*, null*/, GL15.GL_DYNAMIC_DRAW);
 		
 		
 		GL20.glEnableVertexAttribArray(2);
@@ -85,7 +85,7 @@ public class BatchRendererGL extends BatchRenderer{
 		
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(COLOR_INDEX));
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*3*4*4/**5*4*/, null, GL15.GL_DYNAMIC_DRAW);
+		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, /*RENDERER_BUFFER_SIZE*/RENDERER_MAX_SPRITES*3*4*4/**5*4*//*, null*/, GL15.GL_DYNAMIC_DRAW);
 		
 		
 		GL20.glEnableVertexAttribArray(3);
