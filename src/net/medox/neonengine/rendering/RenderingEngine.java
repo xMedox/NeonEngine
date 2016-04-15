@@ -527,6 +527,23 @@ public class RenderingEngine{
 		return camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
 	}
 	
+	public static boolean mesh2DInFrustum(Transform2D transform){
+//		if((int)transform.getScale().getX() >= 0 && (int)transform.getScale().getY() >= 0){
+//			return (int)transform.getTransformedPos().getX() + (int)transform.getScale().getX() >= 0 && (int)transform.getTransformedPos().getX() <= Window.getWidth() &&
+//				   (int)transform.getTransformedPos().getY() + (int)transform.getScale().getY() >= 0 && (int)transform.getTransformedPos().getY() <= Window.getHeight();
+//		}else if((int)transform.getScale().getX() >= 0 && (int)transform.getScale().getY() < 0){
+//			
+//		}else if((int)transform.getScale().getX() < 0 && (int)transform.getScale().getY() >= 0){
+//			
+//		}else if((int)transform.getScale().getX() < 0 && (int)transform.getScale().getY() < 0){
+//			
+//		}
+//		
+//		return false;
+		return (int)transform.getTransformedPos().getX() + (int)transform.getScale().getX() >= 0 && (int)transform.getTransformedPos().getX() <= Window.getWidth() &&
+				   (int)transform.getTransformedPos().getY() + (int)transform.getScale().getY() >= 0 && (int)transform.getTransformedPos().getY() <= Window.getHeight();
+	}
+	
 	public static void addParticle(Transform trans, ParticleMaterial material){
 		if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
 			batchRenderer.addMesh(particleShader, particleCamera/*mainCamera*/, particleFlipFaces, trans, material);

@@ -12,7 +12,9 @@ public class MeshRenderer2D extends Entity2DComponent{
 	}
 	
 	@Override
-	public void render(){
-		RenderingEngine.add2DMesh(getTransform(), texture);
+	public void render(){		
+		if(RenderingEngine.mesh2DInFrustum(getTransform())){
+			RenderingEngine.add2DMesh(getTransform(), texture);
+		}
 	}
 }

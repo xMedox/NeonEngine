@@ -252,8 +252,9 @@ public class TrueTypeFont{
 		t2.setScale(new Vector2f(-DrawWidth, DrawHeight));
 		
 //		RenderingEngine.add2DMesh(t2, fontTexture, new Vector2f(TextureSrcX, TextureSrcY), new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight));
-		RenderingEngine.add2DMesh(t2, fontTexture, color, new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight), new Vector2f(TextureSrcX, TextureSrcY));
-
+		if(RenderingEngine.mesh2DInFrustum(t2)){
+			RenderingEngine.add2DMesh(t2, fontTexture, color, new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight), new Vector2f(TextureSrcX, TextureSrcY));
+		}
 		
 //		m.setTexture("diffuse", fontTexture);
 //		
