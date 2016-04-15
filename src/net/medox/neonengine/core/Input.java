@@ -6,14 +6,17 @@ import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.rendering.Window;
 
 public class Input{
-	public static final int MOUSE				= 0;
-	public static final int KEYBOARD 			= 1;
-	
-	public static final int NUM_KEYCODES 		= 349; //120
+	public static final int NUM_KEYCODES 		= 349;
 	public static final int NUM_MOUSEBUTTONS 	= 8;
 	
-	public static final int WHEEL_UP            = 1;
-	public static final int WHEEL_DOWN          = -1;
+	private static final boolean[] keys = new boolean[NUM_KEYCODES];
+	private static final boolean[] mouse = new boolean[NUM_MOUSEBUTTONS];
+	
+	private static final boolean[] lastKeys = new boolean[NUM_KEYCODES];
+	private static final boolean[] lastMouse = new boolean[NUM_MOUSEBUTTONS];
+	
+	public static final int MOUSE				= 0;
+	public static final int KEYBOARD 			= 1;
 	
 	public static final int BUTTON_LEFT         = GLFW.GLFW_MOUSE_BUTTON_LEFT;
 	public static final int BUTTON_RIGHT        = GLFW.GLFW_MOUSE_BUTTON_RIGHT;
@@ -26,6 +29,9 @@ public class Input{
 	public static final int BUTTON_6            = GLFW.GLFW_MOUSE_BUTTON_6;
 	public static final int BUTTON_7            = GLFW.GLFW_MOUSE_BUTTON_7;
 	public static final int BUTTON_8            = GLFW.GLFW_MOUSE_BUTTON_8;
+	
+	public static final int WHEEL_UP            = 1;
+	public static final int WHEEL_DOWN          = -1;
 	
 	public static final int KEY_UNKNOWN 		= GLFW.GLFW_KEY_UNKNOWN;
 	public static final int KEY_SPACE 			= GLFW.GLFW_KEY_SPACE;
@@ -151,14 +157,6 @@ public class Input{
 	
 //	public static boolean textInputMode;
 	
-	private static boolean[] keys = new boolean[NUM_KEYCODES];
-	private static boolean[] mouse = new boolean[NUM_MOUSEBUTTONS];
-	
-	private static boolean[] lastKeys = new boolean[NUM_KEYCODES];
-	private static boolean[] lastMouse = new boolean[NUM_MOUSEBUTTONS];
-	
-//	@SuppressWarnings("unused")
-//	private static int wheelX;
 	private static int wheelY;
 	
 	private static int mouseX;
@@ -167,7 +165,6 @@ public class Input{
 	private static String charList = "";
 	
 	public static void update(){
-//		wheelX = 0;
 		wheelY = 0;
 		charList = "";
 		
@@ -180,8 +177,7 @@ public class Input{
 		}
 	}
 	
-	public static void scroll(/*double x, */double y){
-//		wheelX = (int)x;
+	public static void scroll(double y){
 		wheelY = (int)y;
 	}
 	
@@ -206,7 +202,7 @@ public class Input{
 	
 	public static void chars(int codepoint){
 //		if(textInputMode == true){
-		charList += Character.toString((char)codepoint);
+			charList += Character.toString((char)codepoint);
 //		}
 	}
 	

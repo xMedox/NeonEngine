@@ -1,8 +1,8 @@
 package net.medox.neonengine.core;
 
 public class InputKey{
-	private int device = -1;
-	private int keycode = -1;
+	private int device;
+	private int keycode;
 
 	public InputKey(){
 		this(-1, -1);
