@@ -771,6 +771,11 @@ public class World extends EntityComponent{
 		}else if(Input.getMouse(Input.BUTTON_RIGHT)){
 			blocks[selX][selY][selZ].texture = selectedTexture;
 			blocks[selX][selY][selZ].solid = selectedSolid;
+		}else if(Input.getMouse(Input.BUTTON_MIDDLE)){
+			if(blocks[selX][selY][selZ].texture[0] != -1){
+				selectedTexture = blocks[selX][selY][selZ].texture;
+				selectedSolid = blocks[selX][selY][selZ].solid;
+			}
 		}
 		
 		if(Input.getKeyDown(Input.KEY_1)){
