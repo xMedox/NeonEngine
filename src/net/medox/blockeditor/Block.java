@@ -1,5 +1,7 @@
 package net.medox.blockeditor;
 
+import java.util.HashMap;
+
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Material;
@@ -9,26 +11,9 @@ import net.medox.neonengine.rendering.Texture;
 
 public class Block{
 	private static Mesh mesh;
+	
 	private static Material materialS;
-	private static Material material00;
-	private static Material material10;
-	private static Material material20;
-	private static Material material30;
-	private static Material material40;
-	private static Material material50;
-	private static Material material60;
-	private static Material material70;
-	private static Material material80;
-	private static Material material90;
-	private static Material material01;
-	private static Material material11;
-	private static Material material21;
-	private static Material material31;
-	private static Material material41;
-	private static Material material51;
-	private static Material material61;
-	private static Material material71;
-	private static Material material81;
+	private static HashMap<Integer, Material> materialMap;
 	
 	public int[] texture;
 	private Transform transform;
@@ -40,90 +25,87 @@ public class Block{
 		if(mesh == null){
 			mesh = new Mesh("block.obj");
 			
-			material00 = new Material();
-//			material00.setTexture("diffuse", new Texture("block00.png", true));
-//			material00.setTexture("diffuse", new Texture("blocks.png", true));
-//			material00.setTexture("glowMap", new Texture("blocks_glow.png", true));
+			materialMap = new HashMap<Integer, Material>();
+			
+			Material material00 = new Material();
 			material00.setDiffuseMap(new Texture("block00.png", true));
+			materialMap.put(1, material00);
 			
-			material10 = new Material();
-//			material10.setTexture("diffuse", new Texture("block10.png", true));
+			Material material10 = new Material();
 			material10.setDiffuseMap(new Texture("block10.png", true));
+			materialMap.put(2, material10);
 			
-			material20 = new Material();
-//			material20.setTexture("diffuse", new Texture("block20.png", true));
+			Material material20 = new Material();
 			material20.setDiffuseMap(new Texture("block20.png", true));
+			materialMap.put(3, material20);
 			
-			material30 = new Material();
-//			material30.setTexture("diffuse", new Texture("block30.png", true));
+			Material material30 = new Material();
 			material30.setDiffuseMap(new Texture("block30.png", true));
+			materialMap.put(4, material30);
 			
-			material40 = new Material();
-//			material40.setTexture("diffuse", new Texture("block40.png", true));
-//			material40.setTexture("glowMap", new Texture("block40_glow.png", true));
+			Material material40 = new Material();
 			material40.setDiffuseMap(new Texture("block40.png", true));
 			material40.setGlowMap(new Texture("block40_glow.png", true));
+			materialMap.put(5, material40);
 			
-			material50 = new Material();
-//			material50.setTexture("diffuse", new Texture("block50.png", true));
+			Material material50 = new Material();
 			material50.setDiffuseMap(new Texture("block50.png", true));
+			materialMap.put(6, material50);
 			
-			material60 = new Material();
-//			material60.setTexture("diffuse", new Texture("block60.png", true));
-//			material60.setTexture("glowMap", new Texture("block60_glow.png", true));
+			Material material60 = new Material();
 			material60.setDiffuseMap(new Texture("block60.png", true));
 			material60.setGlowMap(new Texture("block60_glow.png", true));
+			materialMap.put(7, material60);
 			
-			material70 = new Material();
-//			material70.setTexture("diffuse", new Texture("block70.png", true));
+			Material material70 = new Material();
 			material70.setDiffuseMap(new Texture("block70.png", true));
+			materialMap.put(8, material70);
 			
-			material80 = new Material();
-//			material80.setTexture("diffuse", new Texture("block80.png", true));
+			Material material80 = new Material();
 			material80.setDiffuseMap(new Texture("block80.png", true));
+			materialMap.put(9, material80);
 			
-			material90 = new Material();
-//			material90.setTexture("diffuse", new Texture("block90.png", true));
+			Material material90 = new Material();
 			material90.setDiffuseMap(new Texture("block90.png", true));
+			materialMap.put(10, material90);
 			
-			material01 = new Material();
-//			material01.setTexture("diffuse", new Texture("block01.png", true));
+			Material material01 = new Material();
 			material01.setDiffuseMap(new Texture("block01.png", true));
+			materialMap.put(11, material01);
 			
-			material11 = new Material();
-//			material11.setTexture("diffuse", new Texture("block11.png", true));
+			Material material11 = new Material();
 			material11.setDiffuseMap(new Texture("block11.png", true));
+			materialMap.put(12, material11);
 			
-			material21 = new Material();
-//			material21.setTexture("diffuse", new Texture("block21.png", true));
+			Material material21 = new Material();
 			material21.setDiffuseMap(new Texture("block21.png", true));
+			materialMap.put(13, material21);
 			
-			material31 = new Material();
-//			material31.setTexture("diffuse", new Texture("block31.png", true));
+			Material material31 = new Material();
 			material31.setDiffuseMap(new Texture("block31.png", true));
+			materialMap.put(14, material31);
 			
-			material41 = new Material();
-//			material41.setTexture("diffuse", new Texture("block41.png", true));
+			Material material41 = new Material();
 			material41.setDiffuseMap(new Texture("block41.png", true));
+			materialMap.put(15, material41);
 			
-			material51 = new Material();
-//			material51.setTexture("diffuse", new Texture("block51.png", true));
+			Material material51 = new Material();
 			material51.setDiffuseMap(new Texture("block51.png", true));
+			materialMap.put(16, material51);
 			
-			material61 = new Material();
-//			material61.setTexture("diffuse", new Texture("block61.png", true));
+			Material material61 = new Material();
 			material61.setDiffuseMap(new Texture("block61.png", true));
+			materialMap.put(17, material61);
 			
-			material71 = new Material();
-//			material71.setTexture("diffuse", new Texture("block71.png", true));
+			Material material71 = new Material();
 			material71.setDiffuseMap(new Texture("block71.png", true));
+			materialMap.put(18, material71);
 			
-			material81 = new Material();
-//			material81.setTexture("diffuse", new Texture("block81.png", true));
+			Material material81 = new Material();
 			material81.setDiffuseMap(new Texture("block81.png", true));
+			materialMap.put(19, material81);
 			
 			materialS = new Material();
-//			materialS.setTexture("diffuse", new Texture("white.png", true));
 			materialS.setDiffuseMap(new Texture("white.png", true));
 		}
 		
@@ -149,81 +131,9 @@ public class Block{
 					shader.bind();
 					shader.updateUniforms(transform, materialS, camera);
 					mesh.draw();
-				}else if(texture[0] == 0 && texture[1] == 0){
+				}else{
 					shader.bind();
-					shader.updateUniforms(transform, material00, camera);
-					mesh.draw();
-				}else if(texture[0] == 1 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material10, camera);
-					mesh.draw();
-				}else if(texture[0] == 2 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material20, camera);
-					mesh.draw();
-				}else if(texture[0] == 3 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material30, camera);
-					mesh.draw();
-				}else if(texture[0] == 4 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material40, camera);
-					mesh.draw();
-				}else if(texture[0] == 5 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material50, camera);
-					mesh.draw();
-				}else if(texture[0] == 6 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material60, camera);
-					mesh.draw();
-				}else if(texture[0] == 7 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material70, camera);
-					mesh.draw();
-				}else if(texture[0] == 8 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material80, camera);
-					mesh.draw();
-				}else if(texture[0] == 9 && texture[1] == 0){
-					shader.bind();
-					shader.updateUniforms(transform, material90, camera);
-					mesh.draw();
-				}else if(texture[0] == 0 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material01, camera);
-					mesh.draw();
-				}else if(texture[0] == 1 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material11, camera);
-					mesh.draw();
-				}else if(texture[0] == 2 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material21, camera);
-					mesh.draw();
-				}else if(texture[0] == 3 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material31, camera);
-					mesh.draw();
-				}else if(texture[0] == 4 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material41, camera);
-					mesh.draw();
-				}else if(texture[0] == 5 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material51, camera);
-					mesh.draw();
-				}else if(texture[0] == 6 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material61, camera);
-					mesh.draw();
-				}else if(texture[0] == 7 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material71, camera);
-					mesh.draw();
-				}else if(texture[0] == 8 && texture[1] == 1){
-					shader.bind();
-					shader.updateUniforms(transform, material81, camera);
+					shader.updateUniforms(transform, materialMap.get((texture[0]+1)+(texture[1]*10)), camera);
 					mesh.draw();
 				}
 			}
