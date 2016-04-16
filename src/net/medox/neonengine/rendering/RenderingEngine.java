@@ -61,6 +61,8 @@ public class RenderingEngine{
 	private static Map<String, Integer> samplerMap;
 	private static List<BaseLight> lights;
 	private static BaseLight activeLight;
+	private static Skybox skybox;
+	private static TrueTypeFont font; //TODO remove this
 	
 	private static Shader forwardAmbientShader;
 	private static Shader forwardParticleAmbientShader;
@@ -79,15 +81,11 @@ public class RenderingEngine{
 	private static Shader particleShader;
 	private static boolean particleFlipFaces;
 	
-	private static Camera mainCamera;
-	private static Skybox skybox;
-	private static TrueTypeFont font; //TODO remove this
-	
-//	private static Texture tempTarget;
-	private static Material planeMaterial;
 	private static Mesh plane;
+	private static Material planeMaterial;
 	private static Transform planeTransform;
 	
+	private static Camera mainCamera;
 	private static Camera lightCamera;
 	private static Camera filterCamera;
 	
@@ -100,8 +98,7 @@ public class RenderingEngine{
 //	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
 	
 	private static Camera camera2D;
-	private static Entity entity2D;
-//	public static Mesh plane2D;
+	private static Entity entityCamera2D;
 	
 	private static boolean wireframeMode; //TODO remove this
 	
@@ -235,10 +232,10 @@ public class RenderingEngine{
 		
 		lightMatrix = new Matrix4f().initScale(0, 0, 0);
 		
-		entity2D = new Entity();
+		entityCamera2D = new Entity();
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
 		
-		entity2D.addComponent(camera2D);
+		entityCamera2D.addComponent(camera2D);
 		
 		//TODO remove this
 //		String fontName = null;
