@@ -26,6 +26,9 @@ public class World extends EntityComponent{
 	private int selY = 0;
 	private int selZ = 0;
 	
+	private int[] selectedTexture;
+	private boolean selectedSolid;
+	
 //	private int triangles = 0;
 	
 	public World(){
@@ -48,6 +51,9 @@ public class World extends EntityComponent{
 				}
 			}
 		}
+		
+		selectedTexture = new int[]{0, 0};
+		selectedSolid = true;
 	}
 	
 //	@Override
@@ -759,68 +765,73 @@ public class World extends EntityComponent{
 			}
 		}
 		
-		if(Input.getKeyDown(Input.KEY_BACKSPACE)){
+		if(Input.getMouse(Input.BUTTON_LEFT)){
 			blocks[selX][selY][selZ].texture = new int[]{-1, 0};
 			blocks[selX][selY][selZ].solid = false;
-		}else if(Input.getKeyDown(Input.KEY_1)){
-			blocks[selX][selY][selZ].texture = new int[]{0, 0};
-			blocks[selX][selY][selZ].solid = true;
+		}else if(Input.getMouse(Input.BUTTON_RIGHT)){
+			blocks[selX][selY][selZ].texture = selectedTexture;
+			blocks[selX][selY][selZ].solid = selectedSolid;
+		}
+		
+		if(Input.getKeyDown(Input.KEY_1)){
+			selectedTexture = new int[]{0, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_2)){
-			blocks[selX][selY][selZ].texture = new int[]{1, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{1, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_3)){
-			blocks[selX][selY][selZ].texture = new int[]{2, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{2, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_4)){
-			blocks[selX][selY][selZ].texture = new int[]{3, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{3, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_5)){
-			blocks[selX][selY][selZ].texture = new int[]{4, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{4, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_6)){
-			blocks[selX][selY][selZ].texture = new int[]{5, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{5, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_7)){
-			blocks[selX][selY][selZ].texture = new int[]{6, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{6, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_8)){
-			blocks[selX][selY][selZ].texture = new int[]{7, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{7, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_9)){
-			blocks[selX][selY][selZ].texture = new int[]{8, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{8, 0};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_0)){
-			blocks[selX][selY][selZ].texture = new int[]{9, 0};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{9, 0};
+			selectedSolid = true;
 		}
 		
 		if(Input.getKeyDown(Input.KEY_I)){
-			blocks[selX][selY][selZ].texture = new int[]{0, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{0, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_O)){
-			blocks[selX][selY][selZ].texture = new int[]{1, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{1, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_P)){
-			blocks[selX][selY][selZ].texture = new int[]{2, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{2, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_J)){
-			blocks[selX][selY][selZ].texture = new int[]{3, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{3, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_K)){
-			blocks[selX][selY][selZ].texture = new int[]{4, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{4, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_L)){
-			blocks[selX][selY][selZ].texture = new int[]{5, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{5, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_X)){
-			blocks[selX][selY][selZ].texture = new int[]{6, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{6, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_C)){
-			blocks[selX][selY][selZ].texture = new int[]{7, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{7, 1};
+			selectedSolid = true;
 		}else if(Input.getKeyDown(Input.KEY_V)){
-			blocks[selX][selY][selZ].texture = new int[]{8, 1};
-			blocks[selX][selY][selZ].solid = true;
+			selectedTexture = new int[]{8, 1};
+			selectedSolid = true;
 		}
 		
 		if(Input.getKeyDown(Input.KEY_N)){
@@ -834,6 +845,10 @@ public class World extends EntityComponent{
 			saveCollision();
 			System.out.println("DONE SAVING");
 		}
+	}
+	
+	public int[] getSelectedTexture(){
+		return selectedTexture;
 	}
 	
 	@Override

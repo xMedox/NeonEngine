@@ -2,14 +2,18 @@ package net.medox.blockeditor;
 
 import net.medox.neonengine.components.FreeLook;
 import net.medox.neonengine.components.FreeMove;
+import net.medox.neonengine.components.Lock2D;
 import net.medox.neonengine.components.ScreenshotTaker;
 import net.medox.neonengine.core.Entity;
+import net.medox.neonengine.core.Entity2D;
 import net.medox.neonengine.core.Game;
 import net.medox.neonengine.math.Quaternion;
+import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.DirectionalLight;
 import net.medox.neonengine.rendering.Skybox;
+import net.medox.neonengine.rendering.Texture;
 
 public class TestGame extends Game{
 	@Override
@@ -39,8 +43,17 @@ public class TestGame extends Game{
 		addEntity(directionalLightObject);
 		
 		Entity world = new Entity();
-		world.addComponent(new World());
+		World w = new World();
+		world.addComponent(w);
 		addEntity(world);
+		
+		Entity2D block = new Entity2D();
+		Lock2D blockLock = new Lock2D(4, -64-4, new Vector2f(0, 1));
+		block.getTransform().setScale(64);
+		BlockShower blockShower = new BlockShower(new Texture("blocks.png", true), w);
+		block.addComponent(blockLock);
+		block.addComponent(blockShower);
+		addEntity2D(block);
 	}
 	
 	@Override
