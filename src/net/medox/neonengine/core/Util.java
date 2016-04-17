@@ -199,7 +199,7 @@ public class Util{
 //		return new Texture(createImage(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, 2, 2));
 //	}
 	
-	public static Texture createDefaultSpecularMap(){	
+	public static Texture createDefaultSpecularMap(){
 		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
 	}
 	

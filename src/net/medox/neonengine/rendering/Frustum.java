@@ -23,21 +23,21 @@ public class Frustum{
 			final Vector3f farClipping = position.add(z.mul((far - near)*2)); //add offset to remove clipping bug
 			
 			
-			final Vector3f n1 = y.mul(height);
-			final Vector3f n2 = x.mul(width);
+			final Vector3f near1 = y.mul(height);
+			final Vector3f near2 = x.mul(width);
 			
-			final Vector3f f1 = y.mul(height);
-			final Vector3f f2 = x.mul(width);
+			final Vector3f far1 = y.mul(height);
+			final Vector3f far2 = x.mul(width);
 			
-			final Vector3f ntl = nearClipping.add(n1).sub(n2);
-			final Vector3f ntr = nearClipping.add(n1).add(n2);
-			final Vector3f nbl = nearClipping.sub(n1).sub(n2);
-			final Vector3f nbr = nearClipping.sub(n1).add(n2);
+			final Vector3f ntl = nearClipping.add(near1).sub(near2);
+			final Vector3f ntr = nearClipping.add(near1).add(near2);
+			final Vector3f nbl = nearClipping.sub(near1).sub(near2);
+			final Vector3f nbr = nearClipping.sub(near1).add(near2);
 			
-			final Vector3f ftl = farClipping.add(f1).sub(f2);
-			final Vector3f ftr = farClipping.add(f1).add(f2);
-			final Vector3f fbl = farClipping.sub(f1).sub(f2);
-			final Vector3f fbr = farClipping.sub(f1).add(f2);
+			final Vector3f ftl = farClipping.add(far1).sub(far2);
+			final Vector3f ftr = farClipping.add(far1).add(far2);
+			final Vector3f fbl = farClipping.sub(far1).sub(far2);
+			final Vector3f fbr = farClipping.sub(far1).add(far2);
 			
 			planes = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
 		}else{
@@ -54,21 +54,21 @@ public class Frustum{
 			final Vector3f farClipping = position.add(z.mul(zFar));
 			
 			
-			final Vector3f n1 = y.mul(nearHeight);
-			final Vector3f n2 = x.mul(nearHeight * ratio);
+			final Vector3f near1 = y.mul(nearHeight);
+			final Vector3f near2 = x.mul(nearHeight * ratio);
 			
-			final Vector3f f1 = y.mul(farHeight);
-			final Vector3f f2 = x.mul(farHeight * ratio);
+			final Vector3f far1 = y.mul(farHeight);
+			final Vector3f far2 = x.mul(farHeight * ratio);
 			
-			final Vector3f ntl = nearClipping.add(n1).sub(n2);
-			final Vector3f ntr = nearClipping.add(n1).add(n2);
-			final Vector3f nbl = nearClipping.sub(n1).sub(n2);
-			final Vector3f nbr = nearClipping.sub(n1).add(n2);
+			final Vector3f ntl = nearClipping.add(near1).sub(near2);
+			final Vector3f ntr = nearClipping.add(near1).add(near2);
+			final Vector3f nbl = nearClipping.sub(near1).sub(near2);
+			final Vector3f nbr = nearClipping.sub(near1).add(near2);
 			
-			final Vector3f ftl = farClipping.add(f1).sub(f2);
-			final Vector3f ftr = farClipping.add(f1).add(f2);
-			final Vector3f fbl = farClipping.sub(f1).sub(f2);
-			final Vector3f fbr = farClipping.sub(f1).add(f2);
+			final Vector3f ftl = farClipping.add(far1).sub(far2);
+			final Vector3f ftr = farClipping.add(far1).add(far2);
+			final Vector3f fbl = farClipping.sub(far1).sub(far2);
+			final Vector3f fbr = farClipping.sub(far1).add(far2);
 			
 			planes = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
 		}

@@ -15,6 +15,7 @@ Other:
 - Fixed addToEngine function in the component classes
 - Removed getRootEntity and getRootEntity2D functions
 - Made framerate an int
+- Renamed some variables and some refactoring
 
 ## Todo:
 
@@ -22,7 +23,7 @@ Rendering:
 - Ability to render to a CubeMap
 - PointLight Shadows
 - Remove the black line of DirectionalLight Shadows
-- Rewrite Fonts
+- Rewrite font rendering and loading
 
 Physics:
 - Masking
