@@ -16,7 +16,6 @@ public class Skybox extends EntityComponent{
 		float size = 50.0f;
 		
 		material = new Material();
-		
 		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, true));
 		
 		final float vertexMin = -size/2-1f;

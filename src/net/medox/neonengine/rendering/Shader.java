@@ -14,7 +14,6 @@ public class Shader{
 	private static final Map<String, ShaderData> loadedShaders = new ConcurrentHashMap<String, ShaderData>();
 	
 	private final String fileName;
-	
 	private ShaderData resource;
 	
 	public Shader(String fileName){

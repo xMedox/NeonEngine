@@ -31,6 +31,7 @@ public class Window{
 	public static final int DONT_CARE = GLFW.GLFW_DONT_CARE;
 	
     public static long window;
+	private static long cursor;
     
     private static GLFWErrorCallback errorCallback;
     private static GLFWKeyCallback key;
@@ -40,8 +41,6 @@ public class Window{
 	private static GLFWWindowPosCallback pos;
 	private static GLFWFramebufferSizeCallback size;
 	private static GLFWCharCallback text;
-	
-	private static long cursor;
 	
 	private static String title = "NeonEngine";
 	private static int oldXPos;

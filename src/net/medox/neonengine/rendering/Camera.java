@@ -5,9 +5,8 @@ import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
 
 public class Camera extends EntityComponent{
-	private Frustum frustum;
-	
 	private Base base;
+	private Frustum frustum;
 	
 	public Camera(){
 		base = new Base();

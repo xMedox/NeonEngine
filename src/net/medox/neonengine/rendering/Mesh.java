@@ -13,7 +13,6 @@ public class Mesh{
 	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
 	
 	private final String fileName;
-	
 	private MeshData resource;
 	
 	public Mesh(String fileName/*, boolean createShape*/){
