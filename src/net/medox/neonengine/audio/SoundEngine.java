@@ -17,9 +17,9 @@ public class SoundEngine{
 	private static long context;
 	private static long device;
 	
-	private static FloatBuffer listenerPos;
-	private static FloatBuffer listenerVel;
-	private static FloatBuffer listenerOri;
+	private static FloatBuffer listenerPosition;
+	private static FloatBuffer listenerVelocity;
+	private static FloatBuffer listenerOrientation;
 	
 	public static void init(){
 		device = ALC10.alcOpenDevice((ByteBuffer)null);
@@ -70,38 +70,38 @@ public class SoundEngine{
 //		
 //		context.makeCurrent();
 		
-		listenerPos = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
-		listenerPos.flip();
+		listenerPosition = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		listenerPosition.flip();
 		
-		listenerVel = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
-		listenerVel.flip();
+		listenerVelocity = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		listenerVelocity.flip();
 		
-		listenerOri = BufferUtils.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
-		listenerOri.flip();
+		listenerOrientation = BufferUtils.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
+		listenerOrientation.flip();
 	}
 	
 	public static void setPosition(Vector3f value){
-		listenerPos.put(0, value.getX());
-		listenerPos.put(1, value.getY());
-		listenerPos.put(2, value.getZ());
-		AL10.alListenerfv(AL10.AL_POSITION, listenerPos);
+		listenerPosition.put(0, value.getX());
+		listenerPosition.put(1, value.getY());
+		listenerPosition.put(2, value.getZ());
+		AL10.alListenerfv(AL10.AL_POSITION, listenerPosition);
 	}
 	
 	public static void setVelocity(Vector3f value){
-		listenerVel.put(0, value.getX());
-		listenerVel.put(1, value.getY());
-		listenerVel.put(2, value.getZ());
-		AL10.alListenerfv(AL10.AL_VELOCITY, listenerVel);
+		listenerVelocity.put(0, value.getX());
+		listenerVelocity.put(1, value.getY());
+		listenerVelocity.put(2, value.getZ());
+		AL10.alListenerfv(AL10.AL_VELOCITY, listenerVelocity);
 	}
 	
 	public static void setOrientation(Quaternion value){
-		listenerOri.put(0, -value.getForward().getX());
-		listenerOri.put(1, -value.getForward().getY());
-		listenerOri.put(2, -value.getForward().getZ());
-		listenerOri.put(3, value.getUp().getX());
-		listenerOri.put(4, value.getUp().getY());
-		listenerOri.put(5, value.getUp().getZ());
-		AL10.alListenerfv(AL10.AL_ORIENTATION, listenerOri);
+		listenerOrientation.put(0, -value.getForward().getX());
+		listenerOrientation.put(1, -value.getForward().getY());
+		listenerOrientation.put(2, -value.getForward().getZ());
+		listenerOrientation.put(3, value.getUp().getX());
+		listenerOrientation.put(4, value.getUp().getY());
+		listenerOrientation.put(5, value.getUp().getZ());
+		AL10.alListenerfv(AL10.AL_ORIENTATION, listenerOrientation);
 	}
 	
 	public static void setGain(float value){
