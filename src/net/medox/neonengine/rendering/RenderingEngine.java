@@ -59,8 +59,15 @@ public class RenderingEngine{
 	private static Map<String, Float> floatMap;
 	
 	private static Map<String, Integer> samplerMap;
+	
+	private static Camera mainCamera;
+	private static Camera camera2D;
+	
 	private static List<BaseLight> lights;
 	private static BaseLight activeLight;
+	private static Matrix4f lightMatrix;
+	private static Camera lightCamera;
+	
 	private static Skybox skybox;
 	private static TrueTypeFont font; //TODO remove this
 	
@@ -81,24 +88,16 @@ public class RenderingEngine{
 	private static Shader particleShader;
 	private static boolean particleFlipFaces;
 	
-	private static Mesh plane;
-	private static Material planeMaterial;
-	private static Transform planeTransform;
-	
-	private static Camera mainCamera;
-	private static Camera lightCamera;
+	private static Mesh filterPlane;
+	private static Material filterMaterial;
+	private static Transform filterTransform;
 	private static Camera filterCamera;
-	
-	private static Matrix4f lightMatrix;
 	
 	private static Texture[] shadowMaps = new Texture[NUM_SHADOW_MAPS];
 	private static Texture[] shadowMapTempTargets = new Texture[NUM_SHADOW_MAPS];
 	
 //	private static CubeMap[] shadowCubeMaps = new CubeMap[NUM_SHADOW_MAPS];
 //	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
-	
-	private static Camera camera2D;
-	private static Entity entityCamera2D;
 	
 	private static boolean wireframeMode; //TODO remove this
 	
@@ -133,7 +132,6 @@ public class RenderingEngine{
 //		vector2fHashMap = new  HashMap<String, Vector2f>();
 		floatMap = new HashMap<String, Float>();
 		
-		lights = new ArrayList<BaseLight>();
 		samplerMap = new HashMap<String, Integer>();
 		samplerMap.put("diffuse", 0);
 		samplerMap.put("normalMap", 1);
@@ -146,8 +144,9 @@ public class RenderingEngine{
 		samplerMap.put("shadowMap", 4);
 		
 		samplerMap.put("filterTexture", 0);
-		
 		samplerMap.put("cubeMap", 0);
+		
+		lights = new ArrayList<BaseLight>();
 		
 		setVector3f("ambient", new Vector3f(0.15f, 0.15f, 0.15f));
 		
@@ -195,11 +194,11 @@ public class RenderingEngine{
 		new Entity().addComponent(filterCamera);
 		filterCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
 		
-		planeTransform = new Transform();
-		planeTransform.rotate(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
-		planeTransform.rotate(new Quaternion(new Vector3f(0, 0, 1), (float)Math.toRadians(180.0f)));
+		filterTransform = new Transform();
+		filterTransform.rotate(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
+		filterTransform.rotate(new Quaternion(new Vector3f(0, 0, 1), (float)Math.toRadians(180.0f)));
 		
-		planeMaterial = new Material();
+		filterMaterial = new Material();
 		
 		final IndexedModel meshIndexed = new IndexedModel();
 		
@@ -219,7 +218,7 @@ public class RenderingEngine{
 		meshIndexed.addFace(1, 0, 2);
 		meshIndexed.addFace(3, 1, 2);
 		
-		plane = new Mesh("", meshIndexed.finalizeModel());
+		filterPlane = new Mesh("", meshIndexed.finalizeModel());
 		
 		for(int i = 0; i < NUM_SHADOW_MAPS; i++){
 			final int shadowMapSize = 1 << (i + 1);
@@ -232,10 +231,9 @@ public class RenderingEngine{
 		
 		lightMatrix = new Matrix4f().initScale(0, 0, 0);
 		
-		entityCamera2D = new Entity();
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
 		
-		entityCamera2D.addComponent(camera2D);
+		new Entity().addComponent(camera2D);
 		
 		//TODO remove this
 //		String fontName = null;
@@ -315,8 +313,8 @@ public class RenderingEngine{
 		
 		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 		filter.bind();
-		filter.updateUniforms(planeTransform, planeMaterial, filterCamera);
-		plane.draw();
+		filter.updateUniforms(filterTransform, filterMaterial, filterCamera);
+		filterPlane.draw();
 		
 		setTexture("filterTexture", null);
 	}
