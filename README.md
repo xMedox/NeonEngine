@@ -8,6 +8,7 @@ Rendering:
 - Optimized updateUniforms function
 - Optimized shader2D and forwardParticleAmbient shaders
 - Added mesh2DInFrustum function
+- Optimized and fixed Skybox class
 
 Other:
 - Added functions to change material properties

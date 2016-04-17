@@ -5,7 +5,7 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class Skybox extends EntityComponent{
-	private final Mesh mesh;
+	private static Mesh mesh;
 	private final Material material;
 	
 	public Skybox(String right, String left, String top, String bottom, String front, String back){
@@ -13,70 +13,69 @@ public class Skybox extends EntityComponent{
 	}
 	
 	public Skybox(String right, String left, String top, String bottom, String front, String back, boolean nearest){
-		float size = 50.0f;
+		if(mesh == null){
+			final float vertexMin = -50.0f/2;
+			final float vertexMax = 50.0f/2;
+			
+			final Vector3f[] vertices = new Vector3f[]{new Vector3f(vertexMin, vertexMax, vertexMin),
+													   new Vector3f(vertexMin, vertexMax, vertexMax),
+													   new Vector3f(vertexMin, vertexMin, vertexMax),
+													   new Vector3f(vertexMin, vertexMin, vertexMin),
+													   new Vector3f(vertexMax, vertexMax, vertexMin),
+													   new Vector3f(vertexMin, vertexMax, vertexMin),
+													   new Vector3f(vertexMin, vertexMin, vertexMin),
+													   new Vector3f(vertexMax, vertexMin, vertexMin),
+													   new Vector3f(vertexMax, vertexMax, vertexMax),
+													   new Vector3f(vertexMax, vertexMax, vertexMin),
+													   new Vector3f(vertexMax, vertexMin, vertexMin),
+													   new Vector3f(vertexMax, vertexMin, vertexMax),
+													   new Vector3f(vertexMin, vertexMax, vertexMax),
+													   new Vector3f(vertexMax, vertexMax, vertexMax),
+													   new Vector3f(vertexMax, vertexMin, vertexMax),
+													   new Vector3f(vertexMin, vertexMin, vertexMax),
+													   new Vector3f(vertexMin, vertexMax, vertexMin),
+													   new Vector3f(vertexMax, vertexMax, vertexMin),
+													   new Vector3f(vertexMax, vertexMax, vertexMax),
+													   new Vector3f(vertexMin, vertexMax, vertexMax),
+													   new Vector3f(vertexMax, vertexMin, vertexMin),
+													   new Vector3f(vertexMin, vertexMin, vertexMin),
+													   new Vector3f(vertexMin, vertexMin, vertexMax),
+													   new Vector3f(vertexMax, vertexMin, vertexMax)};
+			
+			final IndexedModel model = new IndexedModel();
+			
+			for(int i = 0; i < vertices.length; i++){
+				model.addVertex(vertices[i]);
+			}
+			
+			model.addFace(0, 1, 2);
+			model.addFace(0, 2, 3);
+			
+			model.addFace(4, 5, 6);
+			model.addFace(4, 6, 7);
+			
+			model.addFace(8, 9, 10);
+			model.addFace(8, 10, 11);
+			
+			model.addFace(12, 13, 14);
+			model.addFace(12, 14, 15);
+			
+			model.addFace(16, 17, 18);
+			model.addFace(16, 18, 19);
+			
+			model.addFace(20, 21, 22);
+			model.addFace(20, 22, 23);
+			
+			mesh = new Mesh("", model.finalizeModel());
+		}
 		
 		material = new Material();
 		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, true));
-		
-		final float vertexMin = -size/2-1f;
-		final float vertexMax = size/2+1f;
-		
-		final Vector3f[] vertices = new Vector3f[]{new Vector3f(vertexMin, vertexMax, vertexMin),
-												   new Vector3f(vertexMin, vertexMax, vertexMax),
-												   new Vector3f(vertexMin, vertexMin, vertexMax),
-												   new Vector3f(vertexMin, vertexMin, vertexMin),
-												   new Vector3f(vertexMax, vertexMax, vertexMin),
-												   new Vector3f(vertexMin, vertexMax, vertexMin),
-												   new Vector3f(vertexMin, vertexMin, vertexMin),
-												   new Vector3f(vertexMax, vertexMin, vertexMin),
-												   new Vector3f(vertexMax, vertexMax, vertexMax),
-												   new Vector3f(vertexMax, vertexMax, vertexMin),
-												   new Vector3f(vertexMax, vertexMin, vertexMin),
-												   new Vector3f(vertexMax, vertexMin, vertexMax),
-												   new Vector3f(vertexMin, vertexMax, vertexMax),
-												   new Vector3f(vertexMax, vertexMax, vertexMax),
-												   new Vector3f(vertexMax, vertexMin, vertexMax),
-												   new Vector3f(vertexMin, vertexMin, vertexMax),
-												   new Vector3f(vertexMin, vertexMax, vertexMin),
-												   new Vector3f(vertexMax, vertexMax, vertexMin),
-												   new Vector3f(vertexMax, vertexMax, vertexMax),
-												   new Vector3f(vertexMin, vertexMax, vertexMax),
-												   new Vector3f(vertexMax, vertexMin, vertexMin),
-												   new Vector3f(vertexMin, vertexMin, vertexMin),
-												   new Vector3f(vertexMin, vertexMin, vertexMax),
-												   new Vector3f(vertexMax, vertexMin, vertexMax)};
-		
-		mesh = getMesh(vertices);
-		
-		RenderingEngine.setMainSkybox(this);
 	}
 	
-	public Mesh getMesh(Vector3f[] vertices){
-		final IndexedModel mesh = new IndexedModel();
-		
-		for(int i = 0; i < vertices.length; i++){
-			mesh.addVertex(vertices[i]);
-		}
-		
-		mesh.addFace(0, 1, 2);
-		mesh.addFace(0, 2, 3);
-		
-		mesh.addFace(4, 5, 6);
-		mesh.addFace(4, 6, 7);
-		
-		mesh.addFace(8, 9, 10);
-		mesh.addFace(8, 10, 11);
-		
-		mesh.addFace(12, 13, 14);
-		mesh.addFace(12, 14, 15);
-		
-		mesh.addFace(16, 17, 18);
-		mesh.addFace(16, 18, 19);
-		
-		mesh.addFace(20, 21, 22);
-		mesh.addFace(20, 22, 23);
-				
-		return new Mesh("", mesh.finalizeModel());
+	@Override
+	public void addToEngine(){
+		RenderingEngine.setMainSkybox(this);
 	}
 	 
 	public void draw(Shader shader, Camera camera){
