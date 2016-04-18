@@ -11,6 +11,7 @@ Rendering:
 - Optimized and fixed Skybox class
 
 Other:
+- Java 8 is required
 - Added functions to change material properties
 - Removed MappedValues class
 - Fixed addToEngine function in the component classes
