@@ -17,6 +17,7 @@ Other:
 - Removed getRootEntity and getRootEntity2D functions
 - Made framerate an int
 - Renamed some variables and some refactoring
+- Removed null check in the get... functions of Materials and the RenderingEngine
 
 ## Todo:
 

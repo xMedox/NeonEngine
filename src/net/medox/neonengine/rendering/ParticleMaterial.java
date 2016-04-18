@@ -53,14 +53,10 @@ public class ParticleMaterial{
 	}
 	
 	public Texture getTexture(String name){
-		final Texture result = textureMap.get(name);
-		
-		return result == null ? Material.DEFAULT_DIFFUSE_TEXTURE : result;
+		return textureMap.get(name);
 	}
 	
 	public float getFloat(String name){
-		final Float result = floatMap.get(name);
-		
-		return result == null ? 0 : result;
+		return floatMap.get(name);
 	}
 }

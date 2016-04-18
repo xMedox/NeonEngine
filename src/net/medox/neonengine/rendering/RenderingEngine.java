@@ -665,33 +665,23 @@ public class RenderingEngine{
 	}
 	
 	public static Texture getTexture(String name){
-		final Texture result = textureMap.get(name);
-		
-		return result == null ? Material.DEFAULT_DIFFUSE_TEXTURE : result;
+		return textureMap.get(name);
 	}
 	
 //	public static CubeMap getCubeMap(String name){
-//		final CubeMap result = cubeMapHashMap.get(name);
-//		
-//		return result == null ? Material.DEFAULT_CUBE_MAP : result;
+//		return cubeMapHashMap.get(name);
 //	}
 	
 	public static Vector3f getVector3f(String name){
-		final Vector3f result = vector3fMap.get(name);
-		
-		return result == null ? new Vector3f(0, 0, 0) : result;
+		return vector3fMap.get(name);
 	}
 	
 //	public static Vector2f getVector2f(String name){
-//		final Vector2f result = vector2fHashMap.get(name);
-//		
-//		return result == null ? new Vector2f(0, 0) : result;
+//		return vector2fHashMap.get(name);
 //	}
 	
 	public static float getFloat(String name){
-		final Float result = floatMap.get(name);
-		
-		return result == null ? 0 : result;
+		return floatMap.get(name);
 	}
 	
 	public static void setAmbiet(Vector3f ambient){
