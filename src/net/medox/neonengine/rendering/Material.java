@@ -71,6 +71,30 @@ public class Material{
 		setFloat("specularPower", value);
 	}
 	
+	public Texture getDiffuseMap(){
+		return getTexture("diffuse");
+	}
+	
+	public Texture getNormalMap(){
+		return getTexture("normalMap");
+	}
+	
+	public Texture getSpecularMap(){
+		return getTexture("specMap");
+	}
+	
+	public Texture getGlowMap(){
+		return getTexture("glowMap");
+	}
+	
+	public float getSpecularIntensity(){
+		return getFloat("specularIntensity");
+	}
+	
+	public float getSpecularPower(){
+		return getFloat("specularPower");
+	}
+	
 //	@Override
 //	public void setFloat(String name, float floatValue){
 //		if(name.equals("dispMapBias")){

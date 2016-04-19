@@ -42,6 +42,22 @@ public class ParticleMaterial{
 		setFloat("glow", value);
 	}
 	
+	public Texture getDiffuseMap(){
+		return getTexture("diffuse");
+	}
+	
+	public float getSpecularIntensity(){
+		return getFloat("specularIntensity");
+	}
+	
+	public float getSpecularPower(){
+		return getFloat("specularPower");
+	}
+	
+	public float getGlow(){
+		return getFloat("glow");
+	}
+	
 	public void setTexture(String name, Texture texture){
 		textureMap.remove(name);
 		textureMap.put(name, texture);

@@ -12,7 +12,7 @@ Rendering:
 
 Other:
 - Java 8 is required
-- Added functions to change material properties
+- Added functions to get and set material properties easily
 - Removed MappedValues class
 - Fixed addToEngine function in the component classes
 - Removed getRootEntity and getRootEntity2D functions in the Game class

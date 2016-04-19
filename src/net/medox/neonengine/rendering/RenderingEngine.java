@@ -683,7 +683,7 @@ public class RenderingEngine{
 	}
 	
 	public static void setAmbiet(Vector3f ambient){
-		setVector3f("ambient", new Vector3f(ambient.getX(), ambient.getY(), ambient.getZ()));
+		setVector3f("ambient", ambient);
 	}
 	
 	public static Vector3f getAmbiet(){
