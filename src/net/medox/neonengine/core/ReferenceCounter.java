@@ -17,6 +17,6 @@ public class ReferenceCounter{
 	
 	public boolean removeReference(){
 		refCount--;
-		return refCount == 0;
+		return refCount <= 0;
 	}
 }
