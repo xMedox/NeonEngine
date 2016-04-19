@@ -17,6 +17,7 @@ Other:
 - Fixed addToEngine function in the component classes
 - Removed getRootEntity and getRootEntity2D functions in the Game class
 - Added removeEntity2D function in the Game class
+- Optimized removeEmptyStrings function in Util lass
 - Made framerate an int
 - Renamed some variables and some refactoring
 - Removed null check in the get... functions of Materials and the RenderingEngine

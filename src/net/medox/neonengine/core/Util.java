@@ -143,18 +143,15 @@ public class Util{
 	}
 	
 	public static String[] removeEmptyStrings(String... data){
-		final List<String> result = new ArrayList<String>();
+		final ArrayList<String> result = new ArrayList<String>();
 		
-		for(int i = 0; i < data.length; i++){
-			if(!data[i].equals("")){
-				result.add(data[i]);
+		for(String filtering : data){
+			if(!filtering.isEmpty()){
+				result.add(filtering);
 			}
 		}
 		
-		final String[] res = new String[result.size()];
-		result.toArray(res);
-		
-		return res;
+		return result.toArray(new String[0]);
 	}
 	
 	public static int[] toIntArray(Integer... data){
