@@ -57,10 +57,7 @@ public class DelayLook extends EntityComponent{
 		y = (y+y2)/2;
 		y2 = (y2+y3)/2;
 		y3 = (y3+y4)/2;
-		
-		if(lock != null){
-			y4 = (y4+lock.getY()*(0.016666668f/delta))/2;
-		}
+		y4 = (y4+lock.getY()*(0.016666668f/delta))/2;
 		
 		if(invert){
 			getTransform().rotate(getTransform().getRot().getRight(), -x/div);
@@ -71,10 +68,7 @@ public class DelayLook extends EntityComponent{
 		x = (x+x2)/2;
 		x2 = (x2+x3)/2;
 		x3 = (x3+x4)/2;
-		
-		if(lock != null){
-			x4 = (x4+lock.getX()*(0.016666668f/delta))/2;
-		}
+		x4 = (x4+lock.getX()*(0.016666668f/delta))/2;
 	}
 }
 
