@@ -128,7 +128,6 @@ public class IndexedModel{
 			final float f = dividend == 0 ? 0.0f : 1.0f/dividend;
 			
 			final Vector3f tangent = new Vector3f(0.0f, 0.0f, 0.0f);
-			
 			tangent.setX(f * (deltaV2 * edge1.getX() - deltaV1 * edge2.getX()));
 			tangent.setY(f * (deltaV2 * edge1.getY() - deltaV1 * edge2.getY()));
 			tangent.setZ(f * (deltaV2 * edge1.getZ() - deltaV1 * edge2.getZ()));
