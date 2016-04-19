@@ -160,9 +160,7 @@ public class CoreEngine{
 				
 				
 				enginePhysicTimer.startInvocation();
-				
 				PhysicsEngine.update((float)frameTime);
-				
 				enginePhysicTimer.stopInvocation();
 				
 				

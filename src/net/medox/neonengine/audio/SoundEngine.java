@@ -24,7 +24,7 @@ public class SoundEngine{
 	public static void init(){
 		device = ALC10.alcOpenDevice((ByteBuffer)null);
 		if(device == MemoryUtil.NULL){
-			throw new IllegalStateException("Failed to open the default device.");
+			throw new IllegalStateException("Failed to open the default OpenAL device.");
 		}
 				
 		context = ALC10.alcCreateContext(device, null);

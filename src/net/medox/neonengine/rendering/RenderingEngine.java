@@ -200,25 +200,24 @@ public class RenderingEngine{
 		
 		filterMaterial = new Material();
 		
-		final IndexedModel meshIndexed = new IndexedModel();
+		final IndexedModel filterIndexed = new IndexedModel();
 		
-		meshIndexed.addVertex(new Vector3f(1f, 0f, 1f));
-		meshIndexed.addTexCoord(new Vector2f(1f, 1f - 0f));
+		filterIndexed.addVertex(new Vector3f(1f, 0f, 1f));
+		filterIndexed.addTexCoord(new Vector2f(1f, 1f - 0f));
 		
-		meshIndexed.addVertex(new Vector3f(-1f, 0f, 1f));
-		meshIndexed.addTexCoord(new Vector2f(0f, 1f - 0f));
+		filterIndexed.addVertex(new Vector3f(-1f, 0f, 1f));
+		filterIndexed.addTexCoord(new Vector2f(0f, 1f - 0f));
 		
-		meshIndexed.addVertex(new Vector3f(1f, 0f, -1f));
-		meshIndexed.addTexCoord(new Vector2f(1f, 1f - 1f));
+		filterIndexed.addVertex(new Vector3f(1f, 0f, -1f));
+		filterIndexed.addTexCoord(new Vector2f(1f, 1f - 1f));
 		
-		meshIndexed.addVertex(new Vector3f(-1f, 0f, -1f));
-		meshIndexed.addTexCoord(new Vector2f(0f, 1f - 1f));
+		filterIndexed.addVertex(new Vector3f(-1f, 0f, -1f));
+		filterIndexed.addTexCoord(new Vector2f(0f, 1f - 1f));
 		
+		filterIndexed.addFace(1, 0, 2);
+		filterIndexed.addFace(3, 1, 2);
 		
-		meshIndexed.addFace(1, 0, 2);
-		meshIndexed.addFace(3, 1, 2);
-		
-		filterPlane = new Mesh("", meshIndexed.finalizeModel());
+		filterPlane = new Mesh("", filterIndexed.finalizeModel());
 		
 		for(int i = 0; i < NUM_SHADOW_MAPS; i++){
 			final int shadowMapSize = 1 << (i + 1);
@@ -232,7 +231,6 @@ public class RenderingEngine{
 		lightMatrix = new Matrix4f().initScale(0, 0, 0);
 		
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
-		
 		new Entity().addComponent(camera2D);
 		
 		//TODO remove this

@@ -10,17 +10,17 @@ import org.lwjgl.openal.AL10;
 public class SourceData{
 	private final int source;
 	
-	private final FloatBuffer sourcePos;
-	private final FloatBuffer sourceVel;
+	private final FloatBuffer sourcePosition;
+	private final FloatBuffer sourceVelocity;
 	
 	public SourceData(){
 		source = AL10.alGenSources();
 		
-		sourcePos = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
-		sourcePos.flip();
+		sourcePosition = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		sourcePosition.flip();
 		
-		sourceVel = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
-		sourceVel.flip();
+		sourceVelocity = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		sourceVelocity.flip();
 	}
 	
 	public void setBuffer(SoundData data){
@@ -44,19 +44,19 @@ public class SourceData{
 	}
 	
 	public void setPosition(Vector3f value){
-		sourcePos.put(0, value.getX());
-        sourcePos.put(1, value.getY());
-        sourcePos.put(2, value.getZ());
+		sourcePosition.put(0, value.getX());
+		sourcePosition.put(1, value.getY());
+		sourcePosition.put(2, value.getZ());
         
-		AL10.alSourcefv(source, AL10.AL_POSITION, sourcePos);
+		AL10.alSourcefv(source, AL10.AL_POSITION, sourcePosition);
 	}
 	
 	public void setVelocity(Vector3f value){
-		sourceVel.put(0, value.getX());
-		sourceVel.put(1, value.getY());
-		sourceVel.put(2, value.getZ());
+		sourceVelocity.put(0, value.getX());
+		sourceVelocity.put(1, value.getY());
+		sourceVelocity.put(2, value.getZ());
         
-		AL10.alSourcefv(source, AL10.AL_VELOCITY, sourceVel);
+		AL10.alSourcefv(source, AL10.AL_VELOCITY, sourceVelocity);
 	}
 	
 	public void setLooping(boolean value){

@@ -263,9 +263,7 @@ public class BatchRendererGL extends BatchRenderer{
 	@Override
 	public void draw(Shader shader, Camera camera){
 		shader.bind();
-		
 		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
-		
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_INDEX));
 		
