@@ -24,20 +24,11 @@ public class AddComponent extends EntityComponent{
 	
 	public AddComponent(){
 		bricks = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		bricks.setTexture("diffuse", new Texture("rock2222.jpg"));
 		bricks.setDiffuseMap(new Texture("rock2222.jpg"));
-//		bricks.setTexture("diffuse", new Texture("white.png"));
-//		bricks.setTexture("dispMap", new Texture("rock2_disp.jpg"));
-//		bricks.setTexture("normalMap", new Texture("rock2_normal322.png"));
 		bricks.setNormalMap(new Texture("rock2_normal322.png"));
-//		bricks.setTexture("glowMap", new Texture("rock22_glow22.png"));
 		bricks.setGlowMap(new Texture("rock22_glow22.png"));
-//		bricks.setFloat("specularIntensity", 0.25f);
 		bricks.setSpecularIntensity(0.25f);
-//		bricks.setFloat("specularPower", 2);
 		bricks.setSpecularPower(2);
-//		bricks.setFloat("dispMapScale", 0.01f);
-//		bricks.setFloat("dispMapBias", -0.5f);
 		
 		crateM = new Mesh("crate 2 c.obj");
 		sphereM = new Mesh("sphere.obj");

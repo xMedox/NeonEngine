@@ -104,7 +104,6 @@ public class TestGame extends Game{
 		
 		Entity wolf = new Entity();
 		Material wolfM = new Material();
-//		wolfM.setTexture("diffuse", new Texture("wolf.png", true));
 		wolfM.setDiffuseMap(new Texture("wolf.png", true));
 		MeshRendererWolf wolfR = new MeshRendererWolf(new Mesh("Wolf.obj"), wolfM);
 		wolf.addComponent(wolfR);
@@ -140,12 +139,8 @@ public class TestGame extends Game{
 		addEntity(directionalLightObject);
 		
 		Material material = new Material();
-//		material.setTexture("diffuse", new Texture("blocks.png", true));
-//		material.setTexture("glowMap", new Texture("blocks_glow.png", true));
 		material.setDiffuseMap(new Texture("blocks.png", true));
 		material.setGlowMap(new Texture("blocks_glow.png", true));
-//		material.setFloat("specularIntensity", 0.5f*2);
-//		material.setFloat("specularPower", 4*2);
 		
 		Mesh mesh = new Mesh("blocks.obj");
 		
@@ -170,11 +165,6 @@ public class TestGame extends Game{
 		
 		Entity sword = new Entity();
 		Material swordM = new Material();
-//		swordM.setTexture("diffuse", new Texture("block31.png", true));
-//		swordM.setTexture("diffuse", new Texture("block60.png", true));
-//		swordM.setTexture("glowMap", new Texture("block60_glow.png", true));
-//		swordM.setTexture("diffuse", new Texture("block40.png", true));
-//		swordM.setTexture("glowMap", new Texture("block40_glow.png", true));
 		swordM.setDiffuseMap(new Texture("block60.png", true));
 		swordM.setGlowMap(new Texture("block60_glow.png", true));
 		sword.addComponent(new MeshRenderer(new Mesh("Sword R Block.obj"), swordM));
@@ -184,7 +174,6 @@ public class TestGame extends Game{
 		swordS.addChild(sword);
 		
 		Material mushdM = new Material();
-//		mushdM.setTexture("diffuse", new Texture("mushroom.png", true));
 		mushdM.setDiffuseMap(new Texture("mushroom.png", true));
 		
 		Mesh mushm = new Mesh("mushroom.obj");

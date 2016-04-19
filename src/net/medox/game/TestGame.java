@@ -115,54 +115,11 @@ public class TestGame extends Game{
 //		Mesh mesh = new Mesh("backdrop(2.59).obj");
 		Mesh mesh = new Mesh("planeScale.obj");
 		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-//		material.setTexture("diffuse", new Texture("Medox 5.png"));
-		
-//		material.setTexture("diffuse", new Texture("bricks2.jpg"));
-//		material.setTexture("diffuse", new Texture("bricks2.jpg"));
 		material.setDiffuseMap(new Texture("bricks2.jpg"));
-		
-//		material.setTexture("normalMap", new Texture("bricks2_normal.jpg"));
 		material.setNormalMap(new Texture("bricks2_normal.jpg"));
-//		material.setTexture("dispMap", new Texture("bricks2_disp.jpg"));//TODO add back in?
-		
-//		material.setTexture("diffuse", new Texture("brickwork2.jpg"));
-//		material.setTexture("normalMap", new Texture("brickwork_normal2.jpg"));
-//		material.setTexture("dispMap", new Texture("brickwork_disp2.png"));
-		
-//		material.setTexture("diffuse", new Texture("rock2.jpg"));
-//		material.setTexture("diffuse", new Texture("rock22.jpg"));
-//		material.setTexture("diffuse", new Texture("rock23.jpg"));
-		
-//		material.setTexture("diffuse", new Texture("rock22.jpg"));
-//		material.setTexture("dispMap", new Texture("rock2_disp.jpg"));
-//		material.setTexture("normalMap", new Texture("rock2_normal3.jpg"));
-		
-		
-//		material.setTexture("specMap", new Texture("bricks2_spec.jpg"));
 		material.setSpecularMap(new Texture("bricks2_spec.jpg"));
-		
-//		material.setTexture("glowMap", new Texture("bricks2_glow.jpg"));
-//		material.setFloat("specularIntensity", 0.5f + 0.15f/2);
 		material.setSpecularIntensity(0.5f + 0.15f/2);
-//		material.setFloat("specularPower", 4f + 1f/2);
 		material.setSpecularPower(4f + 1f/2);
-//		material.setFloat("dispMapScale", 0.05f);//TODO add back in?
-//		material.setFloat("dispMapBias", 0f/*-1.0*/);//TODO add back in?
-		
-//		Mesh mesh = new Mesh("plane.obj");
-//		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-////		material.setTexture("diffuse", new Texture("Medox 5.png"));
-//		
-////		material.setTexture("diffuse", new Texture("bricks2.jpg"));
-//		material.setTexture("diffuse", new Texture("toy_box_diffuse.png"));
-//		material.setTexture("dispMap", new Texture("toy_box_disp.png"));
-//		material.setTexture("normalMap", new Texture("toy_box_normal.png"));
-//		
-////		material.setTexture("glowMap", new Texture("bricks2_glow.jpg"));
-//		material.setFloat("specularIntensity", 0.5f + 0.15f/2);
-//		material.setFloat("specularPower", 4f + 1f/2);
-//		material.setFloat("dispMapScale", 0.1f);
-//		material.setFloat("dispMapBias", -1.0f);
 		
 		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 		
@@ -185,59 +142,10 @@ public class TestGame extends Game{
 		
 		planeObject.addComponent(physic);
 		
-		
-//		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-////		material.setTexture("diffuse", new Texture("Medox 5.png"));
-//		materialx.setTexture("diffuse", new Texture("bricks2.jpg"));
-//		materialx.setTexture("normalMap", new Texture("bricks2_normal.jpg"));
-//		materialx.setTexture("dispMap", new Texture("bricks2_disp.jpg"));
-//		
-////		material.setTexture("diffuse", new Texture("rock2.jpg"));
-////		material.setTexture("diffuse", new Texture("rock22.jpg"));
-////		material.setTexture("diffuse", new Texture("rock23.jpg"));
-//		
-////		material.setTexture("diffuse", new Texture("rock22.jpg"));
-////		material.setTexture("dispMap", new Texture("rock2_disp.jpg"));
-////		material.setTexture("normalMap", new Texture("rock2_normal3.jpg"));
-//		
-//		
-//		materialx.setTexture("specMap", new Texture("bricks2_spec.jpg"));
-//		materialx.setTexture("glowMap", new Texture("Blue.png"));
-//		materialx.setFloat("specularIntensity", 0.5f + 0.15f/2);
-//		materialx.setFloat("specularPower", 4f + 1f/2);
-//		materialx.setFloat("dispMapScale", 0.02f);
-//		materialx.setFloat("dispMapBias", -1.0f);
-		
 		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-//		material.setTexture("diffuse", new Texture("Medox 5.png"));
-		
-//		materialx.setTexture("diffuse", new Texture("wood2.png"));
 		materialx.setDiffuseMap(new Texture("wood2.png"));
-//		materialx.setTexture("normalMap", new Texture("bricks2_normal.jpg"));
-//		materialx.setTexture("dispMap", new Texture("bricks2_disp.jpg"));
-//		material.setTexture("diffuse", new Texture("brickwork2.jpg"));
-//		material.setTexture("normalMap", new Texture("brickwork_normal2.jpg"));
-//		material.setTexture("dispMap", new Texture("brickwork_disp2.png"));
-		
-//		material.setTexture("diffuse", new Texture("rock2.jpg"));
-//		material.setTexture("diffuse", new Texture("rock22.jpg"));
-//		material.setTexture("diffuse", new Texture("rock23.jpg"));
-		
-//		material.setTexture("diffuse", new Texture("rock22.jpg"));
-//		material.setTexture("dispMap", new Texture("rock2_disp.jpg"));
-//		material.setTexture("normalMap", new Texture("rock2_normal3.jpg"));
-		
-		
-//		materialx.setTexture("specMap", new Texture("bricks2_spec.jpg"));
-		
-//		material.setTexture("glowMap", new Texture("bricks2_glow.jpg"));
-//		materialx.setFloat("specularIntensity", 0.5f + 0.15f/2);
 		materialx.setSpecularIntensity(0.5f + 0.15f/2);
-//		materialx.setFloat("specularPower", 4f + 1f/2);
 		materialx.setSpecularPower(4f + 1f/2);
-//		materialx.setFloat("dispMapScale", 0.03f);
-//		materialx.setFloat("dispMapBias", -1.0f);
-		
 		
 		Mesh meshx = new Mesh("plane.obj");
 		MeshRenderer meshRendererx = new MeshRenderer(meshx, materialx);
@@ -254,54 +162,12 @@ public class TestGame extends Game{
 //		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 1), (float)Math.toRadians(45));
 		planeObjectx.addComponent(meshRendererx);
 		
-		
-		
-//		Mesh meshBox = new Mesh("box.obj");
-//		Material materialBox = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		materialBox.setTexture("diffuse", new Texture("bricks.jpg"));
-//		materialBox.setTexture("dispMap", new Texture("bricks_disp.png"));
-//		materialBox.setTexture("normalMap", new Texture("bricks_normal.jpg"));
-//		materialBox.setFloat("specularIntensity", 0.25f);
-//		materialBox.setFloat("specularPower", 2f);
-//		materialBox.setFloat("dispMapScale", 0.02f);
-//		materialBox.setFloat("dispMapBias", -1.0f);
-		
-//		Mesh meshTree = new Mesh("Tree 3.obj");
-//		Material materialTree = new Material();
-////		materialRock.setTexture("diffuse", new Texture("wood.jpg"));
-////		materialRock.setFloat("specularIntensity", 0.25f);
-////		materialRock.setFloat("specularPower", 1);
-//		materialTree.setTexture("diffuse", new Texture("icon.png"));
-////		materialTree.setTexture("dispMap", new Texture("rock2_disp.jpg"));
-////		materialTree.setTexture("normalMap", new Texture("rock2_normal322.png"));
-//		materialTree.setFloat("specularIntensity", 0.25f);
-//		materialTree.setFloat("specularPower", 2);
-////		materialTree.setFloat("dispMapScale", 0.02f);
-////		materialTree.setFloat("dispMapBias", -1.0f);
-//		
-//		MeshRenderer meshRendererTree = new MeshRenderer(meshTree, materialTree);
-//		
-//		Entity planeObjectTree = new Entity();
-//		planeObjectTree.addComponent(meshRendererTree);
-//		planeObjectTree.getTransform().getPos().set(10, -1, 15);
-//		planeObjectTree.getTransform().setScale(new Vector3f(2, 2, 2));
-		
 		Mesh meshRock = new Mesh("rock 7.obj");
 		Material materialRock = new Material();
-//		materialRock.setTexture("diffuse", new Texture("wood.jpg"));
-//		materialRock.setFloat("specularIntensity", 0.25f);
-//		materialRock.setFloat("specularPower", 1);
-//		materialRock.setTexture("diffuse", new Texture("rock232.jpg"));
 		materialRock.setDiffuseMap(new Texture("rock232.jpg"));
-//		materialRock.setTexture("dispMap", new Texture("rock2_disp.jpg"));
-//		materialRock.setTexture("normalMap", new Texture("rock2_normal322.png"));
 		materialRock.setNormalMap(new Texture("rock2_normal322.png"));
-//		materialRock.setFloat("specularIntensity", 0.25f);
 		materialRock.setSpecularIntensity(0.25f);
-//		materialRock.setFloat("specularPower", 2);
 		materialRock.setSpecularPower(2);
-//		materialRock.setFloat("dispMapScale", 0.02f);
-//		materialRock.setFloat("dispMapBias", -1.0f);
 		
 		MeshRenderer meshRendererRock = new MeshRenderer(meshRock, materialRock);
 		
@@ -309,59 +175,6 @@ public class TestGame extends Game{
 		planeObjectRock.addComponent(meshRendererRock);
 		planeObjectRock.getTransform().getPos().set(8, -1, 15);
 		planeObjectRock.getTransform().setScale(new Vector3f(2, 2, 2));
-		
-////		Mesh meshBox = new Mesh("ak.obj");
-//		Mesh meshBox = new Mesh("crate 2 c.obj");
-////		Mesh meshBox = new Mesh("box.obj");
-//		Material materialBox = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-////		materialBox.setTexture("diffuse", new Texture("ak.png"));
-//		materialBox.setTexture("diffuse", new Texture("wood.jpg"));
-////		materialBox.setTexture("dispMap", new Texture("bricks_disp.png"));
-////		materialBox.setTexture("normalMap", new Texture("bricks_normal.jpg"));
-////		materialBox.setFloat("specularIntensity", 0.25f);
-////		materialBox.setFloat("specularPower", 2f);
-////		materialBox.setFloat("dispMapScale", 0.02f);
-////		materialBox.setFloat("dispMapBias", -1.0f);
-//		materialBox.setFloat("specularIntensity", 0.25f);
-//		materialBox.setFloat("specularPower", 1);
-//		
-////		materialBox.setFloat("dispMapScale", 0.02f);
-////		materialBox.setFloat("dispMapBias", -1.0f);
-//		
-//		MeshRenderer meshRendererBox = new MeshRenderer(meshBox, materialBox);
-//				
-//		Entity planeObjectBox = new Entity();
-//		planeObjectBox.addComponent(meshRendererBox);
-//		planeObjectBox.getTransform().getPos().set(0, 0, 0);
-		
-////		Mesh meshBox = new Mesh("ak.obj");
-//		Mesh meshBox2 = new Mesh("crate 2 c.obj");
-////		Mesh meshBox = new Mesh("box.obj");
-//		Material materialBox2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-////		materialBox.setTexture("diffuse", new Texture("ak.png"));
-//		materialBox2.setTexture("diffuse", new Texture("test_tl.png"));
-////		materialBox.setTexture("dispMap", new Texture("bricks_disp.png"));
-////		materialBox.setTexture("normalMap", new Texture("bricks_normal.jpg"));
-////		materialBox.setFloat("specularIntensity", 0.25f);
-////		materialBox.setFloat("specularPower", 2f);
-////		materialBox.setFloat("dispMapScale", 0.02f);
-////		materialBox.setFloat("dispMapBias", -1.0f);
-//		materialBox2.setFloat("specularIntensity", 0.25f);
-//		materialBox2.setFloat("specularPower", 1);
-//		
-////		materialBox.setFloat("dispMapScale", 0.02f);
-////		materialBox.setFloat("dispMapBias", -1.0f);
-//		
-//		MeshRenderer meshRendererBox2 = new MeshRenderer(meshBox2, materialBox2);
-//				
-//		Entity planeObjectBox2 = new Entity();
-//		planeObjectBox2.addComponent(meshRendererBox2);
-//		planeObjectBox2.getTransform().getPos().set(17, 4, 5);
-		
-//		planeObjectBox.getTransform().setScale(new Vector3f(0.25f*2, 0.25f*2, 0.25f*2));
-		
-//		planeObjectBox.getTransform().rotate(new Vector3f(1, 0, 0), (float)Math.toRadians(-90));
-//		planeObjectBox.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(110));
 		
 		Entity directionalLightObject = new Entity();
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f);
@@ -445,85 +258,20 @@ public class TestGame extends Game{
 		
 		Mesh mesh2 = new Mesh("untitled.obj");
 		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
-//		material2.addTexture("diffuse", new Texture("untitled.png"));
-//		material2.setTexture("diffuse", new Texture("untitled.png"));
 		material2.setDiffuseMap(new Texture("untitled.png"));
-//		material2.setTexture("glowMap", new Texture("untitled_glow22.png"));
 		material2.setGlowMap(new Texture("untitled_glow22.png"));
-//		material2.addTexture("normalMap", new Texture("bricks_normal.jpg"));
-//		material2.addTexture("dispMap", new Texture("bricks_disp.png"));
-//		material2.setFloat("specularIntensity", 0.5f);
 		material2.setSpecularIntensity(0.5f);
-//		material2.setFloat("specularPower", 1);
 		material2.setSpecularPower(1);
-//		material2.addFloat("dispMapScale", 0.03f);
-//		material2.addFloat("dispMapBias", -0.5f);
 		
 		MeshRenderer meshRenderer2 = new MeshRenderer(mesh2, material2);
 		
 		Entity monkeyObject = new Entity().addComponent(new LookAtComponent()).addComponent(meshRenderer2);
 		monkeyObject.getTransform().getPos().set(0, 0, 5);
 		
-//		Mesh mesh3 = new Mesh("Ak-47.obj");
-//		Material material3 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 2, 8
-//		material3.setTexture("diffuse", new Texture("white.png"));
-//		material3.setFloat("specularIntensity", 2);
-//		material3.setFloat("specularPower", 8);
-//		
-//		MeshRenderer meshRenderer3 = new MeshRenderer(mesh3, material3);
-		
-//		Weapon weapon = new Weapon(meshRenderer3, mainCamera);
-//		
-//		getRootObject().addChild(weapon);
-		
-//		Entity ar_15Object = new Entity();
-//		ar_15Object.addComponent(meshRenderer3);
-//		
-//		ar_15Object.getTransform().setScale(new Vector3f(0.01f, 0.01f, 0.01f));
-//		ar_15Object.getTransform().getPos().set(12, -1f, 8);
-//		ar_15Object.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
-//		ar_15Object.getTransform().setScale(new Vector3f(0.000001f, 0.000001f, 0.000001f));
-//		ar_15Object.getTransform().getPos().set(0.7394085f, -1.0639834f, 1.9975371f);
-//		ar_15Object.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
-//		
-//		cameraObject.addChild(ar_15Object);
-		
-		
-//		Mesh mesh4 = new Mesh("us_assault.obj");
-//		Material material4 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		material4.setTexture("diffuse", new Texture("white.png"));
-//		material4.setFloat("specularIntensity", 0);
-//		material4.setFloat("specularPower", 4);
-//		
-//		MeshRenderer meshRenderer4 = new MeshRenderer(mesh4, material4);
-//		
-//		Entity us_assaultObject = new Entity();
-//		us_assaultObject.getTransform().setScale(new Vector3f(0.035f, 0.035f, 0.035f));
-//		us_assaultObject.getTransform().getPos().set(5, -1f, 2);
-//		
-//		us_assaultObject.addComponent(meshRenderer4);
-		
-//		Mesh sword2mesh = new Mesh("sword 2.obj");
-//		Material sword2material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		sword2material.setTexture("diffuse", new Texture("sword2_final_cm.jpg"));
-//		sword2material.setFloat("specularIntensity", 4);
-//		sword2material.setFloat("specularPower", 16);
-//		
-//		MeshRenderer swordmesh2Renderer = new MeshRenderer(sword2mesh, sword2material);
-//		
-//		Entity sword2Object = new Entity();
-//		sword2Object.getTransform().setScale(new Vector3f(0.4f, 0.4f, 0.4f));
-//		sword2Object.getTransform().getPos().set(15, 3f, 15);
-//		
-//		sword2Object.addComponent(swordmesh2Renderer);
-		
 		Mesh kpmesh = new Mesh("kp.obj");
 		Material kpmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		kpmaterial.setTexture("diffuse", new Texture("kp.png"));
 		kpmaterial.setDiffuseMap(new Texture("kp.png"));
-//		kpmaterial.setFloat("specularIntensity", 2);
 		kpmaterial.setSpecularIntensity(2);
-//		kpmaterial.setFloat("specularPower", 16);
 		kpmaterial.setSpecularPower(16);
 		
 		MeshRenderer kpRenderer = new MeshRenderer(kpmesh, kpmaterial);
@@ -536,30 +284,20 @@ public class TestGame extends Game{
 //		Mesh swordmesh = new Mesh("sword.obj");
 		Mesh swordmesh = new Mesh("Sword R.obj");
 		Material swordmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		swordmaterial.setTexture("diffuse", new Texture("sword.png"));
-//		swordmaterial.setTexture("diffuse", new Texture("Sword R.png"));
 		swordmaterial.setDiffuseMap(new Texture("Sword R.png"));
-//		swordmaterial.setFloat("specularIntensity", 2f);
 		swordmaterial.setSpecularIntensity(2f);
-//		swordmaterial.setFloat("specularPower", 8f);
 		swordmaterial.setSpecularPower(8f);
 		
 		Mesh swordmesh2 = new Mesh("Shield R.obj");
 		Material sword4material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		sword4material.setTexture("diffuse", new Texture("Shield R.png"));
 		sword4material.setDiffuseMap(new Texture("Shield R.png"));
-//		sword4material.setFloat("specularIntensity", 2f);
 		sword4material.setSpecularIntensity(2f);
-//		sword4material.setFloat("specularPower", 8f);
 		sword4material.setSpecularPower(8f);
 		
 		Mesh swordmesh3 = new Mesh("Round Shield R.obj");
 		Material sword5material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		sword5material.setTexture("diffuse", new Texture("Round Shield R.png"));
 		sword5material.setDiffuseMap(new Texture("Round Shield R.png"));
-//		sword5material.setFloat("specularIntensity", 2f);
 		sword5material.setSpecularIntensity(2f);
-//		sword5material.setFloat("specularPower", 8f);
 		sword5material.setSpecularPower(8f);
 		
 		MeshRenderer swordmeshRenderer = new MeshRenderer(swordmesh, swordmaterial);
@@ -603,13 +341,9 @@ public class TestGame extends Game{
 		
 		Mesh humanmesh = new Mesh("Human.obj");
 		Material humanmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		humanmaterial.setTexture("diffuse", new Texture("white.png"));
 		humanmaterial.setDiffuseMap(new Texture("white.png"));
-//		humanmaterial.setFloat("specularIntensity", 0);
 		humanmaterial.setSpecularIntensity(0);
-//		humanmaterial.setFloat("specularPower", 0);
 		humanmaterial.setSpecularPower(0);
-//		humanmaterial.addVector3f("color", new Vector3f(1, 0, 0));
 		
 		MeshRenderer humanmeshRenderer = new MeshRenderer(humanmesh, humanmaterial);
 		
@@ -634,35 +368,7 @@ public class TestGame extends Game{
 		addEntity(pointLightObject);
 		addEntity(spotLightObject);
 		addEntity(spotLightObject2);
-		addEntity(monkeyObject);		
-		
-//		Material gui = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		try{
-//			gui.setTexture("diffuse", new Texture(ImageIO.read(new File("icon_16.png"))));
-//		}catch(IOException e){
-//			e.printStackTrace();
-//		}
-//		gui.setVector3f("color", new Vector3f(1, 0f, 0f));
-//		
-//		GuiEntity guiObject = new GuiEntity();
-//		guiObject.setMaterial(gui);
-//		
-//		guiObject.getTransform().setPos(new Vector2f(0, 0));
-//		guiObject.getTransform().setDimension(new Vector2f(128*2, 128*2));
-//		guiObject.getTransform().setScale(new Vector2f(1, 1));
-//		guiObject.getTransform().setRotation((float)Math.toRadians(45));
-//		
-//		addGuiEntity(guiObject);
-		
-//		RenderingEngine.setClearColor(new Vector3f(135f/4f/255f, 206f/4f/255f, 250f/4f/255f));
-		
-//		PhysicsEngine physicsEngine = new PhysicsEngine();
-		
-//		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(0.0f, 0.0f, 0.0f), 1.0f), new Vector3f(0.0f, 0.0f, 1.141f/2.0f)));
-//		
-//		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(1.414f/2.0f * 7.0f, 0.0f, 1.414f/2.0f * 7.0f), 1.0f), new Vector3f(-1.414f/2.0f, 0.0f, -1.414f/2.0f))); 
-		
-		
+		addEntity(monkeyObject);
 		
 //		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(-1.414f/4.0f * 7.0f, 0.0f, -1.414f/4.0f * 7.0f), 1.0f), new Vector3f(1.414f/2.0f, 0.0f, 1.414f/2.0f))); 
 		
@@ -671,20 +377,12 @@ public class TestGame extends Game{
 //		PhysicsComponent physicsEngineComponent = new PhysicsComponent();
 		
 		Material bricks = new Material();
-//		bricks.setTexture("diffuse", new Texture("bricks.jpg"));
-//		bricks.setTexture("diffuse", new Texture("Lava22.png"));
 		bricks.setDiffuseMap(new Texture("Lava22.png"));
-//		bricks.setTexture("dispMap", new Texture("Lava_disp.png"));
-//		bricks.setTexture("normalMap", new Texture("Lava_normal22.jpg"));
 		bricks.setNormalMap(new Texture("Lava_normal22.jpg"));
-//		bricks.setTexture("glowMap", new Texture("Lava_glow22.png"));
 		bricks.setGlowMap(new Texture("Lava_glow22.png"));
-//		bricks.setFloat("specularIntensity", 0.25f);
 		bricks.setSpecularIntensity(0.25f);
-//		bricks.setFloat("specularPower", 2);
 		bricks.setSpecularPower(2);
-//		bricks.setFloat("dispMapScale", 0.01f);
-//		bricks.setFloat("dispMapBias", -0.5f);
+
 		
 //		for(int i = 0; i < physicsEngineComponent.getPhysicsEngine().getNumObjects(); i++){
 //			Entity entity = new Entity();
@@ -994,10 +692,7 @@ public class TestGame extends Game{
 				Entity particle = new Entity();
 				
 				ParticleMaterial pMat = new ParticleMaterial();
-//				pMat.setTexture("diffuse", new Texture("fire.png", true));
 				pMat.setDiffuseMap(new Texture("fire.png", true));
-//				pMat.setTexture("diffuse", new Texture("base.png")); 
-//				pMat.setFloat("glow", 1);
 				pMat.setGlow(1);
 				
 				particle.addComponent(new ParticleRenderer(pMat));
@@ -1012,10 +707,7 @@ public class TestGame extends Game{
 				Entity particle4 = new Entity();
 				
 				ParticleMaterial pMat2 = new ParticleMaterial();
-//				pMat2.setTexture("diffuse", new Texture("rock2222.jpg"));
 				pMat2.setDiffuseMap(new Texture("rock2222.jpg"));
-//				pMat2.setTexture("diffuse", new Texture("base.png")); 
-//				pMat2.setFloat("glow", 1);
 				pMat2.setGlow(1);
 				
 				particle4.addComponent(new ParticleRenderer(pMat2));

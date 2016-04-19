@@ -16,7 +16,6 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_N)){
 			Mesh mesh = new Mesh("plane.obj");
 			Material material = new Material();
-//			material.setTexture("diffuse", new Texture("white.png"));
 			
 			MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 			

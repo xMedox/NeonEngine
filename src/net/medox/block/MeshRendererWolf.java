@@ -26,12 +26,10 @@ public class MeshRendererWolf extends EntityComponent{
 	}
 	
 	public void setDiffuseMap(Texture texture){
-//		material.setTexture("diffuse", texture);
 		material.setDiffuseMap(texture);
 	}
 	
 	public void setGlowMap(Texture texture){
-//		material.setTexture("glowMap", texture);
 		material.setGlowMap(texture);
 	}
 }

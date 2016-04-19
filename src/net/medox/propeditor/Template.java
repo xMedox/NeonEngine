@@ -19,7 +19,6 @@ public class Template{
 	public Template(){
 		mesh = new Mesh("template.obj");
 		material = new Material();
-//		material.setTexture("diffuse", new Texture("white.png", true));
 		material.setDiffuseMap(new Texture("white.png", true));
 		
 		transform = new Transform();
