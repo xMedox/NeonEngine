@@ -15,7 +15,8 @@ Other:
 - Added functions to change material properties
 - Removed MappedValues class
 - Fixed addToEngine function in the component classes
-- Removed getRootEntity and getRootEntity2D functions
+- Removed getRootEntity and getRootEntity2D functions in the Game class
+- Added removeEntity2D function in the Game class
 - Made framerate an int
 - Renamed some variables and some refactoring
 - Removed null check in the get... functions of Materials and the RenderingEngine
