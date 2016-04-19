@@ -2,6 +2,7 @@ package net.medox.blockeditor;
 
 import net.medox.neonengine.components.FreeLook;
 import net.medox.neonengine.components.FreeMove;
+import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.Lock2D;
 import net.medox.neonengine.components.ScreenshotTaker;
 import net.medox.neonengine.core.Entity;
@@ -23,7 +24,7 @@ public class TestGame extends Game{
 		addEntity(skybox);
 		
 		Entity changeMode = new Entity();
-		changeMode/*.addComponent(new FullscreenSetter())*/.addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
+		changeMode.addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		addEntity(changeMode);
 		
 		Entity camera = new Entity();
