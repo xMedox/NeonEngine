@@ -70,7 +70,7 @@ public class Skybox extends EntityComponent{
 		}
 		
 		material = new Material();
-		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, true));
+		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, RenderingEngine.UNSIGNED_BYTE, true));
 	}
 	
 	@Override

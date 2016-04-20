@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import net.medox.neonengine.core.ReferenceCounter;
 
 public class TextureData extends ReferenceCounter{
-	public TextureData(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, boolean clamp, int[] attachments){
+	public TextureData(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
 		super();
 	}
 	

@@ -23,7 +23,7 @@ public class Texture{
 	private int width;
 	private int height;
 	
-	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, boolean clamp, int attachment){
+	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		this.fileName = fileName;
 		resource = loadedTextures.get(fileName);
 		
@@ -31,20 +31,23 @@ public class Texture{
 			final ByteBuffer texture = loadTexture(fileName);
 
 			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new TextureDataGL(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, clamp, new int[]{attachment});
+				resource = new TextureDataGL(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, clamp, new int[]{attachment});
+				resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 			}
 			loadedTextures.put(fileName, resource);
 		}else{
 			resource.addReference();
 		}
 	}
-	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, boolean clamp){
-		this(fileName, textureTarget, filter, internalFormat, format, clamp, RenderingEngine.NONE);
+	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp){
+		this(fileName, textureTarget, filter, internalFormat, format, type, clamp, RenderingEngine.NONE);
+	}
+	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, int type){
+		this(fileName, textureTarget, filter, internalFormat, format, type, false);
 	}
 	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format){
-		this(fileName, textureTarget, filter, internalFormat, format, false);
+		this(fileName, textureTarget, filter, internalFormat, format, RenderingEngine.UNSIGNED_BYTE);
 	}
 	public Texture(String fileName, int textureTarget, int filter, int internalFormat){
 		this(fileName, textureTarget, filter, internalFormat, RenderingEngine.RGBA);
@@ -72,27 +75,27 @@ public class Texture{
 		
 		fileName = "";
 		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new TextureDataGL(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, false, new int[]{RenderingEngine.NONE});
+			resource = new TextureDataGL(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.UNSIGNED_BYTE}, false, new int[]{RenderingEngine.NONE});
 		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new TextureData(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, false, new int[]{RenderingEngine.NONE});
+			resource = new TextureData(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.UNSIGNED_BYTE}, false, new int[]{RenderingEngine.NONE});
 		}
 	}
 	
-	public Texture(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, boolean clamp, int attachment){
+	public Texture(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		fileName = "";
 		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new TextureDataGL(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, clamp, new int[]{attachment});
+			resource = new TextureDataGL(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, clamp, new int[]{attachment});
+			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 		}
 	}
 	
-	public Texture(int width, int height, ByteBuffer[] data, int textureTarget, int[] filter, int[] internalFormat, int[] format, boolean clamp, int[] attachment){
+	public Texture(int width, int height, ByteBuffer[] data, int textureTarget, int[] filter, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachment){
 		fileName = "";
 		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new TextureDataGL(textureTarget, width, height, data.length, data, filter, internalFormat, format, clamp, attachment);
+			resource = new TextureDataGL(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
 		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, clamp, attachment);
+			resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
 		}
 	}
 	

@@ -29,8 +29,8 @@ public class TextureDataGL extends TextureData{
 	private int width;
 	private int height;
 	
-	public TextureDataGL(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, boolean clamp, int[] attachments){
-		super(textureTarget, width, height, numTextures, data, filters, internalFormat, format, clamp, attachments);
+	public TextureDataGL(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
+		super(textureTarget, width, height, numTextures, data, filters, internalFormat, format, type, clamp, attachments);
 		
 		textureID = new int[numTextures];
 		this.textureTarget = textureTarget;
@@ -47,7 +47,7 @@ public class TextureDataGL extends TextureData{
 		frameBuffer = 0;
 		renderBuffer = 0;
 		
-		initTextures(data, filters, internalFormat, format, clamp);
+		initTextures(data, filters, internalFormat, format, type, clamp);
 		initRenderTargets(attachments);
 	}
 	
@@ -87,7 +87,7 @@ public class TextureDataGL extends TextureData{
 		return height;
 	}
 	
-	public void initTextures(ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, boolean clamp){
+	public void initTextures(ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp){
 		for(int i = 0; i < numTextures; i++){
 			textureID[i] = GL11.glGenTextures();
 			
@@ -104,7 +104,7 @@ public class TextureDataGL extends TextureData{
 //				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, ARBShadow.GL_TEXTURE_COMPARE_FUNC_ARB, GL11.GL_LEQUAL);
 			}
 
-			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], GL11.GL_UNSIGNED_BYTE, data[i]);
+			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], type[i], data[i]);
 			
 			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST ||
 					filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR ||

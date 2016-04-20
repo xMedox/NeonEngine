@@ -23,15 +23,15 @@ public class CubeMap{
 	private int width[] = new int[6];
 	private int height[] = new int[6];
 	
-	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, boolean clamp, int attachment){
+	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		this.fileNames = fileNames;
 		resource = loadedCubeMaps.get(fileNames);
 		
 		if(resource == null){
 			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new CubeMapDataGL(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, clamp, attachment);
+				resource = new CubeMapDataGL(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, type, clamp, attachment);
 			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new CubeMapData(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, clamp, attachment);
+				resource = new CubeMapData(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, type, clamp, attachment);
 			}
 			
 			loadedCubeMaps.put(fileNames, resource);
@@ -39,11 +39,14 @@ public class CubeMap{
 			resource.addReference();
 		}
 	}
-	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, boolean clamp){
-		this(fileNames, textureTarget, filter, internalFormat, format, clamp, RenderingEngine.NONE);
+	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp){
+		this(fileNames, textureTarget, filter, internalFormat, format, type, clamp, RenderingEngine.NONE);
+	}
+	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, int type){
+		this(fileNames, textureTarget, filter, internalFormat, format, type, false);
 	}
 	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format){
-		this(fileNames, textureTarget, filter, internalFormat, format, false);
+		this(fileNames, textureTarget, filter, internalFormat, format, RenderingEngine.UNSIGNED_BYTE);
 	}
 	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat){
 		this(fileNames, textureTarget, filter, internalFormat, RenderingEngine.RGBA);
@@ -62,12 +65,12 @@ public class CubeMap{
 		this(fileNames, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR);
 	}
 	
-	public CubeMap(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, boolean clamp, int attachment){
+	public CubeMap(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		fileNames = new String[]{"", "", "", "", "", ""};
 		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new CubeMapDataGL(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, clamp, attachment);
+			resource = new CubeMapDataGL(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
 		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, clamp, attachment);
+			resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
 		}
 		
 	}

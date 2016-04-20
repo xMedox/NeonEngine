@@ -27,8 +27,8 @@ public class CubeMapDataGL extends CubeMapData{
 	private int width[];
 	private int height[];
 	
-	public CubeMapDataGL(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, boolean clamp, int attachments){
-		super(textureTarget, width, height, data, filters, internalFormat, format, clamp, attachments);
+	public CubeMapDataGL(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp, int attachments){
+		super(textureTarget, width, height, data, filters, internalFormat, format, type, clamp, attachments);
 		
 		this.textureTarget = textureTarget;
 		
@@ -43,7 +43,7 @@ public class CubeMapDataGL extends CubeMapData{
 		frameBuffer = 0;
 		renderBuffer = 0;
 		
-		initTextures(data, filters, internalFormat, format, clamp);
+		initTextures(data, filters, internalFormat, format, type, clamp);
 		initRenderTargets(attachments);
 	}
 	
@@ -86,7 +86,7 @@ public class CubeMapDataGL extends CubeMapData{
 		return height;
 	}
 	
-	public void initTextures(ByteBuffer[] data, int filters, int internalFormat, int format, boolean clamp){
+	public void initTextures(ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp){
 //		this.internalFormat = internalFormat;
 //		this.format = format;
 		
@@ -125,7 +125,7 @@ public class CubeMapDataGL extends CubeMapData{
 		GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
 		
 		for(int i = 0; i < 6; i++){
-			GL11.glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, width[i], height[i], 0, format, GL11.GL_UNSIGNED_BYTE, data[i]);
+			GL11.glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, width[i], height[i], 0, format, type, data[i]);
 		}
 		
 		GL11.glTexParameterf(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MIN_FILTER, filters);

@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import net.medox.neonengine.core.ReferenceCounter;
 
 public class CubeMapData extends ReferenceCounter{
-	public CubeMapData(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, boolean clamp, int attachments){
+	public CubeMapData(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp, int attachments){
 		super();
 	}
 	
