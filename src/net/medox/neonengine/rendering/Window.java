@@ -71,6 +71,8 @@ public class Window{
 	private static int startCursorX;
 	private static int startCursorY;
 	
+	private static Vector2f centerPosition;
+	
 	private static boolean gotCreated;
 	
 	public static void createWindow(){
@@ -109,6 +111,8 @@ public class Window{
 		}else{
 			window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
 		}
+		
+		centerPosition = new Vector2f(width/2, height/2);
 		
 		if(window == MemoryUtil.NULL){
 			GLFW.glfwTerminate();
@@ -189,6 +193,7 @@ public class Window{
 				
 				Window.width = width;
 				Window.height = height;
+				Window.centerPosition = new Vector2f(width/2, height/2);
 			}
 		}.set(window);
 		
@@ -584,7 +589,7 @@ public class Window{
 		return gotCreated;
 	}
 	
-	public static Vector2f getCenter(){
-		return new Vector2f(width/2, height/2);
+	public static Vector2f getCenterPosition(){
+		return centerPosition;
 	}
 }

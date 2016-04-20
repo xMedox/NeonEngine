@@ -79,7 +79,7 @@ public class FPPlayer extends Entity{
 			move(getTransform().getRot().getRight(), moveAmt);
 		}
 		
-		Vector2f centerPosition = Window.getCenter();
+		Vector2f centerPosition = Window.getCenterPosition();
 		
 		if(Input.inputKeyDown(unlockMouseKey)){
 			Input.setGrabbed(false);

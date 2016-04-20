@@ -35,7 +35,7 @@ public class FreeLook extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
-		final Vector2f centerPosition = Window.getCenter();
+		final Vector2f centerPosition = Window.getCenterPosition();
 		
 		if(Input.inputKeyDown(unlockMouseKey) && Input.isGrabbed()){
 			Input.setGrabbed(false);

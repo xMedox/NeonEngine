@@ -23,6 +23,8 @@ Other:
 - Renamed some variables and some refactoring
 - Removed null check in the get... functions of Materials and the RenderingEngine
 - Moved OBJIndex class into the OBJModel class
+- Renamed getMouseWheelDirection function to isMouseWheelDirection in Input class
+- Renamed getCenter function to getCenterPosition in Window class
 
 ## Todo:
 

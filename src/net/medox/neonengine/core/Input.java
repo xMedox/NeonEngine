@@ -157,15 +157,13 @@ public class Input{
 	
 //	public static boolean textInputMode;
 	
-	private static int wheelY;
-	
-	private static int mouseX;
-	private static int mouseY;
+	private static Vector2f mousePosition = new Vector2f();
+	private static int mouseWheel;
 	
 	private static String charList = "";
 	
 	public static void update(){
-		wheelY = 0;
+		mouseWheel = 0;
 		charList = "";
 		
 		for(int i = 0; i < NUM_KEYCODES; i++){
@@ -178,12 +176,12 @@ public class Input{
 	}
 	
 	public static void scroll(double y){
-		wheelY = (int)y;
+		mouseWheel = (int)y;
 	}
 	
 	public static void mousePos(double x, double y){
-		mouseX = (int)x;
-		mouseY = Window.getHeight()-1 - (int)y;
+		mousePosition.setX((int)x);
+		mousePosition.setY(Window.getHeight()-1 - (int)y);
 	}
 	
 	public static void mouseButton(int button, int action, int mods){
@@ -276,23 +274,23 @@ public class Input{
 		return !getMouse(mouseButton) && lastMouse[mouseButton];
 	}
 	
-	public static boolean getMouseWheelDirection(int wheelDirection){
-		return wheelY < 0 ? wheelDirection == -1 : wheelY > 0 ? wheelDirection == 1 : wheelDirection == 0;
+	public static boolean isMouseWheelDirection(int wheelDirection){
+		return mouseWheel < 0 ? wheelDirection == WHEEL_DOWN : mouseWheel > 0 ? wheelDirection == WHEEL_UP : wheelDirection == 0;
 	}
 	
 	public static int getMouseWheelValue(){
-		return wheelY;
+		return mouseWheel;
 	}
 	
 	public static Vector2f getMousePosition(){
-		return new Vector2f(mouseX, mouseY);
+		return mousePosition;
 	}
 	
 	public static void setMousePosition(Vector2f pos){
-		mouseX = (int)pos.getX();
-		mouseY = (int)pos.getY();
+		mousePosition.setX((int)pos.getX());
+		mousePosition.setY((int)pos.getY());
 		
-		GLFW.glfwSetCursorPos(Window.window, (double)mouseX, (double)(Window.getHeight()-1 - mouseY));
+		GLFW.glfwSetCursorPos(Window.window, (double)mousePosition.getX(), (double)(Window.getHeight()-1 - mousePosition.getY()));
 	}
 	
 	public static void setGrabbed(boolean value){

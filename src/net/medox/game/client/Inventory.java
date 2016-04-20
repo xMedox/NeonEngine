@@ -52,7 +52,7 @@ public class Inventory extends Entity{
 			}
 		}
 		
-		if(Input.getMouseWheelDirection(Input.WHEEL_DOWN)){
+		if(Input.isMouseWheelDirection(Input.WHEEL_DOWN)){
 			if(!currentWeapon.isChange()){
 				int selectedChange = selected - 1;
 				
@@ -68,7 +68,7 @@ public class Inventory extends Entity{
 //			currentWeapon = invBar[selected];
 		}
 		
-		if(Input.getMouseWheelDirection(Input.WHEEL_UP)){
+		if(Input.isMouseWheelDirection(Input.WHEEL_UP)){
 			if(!currentWeapon.isChange()){
 				int selectedChange = selected + 1;
 				
