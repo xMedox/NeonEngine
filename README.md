@@ -9,6 +9,7 @@ Rendering:
 - Optimized shader2D and forwardParticleAmbient shaders
 - Added mesh2DInFrustum function
 - Optimized and fixed Skybox class
+- Added support for Texture and CubeMap types
 
 Other:
 - Java 8 is required
@@ -30,6 +31,7 @@ Rendering:
 - PointLight Shadows
 - Remove the black line of DirectionalLight Shadows
 - Rewrite font rendering and loading
+- HDR
 
 Physics:
 - Masking
