@@ -57,7 +57,7 @@ public class Vulkan{
 	public static void createWindow(){
 		errorCallback = GLFWErrorCallback.createPrint().set();
 		
-		if(glfwInit() != GLFW_TRUE){
+		if(!glfwInit()){
             throw new IllegalStateException("Unable to initialize GLFW");
 		}
 		
@@ -115,14 +115,14 @@ public class Vulkan{
 	private static void run(){
 		isRunning = true;
 		
-		if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
+		if(GLFWVulkan.glfwVulkanSupported()){
 			System.out.println("Vulkan is supported(" + /*VK10.VK_VERSION_MAJOR + "." + VK10.VK_VERSION_MINOR + "." + VK10.VK_VERSION_PATCH + */")");
 		}else{
 			System.out.println("Vulkan is not supported");
 		}
 		
 		while(isRunning){
-			if(glfwWindowShouldClose(window) == GLFW_TRUE){
+			if(glfwWindowShouldClose(window)){
 				stop();
 			}
 			

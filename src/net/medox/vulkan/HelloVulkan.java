@@ -5,7 +5,8 @@
 package net.medox.vulkan;
 
 import org.lwjgl.PointerBuffer;
-import org.lwjgl.glfw.*;
+import org.lwjgl.glfw.Callbacks;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;
 
@@ -212,8 +213,6 @@ public final class HelloVulkan {
 	private final LongBuffer    lp = memAllocLong(1);
 	private final PointerBuffer pp = memAllocPointer(1);
 
-	private GLFWErrorCallback errorCB;
-
 	boolean validate = true;
 
 	PointerBuffer device_validation_layers = memAllocPointer(10);
@@ -284,13 +283,12 @@ public final class HelloVulkan {
 		}
 	}
 
-	private final VkDebugReportCallbackEXT dbgFunc = new VkDebugReportCallbackEXT() {
-		@Override
-		public int invoke(int flags, int objectType, long object, long location, int messageCode, long pLayerPrefix, long pMessage, long pUserData) {
+	private final VkDebugReportCallbackEXT dbgFunc = VkDebugReportCallbackEXT.create(
+		(flags, objectType, object, location, messageCode, pLayerPrefix, pMessage, pUserData) -> {
 			if ( (flags & VK_DEBUG_REPORT_ERROR_BIT_EXT) != 0 ) {
-				System.err.format("ERROR: [%s] Code %d : %s\n", pLayerPrefix, messageCode, getString(pMessage));
+				System.err.format("ERROR: [%s] Code %d : %s\n", pLayerPrefix, messageCode, VkDebugReportCallbackEXT.getString(pMessage));
 			} else if ( (flags & VK_DEBUG_REPORT_WARNING_BIT_EXT) != 0 ) {
-				System.err.format("WARNING: [%s] Code %d : %s\n", pLayerPrefix, messageCode, getString(pMessage));
+				System.err.format("WARNING: [%s] Code %d : %s\n", pLayerPrefix, messageCode, VkDebugReportCallbackEXT.getString(pMessage));
 			}
 
 			/*
@@ -302,19 +300,19 @@ public final class HelloVulkan {
 			 */
 			return VK_FALSE;
 		}
-	};
+	);
 
 	private static void check(int errcode) {
 		if ( errcode != 0 )
 			throw new IllegalStateException(VKUtil.translateVulkanResult(errcode));
 	}
 
-	private void demo_init_connection() {
-		errorCB = GLFWErrorCallback.createPrint().set();
-		if ( glfwInit() != GLFW_TRUE )
+	private static void demo_init_connection() {
+		GLFWErrorCallback.createPrint().set();
+		if ( !glfwInit() )
 			throw new IllegalStateException("Unable to initialize GLFW");
 
-		if ( glfwVulkanSupported() != GLFW_TRUE )
+		if ( !glfwVulkanSupported() )
 			throw new IllegalStateException("Cannot find a compatible Vulkan installable client driver (ICD)");
 	}
 
@@ -358,8 +356,7 @@ public final class HelloVulkan {
 		}
 		device_validation_layers.flip();
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			PointerBuffer instance_validation_layers = stack.mallocPointer(device_validation_layers.remaining());
 			instance_validation_layers.put(device_validation_layers);
 			instance_validation_layers.flip();
@@ -530,8 +527,6 @@ public final class HelloVulkan {
 			// Graphics queue and MemMgr queue can be separate.
 			// TODO: Add support for separate queues, including synchronization,
 			//       and appropriate tracking for QueueSubmit
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -540,32 +535,6 @@ public final class HelloVulkan {
 		demo_init_vk();
 	}
 
-	private final GLFWKeyCallback demo_key_callback = new GLFWKeyCallback() {
-		@Override
-		public void invoke(long window, int key, int scancode, int action, int mods) {
-			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-				glfwSetWindowShouldClose(window, GLFW_TRUE);
-		}
-	};
-
-	private final GLFWWindowRefreshCallback demo_refresh_callback = new GLFWWindowRefreshCallback() {
-		@Override
-		public void invoke(long window) {
-			demo_draw();
-		}
-	};
-
-	private final GLFWFramebufferSizeCallback demo_resize_callback = new GLFWFramebufferSizeCallback() {
-		@Override
-		public void invoke(long window, int width, int height) {
-			HelloVulkan.this.width = width;
-			HelloVulkan.this.height = height;
-
-			if ( width != 0 && height != 0 )
-				demo_resize();
-		}
-	};
-
 	private void demo_create_window() {
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
@@ -573,14 +542,24 @@ public final class HelloVulkan {
 		if ( window == NULL )
 			throw new IllegalStateException("Cannot create a window in which to draw!");
 
-		glfwSetWindowRefreshCallback(window, demo_refresh_callback);
-		glfwSetFramebufferSizeCallback(window, demo_resize_callback);
-		glfwSetKeyCallback(window, demo_key_callback);
+		glfwSetWindowRefreshCallback(window, window -> demo_draw());
+
+		glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
+			this.width = width;
+			this.height = height;
+
+			if ( width != 0 && height != 0 )
+				demo_resize();
+		});
+
+		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+				glfwSetWindowShouldClose(window, true);
+		});
 	}
 
 	private void demo_init_device() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkDeviceQueueCreateInfo.Buffer queue = VkDeviceQueueCreateInfo.mallocStack(1, stack)
 				.sType(VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO)
 				.pNext(NULL)
@@ -602,8 +581,6 @@ public final class HelloVulkan {
 			check(err);
 
 			this.device = new VkDevice(pp.get(0), gpu, device);
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -612,8 +589,7 @@ public final class HelloVulkan {
 		glfwCreateWindowSurface(inst, window, null, lp);
 		surface = lp.get(0);
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			// Iterate over each queue to learn whether it supports presenting:
 			IntBuffer supportsPresent = stack.mallocInt(queue_props.capacity());
 			int graphicsQueueNodeIndex;
@@ -693,8 +669,6 @@ public final class HelloVulkan {
 
 			// Get Memory information and properties
 			vkGetPhysicalDeviceMemoryProperties(gpu, memory_properties);
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -705,8 +679,7 @@ public final class HelloVulkan {
 	}
 
 	private void demo_set_image_layout(long image, int aspectMask, int old_image_layout, int new_image_layout) {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			if ( setup_cmd == null ) {
 				VkCommandBufferAllocateInfo cmd = VkCommandBufferAllocateInfo.mallocStack(stack)
 					.sType(VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO)
@@ -778,16 +751,13 @@ public final class HelloVulkan {
 			int dest_stages = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
 
 			vkCmdPipelineBarrier(setup_cmd, src_stages, dest_stages, 0, null, null, image_memory_barrier);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_prepare_buffers() {
 		long oldSwapchain = swapchain;
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			// Check the surface capabilities and formats
 			VkSurfaceCapabilitiesKHR surfCapabilities = VkSurfaceCapabilitiesKHR.mallocStack(stack);
 			int err = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(gpu, surface, surfCapabilities);
@@ -910,8 +880,6 @@ public final class HelloVulkan {
 			}
 
 			current_buffer = 0;
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -942,8 +910,7 @@ public final class HelloVulkan {
 	private void demo_prepare_depth() {
 		depth.format = VK_FORMAT_D16_UNORM;
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkImageCreateInfo image = VkImageCreateInfo.callocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO)
 				.pNext(NULL)
@@ -1010,8 +977,6 @@ public final class HelloVulkan {
 			err = vkCreateImageView(device, view, null, lp);
 			check(err);
 			depth.view = lp.get(0);
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -1039,8 +1004,7 @@ public final class HelloVulkan {
 		tex_obj.tex_width = tex_width;
 		tex_obj.tex_height = tex_height;
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkImageCreateInfo image_create_info = VkImageCreateInfo.callocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO)
 				.pNext(NULL)
@@ -1106,8 +1070,6 @@ public final class HelloVulkan {
 			demo_set_image_layout(tex_obj.image, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED, tex_obj.imageLayout);
 		/* setting the image layout does not reference the actual memory so no need
 		 * to add a mem ref */
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -1124,16 +1086,13 @@ public final class HelloVulkan {
 		int err = vkEndCommandBuffer(setup_cmd);
 		check(err);
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkSubmitInfo submit_info = VkSubmitInfo.callocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_SUBMIT_INFO)
 				.pCommandBuffers(pp.put(0, setup_cmd));
 
 			err = vkQueueSubmit(queue, submit_info, VK_NULL_HANDLE);
 			check(err);
-		} finally {
-			stack.pop();
 		}
 
 		err = vkQueueWaitIdle(queue);
@@ -1147,8 +1106,7 @@ public final class HelloVulkan {
 		int tex_format = VK_FORMAT_B8G8R8A8_UNORM;
 		int[][] tex_colors = { { 0xffff0000, 0xff00ff00 } };
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkFormatProperties props = VkFormatProperties.mallocStack(stack);
 			vkGetPhysicalDeviceFormatProperties(gpu, tex_format, props);
 
@@ -1275,8 +1233,6 @@ public final class HelloVulkan {
 				check(err);
 				textures[i].view = lp.get(0);
 			}
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -1297,8 +1253,7 @@ public final class HelloVulkan {
 		    { 0.0f, 1.0f, 1.0f, 0.5f, 1.0f },
 		    };
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkBufferCreateInfo buf_info = VkBufferCreateInfo.callocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO)
 				.size(/*sizeof(vb)*/ vb.length * vb[0].length * 4)
@@ -1331,8 +1286,6 @@ public final class HelloVulkan {
 				.put(vb[1])
 				.put(vb[2])
 				.flip();
-		} finally {
-			stack.pop();
 		}
 
 		vkUnmapMemory(device, vertices.mem);
@@ -1365,8 +1318,7 @@ public final class HelloVulkan {
 	}
 
 	private void demo_prepare_descriptor_layout() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkDescriptorSetLayoutCreateInfo descriptor_layout = VkDescriptorSetLayoutCreateInfo.mallocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO)
 				.pNext(NULL)
@@ -1392,14 +1344,11 @@ public final class HelloVulkan {
 			err = vkCreatePipelineLayout(device, pPipelineLayoutCreateInfo, null, lp);
 			check(err);
 			pipeline_layout = lp.get(0);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_prepare_render_pass() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkAttachmentDescription.Buffer attachments = VkAttachmentDescription.mallocStack(2, stack);
 			attachments.get(0)
 				.flags(0)
@@ -1444,14 +1393,11 @@ public final class HelloVulkan {
 			int err = vkCreateRenderPass(device, rp_info, null, lp);
 			check(err);
 			render_pass = lp.get(0);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private long demo_prepare_shader_module(byte[] code) {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			ByteBuffer pCode = memAlloc(code.length).put(code);
 			pCode.flip();
 
@@ -1467,8 +1413,6 @@ public final class HelloVulkan {
 			memFree(pCode);
 
 			return lp.get(0);
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -1477,8 +1421,7 @@ public final class HelloVulkan {
 		long frag_shader_module;
 		long pipelineCache;
 
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkGraphicsPipelineCreateInfo.Buffer pipeline = VkGraphicsPipelineCreateInfo.callocStack(1, stack);
 
 			// Two stages: vs and fs
@@ -1570,14 +1513,11 @@ public final class HelloVulkan {
 
 			vkDestroyShaderModule(device, frag_shader_module, null);
 			vkDestroyShaderModule(device, vert_shader_module, null);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_prepare_descriptor_pool() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkDescriptorPoolCreateInfo descriptor_pool = VkDescriptorPoolCreateInfo.callocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO)
 				.pNext(NULL)
@@ -1591,14 +1531,11 @@ public final class HelloVulkan {
 			int err = vkCreateDescriptorPool(device, descriptor_pool, null, lp);
 			check(err);
 			desc_pool = lp.get(0);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_prepare_descriptor_set() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			LongBuffer layouts = stack.longs(desc_layout);
 			VkDescriptorSetAllocateInfo alloc_info = VkDescriptorSetAllocateInfo.mallocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO)
@@ -1625,14 +1562,11 @@ public final class HelloVulkan {
 				.pImageInfo(tex_descs);
 
 			vkUpdateDescriptorSets(device, write, null);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_prepare_framebuffers() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			LongBuffer attachments = stack.longs(0, depth.view);
 
 			VkFramebufferCreateInfo fb_info = VkFramebufferCreateInfo.mallocStack(stack)
@@ -1652,14 +1586,11 @@ public final class HelloVulkan {
 				check(err);
 				framebuffers.put(i, lp.get(0));
 			}
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_prepare() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkCommandPoolCreateInfo cmd_pool_info = VkCommandPoolCreateInfo.mallocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO)
 				.pNext(NULL)
@@ -1680,8 +1611,6 @@ public final class HelloVulkan {
 
 			err = vkAllocateCommandBuffers(device, cmd, pp);
 			check(err);
-		} finally {
-			stack.pop();
 		}
 
 		draw_cmd = new VkCommandBuffer(pp.get(0), device);
@@ -1701,8 +1630,7 @@ public final class HelloVulkan {
 	}
 
 	private void demo_draw_build_cmd() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkCommandBufferBeginInfo cmd_buf_info = VkCommandBufferBeginInfo.mallocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO)
 				.pNext(NULL)
@@ -1797,14 +1725,11 @@ public final class HelloVulkan {
 
 			err = vkEndCommandBuffer(draw_cmd);
 			check(err);
-		} finally {
-			stack.pop();
 		}
 	}
 
 	private void demo_draw() {
-		MemoryStack stack = stackPush();
-		try {
+		try ( MemoryStack stack = stackPush() ) {
 			VkSemaphoreCreateInfo presentCompleteSemaphoreCreateInfo = VkSemaphoreCreateInfo.mallocStack(stack)
 				.sType(VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO)
 				.pNext(NULL)
@@ -1886,8 +1811,6 @@ public final class HelloVulkan {
 			check(err);
 
 			vkDestroySemaphore(device, presentCompleteSemaphore, null);
-		} finally {
-			stack.pop();
 		}
 	}
 
@@ -1937,7 +1860,7 @@ public final class HelloVulkan {
 	private void demo_run() {
 		int c = 0;
 		long t = System.nanoTime();
-		while ( glfwWindowShouldClose(window) == GLFW_FALSE ) {
+		while ( !glfwWindowShouldClose(window) ) {
 			glfwPollEvents();
 
 			demo_draw();
@@ -2014,13 +1937,10 @@ public final class HelloVulkan {
 		queue_props.free();
 		memory_properties.free();
 
+		Callbacks.glfwFreeCallbacks(window);
 		glfwDestroyWindow(window);
 		glfwTerminate();
-
-		demo_resize_callback.free();
-		demo_refresh_callback.free();
-		demo_key_callback.free();
-		errorCB.free();
+		glfwSetErrorCallback(null).free();
 
 		for ( int i = 0; i < device_validation_layers.remaining(); i++ )
 			nmemFree(device_validation_layers.get(i));

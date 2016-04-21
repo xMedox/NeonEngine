@@ -78,7 +78,7 @@ public class Window{
 	public static void createWindow(){
 		errorCallback = GLFWErrorCallback.createPrint().set();
 		
-		if(GLFW.glfwInit() != GLFW.GLFW_TRUE){
+		if(!GLFW.glfwInit()){
             throw new IllegalStateException("Unable to initialize GLFW");
 		}
 		
@@ -214,7 +214,7 @@ public class Window{
 	private static void initContext(){
 //		System.out.println(GL.getCapabilities().OpenGL33);
 		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
-			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
+			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				initContextVK();
 			}else{
@@ -230,7 +230,7 @@ public class Window{
 //				initContextVK();
 //			}
 		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
-			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
+			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				initContextVK();
 			}else{
@@ -256,7 +256,7 @@ public class Window{
 	private static void createContext(){
 //		System.out.println(GL.getCapabilities().OpenGL33);
 		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
-			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
+			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				createContextVK();
 			}else{
@@ -272,7 +272,7 @@ public class Window{
 //				createContextVK();
 //			}
 		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
-			if(GLFWVulkan.glfwVulkanSupported() == GLFW.GLFW_TRUE){
+			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				createContextVK();
 			}else{
@@ -455,7 +455,7 @@ public class Window{
 	}
 	
 	public static boolean isCloseRequested(){
-		return GLFW.glfwWindowShouldClose(window) == GLFW.GLFW_TRUE;
+		return GLFW.glfwWindowShouldClose(window);
 	}
 	
 	public static void setTitle(String title){
