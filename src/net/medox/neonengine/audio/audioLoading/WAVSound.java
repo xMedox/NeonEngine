@@ -110,11 +110,14 @@ public class WAVSound{
 	private static ByteBuffer convertAudioBytes(byte[] audioBytes, boolean twoBytesData){
 		final ByteBuffer dest = ByteBuffer.allocateDirect(audioBytes.length);
 		dest.order(ByteOrder.nativeOrder());
+		
 		final ByteBuffer src = ByteBuffer.wrap(audioBytes);
 		src.order(ByteOrder.LITTLE_ENDIAN);
+		
 		if(twoBytesData){
 			final ShortBuffer destShort = dest.asShortBuffer();
 			final ShortBuffer srcShort = src.asShortBuffer();
+			
 			while(srcShort.hasRemaining()){
 				destShort.put(srcShort.get());
 			}
@@ -123,6 +126,7 @@ public class WAVSound{
 				dest.put(src.get());
 			}
 		}
+		
 		dest.rewind();
 		return dest;
 	}

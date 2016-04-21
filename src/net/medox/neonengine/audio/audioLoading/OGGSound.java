@@ -2,6 +2,8 @@ package net.medox.neonengine.audio.audioLoading;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -16,10 +18,10 @@ public class OGGSound{
 	private int samplerate;
 	
 	public OGGSound(String fileName){
-		java.io.FileInputStream fin = null;
+		FileInputStream fin = null;
 		try{
-			fin = new java.io.FileInputStream(fileName);
-		}catch(java.io.FileNotFoundException ex){
+			fin = new FileInputStream(fileName);
+		}catch(FileNotFoundException ex){
 			ex.printStackTrace();
 		}
 		
@@ -46,8 +48,8 @@ public class OGGSound{
 		if(input == null){
 			throw new IOException("Failed to read OGG, source does not exist?");
 		}
-		final ByteArrayOutputStream dataout = new ByteArrayOutputStream();
 		
+		final ByteArrayOutputStream dataout = new ByteArrayOutputStream();
 		final OggInputStream oggInput = new OggInputStream(input);
 		
 		while(!oggInput.atEnd()){

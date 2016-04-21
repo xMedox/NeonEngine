@@ -194,10 +194,8 @@ public class OBJModel{
 		@Override
 		public boolean equals(Object obj){
 			final OBJIndex index = (OBJIndex)obj;
-
-			return vertexIndex == index.vertexIndex
-					&& texCoordIndex == index.texCoordIndex
-					&& normalIndex == index.normalIndex;
+			
+			return vertexIndex == index.vertexIndex && texCoordIndex == index.texCoordIndex && normalIndex == index.normalIndex;
 		}
 		
 		@Override
