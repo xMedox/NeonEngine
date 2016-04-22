@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import net.medox.neonengine.core.CoreEngine;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
-import net.medox.neonengine.rendering.resourceManagement.OpenGL.TextureDataGL;
+import net.medox.neonengine.rendering.resourceManagement.opengl.TextureDataGL;
 
 public class Texture{
 	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();

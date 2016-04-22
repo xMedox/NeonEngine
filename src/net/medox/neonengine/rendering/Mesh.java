@@ -7,7 +7,7 @@ import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 import net.medox.neonengine.rendering.meshLoading.OBJModel;
 import net.medox.neonengine.rendering.resourceManagement.MeshData;
-import net.medox.neonengine.rendering.resourceManagement.OpenGL.MeshDataGL;
+import net.medox.neonengine.rendering.resourceManagement.opengl.MeshDataGL;
 
 public class Mesh{
 	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();

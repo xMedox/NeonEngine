@@ -27,7 +27,7 @@ import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.rendering.OpenGL.BatchRendererGL;
+import net.medox.neonengine.rendering.opengl.BatchRendererGL;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class RenderingEngine{

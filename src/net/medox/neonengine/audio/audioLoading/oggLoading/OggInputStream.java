@@ -5,16 +5,16 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.Block;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.Comment;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.DspState;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.Info;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.Packet;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.Page;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.StreamState;
-import net.medox.neonengine.audio.audioLoading.oggLoading.JOrbis.SyncState;
-
 import org.lwjgl.BufferUtils;
+
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Block;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Comment;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.DspState;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Info;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Packet;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Page;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.StreamState;
+import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.SyncState;
 
 public class OggInputStream extends InputStream implements AudioInputStream{
 	private int convsize = 4096 * 4;

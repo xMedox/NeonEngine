@@ -8,7 +8,7 @@ import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.resourceManagement.ShaderData;
-import net.medox.neonengine.rendering.resourceManagement.OpenGL.ShaderDataGL;
+import net.medox.neonengine.rendering.resourceManagement.opengl.ShaderDataGL;
 
 public class Shader{
 	private static final Map<String, ShaderData> loadedShaders = new ConcurrentHashMap<String, ShaderData>();

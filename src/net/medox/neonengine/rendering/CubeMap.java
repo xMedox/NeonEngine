@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import net.medox.neonengine.core.CoreEngine;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
-import net.medox.neonengine.rendering.resourceManagement.OpenGL.CubeMapDataGL;
+import net.medox.neonengine.rendering.resourceManagement.opengl.CubeMapDataGL;
 
 public class CubeMap{
 	private static final Map<String[], CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String[], CubeMapData>();
