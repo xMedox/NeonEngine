@@ -25,6 +25,7 @@ Other:
 - Moved OBJIndex class into the OBJModel class
 - Renamed getMouseWheelDirection function to isMouseWheelDirection in Input class
 - Renamed getCenter function to getCenterPosition in Window class
+- Changed package names to lower case
 
 ## Todo:
 
