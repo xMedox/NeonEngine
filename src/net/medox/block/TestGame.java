@@ -56,6 +56,29 @@ public class TestGame extends Game{
 		button.getTransform().setScale(new Vector2f(202, 27));
 		addEntity2D(button);
 		
+		Entity player = new Entity();
+		Entity playerHead = new Entity();
+		player.getTransform().setPos(4, 4, 4);
+		playerHead.getTransform().setPos(0, /*0.75f*//*0.0125f*/0.7375f, 0);
+		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
+		playerHead.addComponent(cam);
+		FreeLook look = new FreeLook(0.15f);
+		playerHead.addComponent(look);
+		PlayerComponent p = new PlayerComponent(cam);
+//		p.getCapsule().setTransform(player.getTransform());
+		p.getBox().setTransform(player.getTransform());
+		player.addComponent(p);
+		Listener listener = new Listener();
+		playerHead.addComponent(listener);
+		player.addChild(playerHead);
+		addEntity(player);
+		
+//		ArrayList<Quaternion> quaternions = new ArrayList<Quaternion>();
+		
+		Entity swordS = new Entity();
+		swordS.addComponent(new DelayLook(look/*, quaternions, 120/2, false*/));
+		playerHead.addChild(swordS);
+		
 		Entity2D team = new Entity2D();
 		MeshRenderer2D teamRenderer = null;
 		if(Util.randomInt(0, 1) == 0){
@@ -64,12 +87,32 @@ public class TestGame extends Game{
 			life.addComponent(new Progressbar(1, new Vector3f(1, 0, 0)));
 			sprint.addComponent(new Progressbar(1, new Vector3f(0.09803921568f, 0.09803921568f, 0.09803921568f)));
 			teamRenderer = new MeshRenderer2D(new Texture("RED.png", true));
+			
+			Entity sword = new Entity();
+			Material swordM = new Material();
+			swordM.setDiffuseMap(new Texture("redSword.png", true));
+			swordM.setGlowMap(new Texture("block60_glow.png", true));
+			sword.addComponent(new MeshRenderer(new Mesh("Sword R Block.obj"), swordM));
+			sword.getTransform().setScale(0.5f);
+			sword.getTransform().setPos(0.75f, 0, 1.25f);
+			sword.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(90));
+			swordS.addChild(sword);
 		}else{
 			Window.setCursor("cursor test blue.png", 0, 0);
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(0, 0, 1))));
 			life.addComponent(new Progressbar(1, new Vector3f(0, 0, 1)));
 			sprint.addComponent(new Progressbar(1, new Vector3f(0.89803921568f, 0.89803921568f, 0.89803921568f)));
 			teamRenderer = new MeshRenderer2D(new Texture("BLUE.png", true));
+			
+			Entity sword = new Entity();
+			Material swordM = new Material();
+			swordM.setDiffuseMap(new Texture("blueSword.png", true));
+			swordM.setGlowMap(new Texture("block60_glow.png", true));
+			sword.addComponent(new MeshRenderer(new Mesh("Sword R Block.obj"), swordM));
+			sword.getTransform().setScale(0.5f);
+			sword.getTransform().setPos(0.75f, 0, 1.25f);
+			sword.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(90));
+			swordS.addChild(sword);
 		}
 		Lock2D teamLock = new Lock2D(4, -64-4, new Vector2f(0, 1));
 		team.addComponent(teamRenderer);
@@ -113,23 +156,6 @@ public class TestGame extends Game{
 		wolf.addComponent(wolfP);
 		addEntity(wolf);
 		
-		Entity player = new Entity();
-		Entity playerHead = new Entity();
-		player.getTransform().setPos(4, 4, 4);
-		playerHead.getTransform().setPos(0, /*0.75f*//*0.0125f*/0.7375f, 0);
-		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
-		playerHead.addComponent(cam);
-		FreeLook look = new FreeLook(0.15f);
-		playerHead.addComponent(look);
-		PlayerComponent p = new PlayerComponent(cam);
-//		p.getCapsule().setTransform(player.getTransform());
-		p.getBox().setTransform(player.getTransform());
-		player.addComponent(p);
-		Listener listener = new Listener();
-		playerHead.addComponent(listener);
-		player.addChild(playerHead);
-		addEntity(player);
-		
 		Entity directionalLightObject = new Entity();
 		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, /*8.0f*/16.0f, 1.0f, /*0.7f*/0.2f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
@@ -156,22 +182,6 @@ public class TestGame extends Game{
 				addEntity(world);
 			}
 		}
-		
-//		ArrayList<Quaternion> quaternions = new ArrayList<Quaternion>();
-		
-		Entity swordS = new Entity();
-		swordS.addComponent(new DelayLook(look/*, quaternions, 120/2, false*/));
-		playerHead.addChild(swordS);
-		
-		Entity sword = new Entity();
-		Material swordM = new Material();
-		swordM.setDiffuseMap(new Texture("block60.png", true));
-		swordM.setGlowMap(new Texture("block60_glow.png", true));
-		sword.addComponent(new MeshRenderer(new Mesh("Sword R Block.obj"), swordM));
-		sword.getTransform().setScale(0.5f);
-		sword.getTransform().setPos(0.75f, 0, 1.25f);
-		sword.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(90));
-		swordS.addChild(sword);
 		
 		Material mushdM = new Material();
 		mushdM.setDiffuseMap(new Texture("mushroom.png", true));

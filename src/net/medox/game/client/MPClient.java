@@ -85,7 +85,7 @@ public class MPClient{
 		
 //		System.out.println("--------------------------------------------------------------");
 ////		System.out.println("Game version:   " + "Alpha 0.3");
-////		System.out.println("Engine version: " + CoreEngine.getVersion());
+////		System.out.println("Engine version: " + NeonEngine.getVersion());
 //		System.out.println("OS name:        " + System.getProperty("os.name"));
 //		System.out.println("OS version:     " + System.getProperty("os.version"));
 //		System.out.println("OS arch:        " + System.getProperty("os.arch"));

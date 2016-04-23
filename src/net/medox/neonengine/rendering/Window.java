@@ -84,7 +84,7 @@ public class Window{
 		GLFW.glfwDefaultWindowHints();
 		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
 		
-//		if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+//		if(NeonEngine.OPTION_ENABLE_VSYNC == 1){
 //			GLFW.glfwWindowHint(GLFW.GLFW_REFRESH_RATE, GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).refreshRate());
 //		}else{
 //			GLFW.glfwWindowHint(GLFW.GLFW_REFRESH_RATE, GLFW.GLFW_DONT_CARE);

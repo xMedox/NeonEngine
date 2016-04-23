@@ -87,7 +87,7 @@ public class Vulkan{
 		
 		glfwMakeContextCurrent(window);
 		
-//		if(CoreEngine.OPTIONS_ENABLE_VSYNC == 1){
+//		if(NeonEngine.OPTIONS_ENABLE_VSYNC == 1){
 //			glfwSwapInterval(1);
 //		}else{
 //			glfwSwapInterval(0);
