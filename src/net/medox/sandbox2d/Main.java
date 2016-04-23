@@ -18,7 +18,7 @@ public class Main{
 //		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 //		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 //		
-//		CoreEngine.init(/*60*/1000, new Sandbox2D());
+//		CoreEngine.init(new Sandbox2D(), /*60*/1000);
 		
 		CoreEngine.OPTION_ENABLE_VSYNC = 1;
 		CoreEngine.OPTION_ENABLE_FXAA = 0;
@@ -31,7 +31,7 @@ public class Main{
 		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 		
-		CoreEngine.init(60, new Sandbox2D());
+		CoreEngine.init(new Sandbox2D(), 60);
 		
 		Window.setStartTitle("Sandbox 2D");
 		Window.setStartDimensions(World.worldWidth*World.blockSize, World.worldHeight*World.blockSize);

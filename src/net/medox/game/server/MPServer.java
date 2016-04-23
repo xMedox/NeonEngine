@@ -45,7 +45,7 @@ public class MPServer{
 		
 		game = new TestGame();
 		game.addEntity(new Entity().addComponent(new TimeAdder(this)));
-		CoreEngine.init(60, game);
+		CoreEngine.init(game, 60);
 		
 		SendThread send = new SendThread(this);
 		send.start();

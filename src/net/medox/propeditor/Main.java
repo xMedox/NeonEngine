@@ -18,7 +18,7 @@ public class Main{
 		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 		
-		CoreEngine.init(60, new TestGame());
+		CoreEngine.init(new TestGame(), 60);
 		
 		Window.setStartTitle("Project Space");
 		Window.setStartDimensions(854, 480);

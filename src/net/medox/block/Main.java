@@ -18,7 +18,7 @@ public class Main{
 //		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 //		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 //		
-//		CoreEngine.init(/*60*/1000, new TestGame());
+//		CoreEngine.init(new TestGame(), /*60*/1000);
 		
 		CoreEngine.OPTION_ENABLE_VSYNC = 1;
 		CoreEngine.OPTION_ENABLE_FXAA = 0;
@@ -31,7 +31,7 @@ public class Main{
 		CoreEngine.OPTION_TEXTURE_QUALITY = 0;
 		CoreEngine.OPTION_SHADOW_QUALITY = 0;
 		
-		CoreEngine.init(60, new TestGame());
+		CoreEngine.init(new TestGame(), 60);
 		
 		Window.setStartTitle("Project Space");
 		Window.setStartDimensions(854, 480);

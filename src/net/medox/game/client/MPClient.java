@@ -54,7 +54,7 @@ public class MPClient{
 		client.addListener(nl);
 		
 		game = new TestGame(this);
-		CoreEngine.init(60, game);
+		CoreEngine.init(game, 60);
 		
 		Window.setStartTitle("Project Guns");
 		Window.setStartDimensions(854, 480);

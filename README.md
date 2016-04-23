@@ -4,6 +4,7 @@
 
 **Other:**
 - Moved image functions from the Util class into the new ImageUtil class
+- Changed CoreEngines init function to take in the game object first
 
 ## Todo:
 

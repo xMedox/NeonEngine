@@ -40,19 +40,19 @@ public class CoreEngine{
 	
 	public static int fps;
 	
+	private static Game game;
 	private static boolean isRunning;
 	private static double frameTime;
-	private static Game game;
 	
-	public static void init(int framerate, Game game){
+	public static void init(Game game, int framerate){
 		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
 		
 		Util.init();
 		
+		CoreEngine.game = game;
+		
 		isRunning = false;
 		frameTime = 1.0/(double)framerate;
-		
-		CoreEngine.game = game;
 		
 		SoundEngine.init();
 		PhysicsEngine.init();

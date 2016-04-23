@@ -7,7 +7,7 @@ public class Main{
 	public static void main(String[] args){
 		System.out.println("Starting up");
 		
-		CoreEngine.init(/*600*/60, new TestGame());
+		CoreEngine.init(new TestGame(), /*600*/60);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartDimensions(854, 480);
