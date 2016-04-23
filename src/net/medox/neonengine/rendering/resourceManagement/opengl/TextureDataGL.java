@@ -53,16 +53,24 @@ public class TextureDataGL extends TextureData{
 	
 	@Override
 	public void bind(int samplerSlot){
-		assert(samplerSlot >= 0 && samplerSlot <= 31);
-		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-		GL11.glBindTexture(textureTarget, textureID[0]);
+//		if(bound != textureID[0]){
+			assert(samplerSlot >= 0 && samplerSlot <= 31);
+			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
+			GL11.glBindTexture(textureTarget, textureID[0]);
+//			
+//			bound = textureID[0];
+//		}
 	}
 	
 	@Override
 	public void bind(int samplerSlot, int id){
-		assert(samplerSlot >= 0 && samplerSlot <= 31);
-		GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-		GL11.glBindTexture(textureTarget, textureID[id]);
+//		if(bound != textureID[id]){
+			assert(samplerSlot >= 0 && samplerSlot <= 31);
+			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
+			GL11.glBindTexture(textureTarget, textureID[id]);
+//			
+//			bound = textureID[id];
+//		}
 	}
 	
 	@Override
