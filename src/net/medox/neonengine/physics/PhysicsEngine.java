@@ -104,7 +104,7 @@ public class PhysicsEngine{
 			colliders.get(i).clearList();
 		}
 		
-		dynamicsWorld.stepSimulation(delta);
+		dynamicsWorld.stepSimulation(delta, 10);
 	}
 	
 	public static void setGravity(float gravity){
