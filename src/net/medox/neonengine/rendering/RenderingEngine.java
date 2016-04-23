@@ -66,8 +66,8 @@ public class RenderingEngine{
 	
 	private static List<BaseLight> lights;
 	private static BaseLight activeLight;
-	private static Matrix4f lightMatrix;
 	private static Camera lightCamera;
+	private static Matrix4f lightMatrix;
 	
 	private static Skybox skybox;
 	private static TrueTypeFont font; //TODO remove this
@@ -89,10 +89,10 @@ public class RenderingEngine{
 	private static Shader particleShader;
 	private static boolean particleFlipFaces;
 	
+	private static Camera filterCamera;
 	private static Mesh filterPlane;
 	private static Material filterMaterial;
 	private static Transform filterTransform;
-	private static Camera filterCamera;
 	
 	private static Texture[] shadowMaps = new Texture[NUM_SHADOW_MAPS];
 	private static Texture[] shadowMapTempTargets = new Texture[NUM_SHADOW_MAPS];
@@ -626,7 +626,6 @@ public class RenderingEngine{
 		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
 		
 		mainCamera.update();
-		
 		camera2D.update();
 		
 //		getTexture("displayTexture").finalize();
