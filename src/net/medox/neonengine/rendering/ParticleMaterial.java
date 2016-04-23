@@ -3,10 +3,8 @@ package net.medox.neonengine.rendering;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.medox.neonengine.core.Util;
-
 public class ParticleMaterial{
-	public static final Texture DEFAULT_DIFFUSE_TEXTURE = Util.createDefaultDiffuseMap();
+	public static final Texture DEFAULT_DIFFUSE_TEXTURE = ImageUtil.createDefaultDiffuseMap();
 	
 	public static final float DEFAULT_SPECULAR_INTENSITY = 0;
 	public static final float DEFAULT_SPECULAR_POWER = 0;

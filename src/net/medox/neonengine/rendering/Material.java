@@ -3,15 +3,14 @@ package net.medox.neonengine.rendering;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
 
 public class Material{
-	public static final Texture DEFAULT_DIFFUSE_TEXTURE = Util.createDefaultDiffuseMap();
-	public static final Texture DEFAULT_NORMAL_MAP_TEXTURE = Util.createDefaultNormalMap();
-//	public static final Texture DEFAULT_DISPLACEMENT_MAP_TEXTURE = Util.createDefaultDisplacementMap();
-	public static final Texture DEFAULT_SPECULAR_MAP_TEXTURE = Util.createDefaultSpecularMap();
-	public static final Texture DEFAULT_GLOW_MAP_TEXTURE = Util.createDefaultGlowMap();
+	public static final Texture DEFAULT_DIFFUSE_TEXTURE = ImageUtil.createDefaultDiffuseMap();
+	public static final Texture DEFAULT_NORMAL_MAP_TEXTURE = ImageUtil.createDefaultNormalMap();
+//	public static final Texture DEFAULT_DISPLACEMENT_MAP_TEXTURE = ImageUtil.createDefaultDisplacementMap();
+	public static final Texture DEFAULT_SPECULAR_MAP_TEXTURE = ImageUtil.createDefaultSpecularMap();
+	public static final Texture DEFAULT_GLOW_MAP_TEXTURE = ImageUtil.createDefaultGlowMap();
 	
 //	public static final Texture defaultCubeMap = Util.createDefaultCubeMap();
 	

@@ -2,6 +2,8 @@
 
 ## Changelog:
 
+Other:
+- Moved image functions from the Util class into the new ImageUtil class
 
 ## Todo:
 

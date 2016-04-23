@@ -5,9 +5,8 @@ import java.nio.ByteBuffer;
 
 import net.medox.neonengine.core.CoreEngine;
 import net.medox.neonengine.core.Input;
-import net.medox.neonengine.core.Util;
-import net.medox.neonengine.core.Util.ImageData;
 import net.medox.neonengine.math.Vector2f;
+import net.medox.neonengine.rendering.ImageUtil.ImageData;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
@@ -131,7 +130,7 @@ public class Window{
 		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_TRUE);
 		
 		if(startIcon16.equals("") || startIcon32.equals("")/* || startIcon128.equals("")*/){
-			setIcon(Util.getDefaultIcon16(), Util.getDefaultIcon32()/*, Util.getDefaultIcon128()*/);
+			setIcon(ImageUtil.getDefaultIcon16(), ImageUtil.getDefaultIcon32()/*, Util.getDefaultIcon128()*/);
 		}else{
 			setIcon(startIcon16, startIcon32/*, startIcon128*/);
 		}
@@ -385,10 +384,10 @@ public class Window{
 	public static void setIcon(String icon16, String icon32/*, String icon128*/){
 		final GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
 		
-		final ImageData pixels16 = Util.imageToByteBuffer(icon16);
+		final ImageData pixels16 = ImageUtil.imageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
-		final ImageData pixels32 = Util.imageToByteBuffer(icon32);
+		final ImageData pixels32 = ImageUtil.imageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 		
 //		final ImageData pixels128 = Util.ioImageResourceToByteBuffer(icon128);
@@ -404,10 +403,10 @@ public class Window{
 	private static void setIcon(BufferedImage icon16, BufferedImage icon32/*, BufferedImage icon128*/){
 		final GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
 		
-		final ImageData pixels16 = Util.bufferedImageToByteBuffer(icon16);
+		final ImageData pixels16 = ImageUtil.bufferedImageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
-		final ImageData pixels32 = Util.bufferedImageToByteBuffer(icon32);
+		final ImageData pixels32 = ImageUtil.bufferedImageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 		
 //	  	final ImageData pixels128 = Util.bufferedImageToByteBuffer(icon128);
@@ -434,7 +433,7 @@ public class Window{
 				GLFW.glfwDestroyCursor(cursor);
 			}
 			
-			final ImageData pixels = Util.imageToByteBuffer("./res/textures/" + fileName);
+			final ImageData pixels = ImageUtil.imageToByteBuffer("./res/textures/" + fileName);
 			final GLFWImage img = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
 			cursor = GLFW.glfwCreateCursor(img, -xPos, yPos);
