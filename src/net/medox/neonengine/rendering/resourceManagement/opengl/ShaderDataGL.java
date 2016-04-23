@@ -99,20 +99,18 @@ public class ShaderDataGL extends ShaderData{
 		int attribNumber = 0;
 		
 		while(attributeStartLocation != -1){
-			if(!(attributeStartLocation != 0
-					&& (Character.isWhitespace(shaderText.charAt(attributeStartLocation - 1)) || shaderText.charAt(attributeStartLocation - 1) == ';')
-					&& Character.isWhitespace(shaderText.charAt(attributeStartLocation + ATTRIBUTE_KEYWORD.length())))) {
+			if(!(attributeStartLocation != 0 && (Character.isWhitespace(shaderText.charAt(attributeStartLocation - 1)) || shaderText.charAt(attributeStartLocation - 1) == ';') && Character.isWhitespace(shaderText.charAt(attributeStartLocation + ATTRIBUTE_KEYWORD.length())))){
 				attributeStartLocation = shaderText.indexOf(ATTRIBUTE_KEYWORD, attributeStartLocation + ATTRIBUTE_KEYWORD.length());
 				continue;
 			}
-
+			
 			final int begin = attributeStartLocation + ATTRIBUTE_KEYWORD.length() + 1;
 			
 			final String attributeLine = shaderText.substring(begin, shaderText.indexOf(";", begin)).trim();
 			
 			setAttribLocation(attributeLine.substring(attributeLine.indexOf(' ') + 1, attributeLine.length()).trim(), attribNumber);
 			attribNumber++;
-
+			
 			attributeStartLocation = shaderText.indexOf(ATTRIBUTE_KEYWORD, attributeStartLocation + ATTRIBUTE_KEYWORD.length());
 		}
 	}
@@ -122,9 +120,7 @@ public class ShaderDataGL extends ShaderData{
 		int uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD);
 		
 		while(uniformStartLocation != -1){
-			if(!(uniformStartLocation != 0
-					&& (Character.isWhitespace(shaderText.charAt(uniformStartLocation - 1)) || shaderText.charAt(uniformStartLocation - 1) == ';')
-					&& Character.isWhitespace(shaderText.charAt(uniformStartLocation + UNIFORM_KEYWORD.length())))) {
+			if(!(uniformStartLocation != 0 && (Character.isWhitespace(shaderText.charAt(uniformStartLocation - 1)) || shaderText.charAt(uniformStartLocation - 1) == ';') && Character.isWhitespace(shaderText.charAt(uniformStartLocation + UNIFORM_KEYWORD.length())))){
 				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
 				continue;
 			}
@@ -162,13 +158,13 @@ public class ShaderDataGL extends ShaderData{
 		}
 		
 		final int uniformLocation = GL20.glGetUniformLocation(program, uniformName);
-
+		
 		if(uniformLocation == /*0xFFFFFFFF*/-1){
 			System.err.println("Error: Could not find uniform \"" + uniformName + "\" in " + fileName);
 			new Exception().printStackTrace();
 			System.exit(1);
 		}
-
+		
 		uniformMap.put(uniformName, uniformLocation);
 	}
 	
@@ -273,65 +269,63 @@ public class ShaderDataGL extends ShaderData{
 	
 	private HashMap<String, ArrayList<GLSLStruct>> findUniformStructs(String shaderText){
 		final HashMap<String, ArrayList<GLSLStruct>> result = new HashMap<String, ArrayList<GLSLStruct>>();
-
+		
 		final String STRUCT_KEYWORD = "struct";
 		int structStartLocation = shaderText.indexOf(STRUCT_KEYWORD);
 		
 		while(structStartLocation != -1){
-			if(!(structStartLocation != 0
-					&& (Character.isWhitespace(shaderText.charAt(structStartLocation - 1)) || shaderText.charAt(structStartLocation - 1) == ';')
-					&& Character.isWhitespace(shaderText.charAt(structStartLocation + STRUCT_KEYWORD.length())))){
+			if(!(structStartLocation != 0 && (Character.isWhitespace(shaderText.charAt(structStartLocation - 1)) || shaderText.charAt(structStartLocation - 1) == ';') && Character.isWhitespace(shaderText.charAt(structStartLocation + STRUCT_KEYWORD.length())))){
 				structStartLocation = shaderText.indexOf(STRUCT_KEYWORD, structStartLocation + STRUCT_KEYWORD.length());
 				continue;
 			}
-
+			
 			final int nameBegin = structStartLocation + STRUCT_KEYWORD.length() + 1;
 			final int braceBegin = shaderText.indexOf("{", nameBegin);
 			final int braceEnd = shaderText.indexOf("}", braceBegin);
-
+			
 			final ArrayList<GLSLStruct> glslStructs = new ArrayList<GLSLStruct>();
-
+			
 			int componentSemicolonPos = shaderText.indexOf(";", braceBegin);
 			
 			while(componentSemicolonPos != -1 && componentSemicolonPos < braceEnd){
 				int componentNameEnd = componentSemicolonPos + 1;
-
+				
 				while(Character.isWhitespace(shaderText.charAt(componentNameEnd - 1)) || shaderText.charAt(componentNameEnd - 1) == ';'){
 					componentNameEnd--;
 				}
-
+				
 				int componentNameStart = componentSemicolonPos;
-
+				
 				while(!Character.isWhitespace(shaderText.charAt(componentNameStart - 1))){
 					componentNameStart--;
 				}
-
+				
 				int componentTypeEnd = componentNameStart;
-
+				
 				while(Character.isWhitespace(shaderText.charAt(componentTypeEnd - 1))){
 					componentTypeEnd--;
 				}
-
+				
 				int componentTypeStart = componentTypeEnd;
-
+				
 				while(!Character.isWhitespace(shaderText.charAt(componentTypeStart - 1))){
 					componentTypeStart--;
 				}
-
+				
 				final GLSLStruct glslStruct = new GLSLStruct();
 				glslStruct.name = shaderText.substring(componentNameStart, componentNameEnd);
 				glslStruct.type = shaderText.substring(componentTypeStart, componentTypeEnd);
-
+				
 				glslStructs.add(glslStruct);
-
+				
 				componentSemicolonPos = shaderText.indexOf(";", componentSemicolonPos + 1);
 			}
 			
 			result.put(shaderText.substring(nameBegin, braceBegin).trim(), glslStructs);
-
+			
 			structStartLocation = shaderText.indexOf(STRUCT_KEYWORD, structStartLocation + STRUCT_KEYWORD.length());
 		}
-
+		
 		return result;
 	}
 	
