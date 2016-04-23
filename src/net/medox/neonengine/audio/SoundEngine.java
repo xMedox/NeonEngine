@@ -84,6 +84,7 @@ public class SoundEngine{
 		listenerPosition.put(0, value.getX());
 		listenerPosition.put(1, value.getY());
 		listenerPosition.put(2, value.getZ());
+		
 		AL10.alListenerfv(AL10.AL_POSITION, listenerPosition);
 	}
 	
@@ -91,6 +92,7 @@ public class SoundEngine{
 		listenerVelocity.put(0, value.getX());
 		listenerVelocity.put(1, value.getY());
 		listenerVelocity.put(2, value.getZ());
+		
 		AL10.alListenerfv(AL10.AL_VELOCITY, listenerVelocity);
 	}
 	
@@ -101,6 +103,7 @@ public class SoundEngine{
 		listenerOrientation.put(3, value.getUp().getX());
 		listenerOrientation.put(4, value.getUp().getY());
 		listenerOrientation.put(5, value.getUp().getZ());
+		
 		AL10.alListenerfv(AL10.AL_ORIENTATION, listenerOrientation);
 	}
 	
