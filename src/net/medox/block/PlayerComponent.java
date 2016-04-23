@@ -10,7 +10,6 @@ import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.Ray;
 import net.medox.neonengine.rendering.Camera;
-import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Texture;
 
 public class PlayerComponent extends EntityComponent{
@@ -24,9 +23,8 @@ public class PlayerComponent extends EntityComponent{
 	private Texture t1;
 	private Texture t2;
 	private Texture t3;
-	private Texture t4;
 	
-	private Texture g1;
+	private Texture g;
 	
 	public PlayerComponent(Camera camera){
 		box = new Box(new Vector3f(0.475f, 0.975f, 0.475f));
@@ -55,11 +53,10 @@ public class PlayerComponent extends EntityComponent{
 		this.camera = camera;
 		
 		t1 = new Texture("block60.png", true);
-		t2 = new Texture("block70.png", true);
-		t3 = new Texture("block21.png", true);
-		t4 = new Texture("block30.png", true);
+		t2 = new Texture("redSword.png", true);
+		t3 = new Texture("blueSword.png", true);
 		
-		g1 = new Texture("block60_glow.png", true);
+		g = new Texture("block60_glow.png", true);
 	}
 	
 	public Box getBox(){
@@ -105,23 +102,16 @@ public class PlayerComponent extends EntityComponent{
 				if(ray.getHitCollider().getGroup() == 1){
 					WolfComponent wolf = (WolfComponent)ray.getHitCollider().getObject();
 					if(!wolf.isDead()){
-						int r = Util.randomInt(0, 3);
+						int r = Util.randomInt(0, 2);
 						
 						Texture t = null;
-						Texture g = null;
 						
 						if(r == 0){
 							t = t1;
-							g = g1;
 						}else if(r == 1){
 							t = t2;
-							g = Material.DEFAULT_GLOW_MAP_TEXTURE;
 						}else if(r == 2){
 							t = t3;
-							g = Material.DEFAULT_GLOW_MAP_TEXTURE;
-						}else if(r == 3){
-							t = t4;
-							g = Material.DEFAULT_GLOW_MAP_TEXTURE;
 						}
 						
 						wolf.getMeshRenderer().setDiffuseMap(t);

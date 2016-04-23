@@ -24,7 +24,7 @@ public class WolfComponent extends EntityComponent{
 	private CharacterController controller;
 	
 	public WolfComponent(MeshRendererWolf wolfR){
-		health = 3;
+		health = 8;
 		
 		damageSound = new Sound("bullet.wav");
 		
