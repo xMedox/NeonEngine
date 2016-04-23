@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import net.medox.game.Packet.*;
 import net.medox.game.server.SendThread;
 import net.medox.game.server.TestGame;
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Quaternion;
@@ -45,12 +45,12 @@ public class MPServer{
 		
 		game = new TestGame();
 		game.addEntity(new Entity().addComponent(new TimeAdder(this)));
-		CoreEngine.init(game, 60);
+		NeonEngine.init(game, 60);
 		
 		SendThread send = new SendThread(this);
 		send.start();
 		
-		CoreEngine.start();
+		NeonEngine.start();
 	}
 	
 	private void registerPackets(){

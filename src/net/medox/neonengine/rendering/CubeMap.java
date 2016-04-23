@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
 import net.medox.neonengine.rendering.resourceManagement.opengl.CubeMapDataGL;
 
@@ -118,7 +118,7 @@ public class CubeMap{
 				}
 //			}
 			
-			if(CoreEngine.OPTION_TEXTURE_QUALITY >= 1){
+			if(NeonEngine.OPTION_TEXTURE_QUALITY >= 1){
 				BufferedImage before = image;
 				int w = before.getWidth();
 				int h = before.getHeight();
@@ -130,7 +130,7 @@ public class CubeMap{
 				
 				image = after;
 				
-				if(CoreEngine.OPTION_TEXTURE_QUALITY >= 2){
+				if(NeonEngine.OPTION_TEXTURE_QUALITY >= 2){
 					before = image;
 					w = before.getWidth();
 					h = before.getHeight();

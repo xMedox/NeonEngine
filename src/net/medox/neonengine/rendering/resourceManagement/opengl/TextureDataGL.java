@@ -3,7 +3,7 @@ package net.medox.neonengine.rendering.resourceManagement.opengl;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
@@ -36,7 +36,7 @@ public class TextureDataGL extends TextureData{
 		this.textureTarget = textureTarget;
 		this.numTextures = numTextures;
 		
-		if(CoreEngine.PROFILING_SET_2x2_TEXTURE == 0){
+		if(NeonEngine.PROFILING_SET_2x2_TEXTURE == 0){
 			this.width = width;
 			this.height = height;
 		}else{
@@ -78,7 +78,7 @@ public class TextureDataGL extends TextureData{
     	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
     	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
     	
-    	if(CoreEngine.PROFILING_SET_1x1_VIEWPORT == 0){
+    	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
     		GL11.glViewport(0, 0, width, height);
     	}else{
     		GL11.glViewport(0, 0, 1, 1);

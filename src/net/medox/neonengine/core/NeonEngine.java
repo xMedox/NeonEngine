@@ -12,7 +12,7 @@ import net.medox.neonengine.rendering.Shader;
 import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
-public class CoreEngine{
+public class NeonEngine{
 	private static final String VERSION = "0.9.0";
 	
 	private static final ProfileTimer sleepTimer = new ProfileTimer();
@@ -49,7 +49,7 @@ public class CoreEngine{
 		
 		Util.init();
 		
-		CoreEngine.game = game;
+		NeonEngine.game = game;
 		
 		isRunning = false;
 		frameTime = 1.0/(double)framerate;

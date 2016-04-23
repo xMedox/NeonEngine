@@ -3,7 +3,7 @@ package net.medox.neonengine.rendering;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.rendering.ImageUtil.ImageData;
@@ -143,7 +143,7 @@ public class Window{
 		
 		GLFW.glfwMakeContextCurrent(window);
 		
-		if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+		if(NeonEngine.OPTION_ENABLE_VSYNC == 1){
 			GLFW.glfwSwapInterval(1);
 		}else{
 			GLFW.glfwSwapInterval(0);
@@ -212,7 +212,7 @@ public class Window{
 	
 	private static void initContext(){
 //		System.out.println(GL.getCapabilities().OpenGL33);
-		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
+		if(NeonEngine.OPTION_FORCE_RENDERING_MODE == -1){
 			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				initContextVK();
@@ -220,7 +220,7 @@ public class Window{
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
 				initContextGL();
 			}
-		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
+		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
 //			if(1 == 1){
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
 				initContextGL();
@@ -228,7 +228,7 @@ public class Window{
 //				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 //				initContextVK();
 //			}
-		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
+		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
 			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				initContextVK();
@@ -254,7 +254,7 @@ public class Window{
 	
 	private static void createContext(){
 //		System.out.println(GL.getCapabilities().OpenGL33);
-		if(CoreEngine.OPTION_FORCE_RENDERING_MODE == -1){
+		if(NeonEngine.OPTION_FORCE_RENDERING_MODE == -1){
 			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				createContextVK();
@@ -262,7 +262,7 @@ public class Window{
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
 				createContextGL();
 			}
-		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
+		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
 //			if(1 == 1){
 				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
 				createContextGL();
@@ -270,7 +270,7 @@ public class Window{
 //				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 //				createContextVK();
 //			}
-		}else if(CoreEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
+		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
 			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
 				createContextVK();
@@ -482,7 +482,7 @@ public class Window{
 				final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 				GLFW.glfwSetWindowMonitor(window, GLFW.glfwGetPrimaryMonitor(), 0, 0, vidMode.width(), vidMode.height(), vidMode.refreshRate());
 				
-				if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+				if(NeonEngine.OPTION_ENABLE_VSYNC == 1){
 					GLFW.glfwSwapInterval(1);
 				}else{
 					GLFW.glfwSwapInterval(0);
@@ -499,7 +499,7 @@ public class Window{
 				
 				GLFW.glfwSetWindowMonitor(window, MemoryUtil.NULL, oldXPos, oldYPos, oldWidth, oldHeight, 0);
 				
-				if(CoreEngine.OPTION_ENABLE_VSYNC == 1){
+				if(NeonEngine.OPTION_ENABLE_VSYNC == 1){
 					GLFW.glfwSwapInterval(1);
 				}else{
 					GLFW.glfwSwapInterval(0);
@@ -541,7 +541,7 @@ public class Window{
     private static void bindAsRenderTargetGL(){
     	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
     	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
-    	if(CoreEngine.PROFILING_SET_1x1_VIEWPORT == 0){
+    	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
     		GL11.glViewport(0, 0, getWidth(), getHeight());
     	}else{
     		GL11.glViewport(0, 0, 1, 1);

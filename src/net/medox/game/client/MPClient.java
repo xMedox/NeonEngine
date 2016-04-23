@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import net.medox.game.Packet.*;
 import net.medox.game.client.Player;
 import net.medox.game.client.TestGame;
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
@@ -54,7 +54,7 @@ public class MPClient{
 		client.addListener(nl);
 		
 		game = new TestGame(this);
-		CoreEngine.init(game, 60);
+		NeonEngine.init(game, 60);
 		
 		Window.setStartTitle("Project Guns");
 		Window.setStartDimensions(854, 480);
@@ -79,7 +79,7 @@ public class MPClient{
 			}
 		}
 		
-		CoreEngine.createWindow();
+		NeonEngine.createWindow();
 		
 		player = new FPPlayer();
 		
@@ -125,7 +125,7 @@ public class MPClient{
 		SendThread send = new SendThread(this);
 		send.start();
 		
-		CoreEngine.start();
+		NeonEngine.start();
 	}
 	
 	private void registerPackets(){

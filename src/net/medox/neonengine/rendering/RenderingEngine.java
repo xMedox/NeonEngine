@@ -17,7 +17,7 @@ import org.lwjgl.opengl.ARBTextureRG;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.Entity2D;
 import net.medox.neonengine.core.ProfileTimer;
@@ -105,7 +105,7 @@ public class RenderingEngine{
 	public static void init(){
 		//TODO remove this
 		System.out.println("--------------------------------------------------------------");
-		System.out.println("Engine version:   " + CoreEngine.getVersion());
+		System.out.println("Engine version:   " + NeonEngine.getVersion());
 		System.out.println("OS name:          " + System.getProperty("os.name"));
 		System.out.println("OS version:       " + System.getProperty("os.version"));
 		System.out.println("OS arch:          " + System.getProperty("os.arch"));
@@ -156,7 +156,7 @@ public class RenderingEngine{
 		setFloat("fxaaReduceMul", 1.0f/8.0f);
 		setFloat("fxaaAspectDistortion", 150.0f);
 		
-		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*CoreEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
+		setTexture("displayTexture", new Texture(Window.getWidth()*NeonEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*NeonEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
@@ -282,7 +282,7 @@ public class RenderingEngine{
 	}
 	
 	public static int getFPS(){
-		return CoreEngine.fps;
+		return NeonEngine.fps;
 	}
 	
 	public static double displayRenderTime(double dividend){
@@ -368,7 +368,7 @@ public class RenderingEngine{
 		
 		object.renderAll(forwardAmbientShader, mainCamera);
 		
-		if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
+		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			particleCamera = mainCamera;
 			particleShader = forwardParticleAmbientShader;
 			particleFlipFaces = false;
@@ -382,7 +382,7 @@ public class RenderingEngine{
 			activeLight = lights.get(i);
 			final ShadowInfo shadowInfo = activeLight.getShadowInfo();
 			
-			if(CoreEngine.OPTION_ENABLE_SHADOWS == 1){
+			if(NeonEngine.OPTION_ENABLE_SHADOWS == 1){
 				int shadowMapIndex = 0;
 				
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
@@ -426,7 +426,7 @@ public class RenderingEngine{
 					object.renderAll(shadowMapShader, lightCamera);
 					
 //					BatchRenderer.addMesh(shadowMapShader, lightCamera, new Transform(), getTexture("displayTexture")/*shadowMaps[9]*/, new Vector3f(1, 1, 1), new Vector2f(0, 1), new Vector2f(1, 0));
-					if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
+					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						particleCamera = lightCamera;
 						particleShader = particleShadowMapShader;
 						particleFlipFaces = shadowInfo.getFlipFaces();
@@ -457,7 +457,7 @@ public class RenderingEngine{
 			
 			object.renderAll(activeLight.getShader(), mainCamera);
 			
-			if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
+			if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 				particleCamera = mainCamera;
 				particleShader = forwardParticleShader;
 				particleFlipFaces = false;
@@ -479,7 +479,7 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
-		if(CoreEngine.OPTION_ENABLE_BLOOM == 1){
+		if(NeonEngine.OPTION_ENABLE_BLOOM == 1){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
 			blurBloomMap(8f);
@@ -492,7 +492,7 @@ public class RenderingEngine{
 		
 		windowSyncProfileTimer.startInvocation();
 		
-		if(CoreEngine.OPTION_ENABLE_FXAA == 1){
+		if(NeonEngine.OPTION_ENABLE_FXAA == 1){
 			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
 		}else{
 			applyFilter(nullFilter, getTexture("displayTexture"), null);
@@ -503,7 +503,7 @@ public class RenderingEngine{
 	
 	public static void render(Entity2D object){
 		renderProfileTimer2D.startInvocation();
-		if(CoreEngine.OPTION_ENABLE_2D == 1){
+		if(NeonEngine.OPTION_ENABLE_2D == 1){
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			
@@ -541,13 +541,13 @@ public class RenderingEngine{
 	}
 	
 	public static void addParticle(Transform trans, ParticleMaterial material){
-		if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
+		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			batchRenderer.addMesh(particleShader, particleCamera/*mainCamera*/, particleFlipFaces, trans, material);
 		}
 	}
 	
 	public static void addParticle(Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
-		if(CoreEngine.OPTION_ENABLE_PARTICLES == 1){
+		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			batchRenderer.addMesh(particleShader, particleCamera/*mainCamera*/, particleFlipFaces, trans, material, minUV, maxUV);
 		}
 	}
@@ -633,7 +633,7 @@ public class RenderingEngine{
 //		getTexture("bloomTexture1").finalize();
 //		getTexture("bloomTexture2").finalize();
 		
-		setTexture("displayTexture", new Texture(Window.getWidth()*CoreEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*CoreEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
+		setTexture("displayTexture", new Texture(Window.getWidth()*NeonEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*NeonEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));

@@ -3,7 +3,7 @@ package net.medox.neonengine.rendering.resourceManagement.opengl;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
 
@@ -32,7 +32,7 @@ public class CubeMapDataGL extends CubeMapData{
 		
 		this.textureTarget = textureTarget;
 		
-		if(CoreEngine.PROFILING_SET_2x2_TEXTURE == 0){
+		if(NeonEngine.PROFILING_SET_2x2_TEXTURE == 0){
 			this.width = width;
 			this.height = height;
 		}else{

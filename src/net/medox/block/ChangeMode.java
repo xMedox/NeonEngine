@@ -1,6 +1,6 @@
 package net.medox.block;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.InputKey;
@@ -26,10 +26,10 @@ public class ChangeMode extends EntityComponent{
 //			RenderingEngine.setScanMode(!RenderingEngine.getScanMode());
 //		}
 		if(Input.getKeyDown(Input.KEY_F3)){
-			if(CoreEngine.OPTION_ENABLE_2D == 1){
-				CoreEngine.OPTION_ENABLE_2D = 0;
+			if(NeonEngine.OPTION_ENABLE_2D == 1){
+				NeonEngine.OPTION_ENABLE_2D = 0;
 			}else{
-				CoreEngine.OPTION_ENABLE_2D = 1;
+				NeonEngine.OPTION_ENABLE_2D = 1;
 			}
 		}
 	}

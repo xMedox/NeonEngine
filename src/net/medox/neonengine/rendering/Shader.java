@@ -3,7 +3,7 @@ package net.medox.neonengine.rendering;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
@@ -20,7 +20,7 @@ public class Shader{
 		this.fileName = fileName;
 		
 		String actualFileName = fileName;
-		if(CoreEngine.PROFILING_DISABLE_SHADING != 0){
+		if(NeonEngine.PROFILING_DISABLE_SHADING != 0){
 			actualFileName = "nullShader";
 		}
 		

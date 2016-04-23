@@ -1,13 +1,13 @@
 package net.medox.game;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.Window;
 
 public class Main{
 	public static void main(String[] args){
 		System.out.println("Starting up");
 		
-		CoreEngine.init(new TestGame(), /*600*/60);
+		NeonEngine.init(new TestGame(), /*600*/60);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartDimensions(854, 480);
@@ -22,7 +22,7 @@ public class Main{
 //		Window.setStartCursor("cursor.png", 0, 0);
 		
 //		Window.createWindow();
-		CoreEngine.createWindow();
+		NeonEngine.createWindow();
 		
 //		System.out.println("--------------------------------------------------------------");
 ////		System.out.println("Game version:     " + "Alpha 0.3");
@@ -38,7 +38,7 @@ public class Main{
 //		System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
 //		System.out.println("--------------------------------------------------------------");
 		
-		CoreEngine.start();
+		NeonEngine.start();
 		
 //		Testing.runAllTests();
 		

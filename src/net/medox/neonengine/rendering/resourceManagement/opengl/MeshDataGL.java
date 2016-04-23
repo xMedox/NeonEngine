@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
@@ -110,7 +110,7 @@ public class MeshDataGL extends MeshData{
 //		if(bound != vertexArrayObject){
 			GL30.glBindVertexArray(vertexArrayObject);
 			
-			if(CoreEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
+			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
 				GL11.glDrawElements(GL11.GL_TRIANGLES, drawCount, GL11.GL_UNSIGNED_INT, 0);
 			}
 			

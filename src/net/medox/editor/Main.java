@@ -1,13 +1,13 @@
 package net.medox.editor;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.Window;
 
 public class Main{
 	public static void main(String[] args){
 		System.out.println("Starting up");
 		
-		CoreEngine.init(new TestGame(), 60);
+		NeonEngine.init(new TestGame(), 60);
 		
 		Window.setStartTitle("NeonEngine Editor");
 		Window.setStartDimensions(854, 480);
@@ -16,7 +16,7 @@ public class Main{
 		Window.setStartIcon("./res/icon_16.png", "./res/icon_32.png");
 		Window.setStartCursor("cursor test 2.png", 0, 0);
 		
-		CoreEngine.createWindow();
+		NeonEngine.createWindow();
 		
 //		System.out.println("-----------------------------------------------");
 //		System.out.println("OS name:        " + System.getProperty("os.name"));
@@ -28,6 +28,6 @@ public class Main{
 //		System.out.println("OpenGL version: " + GL11.glGetString(GL11.GL_VERSION));
 //		System.out.println("-----------------------------------------------");
 		
-		CoreEngine.start();
+		NeonEngine.start();
 	}
 }

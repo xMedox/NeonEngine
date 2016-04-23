@@ -1,6 +1,6 @@
 package net.medox.neonengine.rendering;
 
-import net.medox.neonengine.core.CoreEngine;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Vector3f;
 
 public class SpotLight extends PointLight{
@@ -24,10 +24,10 @@ public class SpotLight extends PointLight{
 		
 		setShader(new Shader("forwardSpot"));
 		
-		if(CoreEngine.OPTION_SHADOW_QUALITY >= 1 && shadowMapSizeAsPowerOf2 != 0){
+		if(NeonEngine.OPTION_SHADOW_QUALITY >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;
 			
-			if(CoreEngine.OPTION_SHADOW_QUALITY >= 2){
+			if(NeonEngine.OPTION_SHADOW_QUALITY >= 2){
 				shadowMapSizeAsPowerOf2 -= 1;
 			}
 			
