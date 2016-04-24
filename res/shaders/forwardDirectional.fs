@@ -11,8 +11,7 @@ uniform float specularPower;
 uniform DirectionalLight R_directionalLight;
 
 vec4 CalcLightingEffect(vec3 normal, vec3 worldPos, float specular){
-	return CalcLight(R_directionalLight.base, -R_directionalLight.direction, normal, worldPos, specular,
-	                 specularIntensity, specularPower, C_eyePos);
+	return CalcLight(R_directionalLight.base, -R_directionalLight.direction, normal, worldPos, specular, specularIntensity, specularPower, C_eyePos);
 }
 
 #include "lightingMain.fsh"
