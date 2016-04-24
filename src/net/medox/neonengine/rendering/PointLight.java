@@ -24,8 +24,7 @@ public class PointLight extends BaseLight{
 		setShadowInfo(new ShadowInfo(null, false, 0, 0, 0, 0));
 	}
 	
-	public PointLight(Vector3f color, float intensity, Attenuation attenuation,
-			int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
+	public PointLight(Vector3f color, float intensity, Attenuation attenuation, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
 		super(color, intensity);
 		this.attenuation = attenuation;
 		
@@ -49,8 +48,7 @@ public class PointLight extends BaseLight{
 			}
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
-			setShadowInfo(new ShadowInfo(new Perspective((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, shadowMapSizeAsPowerOf2,
-				shadowSoftness, lightBleedReductionAmount, minVariance));
+			setShadowInfo(new ShadowInfo(new Perspective((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
 		}
 	}
 	

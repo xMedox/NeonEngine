@@ -16,8 +16,7 @@ public class SpotLight extends PointLight{
 		setShadowInfo(new ShadowInfo(null, false, 0, 0, 0, 0));
 	}
 	
-	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, 
-            		 int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
+	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
 		super(color, intensity, attenuation);
 		
 		cutoff = (float)Math.cos(viewAngle/2);
@@ -36,8 +35,7 @@ public class SpotLight extends PointLight{
 			}
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
-			setShadowInfo(new ShadowInfo(new Perspective(viewAngle, 1.0f, 0.1f, getRange()), false, shadowMapSizeAsPowerOf2,
-				shadowSoftness, lightBleedReductionAmount, minVariance));
+			setShadowInfo(new ShadowInfo(new Perspective(viewAngle, 1.0f, 0.1f, getRange()), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
 		}
 	}
 	
