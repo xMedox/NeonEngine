@@ -423,20 +423,12 @@ public class RenderingEngine{
 							}else if(j == 3){
 								//negativ y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90.0f)));
-							}else if(j == 4){
-								//positiv z
+							/*}else if(j == 4){
+								//positiv z*/
 							}else if(j == 5){
 								//negativ z
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f)));
 							}
-							
-//							if(i < 4){
-//								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f*j)));
-//							}else if (i == 4){
-//								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
-//							}else{
-//								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90.0f)));
-//							}
 							
 							lightMatrix = BIAS_MATRIX.mul(lightCamera.getViewProjection());
 							
@@ -477,28 +469,30 @@ public class RenderingEngine{
 							}
 						}
 						
-						getTexture("displayTexture").bindAsRenderTarget();
+						if(j == 5){
+							getTexture("displayTexture").bindAsRenderTarget();
+						}
 					}
-					
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-					GL11.glDepthMask(false);
-					GL11.glDepthFunc(GL11.GL_EQUAL);
-					
-					object.renderAll(activeLight.getShader(), mainCamera);
-					
-					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
-						particleCamera = mainCamera;
-						particleShader = forwardParticleShader;
-						particleFlipFaces = false;
-						
-						batchRenderer.draw(particleShader, mainCamera);
-					}
-					
-					GL11.glDepthMask(true);
-					GL11.glDepthFunc(GL11.GL_LESS);
-					GL11.glDisable(GL11.GL_BLEND);
 				}
+				
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+				GL11.glDepthMask(false);
+				GL11.glDepthFunc(GL11.GL_EQUAL);
+				
+				object.renderAll(activeLight.getShader(), mainCamera);
+				
+				if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
+					particleCamera = mainCamera;
+					particleShader = forwardParticleShader;
+					particleFlipFaces = false;
+					
+					batchRenderer.draw(particleShader, mainCamera);
+				}
+				
+				GL11.glDepthMask(true);
+				GL11.glDepthFunc(GL11.GL_LESS);
+				GL11.glDisable(GL11.GL_BLEND);
 			}else{
 				if(NeonEngine.OPTION_ENABLE_SHADOWS == 1){
 					int shadowMapIndex = 0;
