@@ -195,7 +195,7 @@ public class TestGame extends Game{
 		Entity pointLightObject = new Entity();
 //		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 3f, new Vector3f(0, 0, 1));
 //		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 1f, new Attenuation(0, 0, 1));
-		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 4f, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 4f, new Attenuation(0, 0, 1), 8, 1.0f, 0.5f, 0.000001f);
 		pointLightObject.addComponent(pointLight);
 		
 //		Entity pointLightObjectw = new Entity();
