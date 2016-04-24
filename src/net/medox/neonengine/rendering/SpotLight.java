@@ -8,6 +8,7 @@ public class SpotLight extends PointLight{
 	
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle){
 		super(color, intensity, attenuation);
+		setPointLight(false);
 		
 		cutoff = (float)Math.cos(viewAngle/2);
 		
@@ -18,6 +19,7 @@ public class SpotLight extends PointLight{
 	
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
 		super(color, intensity, attenuation);
+		setPointLight(false);
 		
 		cutoff = (float)Math.cos(viewAngle/2);
 		

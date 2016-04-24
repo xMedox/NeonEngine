@@ -9,6 +9,7 @@ public class BaseLight extends EntityComponent{
 	private float intensity;
 	private Shader shader;
 	private ShadowInfo shadowInfo;
+	private boolean isPointLight;
 	
 	public BaseLight(Vector3f color, float intensity){
 		this.color = color;
@@ -49,6 +50,14 @@ public class BaseLight extends EntityComponent{
 	
 	public ShadowCameraTransform calcShadowCameraTransform(Vector3f mainCameraPos, Quaternion mainCameraRot){
 		return new ShadowCameraTransform(getTransform().getTransformedPos(), getTransform().getTransformedRot());
+	}
+	
+	public void setPointLight(boolean value){
+		isPointLight = value;
+	}
+	
+	public boolean isPointLight(){
+		return isPointLight;
 	}
 	
 	@Override

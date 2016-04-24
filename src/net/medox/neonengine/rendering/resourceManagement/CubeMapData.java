@@ -13,6 +13,10 @@ public class CubeMapData extends ReferenceCounter{
 		
 	}
 	
+    public void bindAsRenderTarget(int face){
+		
+	}
+	
 	public int[] getWidth(){
 		return new int[]{-1, -1, -1, -1, -1, -1};
 	}

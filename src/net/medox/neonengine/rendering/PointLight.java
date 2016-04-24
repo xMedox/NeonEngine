@@ -11,6 +11,8 @@ public class PointLight extends BaseLight{
 	
 	public PointLight(Vector3f color, float intensity, Attenuation attenuation){
 		super(color, intensity);
+		setPointLight(true);
+		
 		this.attenuation = attenuation;
 		
 		final float a = attenuation.getExponent();
@@ -26,6 +28,8 @@ public class PointLight extends BaseLight{
 	
 	public PointLight(Vector3f color, float intensity, Attenuation attenuation, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
 		super(color, intensity);
+		setPointLight(true);
+		
 		this.attenuation = attenuation;
 		
 		final float a = attenuation.getExponent();

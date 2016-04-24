@@ -69,16 +69,18 @@ public class CubeMapDataGL extends CubeMapData{
 //		}
 	}
 	
-//    public void bindAsRenderTarget(){
-//    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-//    	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
-//    	
-//    	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
-//    		GL11.glViewport(0, 0, width, height);
-//    	}else{
-//    		GL11.glViewport(0, 0, 1, 1);
-//    	}
-//    }
+	@Override
+    public void bindAsRenderTarget(int face){
+    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+    	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
+    	ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_COLOR_ATTACHMENT0, GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, textureID, 0);
+    	
+    	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
+    		GL11.glViewport(0, 0, width[face], height[face]);
+    	}else{
+    		GL11.glViewport(0, 0, 1, 1);
+    	}
+    }
 	
 	@Override
 	public int[] getWidth(){

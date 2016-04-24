@@ -54,7 +54,7 @@ public class RenderingEngine{
 	private static BatchRenderer batchRenderer;
 	
 	private static Map<String, Texture> textureMap;
-//	private static Map<String, CubeMap> cubeMapMap;
+	private static Map<String, CubeMap> cubeMapMap;
 	private static Map<String, Vector3f> vector3fMap;
 //	private static Map<String, Vector2f> vector2fMap;
 	private static Map<String, Float> floatMap;
@@ -97,8 +97,8 @@ public class RenderingEngine{
 	private static Texture[] shadowMaps = new Texture[NUM_SHADOW_MAPS];
 	private static Texture[] shadowMapTempTargets = new Texture[NUM_SHADOW_MAPS];
 	
-//	private static CubeMap[] shadowCubeMaps = new CubeMap[NUM_SHADOW_MAPS];
-//	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
+	private static CubeMap[] shadowCubeMaps = new CubeMap[NUM_SHADOW_MAPS];
+	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
 	
 	private static boolean wireframeMode; //TODO remove this
 	
@@ -128,7 +128,7 @@ public class RenderingEngine{
 		}
 		
 		textureMap = new HashMap<String, Texture>();
-//		cubeMapHashMap = new HashMap<String, CubeMap>();
+		cubeMapMap = new HashMap<String, CubeMap>();
 		vector3fMap = new HashMap<String, Vector3f>();
 //		vector2fHashMap = new  HashMap<String, Vector2f>();
 		floatMap = new HashMap<String, Float>();
@@ -225,8 +225,8 @@ public class RenderingEngine{
 			shadowMaps[i] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, ARBTextureRG.GL_RG32F, GL11.GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 			shadowMapTempTargets[i] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, ARBTextureRG.GL_RG32F, GL11.GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 			
-//			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
-//			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
+			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, ARBTextureRG.GL_RG32F, GL11.GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
+			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, ARBTextureRG.GL_RG32F, GL11.GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 		}
 		
 		lightMatrix = new Matrix4f().initScale(0, 0, 0);
@@ -343,6 +343,7 @@ public class RenderingEngine{
 			skybox.getTransform().setPos(mainCamera.getTransform().getTransformedPos());
 			
 			skybox.draw(skyboxShader, mainCamera);
+			skybox.setCubeMap(shadowCubeMaps[7]);
 			
 //			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 			GL11.glDepthMask(true);
@@ -382,7 +383,7 @@ public class RenderingEngine{
 			activeLight = lights.get(i);
 			final ShadowInfo shadowInfo = activeLight.getShadowInfo();
 			
-			if(activeLight instanceof PointLight){
+			if(activeLight.isPointLight()){
 				for(int j = 0; j < 6; j++){
 					if(NeonEngine.OPTION_ENABLE_SHADOWS == 1){
 						int shadowMapIndex = 0;
@@ -393,8 +394,8 @@ public class RenderingEngine{
 						
 		//				assert(shadowMapIndex >= 0 && shadowMapIndex < NUM_SHADOW_MAPS);
 						
-						setTexture("shadowMap", shadowMaps[shadowMapIndex]);
-						shadowMaps[shadowMapIndex].bindAsRenderTarget();
+						setCubeMap("shadowMap", shadowCubeMaps[shadowMapIndex]);
+						shadowCubeMaps[shadowMapIndex].bindAsRenderTarget(j);
 						
 						GL11.glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 						GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
@@ -410,13 +411,32 @@ public class RenderingEngine{
 							lightCamera.getTransform().setPos(shadowCameraTransform.pos);
 							lightCamera.getTransform().setRot(shadowCameraTransform.rot);
 							
-							if(i < 4){
-								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0,1,0), (float)Math.toRadians(90.0f*j)));
-							}else if (i == 4){
+							if(j == 0){
+								//positiv x
+								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f)));
+							}else if(j == 1){
+								//negativ x
+								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(-90.0f)));
+							}else if(j == 2){
+								//positiv y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
-							}else{
+							}else if(j == 3){
+								//negativ y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90.0f)));
+							}else if(j == 4){
+								//positiv z
+							}else if(j == 5){
+								//negativ z
+								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f)));
 							}
+							
+//							if(i < 4){
+//								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f*j)));
+//							}else if (i == 4){
+//								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
+//							}else{
+//								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90.0f)));
+//							}
 							
 							lightMatrix = BIAS_MATRIX.mul(lightCamera.getViewProjection());
 							
@@ -743,10 +763,10 @@ public class RenderingEngine{
 		textureMap.put(name, texture);
 	}
 	
-//	public void setCubeMap(String name, CubeMap cubeMap){
-//		cubeMapHashMap.remove(name);
-//		cubeMapHashMap.put(name, cubeMap);
-//	}
+	public static void setCubeMap(String name, CubeMap cubeMap){
+		cubeMapMap.remove(name);
+		cubeMapMap.put(name, cubeMap);
+	}
 	
 	public static void setVector3f(String name, Vector3f vector3f){
 		vector3fMap.remove(name);
@@ -767,9 +787,9 @@ public class RenderingEngine{
 		return textureMap.get(name);
 	}
 	
-//	public static CubeMap getCubeMap(String name){
-//		return cubeMapHashMap.get(name);
-//	}
+	public static CubeMap getCubeMap(String name){
+		return cubeMapMap.get(name);
+	}
 	
 	public static Vector3f getVector3f(String name){
 		return vector3fMap.get(name);
