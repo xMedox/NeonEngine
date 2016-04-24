@@ -89,9 +89,9 @@ public class CubeMap{
 		resource.bind(samplerSlot);
 	}
 	
-//	public void bindAsRenderTarget(){
-//		resource.bindAsRenderTarget();
-//	}
+	public void bindAsRenderTarget(int face){
+		resource.bindAsRenderTarget(face);
+	}
 	
 	public int[] getWidth(){
 		return resource.getWidth();

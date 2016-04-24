@@ -2,6 +2,9 @@
 
 ## Changelog:
 
+**Rendering:**
+- Added the ability to render to a CubeMap
+
 **Physics:**
 - Fixed physics simulation slowing down at lower frame rates
 
@@ -13,7 +16,6 @@
 ## Todo:
 
 **Rendering:**
-- **Ability to render to a CubeMap**
 - **PointLight Shadows**
 - **Rewrite font rendering and loading**
 - Remove the black line of DirectionalLight Shadows
