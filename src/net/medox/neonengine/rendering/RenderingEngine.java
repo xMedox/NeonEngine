@@ -595,7 +595,7 @@ public class RenderingEngine{
 	public static BaseLight getActiveLight(){
 		return activeLight;
 	}
-
+	
 	public static Camera getMainCamera(){
 		return mainCamera;
 	}
@@ -607,7 +607,7 @@ public class RenderingEngine{
 	public static Shader getForwardAmbient(){
 		return forwardAmbientShader;
 	}
-
+	
 	public static void setMainCamera(Camera mainCamera){
 		RenderingEngine.mainCamera = mainCamera;
 //		mainCamera.changeAspect();

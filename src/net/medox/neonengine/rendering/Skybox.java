@@ -77,7 +77,7 @@ public class Skybox extends EntityComponent{
 	public void addToEngine(){
 		RenderingEngine.setMainSkybox(this);
 	}
-	 
+	
 	public void draw(Shader shader, Camera camera){
 		shader.bind();
 		shader.updateUniforms(getTransform(), material, camera);

@@ -190,11 +190,11 @@ public class CubeMapDataGL extends CubeMapData{
 			
 			ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, attachments, textureTarget, textureID, 0);
 		}
-
+		
 		if(frameBuffer == 0){
 			return;
 		}
-
+		
 		if(!hasDepth){
 			renderBuffer = ARBFramebufferObject.glGenRenderbuffers();
 //			glGenRenderbuffers(1, renderBuffer);
@@ -202,12 +202,12 @@ public class CubeMapDataGL extends CubeMapData{
 			ARBFramebufferObject.glRenderbufferStorage(ARBFramebufferObject.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width[0], height[0]);
 			ARBFramebufferObject.glFramebufferRenderbuffer(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_DEPTH_ATTACHMENT, ARBFramebufferObject.GL_RENDERBUFFER, renderBuffer);
 		}
-
+		
 		GL20.glDrawBuffers(/*numTextures, */drawBuffers);
 		
 //		glDrawBuffer(GL_NONE);
 //		glReadBuffer(GL_NONE);
-
+		
 //		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
 //			std::cerr << "Framebuffer creation failed!" << std::endl;
 //			assert(false);
@@ -217,7 +217,7 @@ public class CubeMapDataGL extends CubeMapData{
 //			System.out.println("not completed...");
 			assert(false);
 		}
-
+		
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
 	}
 	

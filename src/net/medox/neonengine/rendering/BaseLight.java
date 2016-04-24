@@ -22,27 +22,27 @@ public class BaseLight extends EntityComponent{
 	public Shader getShader(){
 		return shader;
 	}
-
+	
 	public Vector3f getColor(){
 		return color;
 	}
-
+	
 	public void setColor(Vector3f color){
 		this.color = color;
 	}
-
+	
 	public float getIntensity(){
 		return intensity;
 	}
-
+	
 	public void setIntensity(float intensity){
 		this.intensity = intensity;
 	}
-
+	
 	public ShadowInfo getShadowInfo(){
 		return shadowInfo;
 	}
-
+	
 	public void setShadowInfo(ShadowInfo shadowInfo){
 		this.shadowInfo = shadowInfo;
 	}
