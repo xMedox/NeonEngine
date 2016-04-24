@@ -125,13 +125,13 @@ public class NeonEngine{
 					System.out.println("");
 					
 //					Runtime runtime = Runtime.getRuntime();
-//
+//					
 //					NumberFormat format = NumberFormat.getInstance();
-//
+//					
 //					long maxMemory = runtime.maxMemory();
 //					long allocatedMemory = runtime.totalMemory();
 //					long freeMemory = runtime.freeMemory();
-//
+//					
 //					System.out.println("free memory: " + format.format(freeMemory / 1024));
 //					System.out.println("allocated memory: " + format.format(allocatedMemory / 1024));
 //					System.out.println("max memory: " + format.format(maxMemory / 1024));

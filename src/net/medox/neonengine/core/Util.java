@@ -138,13 +138,13 @@ public class Util{
 	public static String[] removeEmptyStrings(String... data){
 		final ArrayList<String> result = new ArrayList<String>();
 		
-		for(String filtering : data){
+		for(final String filtering : data){
 			if(!filtering.isEmpty()){
 				result.add(filtering);
 			}
 		}
 		
-		return result.toArray(new String[0]);
+		return result.toArray(new String[result.size()]);
 	}
 	
 	public static int[] toIntArray(Integer... data){
