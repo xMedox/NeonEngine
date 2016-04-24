@@ -4,6 +4,7 @@
 
 **Rendering:**
 - Added the ability to render to a CubeMap
+- Renamed shadowMapGenerator shaders to shadowMapping
 
 **Physics:**
 - Fixed physics simulation slowing down at lower frame rates

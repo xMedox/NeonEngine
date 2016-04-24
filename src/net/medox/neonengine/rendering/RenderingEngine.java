@@ -77,8 +77,8 @@ public class RenderingEngine{
 	private static Shader bloomCombineShader;
 	private static Shader bloomSwitchShader;
 	private static Shader forwardParticleShader;
-	private static Shader shadowMapShader;
-	private static Shader particleShadowMapShader;
+	private static Shader shadowMappingShader;
+	private static Shader particleShadowMappingShader;
 	private static Shader nullFilter;
 	private static Shader gausBlurFilter;
 	private static Shader fxaaFilter;
@@ -166,8 +166,8 @@ public class RenderingEngine{
 		bloomCombineShader = new Shader("bloomCombine");
 		bloomSwitchShader = new Shader("bloomSwitch");
 		forwardParticleShader = new Shader("forwardParticleForward");
-		shadowMapShader =  new Shader("shadowMapGenerator");
-		particleShadowMapShader = new Shader("paricleShadowMapGenerator");
+		shadowMappingShader =  new Shader("shadowMapping");
+		particleShadowMappingShader = new Shader("paricleShadowMapping");
 		nullFilter = new Shader("filterNull");
 		gausBlurFilter = new Shader("filterGausBlur7x1");
 		fxaaFilter = new Shader("filterFxaa");
@@ -423,12 +423,12 @@ public class RenderingEngine{
 					
 					GL11.glEnable(GL32.GL_DEPTH_CLAMP);
 					
-					object.renderAll(shadowMapShader, lightCamera);
+					object.renderAll(shadowMappingShader, lightCamera);
 					
 //					BatchRenderer.addMesh(shadowMapShader, lightCamera, new Transform(), getTexture("displayTexture")/*shadowMaps[9]*/, new Vector3f(1, 1, 1), new Vector2f(0, 1), new Vector2f(1, 0));
 					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						particleCamera = lightCamera;
-						particleShader = particleShadowMapShader;
+						particleShader = particleShadowMappingShader;
 						particleFlipFaces = shadowInfo.getFlipFaces();
 						
 						batchRenderer.draw(particleShader, lightCamera);
