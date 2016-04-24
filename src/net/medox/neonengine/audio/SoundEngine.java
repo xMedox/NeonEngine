@@ -2,6 +2,7 @@ package net.medox.neonengine.audio;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
@@ -27,7 +28,7 @@ public class SoundEngine{
 			throw new IllegalStateException("Failed to open the default OpenAL device.");
 		}
 				
-		context = ALC10.alcCreateContext(device, null);
+		context = ALC10.alcCreateContext(device, (IntBuffer)null);
 		if(context == MemoryUtil.NULL){
 			throw new IllegalStateException("Failed to create an OpenAL context.");
 		}
