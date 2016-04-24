@@ -36,7 +36,8 @@ public class AddCollision extends EntityComponent{
 	public void input(float delta){
 		if(Input.getKeyDown(Input.KEY_N)){
 			Entity entity = new Entity();
-			entity.getTransform().setPos(new Vector3f(8, 10, 8));
+			entity.getTransform().setPos(new Vector3f(8+0.5f, 10+0.5f, 8+0.5f));
+			entity.getTransform().setScale(0.5f);
 			
 //			Transform t = new Transform();
 //			t.setPos(new Vector3f(8, 10, 8));
