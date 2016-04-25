@@ -376,8 +376,6 @@ public class RenderingEngine{
 			batchRenderer.draw(particleShader, mainCamera);
 		}
 		
-//		System.out.println(MeshRenderer.count + "|" + MeshRenderer.countMax);
-		
 		for(int i = 0; i < lights.size(); i++){
 			activeLight = lights.get(i);
 			final ShadowInfo shadowInfo = activeLight.getShadowInfo();
@@ -470,9 +468,6 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
-//		float displayTextureAspect = (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight();
-//		float displayTextureHeightAdditive = (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion");
-//		setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + displayTextureHeightAdditive), 0.0f));
 		setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 		//TODO remove this
 		if(wireframeMode){
@@ -627,11 +622,6 @@ public class RenderingEngine{
 		
 		mainCamera.update();
 		camera2D.update();
-		
-//		getTexture("displayTexture").finalize();
-				
-//		getTexture("bloomTexture1").finalize();
-//		getTexture("bloomTexture2").finalize();
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*NeonEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*NeonEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
