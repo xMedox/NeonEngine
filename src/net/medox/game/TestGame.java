@@ -366,7 +366,7 @@ public class TestGame extends Game{
 		
 		addEntity(planeObject);
 		addEntity(planeObjectx);
-		addEntity(directionalLightObject);
+//		addEntity(directionalLightObject);
 		addEntity(pointLightObject);
 		addEntity(spotLightObject);
 		addEntity(spotLightObject2);
