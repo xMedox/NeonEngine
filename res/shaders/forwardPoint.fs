@@ -31,6 +31,7 @@ layout(location = 1) out vec4 outputBloom;
 float CalcShadowAmount(samplerCube shadowMap, vec4 initialShadowMapCoords, vec3 lightDirection){
 	//vec3 shadowMapCoords = (initialShadowMapCoords.xyz/initialShadowMapCoords.w);
 	
+	return SampleVarianceShadowMapCube(shadowMap, vec3(lightDirection.x, lightDirection.y*-1, lightDirection.z), length(lightDirection)/2, R_shadowVarianceMin, R_shadowLightBleedingReduction+initialShadowMapCoords.w*0.00001f);
 }
 
 void main(){
