@@ -420,15 +420,12 @@ public class RenderingEngine{
 							}else if(j == 2){
 								//positiv y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
-//								lightCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
 							}else if(j == 3){
 								//negativ y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90.0f)));
-//								lightCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
 							}else if(j == 4){
 								//positiv z
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(0.0f)));
-//								lightCamera.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180.0f));
 							}else if(j == 5){
 								//negativ z
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f)));
