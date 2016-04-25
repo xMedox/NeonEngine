@@ -197,6 +197,8 @@ public class TestGame extends Game{
 //		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 1f, new Attenuation(0, 0, 1));
 		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 4f, new Attenuation(0, 0, 1), 8, 1.0f, 0.5f, 0.000001f);
 		pointLightObject.addComponent(pointLight);
+		pointLightObject.getTransform().setScale(0.1f);
+		pointLightObject.addComponent(new MeshRenderer(new Mesh("block.obj"), new Material()));
 		
 //		Entity pointLightObjectw = new Entity();
 //		SpotLight spotLightw = new SpotLight(new Vector3f(0, 1, 0), 2f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 5, 1.0f, 0.5f, 0.000001f);

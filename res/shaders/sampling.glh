@@ -69,3 +69,13 @@ float SampleVarianceShadowMap(sampler2D shadowMap, vec2 coords, float compare, f
 	
 	return min(max(step(compare, moments.x), linstep(lightBleedReductionAmount, 1.0f, variance / (variance + d*d))), 1.0f);
 }
+
+float SampleVarianceShadowMapCube(samplerCube shadowMap, vec3 lightDirection, float compare, float varianceMin, float lightBleedReductionAmount){
+	vec2 moments = texture(shadowMap, normalize(lightDirection)).xy;
+	
+	float variance = max(moments.y - moments.x * moments.x, varianceMin);
+	
+	float d = compare - moments.x;
+	
+	return min(max(step(compare, moments.x), linstep(lightBleedReductionAmount, 1.0f, variance / (variance + d*d))), 1.0f);
+}

@@ -152,6 +152,10 @@ public class Shader{
 						final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(samplerSlot);
 						setUniformi(uniformName, samplerSlot);
+					}else if(uniformType.equals("samplerCube")){
+						final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getCubeMap(unprefixedUniformName).bind(samplerSlot);
+						setUniformi(uniformName, samplerSlot);
 					}else if(uniformType.equals("vec3")){
 						setUniformVector3f(uniformName, RenderingEngine.getVector3f(unprefixedUniformName));
 					}/*else if(uniformType.equals("vec2")){

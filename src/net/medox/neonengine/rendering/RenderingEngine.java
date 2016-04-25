@@ -409,7 +409,7 @@ public class RenderingEngine{
 							
 							final ShadowCameraTransform shadowCameraTransform = activeLight.calcShadowCameraTransform(mainCamera.getTransform().getTransformedPos(), mainCamera.getTransform().getTransformedRot());
 							lightCamera.getTransform().setPos(shadowCameraTransform.pos);
-							lightCamera.getTransform().setRot(shadowCameraTransform.rot);
+//							lightCamera.getTransform().setRot(shadowCameraTransform.rot);
 							
 							if(j == 0){
 								//positiv x
@@ -420,11 +420,15 @@ public class RenderingEngine{
 							}else if(j == 2){
 								//positiv y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90.0f)));
+//								lightCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
 							}else if(j == 3){
 								//negativ y
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-90.0f)));
-							/*}else if(j == 4){
-								//positiv z*/
+//								lightCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
+							}else if(j == 4){
+								//positiv z
+								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(0.0f)));
+//								lightCamera.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180.0f));
 							}else if(j == 5){
 								//negativ z
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f)));
@@ -462,11 +466,11 @@ public class RenderingEngine{
 								GL11.glCullFace(GL11.GL_BACK);
 							}
 							
-							final float shadowSoftness = shadowInfo.getShadowSoftness();
-							
-							if(shadowSoftness != 0){
-								blurShadowMap(shadowMapIndex, shadowSoftness);
-							}
+//							final float shadowSoftness = shadowInfo.getShadowSoftness();
+//							
+//							if(shadowSoftness != 0){
+//								blurShadowMap(shadowMapIndex, shadowSoftness);
+//							}
 						}
 						
 						if(j == 5){
