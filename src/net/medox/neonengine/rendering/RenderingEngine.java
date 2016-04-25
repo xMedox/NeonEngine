@@ -169,7 +169,7 @@ public class RenderingEngine{
 		shadowMappingShader =  new Shader("shadowMapping");
 		particleShadowMappingShader = new Shader("paricleShadowMapping");
 		nullFilter = new Shader("filterNull");
-		gausBlurFilter = new Shader("filterGausBlur7x1");
+		gausBlurFilter = new Shader("filterGausBlur");
 		fxaaFilter = new Shader("filterFxaa");
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
