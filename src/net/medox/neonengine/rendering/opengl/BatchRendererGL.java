@@ -35,8 +35,8 @@ public class BatchRendererGL extends BatchRenderer{
 	
 	private final static int NUM_BUFFERS = 5;
 	
-	private final Transform TRANSFORM = new Transform();
-	private final Material MATERIAL = new Material();
+	private final static Transform TRANSFORM = new Transform();
+	private final static Material MATERIAL = new Material();
 	
 	private final List<Vector3f> vertices;
 	private final List<Vector2f> uvs;

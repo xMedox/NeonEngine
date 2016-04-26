@@ -531,8 +531,7 @@ public class RenderingEngine{
 //		}
 //		
 //		return false;
-		return (int)transform.getTransformedPos().getX() + (int)transform.getScale().getX() >= 0 && (int)transform.getTransformedPos().getX() <= Window.getWidth() &&
-				   (int)transform.getTransformedPos().getY() + (int)transform.getScale().getY() >= 0 && (int)transform.getTransformedPos().getY() <= Window.getHeight();
+		return (int)transform.getTransformedPos().getX() + (int)transform.getScale().getX() >= 0 && (int)transform.getTransformedPos().getX() <= Window.getWidth() && (int)transform.getTransformedPos().getY() + (int)transform.getScale().getY() >= 0 && (int)transform.getTransformedPos().getY() <= Window.getHeight();
 	}
 	
 	public static void addParticle(Transform trans, ParticleMaterial material){
@@ -567,12 +566,12 @@ public class RenderingEngine{
 		batchRenderer.add2DMesh(shader2D, camera2D, trans, id, color);
 	}
 	
-//	public static void drawString(Transform2D trans, String text, Vector3f color){
-//		font.drawString(trans.getTransformedPos().getX(), trans.getTransformedPos().getY(), text, trans.getScale().getX(), trans.getScale().getY(), color);
-//	}
+	public static void drawString(float x, float y, String text, Vector3f color){
+		drawString(x, y, text, 1, 1, color);
+	}
 	
-	public static void drawString(float x, float y, String whatchars, float scaleX, float scaleY, Vector3f color){
-		font.drawString(x, y, whatchars, scaleX, scaleY, color);
+	public static void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color){
+		font.drawString(x, y, text, scaleX, scaleY, color);
 	}
 	
 	public static void addLight(BaseLight baseLight){
@@ -605,7 +604,6 @@ public class RenderingEngine{
 	
 	public static void setMainCamera(Camera mainCamera){
 		RenderingEngine.mainCamera = mainCamera;
-//		mainCamera.changeAspect();
 	}
 	
 	public static void setMainSkybox(Skybox skybox){
