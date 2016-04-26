@@ -16,19 +16,25 @@
 - Renamed CoreEngine class to NeonEngine
 - Fixed getMousePosition function in the Input class
 
-## Todo:
+## Features needed for 1.0.0:
 
 **Rendering:**
-- **PointLight Shadows**
-- **Rewrite font rendering and loading**
+- PointLight Shadows
+- Rewrite font rendering and loading
+
+**Physics:**
+- Masking
+
+**Other:**
+- Animation Support
+
+## Ideas and Bugs:
+
+**Rendering:**
 - Remove the black line of DirectionalLight Shadows
 - HDR
 
-**Physics:**
-- **Masking**
-
 **Other:**
-- **Animation Support**
 - Add a text input system(copy, paste, delete, return, mark and cut)
 - Locked mouse area
 - Controller support
