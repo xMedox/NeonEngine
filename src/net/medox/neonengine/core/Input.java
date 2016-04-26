@@ -157,7 +157,8 @@ public class Input{
 	
 //	public static boolean textInputMode;
 	
-	private static Vector2f mousePosition = new Vector2f();
+	private static int mousePositionX;
+	private static int mousePositionY;
 	private static int mouseWheel;
 	
 	private static String charList = "";
@@ -180,8 +181,8 @@ public class Input{
 	}
 	
 	public static void mousePos(double x, double y){
-		mousePosition.setX((int)x);
-		mousePosition.setY(Window.getHeight()-1 - (int)y);
+		mousePositionX = (int)x;
+		mousePositionY = Window.getHeight()-1 - (int)y;
 	}
 	
 	public static void mouseButton(int button, int action, int mods){
@@ -283,14 +284,14 @@ public class Input{
 	}
 	
 	public static Vector2f getMousePosition(){
-		return mousePosition;
+		return new Vector2f(mousePositionX, mousePositionY);
 	}
 	
 	public static void setMousePosition(Vector2f pos){
-		mousePosition.setX((int)pos.getX());
-		mousePosition.setY((int)pos.getY());
+		mousePositionX = (int)pos.getX();
+		mousePositionY = (int)pos.getY();
 		
-		GLFW.glfwSetCursorPos(Window.window, (double)mousePosition.getX(), (double)(Window.getHeight()-1 - mousePosition.getY()));
+		GLFW.glfwSetCursorPos(Window.window, (double)mousePositionX, (double)(Window.getHeight()-1 - mousePositionY));
 	}
 	
 	public static void setGrabbed(boolean value){
