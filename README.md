@@ -28,7 +28,7 @@
 **Other:**
 - Animation Support
 
-## Ideas and Bugs:
+## Ideas and bugs:
 
 **Rendering:**
 - Remove the black line of DirectionalLight Shadows
