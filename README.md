@@ -40,4 +40,3 @@
 - Locked mouse area
 - Controller support
 - Networking
-- Move all the light related classes into a new light package
