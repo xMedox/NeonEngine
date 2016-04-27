@@ -38,3 +38,5 @@
 - Add a text input system(copy, paste, delete, return, mark and cut)
 - Locked mouse area
 - Controller support
+- Networking
+- Move all the light related classes into a new light package
