@@ -6,6 +6,7 @@
 - Added the ability to render to a CubeMap
 - Renamed shadowMapGenerator shaders to shadowMapping
 - Renamed filterGausBlur7x1 shader to filterGausBlur
+- Fixed bloom blurScale value
 
 **Physics:**
 - Fixed physics simulation slowing down at lower frame rates

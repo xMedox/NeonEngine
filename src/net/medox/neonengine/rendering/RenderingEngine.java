@@ -327,10 +327,10 @@ public class RenderingEngine{
 	}
 	
 	private static void blurBloomMap(float blurAmount){
-		setVector3f("blurScale", new Vector3f(1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
+		setVector3f("blurScale", new Vector3f(blurAmount/(getTexture("displayTexture").getWidth()), blurAmount/(getTexture("displayTexture").getHeight()), 0.0f));
 		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 		
-		setVector3f("blurScale", new Vector3f(-1f/(getTexture("displayTexture").getWidth()/blurAmount), 1f/(getTexture("displayTexture").getHeight()/blurAmount), 0.0f));
+		setVector3f("blurScale", new Vector3f(-blurAmount/(getTexture("displayTexture").getWidth()), blurAmount/(getTexture("displayTexture").getHeight()), 0.0f));
 		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 	}
 	
