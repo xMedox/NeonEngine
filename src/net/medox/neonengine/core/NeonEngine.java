@@ -45,6 +45,8 @@ public class NeonEngine{
 	private static double frameTime;
 	
 	public static void init(Game game, int framerate){
+		System.out.println("Starting up");
+		
 		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
 		
 		Util.init();
@@ -194,6 +196,9 @@ public class NeonEngine{
 				sleepTimer.stopInvocation();
 			}
 		}
+		
+		System.out.println("--------------------------------------------------------------");
+		System.out.println("Shutting down");
 		
 		cleanUp();
 		

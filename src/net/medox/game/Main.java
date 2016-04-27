@@ -5,8 +5,6 @@ import net.medox.neonengine.rendering.Window;
 
 public class Main{
 	public static void main(String[] args){
-		System.out.println("Starting up");
-		
 		NeonEngine.init(new TestGame(), /*600*/60);
 		
 		Window.setStartTitle("Project Knight");

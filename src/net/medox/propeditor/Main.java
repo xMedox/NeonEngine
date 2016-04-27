@@ -5,8 +5,6 @@ import net.medox.neonengine.rendering.Window;
 
 public class Main{
 	public static void main(String[] args){
-		System.out.println("Starting up");
-		
 		NeonEngine.OPTION_ENABLE_VSYNC = 1;
 		NeonEngine.OPTION_ENABLE_FXAA = 0;
 		NeonEngine.OPTION_ENABLE_MIPMAPPING = 0;

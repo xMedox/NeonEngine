@@ -217,7 +217,6 @@ public class TestGame extends Game{
 	
 	@Override
 	public void cleanUp(){
-		System.out.println("--------------------------------------------------------------");
-		System.out.println("Shutting down");
+		
 	}
 }

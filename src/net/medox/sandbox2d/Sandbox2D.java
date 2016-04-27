@@ -27,7 +27,6 @@ public class Sandbox2D extends Game{
 	
 	@Override
 	public void cleanUp(){
-		System.out.println("--------------------------------------------------------------");
-		System.out.println("Shutting down");
+		
 	}
 }
