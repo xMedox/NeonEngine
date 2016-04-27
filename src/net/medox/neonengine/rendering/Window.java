@@ -30,7 +30,6 @@ public class Window{
 	public static final int DONT_CARE = GLFW.GLFW_DONT_CARE;
 	
     public static long window;
-	private static long cursor;
     
     private static GLFWErrorCallback errorCallback;
     private static GLFWKeyCallback key;
@@ -69,6 +68,8 @@ public class Window{
 	private static String startCursor = "";
 	private static int startCursorX;
 	private static int startCursorY;
+	
+	private static long cursor;
 	
 	private static int centerPositionWidth;
 	private static int centerPositionHeight;
