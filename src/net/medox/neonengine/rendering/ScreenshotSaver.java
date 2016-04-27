@@ -32,13 +32,13 @@ public class ScreenshotSaver extends Thread{
 		     
 		    for(int x = 0; x < width; x++){
 			    for(int y = 0; y < height; y++){
-				    final int i = (x + (width * y)) * /*bpp*/4;
+				    final int i = (x + (width * y)) * 4;
 				    image.setRGB(x, height - (y + 1), (0xFF << 24) | ((buffer.get(i) & 0xFF) << 16) | ((buffer.get(i + 1) & 0xFF) << 8) | (buffer.get(i + 2) & 0xFF));
 			    }
 		    }
 		     
 		    try{
-			   	ImageIO.write(image, /*format*/"PNG", new File(destination + (Window.getTitle() + " " + a2 + "_" + b2) + ".png"));
+			   	ImageIO.write(image, "PNG", new File(destination + (Window.getTitle() + " " + a2 + "_" + b2) + ".png"));
 		    }catch(IOException e){
 		    	e.printStackTrace();
 		    }

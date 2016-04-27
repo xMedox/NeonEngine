@@ -225,7 +225,7 @@ public class Input{
 			}
 		}
 		
-		if(result.getDevice() == -1 && result.getKeycode() == -1){
+		if(result.isEmpty()){
 			for(int i = 0; i < NUM_MOUSEBUTTONS; i++){
 				if(getMouse(i)){
 					result.setDevice(MOUSE);
