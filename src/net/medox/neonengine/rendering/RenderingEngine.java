@@ -148,6 +148,7 @@ public class RenderingEngine{
 		samplerMap.put("cubeMap", 0);
 		
 		lights = new ArrayList<BaseLight>();
+		lightMatrix = new Matrix4f().initScale(0, 0, 0);
 		
 		setVector3f("ambient", new Vector3f(0.15f, 0.15f, 0.15f));
 		
@@ -155,6 +156,22 @@ public class RenderingEngine{
 		setFloat("fxaaReduceMin", 1.0f/128.0f);
 		setFloat("fxaaReduceMul", 1.0f/8.0f);
 		setFloat("fxaaAspectDistortion", 150.0f);
+		
+		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
+		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
+		
+		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		
+		GL11.glFrontFace(GL11.GL_CW);
+		GL11.glCullFace(GL11.GL_BACK);
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+//		glEnable(GL_DEPTH_CLAMP);
+//		glEnable(GL13.GL_MULTISAMPLE);
+//		glEnable(GL_FRAMEBUFFER_SRGB);
+		
+		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
+		new Entity().addComponent(camera2D);
 		
 		setTexture("displayTexture", new Texture(Window.getWidth()*NeonEngine.OPTION_MSAA_MULTIPLIER, Window.getHeight()*NeonEngine.OPTION_MSAA_MULTIPLIER, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
@@ -174,22 +191,8 @@ public class RenderingEngine{
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
 		
-		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
-		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
-		
-		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		
-		GL11.glFrontFace(GL11.GL_CW);
-		GL11.glCullFace(GL11.GL_BACK);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-//		glEnable(GL_DEPTH_CLAMP);
-//		glEnable(GL13.GL_MULTISAMPLE);
-//		glEnable(GL_FRAMEBUFFER_SRGB);
-		
 		lightCamera = new Camera();
 		new Entity().addComponent(lightCamera);
-		lightCamera.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f));
 		
 		filterCamera = new Camera();
 		new Entity().addComponent(filterCamera);
@@ -228,11 +231,6 @@ public class RenderingEngine{
 //			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 //			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 		}
-		
-		lightMatrix = new Matrix4f().initScale(0, 0, 0);
-		
-		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
-		new Entity().addComponent(camera2D);
 		
 		//TODO remove this
 //		String fontName = null;
