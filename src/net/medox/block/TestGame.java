@@ -186,19 +186,21 @@ public class TestGame extends Game{
 		Material mushdM = new Material();
 		mushdM.setDiffuseMap(new Texture("mushroom.png", true));
 		
-		Mesh mushm = new Mesh("mushroom.obj");
-		
 		Entity mush = new Entity();
-		mush.addComponent(new MeshRenderer(mushm, mushdM));
+		mush.addComponent(new MeshRenderer(new Mesh("mushroom.obj"), mushdM));
 		mush.getTransform().setScale(0.5f);
 		mush.getTransform().setPos(3, 1, 3);
 		addEntity(mush);
 		
-		Entity mush2 = new Entity();
-		mush2.addComponent(new MeshRenderer(mushm, mushdM));
-		mush2.getTransform().setScale(0.5f);
-		mush2.getTransform().setPos(3.5f, 1, 3.5f);
-		addEntity(mush2);
+		Material dragonM = new Material();
+		dragonM.setDiffuseMap(new Texture("redSword.png", true));
+//		dragonM.setGlowMap(new Texture("block60_glow.png", true));
+		
+		Entity dragon = new Entity();
+		dragon.addComponent(new MeshRenderer(new Mesh("Dragon.obj"), dragonM));
+		dragon.getTransform().setScale(0.25f);
+		dragon.getTransform().setPos(3.5f, 1, 3.5f);
+		addEntity(dragon);
 		
 		Entity add = new Entity();
 		add.addComponent(new AddCollision());
