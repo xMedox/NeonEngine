@@ -63,7 +63,6 @@ public class Window{
 	
 	private static String startIcon16 = "";
 	private static String startIcon32 = "";
-//	private static String startIcon128 = "";
 	
 	private static String startCursor = "";
 	private static int startCursorX;
@@ -132,10 +131,10 @@ public class Window{
 		
 		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_TRUE);
 		
-		if(startIcon16.equals("") || startIcon32.equals("")/* || startIcon128.equals("")*/){
-			setIcon(ImageUtil.getDefaultIcon16(), ImageUtil.getDefaultIcon32()/*, Util.getDefaultIcon128()*/);
+		if(startIcon16.equals("") || startIcon32.equals("")){
+			setIcon(ImageUtil.getDefaultIcon16(), ImageUtil.getDefaultIcon32());
 		}else{
-			setIcon(startIcon16, startIcon32/*, startIcon128*/);
+			setIcon(startIcon16, startIcon32);
 		}
 		
 		if(!startCursor.equals("")){
@@ -225,13 +224,8 @@ public class Window{
 				initContextGL();
 			}
 		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
-//			if(1 == 1){
-				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				initContextGL();
-//			/*}else */if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
-//				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-//				initContextVK();
-//			}
+			RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
+			initContextGL();
 		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
 			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
@@ -267,13 +261,8 @@ public class Window{
 				createContextGL();
 			}
 		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
-//			if(1 == 1){
-				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				createContextGL();
-//			/*}else */if(GLFWVulkan.glfwVulkanSupported() == GLFW_TRUE){
-//				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-//				createContextVK();
-//			}
+			RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
+			createContextGL();
 		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
 			if(GLFWVulkan.glfwVulkanSupported()){
 				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
@@ -356,10 +345,9 @@ public class Window{
 		startResizable = value;
 	}
 	
-	public static void setStartIcon(String icon16, String icon32/*, String icon128*/){
+	public static void setStartIcon(String icon16, String icon32){
 		startIcon16 = icon16;
 		startIcon32 = icon32;
-//		startIcon128 = icon128;
 	}
 	
 	public static void setStartCursor(String fileName, int xPos, int yPos){
@@ -385,17 +373,14 @@ public class Window{
 		Window.maxHeight = maxHeight;
 	}
 	
-	public static void setIcon(String icon16, String icon32/*, String icon128*/){
-		final GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
+	public static void setIcon(String icon16, String icon32){
+		final GLFWImage.Buffer icons = GLFWImage.malloc(2);
 		
 		final ImageData pixels16 = ImageUtil.imageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
 		final ImageData pixels32 = ImageUtil.imageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
-		
-//		final ImageData pixels128 = Util.ioImageResourceToByteBuffer(icon128);
-//		icons.position(2).width(pixels128.width).height(pixels128.height).pixels(pixels128.data);
 	    
 	    icons.position(0);
 		
@@ -404,17 +389,14 @@ public class Window{
 		icons.free();
 	}
 	
-	private static void setIcon(BufferedImage icon16, BufferedImage icon32/*, BufferedImage icon128*/){
-		final GLFWImage.Buffer icons = GLFWImage.malloc(/*3*/2);
+	private static void setIcon(BufferedImage icon16, BufferedImage icon32){
+		final GLFWImage.Buffer icons = GLFWImage.malloc(2);
 		
 		final ImageData pixels16 = ImageUtil.bufferedImageToByteBuffer(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
 		final ImageData pixels32 = ImageUtil.bufferedImageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
-		
-//	  	final ImageData pixels128 = Util.bufferedImageToByteBuffer(icon128);
-//		icons.position(2).width(pixels128.width).height(pixels128.height).pixels(pixels128.data);
 		
 	    icons.position(0);
 		
