@@ -30,15 +30,6 @@ public class Progressbar extends Entity2DComponent{
 		this.color = color;
 	}
 	
-	@Override
-	public void input(float delta){
-		progress += delta/2;
-		
-		if(progress > 1){
-			progress -= 1;
-		}
-	}
-	
 	public float getProgress(){
 		return progress;
 	}
