@@ -60,10 +60,7 @@ public class Transform2D{
 //	}
 	
 	public boolean hasChanged(){
-		return parent != null && parent.hasChanged() ? true :
-			!pos.equals(oldPos) ? true:
-			!scale.equals(oldScale) ? true:
-			false;
+		return parent != null && parent.hasChanged() ? true : !pos.equals(oldPos) ? true: !scale.equals(oldScale) ? true: false;
 	}
 	
 	public Matrix4f getTransformation(){

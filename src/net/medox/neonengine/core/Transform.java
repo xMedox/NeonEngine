@@ -65,11 +65,7 @@ public class Transform{
 	}
 	
 	public boolean hasChanged(){
-		return parent != null && parent.hasChanged() ? true :
-				!pos.equals(oldPos) ? true:
-				!rot.equals(oldRot) ? true:
-				!scale.equals(oldScale) ? true:
-				false;
+		return parent != null && parent.hasChanged() ? true : !pos.equals(oldPos) ? true: !rot.equals(oldRot) ? true: !scale.equals(oldScale) ? true: false;
 	}
 	
 	public Matrix4f getTransformation(){
