@@ -5,12 +5,12 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+import net.medox.neonengine.components.StaticPhysicsComponent;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.Box;
-import net.medox.neonengine.physics.StaticPhysicsComponent;
 
 public class CollisionAdder extends EntityComponent{
 	public static int worldWidth = 16;

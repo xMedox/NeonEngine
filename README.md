@@ -16,6 +16,7 @@
 - Changed CoreEngines init function to take in the game object first
 - Renamed CoreEngine class to NeonEngine
 - Fixed getMousePosition function in the Input class
+- Moved all physics component classes to the components package
 
 ## Features needed for 1.0.0:
 

@@ -1,6 +1,7 @@
 package net.medox.game;
 
 import net.medox.neonengine.components.MeshRenderer;
+import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
@@ -8,7 +9,6 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.Box;
 import net.medox.neonengine.physics.Cone;
 import net.medox.neonengine.physics.Cylinder;
-import net.medox.neonengine.physics.PhysicsComponent;
 import net.medox.neonengine.physics.Sphere;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;

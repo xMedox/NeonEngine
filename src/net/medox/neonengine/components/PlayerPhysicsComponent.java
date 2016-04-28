@@ -1,8 +1,11 @@
-package net.medox.neonengine.physics;
+package net.medox.neonengine.components;
 
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.physics.Capsule;
+import net.medox.neonengine.physics.CharacterController;
+import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.rendering.Camera;
 
 public class PlayerPhysicsComponent extends EntityComponent{

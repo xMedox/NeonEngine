@@ -1,6 +1,8 @@
-package net.medox.neonengine.physics;
+package net.medox.neonengine.components;
 
 import net.medox.neonengine.core.EntityComponent;
+import net.medox.neonengine.physics.Collider;
+import net.medox.neonengine.physics.PhysicsEngine;
 
 public class StaticPhysicsComponent extends EntityComponent{
 	private Collider collider;
