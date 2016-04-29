@@ -60,7 +60,7 @@ public class TestGame extends Game{
 		Entity playerLook = new Entity();
 		Entity playerHead = new Entity();
 		player.getTransform().setPos(4, 4, 4);
-		playerHead.getTransform().setPos(0, /*0.75f*//*0.0125f*//*0.7375f*/0, -4);
+		playerHead.getTransform().setPos(0.3f, /*0.75f*//*0.0125f*//*0.7375f*/0, -4);
 		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
 		playerHead.addComponent(cam);
 		FreeLook look = new FreeLook(0.15f);
@@ -107,6 +107,7 @@ public class TestGame extends Game{
 		
 		Entity dragon = new Entity();
 		dragon.addComponent(new MeshRenderer(new Mesh("Dragon.obj"), dragonM));
+		dragon.addComponent(new Look3rdPerson(playerLook));
 		dragon.getTransform().setScale(0.25f);
 //		dragon.getTransform().setPos(3.5f, 1, 3.5f);
 		dragon.getTransform().setPos(0, -1, 0);
