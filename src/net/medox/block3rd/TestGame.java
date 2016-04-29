@@ -57,20 +57,22 @@ public class TestGame extends Game{
 		addEntity2D(button);
 		
 		Entity player = new Entity();
+		Entity playerLook = new Entity();
 		Entity playerHead = new Entity();
 		player.getTransform().setPos(4, 4, 4);
 		playerHead.getTransform().setPos(0, /*0.75f*//*0.0125f*//*0.7375f*/0, -4);
 		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
 		playerHead.addComponent(cam);
 		FreeLook look = new FreeLook(0.15f);
-		player.addComponent(look);
-		PlayerComponent p = new PlayerComponent();
+		playerLook.addComponent(look);
+		PlayerComponent p = new PlayerComponent(playerLook);
 //		p.getCapsule().setTransform(player.getTransform());
 		p.getBox().setTransform(player.getTransform());
 		player.addComponent(p);
 		Listener listener = new Listener();
-		player.addComponent(listener);
-		player.addChild(playerHead);
+		playerHead.addComponent(listener);
+		playerLook.addChild(playerHead);
+		player.addChild(playerLook);
 		addEntity(player);
 		
 //		ArrayList<Quaternion> quaternions = new ArrayList<Quaternion>();

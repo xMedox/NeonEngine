@@ -1,5 +1,6 @@
 package net.medox.block3rd;
 
+import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Transform;
@@ -12,6 +13,7 @@ import net.medox.neonengine.physics.Ray;
 import net.medox.neonengine.rendering.Texture;
 
 public class PlayerComponent extends EntityComponent{
+	private Entity entity;
 	private Box box;
 	
 	private float attackTimer;
@@ -24,7 +26,7 @@ public class PlayerComponent extends EntityComponent{
 	
 	private Texture g;
 	
-	public PlayerComponent(){
+	public PlayerComponent(Entity entity){
 		box = new Box(new Vector3f(0.475f, 0.975f, 0.475f));
 		
 //		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
@@ -47,6 +49,8 @@ public class PlayerComponent extends EntityComponent{
 //		controller.setJumpSpeed(100);
 		
 		controller.setMaxSlope((float)Math.toRadians(55));
+		
+		this.entity = entity;
 		
 		t1 = new Texture("block60.png", true);
 		t2 = new Texture("redSword.png", true);
@@ -126,19 +130,19 @@ public class PlayerComponent extends EntityComponent{
 		Vector3f dir = new Vector3f(0, 0, 0);
 		
 		if(Input.getKey(Input.KEY_W) && !Input.getKey(Input.KEY_S)){
-			dir = dir.add(getTransform().getRot().getForward().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getForward().mul(new Vector3f(1, 0, 1)).normalized());
 		}
 		
 		if(Input.getKey(Input.KEY_A) && !Input.getKey(Input.KEY_D)){
-			dir = dir.add(getTransform().getRot().getLeft().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getLeft().mul(new Vector3f(1, 0, 1)).normalized());
 		}
 		
 		if(Input.getKey(Input.KEY_S) && !Input.getKey(Input.KEY_W)){
-			dir = dir.add(getTransform().getRot().getBack().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getBack().mul(new Vector3f(1, 0, 1)).normalized());
 		}
 		
 		if(Input.getKey(Input.KEY_D) && !Input.getKey(Input.KEY_A)){
-			dir = dir.add(getTransform().getRot().getRight().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getRight().mul(new Vector3f(1, 0, 1)).normalized());
 		}
 		
 		if(Input.getKeyDown(Input.KEY_SPACE)){
