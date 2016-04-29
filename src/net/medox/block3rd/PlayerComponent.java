@@ -97,7 +97,7 @@ public class PlayerComponent extends EntityComponent{
 			if(Input.getMouseDown(Input.BUTTON_LEFT) && Input.isGrabbed()){
 				attackTimer = 2*60*0.016666668f;
 				
-				Ray ray = new Ray(getTransform().getTransformedPos(), getTransform().getTransformedPos().add(getTransform().getRot().getForward().mul(3)));
+				Ray ray = new Ray(getTransform().getTransformedPos(), entity.getTransform().getTransformedPos().add(entity.getTransform().getRot().getForward().mul(10)));
 				
 				if(ray.getHitCollider().getGroup() == 1){
 					WolfComponent wolf = (WolfComponent)ray.getHitCollider().getObject();
