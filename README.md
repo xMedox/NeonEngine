@@ -18,6 +18,7 @@
 - Fixed getMousePosition function in the Input class
 - Moved all physics component classes to the components package
 - Moved the demos to the new demo repository
+- Added missing getters and setters in the light classes
 
 ## Features needed for 1.0.0:
 

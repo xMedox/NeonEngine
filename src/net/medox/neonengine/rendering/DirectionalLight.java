@@ -20,7 +20,7 @@ public class DirectionalLight extends BaseLight{
 		
 		setShader(new Shader("forwardDirectional"));
 
-		this.halfShadowArea = shadowArea/2.0f;
+		halfShadowArea = shadowArea/2.0f;
 		
 		if(NeonEngine.OPTION_SHADOW_QUALITY >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;
@@ -52,5 +52,13 @@ public class DirectionalLight extends BaseLight{
 		result.pos = lightSpaceCameraPos.rotate(result.rot);
 		
 		return result;
+	}
+	
+	public float getShadowArea(){
+		return halfShadowArea*2;
+	}
+	
+	public void setShadowArea(float shadowArea){
+		halfShadowArea = shadowArea/2.0f;
 	}
 }

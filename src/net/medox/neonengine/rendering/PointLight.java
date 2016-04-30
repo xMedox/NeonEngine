@@ -56,7 +56,15 @@ public class PointLight extends BaseLight{
 		return range;
 	}
 	
+	public void setRange(float range){
+		this.range = range;
+	}
+	
 	public Attenuation getAttenuation(){
 		return attenuation;
+	}
+	
+	public void setAttenuation(Attenuation attenuation){
+		this.attenuation = attenuation;
 	}
 }
