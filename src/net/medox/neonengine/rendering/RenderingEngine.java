@@ -166,9 +166,6 @@ public class RenderingEngine{
 		GL11.glCullFace(GL11.GL_BACK);
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
-//		glEnable(GL_DEPTH_CLAMP);
-//		glEnable(GL13.GL_MULTISAMPLE);
-//		glEnable(GL_FRAMEBUFFER_SRGB);
 		
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
 		new Entity().addComponent(camera2D);
@@ -415,13 +412,10 @@ public class RenderingEngine{
 						GL11.glCullFace(GL11.GL_FRONT);
 					}
 					
-//					camera.updateFrustum();
-					
 					GL11.glEnable(GL32.GL_DEPTH_CLAMP);
 					
 					object.renderAll(shadowMappingShader, lightCamera);
 					
-//					BatchRenderer.addMesh(shadowMapShader, lightCamera, new Transform(), getTexture("displayTexture")/*shadowMaps[9]*/, new Vector3f(1, 1, 1), new Vector2f(0, 1), new Vector2f(1, 0));
 					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						particleCamera = lightCamera;
 						particleShader = particleShadowMappingShader;

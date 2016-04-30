@@ -107,9 +107,6 @@ public class TextureDataGL extends TextureData{
 			if(clamp){
 				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
 				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
-				
-//				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, ARBShadow.GL_TEXTURE_COMPARE_MODE_ARB, ARBShadow.GL_COMPARE_R_TO_TEXTURE_ARB);
-//				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, ARBShadow.GL_TEXTURE_COMPARE_FUNC_ARB, GL11.GL_LEQUAL);
 			}
 
 			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], type[i], data[i]);
@@ -119,8 +116,6 @@ public class TextureDataGL extends TextureData{
 					filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST ||
 					filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
 				GL30.glGenerateMipmap(textureTarget);
-//				float maxAnisotropy = GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
-//				glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, maxAnisotropy)/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
 				GL11.glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
 			}else{
 				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_BASE_LEVEL, 0);
