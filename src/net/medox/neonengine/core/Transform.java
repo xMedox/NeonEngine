@@ -55,11 +55,11 @@ public class Transform{
 	public void rotate(Quaternion quaternion){
 		rot = quaternion.mul(rot).normalized();
 	}
-
+	
 	public void lookAt(Vector3f point, Vector3f up){
 		rot = getLookAtRotation(point, up);
 	}
-
+	
 	public Quaternion getLookAtRotation(Vector3f point, Vector3f up){
 		return new Quaternion(new Matrix4f().initRotation(point.sub(pos).normalized(), up));
 	}
@@ -119,11 +119,11 @@ public class Transform{
 		
 		return parentRotation.mul(rot);
 	}
-
+	
 	public Vector3f getPos(){
 		return pos;
 	}
-
+	
 	public void setPos(Vector3f translation){
 		pos = translation;
 	}
@@ -143,11 +143,11 @@ public class Transform{
 	public void setRot(float x, float y, float z, float w){
 		rot.set(x, y, z, w);
 	}
-
+	
 	public Vector3f getScale(){
 		return scale;
 	}
-
+	
 	public void setScale(Vector3f scale){
 		this.scale = scale;
 	}

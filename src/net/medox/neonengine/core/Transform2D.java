@@ -50,11 +50,11 @@ public class Transform2D{
 //	public void rotate(Quaternion quaternion){
 //		rot = quaternion.mul(rot).normalized();
 //	}
-//
+//	
 //	public void lookAt(Vector3f point, Vector3f up){
 //		rot = getLookAtRotation(point, up);
 //	}
-//
+//	
 //	public Quaternion getLookAtRotation(Vector3f point, Vector3f up){
 //		return new Quaternion(new Matrix4f().initRotation(point.sub(pos).normalized(), up));
 //	}
@@ -90,11 +90,11 @@ public class Transform2D{
 		
 //		return new Vector2f(getParentMatrix().transform(new Vector3f(pos.getX(), pos.getY(), 0)).getX(), getParentMatrix().transform(new Vector3f(pos.getX(), pos.getY(), 0)).getY());
 	}
-
+	
 	public Vector2f getPos(){
 		return pos;
 	}
-
+	
 	public void setPos(Vector2f translation){
 		pos = translation;
 	}
@@ -106,7 +106,7 @@ public class Transform2D{
 //	public Quaternion getRot(){
 //		return rot;
 //	}
-//
+//	
 //	public void setRot(float rotation){
 //		this.rot = new Quaternion(new Vector3f(0, 0, 1), rotation).normalized();
 //	}
@@ -114,11 +114,11 @@ public class Transform2D{
 //	public void setRot(float x, float y, float z, float w){
 //		rot.set(x, y, z, w);
 //	}
-
+	
 	public Vector2f getScale(){
 		return scale;
 	}
-
+	
 	public void setScale(Vector2f scale){
 		this.scale = scale;
 	}
