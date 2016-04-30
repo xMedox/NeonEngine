@@ -527,9 +527,7 @@ public class RenderingEngine{
 	}
 	
 	public static void addParticle(Transform trans, ParticleMaterial material){
-		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
-			batchRenderer.addMesh(particleShader, particleCamera/*mainCamera*/, particleFlipFaces, trans, material);
-		}
+		addParticle(trans, material, new Vector2f(0, 0), new Vector2f(1, 1));
 	}
 	
 	public static void addParticle(Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
@@ -539,11 +537,11 @@ public class RenderingEngine{
 	}
 	
 	public static void add2DMesh(Transform2D trans, Texture texture){
-		batchRenderer.add2DMesh(shader2D, camera2D, trans, texture);
+		add2DMesh(trans, texture, new Vector3f(1, 1, 1), new Vector2f(0, 0), new Vector2f(1, 1));
 	}
 	
 	public static void add2DMesh(Transform2D trans, Texture texture, Vector3f color){
-		batchRenderer.add2DMesh(shader2D, camera2D, trans, texture, color);
+		add2DMesh(trans, texture, color, new Vector2f(0, 0), new Vector2f(1, 1));
 	}
 	
 	public static void add2DMesh(Transform2D trans, Texture texture, Vector3f color, Vector2f minUV, Vector2f maxUV){
@@ -551,7 +549,7 @@ public class RenderingEngine{
 	}
 	
 	public static void add2DMesh(Transform2D trans, int id){
-		batchRenderer.add2DMesh(shader2D, camera2D, trans, id);
+		add2DMesh(trans, id, new Vector3f(1, 1, 1));
 	}
 	
 	public static void add2DMesh(Transform2D trans, int id, Vector3f color){
