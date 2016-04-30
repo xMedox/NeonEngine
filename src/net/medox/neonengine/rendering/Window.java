@@ -284,8 +284,8 @@ public class Window{
 	
 	public static void dispose(){
 		GLFW.glfwDestroyWindow(window);
-	    keyCallback.free();
-	    mouseButtonCallback.free();
+		keyCallback.free();
+		mouseButtonCallback.free();
 		mousePosCallback.free();
 		scrollCallback.free();
 		posCallback.free();
