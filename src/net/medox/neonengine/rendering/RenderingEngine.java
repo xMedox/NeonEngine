@@ -296,54 +296,6 @@ public class RenderingEngine{
 		throw new IllegalArgumentException(uniformType + " is not a supported type in Rendering Engine");
 	}
 	
-	private static void applyFilter(Shader filter, Texture source, Texture dest){
-//		assert(source != dest);
-		
-		if(dest == null){
-			Window.bindAsRenderTarget();
-		}else{
-			dest.bindAsRenderTarget();
-		}
-		
-		setTexture("filterTexture", source);
-		
-		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-		filter.bind();
-		filter.updateUniforms(filterTransform, filterMaterial, filterCamera);
-		filterPlane.draw();
-		
-		setTexture("filterTexture", null);
-	}
-	
-	private static void blurShadowMap(int shadowMapIndex, float blurAmount){
-		setVector3f("blurScale", new Vector3f(blurAmount/(shadowMaps[shadowMapIndex].getWidth()), 0.0f, 0.0f));
-		applyFilter(gausBlurFilter, shadowMaps[shadowMapIndex], shadowMapTempTargets[shadowMapIndex]);
-		
-		setVector3f("blurScale", new Vector3f(0.0f, blurAmount/(shadowMaps[shadowMapIndex].getHeight()), 0.0f));
-		applyFilter(gausBlurFilter, shadowMapTempTargets[shadowMapIndex], shadowMaps[shadowMapIndex]);
-	}
-	
-	private static void blurBloomMap(float blurAmount){
-		setVector3f("blurScale", new Vector3f(blurAmount/(getTexture("displayTexture").getWidth()), blurAmount/(getTexture("displayTexture").getHeight()), 0.0f));
-		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
-		
-		setVector3f("blurScale", new Vector3f(-blurAmount/(getTexture("displayTexture").getWidth()), blurAmount/(getTexture("displayTexture").getHeight()), 0.0f));
-		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
-	}
-	
-	private static void renderSkybox(){
-		if(skybox != null){
-			GL11.glDepthMask(false);
-			
-			skybox.getTransform().setPos(mainCamera.getTransform().getTransformedPos());
-			
-			skybox.draw(skyboxShader, mainCamera);
-			
-//			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glDepthMask(true);
-		}
-	}
-	
 	public static void render(Entity object){
 		renderProfileTimer.startInvocation();
 		
@@ -389,7 +341,7 @@ public class RenderingEngine{
 				
 				GL11.glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 				GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
-								
+				
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() == 0){
 					lightMatrix = new Matrix4f().initScale(0, 0, 0);
 					setFloat("shadowVarianceMin", 0.00002f);
@@ -487,6 +439,54 @@ public class RenderingEngine{
 		}
 		
 		windowSyncProfileTimer.stopInvocation();
+	}
+	
+	private static void renderSkybox(){
+		if(skybox != null){
+			GL11.glDepthMask(false);
+			
+			skybox.getTransform().setPos(mainCamera.getTransform().getTransformedPos());
+			
+			skybox.draw(skyboxShader, mainCamera);
+			
+//			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+			GL11.glDepthMask(true);
+		}
+	}
+	
+	private static void applyFilter(Shader filter, Texture source, Texture dest){
+//		assert(source != dest);
+		
+		if(dest == null){
+			Window.bindAsRenderTarget();
+		}else{
+			dest.bindAsRenderTarget();
+		}
+		
+		setTexture("filterTexture", source);
+		
+		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+		filter.bind();
+		filter.updateUniforms(filterTransform, filterMaterial, filterCamera);
+		filterPlane.draw();
+		
+		setTexture("filterTexture", null);
+	}
+	
+	private static void blurShadowMap(int shadowMapIndex, float blurAmount){
+		setVector3f("blurScale", new Vector3f(blurAmount/(shadowMaps[shadowMapIndex].getWidth()), 0.0f, 0.0f));
+		applyFilter(gausBlurFilter, shadowMaps[shadowMapIndex], shadowMapTempTargets[shadowMapIndex]);
+		
+		setVector3f("blurScale", new Vector3f(0.0f, blurAmount/(shadowMaps[shadowMapIndex].getHeight()), 0.0f));
+		applyFilter(gausBlurFilter, shadowMapTempTargets[shadowMapIndex], shadowMaps[shadowMapIndex]);
+	}
+	
+	private static void blurBloomMap(float blurAmount){
+		setVector3f("blurScale", new Vector3f(blurAmount/(getTexture("displayTexture").getWidth()), blurAmount/(getTexture("displayTexture").getHeight()), 0.0f));
+		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
+		
+		setVector3f("blurScale", new Vector3f(-blurAmount/(getTexture("displayTexture").getWidth()), blurAmount/(getTexture("displayTexture").getHeight()), 0.0f));
+		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 	}
 	
 	public static void render(Entity2D object){
