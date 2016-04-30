@@ -460,7 +460,6 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
-		setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 		//TODO remove this
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
@@ -480,6 +479,8 @@ public class RenderingEngine{
 		windowSyncProfileTimer.startInvocation();
 		
 		if(NeonEngine.OPTION_ENABLE_FXAA == 1){
+			setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
+			
 			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
 		}else{
 			applyFilter(nullFilter, getTexture("displayTexture"), null);
