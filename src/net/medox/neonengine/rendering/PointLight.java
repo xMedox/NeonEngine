@@ -4,7 +4,7 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Vector3f;
 
 public class PointLight extends BaseLight{
-	protected static final int COLOR_DEPTH = 256;
+	private static final int COLOR_DEPTH = 256;
 	
 	private Attenuation attenuation;
 	private float range;

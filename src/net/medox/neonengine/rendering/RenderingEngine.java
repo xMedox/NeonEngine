@@ -233,9 +233,9 @@ public class RenderingEngine{
 //		String fontName = null;
 //		
 //		if (!TrueTypeFont.isSupported(fontName)) fontName = "serif";
-//	    Font fontOld = new Font(fontName, /*Font.PLAIN | */Font.PLAIN, /*40*/18 /*32*/);
+//		Font fontOld = new Font(fontName, /*Font.PLAIN | */Font.PLAIN, /*40*/18 /*32*/);
 		
-//	    trueTypeFont = new TrueTypeFont(font, true, c);
+//		trueTypeFont = new TrueTypeFont(font, true, c);
 				
 		
 		//TODO remove this

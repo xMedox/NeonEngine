@@ -79,7 +79,7 @@ public class Window{
 		errorCallback = GLFWErrorCallback.createPrint().set();
 		
 		if(!GLFW.glfwInit()){
-            throw new IllegalStateException("Unable to initialize GLFW");
+			throw new IllegalStateException("Unable to initialize GLFW");
 		}
 		
 		GLFW.glfwDefaultWindowHints();
@@ -93,7 +93,7 @@ public class Window{
 		
 		initContext();
         
-        setResizable(startResizable);
+		setResizable(startResizable);
         
 		if(isFullscreen){
 			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
@@ -297,7 +297,7 @@ public class Window{
 		}
         
 		GLFW.glfwTerminate();
-        errorCallback.free();
+		errorCallback.free();
 	}
 	
 	public static void takeScreenshot(){
@@ -310,12 +310,12 @@ public class Window{
 	
 	private static void takeScreenshotGL(){
 		GL11.glReadBuffer(GL11.GL_FRONT);
-	    final int width = getWidth();
-	    final int height = getHeight();
-	    final ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * /*bpp*/4);
-	    GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
+		final int width = getWidth();
+		final int height = getHeight();
+		final ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * /*bpp*/4);
+		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	    
-	    new ScreenshotSaver("screenshots/", buffer, width, height).start();
+		new ScreenshotSaver("screenshots/", buffer, width, height).start();
 	}
 	
 	private static void takeScreenshotVK(){
@@ -382,9 +382,9 @@ public class Window{
 		final ImageData pixels32 = ImageUtil.imageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 	    
-	    icons.position(0);
+		icons.position(0);
 		
-	    GLFW.glfwSetWindowIcon(window, icons);
+		GLFW.glfwSetWindowIcon(window, icons);
 		
 		icons.free();
 	}
@@ -398,9 +398,9 @@ public class Window{
 		final ImageData pixels32 = ImageUtil.bufferedImageToByteBuffer(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 		
-	    icons.position(0);
+		icons.position(0);
 		
-	    GLFW.glfwSetWindowIcon(window, icons);
+		GLFW.glfwSetWindowIcon(window, icons);
 		
 		icons.free();
 	}
@@ -426,7 +426,7 @@ public class Window{
 			img.free();
 			
 			if(cursor == MemoryUtil.NULL){
-	            throw new RuntimeException("Failed to create the GLFW cursor");
+				throw new RuntimeException("Failed to create the GLFW cursor");
 			}
 			
 			GLFW.glfwSetCursor(window, cursor);
@@ -516,23 +516,23 @@ public class Window{
 		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
 	}
 	
-    public static void bindAsRenderTarget(){
-    	if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-    		bindAsRenderTargetGL();
-    	}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-    		bindAsRenderTargetVK();
-    	}
-    }
-    
-    private static void bindAsRenderTargetGL(){
-    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-    	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
-    	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
-    		GL11.glViewport(0, 0, getWidth(), getHeight());
-    	}else{
-    		GL11.glViewport(0, 0, 1, 1);
-    	}
-    }
+	public static void bindAsRenderTarget(){
+		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
+			bindAsRenderTargetGL();
+		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
+			bindAsRenderTargetVK();
+		}
+	}
+	
+	private static void bindAsRenderTargetGL(){
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
+		if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
+			GL11.glViewport(0, 0, getWidth(), getHeight());
+		}else{
+			GL11.glViewport(0, 0, 1, 1);
+		}
+	}
     
     private static void bindAsRenderTargetVK(){
     	
