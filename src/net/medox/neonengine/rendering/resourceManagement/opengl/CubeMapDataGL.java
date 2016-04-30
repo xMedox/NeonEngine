@@ -142,10 +142,7 @@ public class CubeMapDataGL extends CubeMapData{
 			GL11.glTexParameterf(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
 		}
 		
-		if(filters == GL11.GL_NEAREST_MIPMAP_NEAREST ||
-				filters == GL11.GL_NEAREST_MIPMAP_LINEAR ||
-				filters == GL11.GL_LINEAR_MIPMAP_NEAREST ||
-				filters == GL11.GL_LINEAR_MIPMAP_LINEAR){
+		if(filters == GL11.GL_NEAREST_MIPMAP_NEAREST || filters == GL11.GL_NEAREST_MIPMAP_LINEAR || filters == GL11.GL_LINEAR_MIPMAP_NEAREST || filters == GL11.GL_LINEAR_MIPMAP_LINEAR){
 			GL30.glGenerateMipmap(GL13.GL_TEXTURE_CUBE_MAP);
 			GL11.glTexParameterf(GL13.GL_TEXTURE_CUBE_MAP, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
 		}else{

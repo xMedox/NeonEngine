@@ -111,10 +111,7 @@ public class TextureDataGL extends TextureData{
 
 			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], type[i], data[i]);
 			
-			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST ||
-					filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR ||
-					filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST ||
-					filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
+			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST || filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR || filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST || filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
 				GL30.glGenerateMipmap(textureTarget);
 				GL11.glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
 			}else{
