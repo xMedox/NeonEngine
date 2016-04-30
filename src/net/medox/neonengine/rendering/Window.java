@@ -31,10 +31,10 @@ public class Window{
 	
     public static long window;
     
-    private static GLFWErrorCallback errorCallback;
-    private static GLFWKeyCallback keyCallback;
-    private static GLFWMouseButtonCallback mouseButtonCallback;
-    private static GLFWCursorPosCallback mousePosCallback;
+	private static GLFWErrorCallback errorCallback;
+	private static GLFWKeyCallback keyCallback;
+	private static GLFWMouseButtonCallback mouseButtonCallback;
+	private static GLFWCursorPosCallback mousePosCallback;
 	private static GLFWScrollCallback scrollCallback;
 	private static GLFWWindowPosCallback posCallback;
 	private static GLFWFramebufferSizeCallback sizeCallback;
