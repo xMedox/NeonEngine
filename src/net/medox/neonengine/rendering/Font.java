@@ -1,7 +1,6 @@
 package net.medox.neonengine.rendering;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -14,7 +13,7 @@ import net.medox.neonengine.core.Transform2D;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 
-public class TrueTypeFont{
+public class Font{
 	public final static int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
 	
 	private IntObject[] charArray = new IntObject[256];
@@ -34,13 +33,13 @@ public class TrueTypeFont{
 	
 	private int textureHeight = 512;
 	
-	private Font font;
+	private java.awt.Font font;
 	
 	private FontMetrics fontMetrics;
 	
 	private int correctL = 9, correctR = 8;
 	
-	public TrueTypeFont(Font font, boolean antiAlias, char[] additionalChars){
+	public Font(java.awt.Font font, boolean antiAlias, char[] additionalChars){
 		this.font = font;
 		this.fontSize = font.getSize()+3;
 		this.antiAlias = antiAlias;
@@ -53,7 +52,7 @@ public class TrueTypeFont{
 		}
 	}
 	
-	public TrueTypeFont(Font font, boolean antiAlias){
+	public Font(java.awt.Font font, boolean antiAlias){
 		this(font, antiAlias, null);
 	}
 	
@@ -334,7 +333,7 @@ public class TrueTypeFont{
 	}
 	
 	public static boolean isSupported(String fontname){
-		Font font[] = getFonts();
+		java.awt.Font font[] = getFonts();
 		for(int i = font.length-1; i >= 0; i--){
 			if(font[i].getName().equalsIgnoreCase(fontname)){
 				return true;
@@ -343,7 +342,7 @@ public class TrueTypeFont{
 		return false;
 	}
 	
-	public static Font[] getFonts(){
+	public static java.awt.Font[] getFonts(){
 		return GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 	}
 	

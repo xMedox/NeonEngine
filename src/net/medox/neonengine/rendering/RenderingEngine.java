@@ -1,6 +1,5 @@
 package net.medox.neonengine.rendering;
 
-import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
@@ -70,7 +69,7 @@ public class RenderingEngine{
 	private static Matrix4f lightMatrix;
 	
 	private static Skybox skybox;
-	private static TrueTypeFont font; //TODO remove this
+	private static Font font; //TODO remove this
 	
 	private static Shader forwardAmbientShader;
 	private static Shader forwardParticleAmbientShader;
@@ -239,18 +238,18 @@ public class RenderingEngine{
 				
 		
 		//TODO remove this
-		Font customFont = null;
+		java.awt.Font customFont = null;
 		
 		try{
-			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")).deriveFont(/*Font.ITALIC, *//*64f*/16f);
+			customFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")).deriveFont(/*Font.ITALIC, *//*64f*/16f);
 			final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			//register the font
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")));
+			ge.registerFont(java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")));
 		}catch(IOException | FontFormatException e){
             e.printStackTrace();
         }
 		
-		font = new TrueTypeFont(customFont, false);
+		font = new Font(customFont, false);
 //		font = new TrueTypeFont(fontOld, true);
 	}
 	
