@@ -13,87 +13,52 @@ import java.awt.GraphicsEnvironment;
 import net.medox.neonengine.core.Transform2D;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
- 
-/**
- * A TrueType font implementation originally for Slick, edited for Bobjob's Engine
- * 
- * @original author James Chambers (Jimmy)
- * @original author Jeremy Adams (elias4444)
- * @original author Kevin Glass (kevglass)
- * @original author Peter Korzuszek (genail)
- * 
- * @new version edited by David Aaron Muhar (bobjob)
- */
+
 public class TrueTypeFont{
-    public final static int
-        ALIGN_LEFT = 0,
-        ALIGN_RIGHT = 1,
-        ALIGN_CENTER = 2;
-    /** Array that holds necessary information about the font characters */
+	public final static int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
+	
     private IntObject[] charArray = new IntObject[256];
-     
-    /** Map of user defined font characters (Character <-> IntObject) */
-    @SuppressWarnings("rawtypes")
+    
+	@SuppressWarnings("rawtypes")
 	private Map customChars = new HashMap();
- 
-    /** Boolean flag on whether AntiAliasing is enabled or not */
-    private boolean antiAlias;
- 
-    /** Font's size */
-    private int fontSize = 0;
- 
-    /** Font's height */
-    private int fontHeight = 0;
- 
-    /** Texture used to cache the font 0-255 characters */
-    private Texture fontTexture;
-     
-    /** Default font texture width */
-    private int textureWidth = 512;
- 
-    /** Default font texture height */
-    private int textureHeight = 512;
- 
-    /** A reference to Java's AWT Font that we create our font texture from */
-    private Font font;
- 
-    /** The font metrics for our Java AWT font */
-    private FontMetrics fontMetrics;
- 
-     
-    private int correctL = 9, correctR = 8;
-     
-    private class IntObject {
-        /** Character's width */
-        public int width;
- 
-        /** Character's height */
-        public int height;
- 
-        /** Character's stored x position */
-        public int storedX;
- 
-        /** Character's stored y position */
-        public int storedY;
-    }
- 
- 
-    public TrueTypeFont(Font font, boolean antiAlias, char[] additionalChars) {
+	
+	private boolean antiAlias;
+	
+	private int fontSize = 0;
+	
+	private int fontHeight = 0;
+	
+	private Texture fontTexture;
+	
+	private int textureWidth = 512;
+	
+	private int textureHeight = 512;
+	
+	private Font font;
+	
+	private FontMetrics fontMetrics;
+	
+	private int correctL = 9, correctR = 8;
+	
+    public TrueTypeFont(Font font, boolean antiAlias, char[] additionalChars){
         this.font = font;
         this.fontSize = font.getSize()+3;
         this.antiAlias = antiAlias;
- 
+        
         createSet( additionalChars );
-         
+        
         fontHeight -= 1;
-        if (fontHeight <= 0) fontHeight = 1;
+        if(fontHeight <= 0){
+        	fontHeight = 1;
+        }
     }
- 
-    public TrueTypeFont(Font font, boolean antiAlias) {
-        this( font, antiAlias, null );
+    
+    public TrueTypeFont(Font font, boolean antiAlias){
+        this(font, antiAlias, null);
     }
-    public void setCorrection(boolean on) {
-        if (on) {
+    
+    public void setCorrection(boolean on){
+        if(on){
             correctL = 2;
             correctR = 1;
         } else {
@@ -101,46 +66,46 @@ public class TrueTypeFont{
             correctR = 0;
         }
     }
-    private BufferedImage getFontImage(char ch) {
-        // Create a temporary image to extract the character's size
-        BufferedImage tempfontImage = new BufferedImage(1, 1,
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = (Graphics2D) tempfontImage.getGraphics();
-        if (antiAlias == true) {
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+    
+    private BufferedImage getFontImage(char ch){
+        BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
+        
+        if(antiAlias == true){
+        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
+        
         g.setFont(font);
+        
         fontMetrics = g.getFontMetrics();
-        int charwidth = fontMetrics.charWidth(ch)+8;
- 
-        if (charwidth <= 0) {
-            charwidth = 7;
+        
+        int charwidth = fontMetrics.charWidth(ch) + 8;
+        if(charwidth <= 0){
+        	charwidth = 7;
         }
-        int charheight = fontMetrics.getHeight()+3;
-        if (charheight <= 0) {
-            charheight = fontSize;
+        
+        int charheight = fontMetrics.getHeight() + 3;
+        if(charheight <= 0){
+        	charheight = fontSize;
         }
- 
-        // Create another image holding the character we are creating
+        
         BufferedImage fontImage;
-        fontImage = new BufferedImage(charwidth, charheight,
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics2D gt = (Graphics2D) fontImage.getGraphics();
-        if (antiAlias == true) {
-            gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+        fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
+        
+        Graphics2D gt = (Graphics2D)fontImage.getGraphics();
+        
+        if(antiAlias == true){
+        	gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
+        
         gt.setFont(font);
- 
         gt.setColor(Color.WHITE);
+        
         int charx = 3;
         int chary = 1;
-        gt.drawString(String.valueOf(ch), (charx), (chary)
-                + fontMetrics.getAscent());
- 
+        gt.drawString(String.valueOf(ch), (charx), (chary) + fontMetrics.getAscent());
+        
         return fontImage;
- 
     }
  
     @SuppressWarnings("unchecked")
@@ -472,10 +437,11 @@ public class TrueTypeFont{
                 (byte)value};
     }
     
-//    public void destroy() {
-//        IntBuffer scratch = BufferUtils.createIntBuffer(1);
-//        scratch.put(0, fontTextureID);
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-//        GL11.glDeleteTextures(scratch);
-//    }
+	private class IntObject{
+		public int width;
+		public int height;
+		
+		public int storedX;
+		public int storedY;
+    }
 }
