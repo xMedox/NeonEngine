@@ -275,9 +275,9 @@ public class Shader{
 	}
 	
 	public void setUniformDirectionalLight(String uniformName, DirectionalLight directionalLight){
-		setUniformVector3f(uniformName + ".direction", directionalLight.getTransform().getTransformedRot().getForward());
 		setUniformVector3f(uniformName + ".base.color", directionalLight.getColor());
 		setUniformf(uniformName + ".base.intensity", directionalLight.getIntensity());
+		setUniformVector3f(uniformName + ".direction", directionalLight.getTransform().getTransformedRot().getForward());
 	}
 	
 	public void setUniformPointLight(String uniformName, PointLight pointLight){
