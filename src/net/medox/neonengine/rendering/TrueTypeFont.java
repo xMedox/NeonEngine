@@ -45,7 +45,7 @@ public class TrueTypeFont{
         this.fontSize = font.getSize()+3;
         this.antiAlias = antiAlias;
         
-        createSet( additionalChars );
+        createSet(additionalChars);
         
         fontHeight -= 1;
         if(fontHeight <= 0){
@@ -59,10 +59,10 @@ public class TrueTypeFont{
     
     public void setCorrection(boolean on){
         if(on){
-            correctL = 2;
+        	correctL = 2;
             correctR = 1;
         }else{
-            correctL = 0;
+        	correctL = 0;
             correctR = 0;
         }
     }
@@ -107,11 +107,11 @@ public class TrueTypeFont{
         
         return fontImage;
     }
- 
+    
     @SuppressWarnings("unchecked")
 	private void createSet(char[] customCharsArray){
     	if(customCharsArray != null && customCharsArray.length > 0){
-            textureWidth *= 2;
+    		textureWidth *= 2;
     	}
     	
     	try{
@@ -119,128 +119,125 @@ public class TrueTypeFont{
     		Graphics2D g = (Graphics2D)imgTemp.getGraphics();
             
     		g.setColor(new Color(0, 0, 0, 1));
-            g.fillRect(0, 0, textureWidth, textureHeight);
+    		g.fillRect(0, 0, textureWidth, textureHeight);
             
-            int rowHeight = 0;
-            int positionX = 0;
-            int positionY = 0;
+    		int rowHeight = 0;
+    		int positionX = 0;
+    		int positionY = 0;
             
-            int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
+    		int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
             
-            for(int i = 0; i < 256 + customCharsLength; i++){
-            	char ch = (i < 256) ? (char) i : customCharsArray[i-256];
+    		for(int i = 0; i < 256 + customCharsLength; i++){
+    			char ch = (i < 256) ? (char) i : customCharsArray[i-256];
             	
-            	BufferedImage fontImage = getFontImage(ch);
+    			BufferedImage fontImage = getFontImage(ch);
             	
-            	IntObject newIntObject = new IntObject();
+    			IntObject newIntObject = new IntObject();
             	
-            	newIntObject.width = fontImage.getWidth();
-            	newIntObject.height = fontImage.getHeight();
+    			newIntObject.width = fontImage.getWidth();
+    			newIntObject.height = fontImage.getHeight();
             	
-            	if(positionX + newIntObject.width >= textureWidth){
-            		positionX = 0;
-            		positionY += rowHeight;
-            		rowHeight = 0;
-            	}
+    			if(positionX + newIntObject.width >= textureWidth){
+    				positionX = 0;
+    				positionY += rowHeight;
+    				rowHeight = 0;
+    			}
             	
-            	newIntObject.storedX = positionX;
-            	newIntObject.storedY = positionY;
+    			newIntObject.storedX = positionX;
+    			newIntObject.storedY = positionY;
             	
-                if(newIntObject.height > fontHeight){
-                    fontHeight = newIntObject.height;
-                }
+    			if(newIntObject.height > fontHeight){
+    				fontHeight = newIntObject.height;
+    			}
                 
-                if(newIntObject.height > rowHeight){
-                    rowHeight = newIntObject.height;
-                }
+    			if(newIntObject.height > rowHeight){
+    				rowHeight = newIntObject.height;
+    			}
                 
-                g.drawImage(fontImage, positionX, positionY, null);
+    			g.drawImage(fontImage, positionX, positionY, null);
                 
-                positionX += newIntObject.width;
+    			positionX += newIntObject.width;
                 
-                if(i < 256){
-                    charArray[i] = newIntObject;
-                }else{
-                    customChars.put(new Character(ch), newIntObject);
-                }
+    			if(i < 256){
+    				charArray[i] = newIntObject;
+    			}else{
+    				customChars.put(new Character(ch), newIntObject);
+    			}
                 
-                fontImage = null;
-            }
+    			fontImage = null;
+    		}
             
-            fontTexture = new Texture(imgTemp);
-        }catch(Exception e){
-            System.err.println("Failed to create font.");
-            e.printStackTrace();
-        }
-    }
+    		fontTexture = new Texture(imgTemp);
+    	}catch(Exception e){
+    		System.err.println("Failed to create font.");
+    		e.printStackTrace();
+    	}
+	}
     
     private void drawQuad(float drawX, float drawY, float drawX2, float drawY2, float srcX, float srcY, float srcX2, float srcY2, Vector3f color){
-        float DrawWidth = drawX2 - drawX;
-        float DrawHeight = drawY2 - drawY;
-        float TextureSrcX = srcX / textureWidth;
-        float TextureSrcY = srcY / textureHeight;
-        float SrcWidth = srcX2 - srcX;
-        float SrcHeight = srcY2 - srcY;
-        float RenderWidth = (SrcWidth / textureWidth);
-        float RenderHeight = (SrcHeight / textureHeight);
+    	float DrawWidth = drawX2 - drawX;
+    	float DrawHeight = drawY2 - drawY;
+    	float TextureSrcX = srcX / textureWidth;
+    	float TextureSrcY = srcY / textureHeight;
+    	float SrcWidth = srcX2 - srcX;
+    	float SrcHeight = srcY2 - srcY;
+    	float RenderWidth = (SrcWidth / textureWidth);
+    	float RenderHeight = (SrcHeight / textureHeight);
         
-		Transform2D t2 = new Transform2D();
+    	Transform2D t2 = new Transform2D();
 		
-		t2.setPos(new Vector2f((drawX+DrawWidth), (drawY)));
-		t2.setScale(new Vector2f(-DrawWidth, DrawHeight));
+    	t2.setPos(new Vector2f((drawX+DrawWidth), (drawY)));
+    	t2.setScale(new Vector2f(-DrawWidth, DrawHeight));
 		
-		if(RenderingEngine.mesh2DInFrustum(t2)){
-			RenderingEngine.add2DMesh(t2, fontTexture, color, new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight), new Vector2f(TextureSrcX, TextureSrcY));
-		}
-    }
- 
-    public int getWidth(String whatchars) {
-        int totalwidth = 0;
-        IntObject intObject = null;
-        int currentChar = 0;
-        for (int i = 0; i < whatchars.length(); i++) {
-            currentChar = whatchars.charAt(i);
-            if (currentChar < 256) {
-                intObject = charArray[currentChar];
-            } else {
-                intObject = (IntObject)customChars.get( new Character( (char) currentChar ) );
+    	if(RenderingEngine.mesh2DInFrustum(t2)){
+    		RenderingEngine.add2DMesh(t2, fontTexture, color, new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight), new Vector2f(TextureSrcX, TextureSrcY));
+    	}
+	}
+    
+	public int getWidth(String whatchars){
+		int totalwidth = 0;
+		IntObject intObject = null;
+		int currentChar = 0;
+		
+		for(int i = 0; i < whatchars.length(); i++){
+			currentChar = whatchars.charAt(i);
+			if(currentChar < 256){
+				intObject = charArray[currentChar];
+            }else{
+            	intObject = (IntObject)customChars.get(new Character((char) currentChar));
             }
-             
-            if( intObject != null )
-                totalwidth += intObject.width;
-        }
-        return totalwidth;
-    }
- 
-    public int getHeight(){
-        return fontHeight;
-    }
- 
- 
-    public int getHeight(String HeightString){
-        return fontHeight;
-    }
- 
-    public int getLineHeight(){
-        return fontHeight;
-    }
- 
-    public void drawString(float x, float y,
-            String whatchars, float scaleX, float scaleY){
-        drawString(x,y,whatchars, 0, whatchars.length()-1, scaleX, scaleY, new Vector3f(1, 1, 1), ALIGN_LEFT);
-    }
-    
-    public void drawString(float x, float y,
-            String whatchars, float scaleX, float scaleY, Vector3f color){
-        drawString(x,y,whatchars, 0, whatchars.length()-1, scaleX, scaleY, color, ALIGN_LEFT);
-    }
-    
-    public void drawString(float x, float y,
-            String whatchars, float scaleX, float scaleY, Vector3f color, int format){
-        drawString(x,y,whatchars, 0, whatchars.length()-1, scaleX, scaleY, color, format);
-    }
- 
- 
+			
+			if(intObject != null){
+				totalwidth += intObject.width;
+			}
+		}
+		return totalwidth;
+	}
+	
+	public int getHeight(){
+		return fontHeight;
+	}
+	
+	public int getHeight(String HeightString){
+		return fontHeight;
+	}
+	
+	public int getLineHeight(){
+		return fontHeight;
+	}
+	
+	public void drawString(float x, float y, String whatchars, float scaleX, float scaleY){
+		drawString(x,y,whatchars, 0, whatchars.length()-1, scaleX, scaleY, new Vector3f(1, 1, 1), ALIGN_LEFT);
+	}
+	
+	public void drawString(float x, float y, String whatchars, float scaleX, float scaleY, Vector3f color){
+		drawString(x,y,whatchars, 0, whatchars.length()-1, scaleX, scaleY, color, ALIGN_LEFT);
+	}
+	
+	public void drawString(float x, float y, String whatchars, float scaleX, float scaleY, Vector3f color, int format){
+		drawString(x,y,whatchars, 0, whatchars.length()-1, scaleX, scaleY, color, format);
+	}
+	
     public void drawString(float x, float y,
             String whatchars, int startIndex, int endIndex,
             float scaleX, float scaleY, Vector3f color,
