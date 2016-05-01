@@ -40,33 +40,33 @@ public class TrueTypeFont{
 	
 	private int correctL = 9, correctR = 8;
 	
-    public TrueTypeFont(Font font, boolean antiAlias, char[] additionalChars){
-        this.font = font;
-        this.fontSize = font.getSize()+3;
-        this.antiAlias = antiAlias;
-        
-        createSet(additionalChars);
-        
-        fontHeight -= 1;
-        if(fontHeight <= 0){
-        	fontHeight = 1;
-        }
-    }
-    
-    public TrueTypeFont(Font font, boolean antiAlias){
-        this(font, antiAlias, null);
-    }
-    
-    public void setCorrection(boolean on){
-        if(on){
-        	correctL = 2;
-        	correctR = 1;
-        }else{
-        	correctL = 0;
-        	correctR = 0;
-        }
-    }
-    
+	public TrueTypeFont(Font font, boolean antiAlias, char[] additionalChars){
+		this.font = font;
+		this.fontSize = font.getSize()+3;
+		this.antiAlias = antiAlias;
+		
+		createSet(additionalChars);
+		
+		fontHeight -= 1;
+		if(fontHeight <= 0){
+			fontHeight = 1;
+		}
+	}
+	
+	public TrueTypeFont(Font font, boolean antiAlias){
+		this(font, antiAlias, null);
+	}
+	
+	public void setCorrection(boolean on){
+		if(on){
+			correctL = 2;
+			correctR = 1;
+		}else{
+			correctL = 0;
+			correctR = 0;
+		}
+	}
+	
 	private BufferedImage getFontImage(char ch){
 		BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
