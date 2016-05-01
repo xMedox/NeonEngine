@@ -223,8 +223,6 @@ public class RenderingEngine{
 //			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 //			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 		}
-		
-		font = new Font("font.ttf", false);
 	}
 	
 	public static void changeRenderingMode(int RenderingMode){
@@ -535,7 +533,9 @@ public class RenderingEngine{
 	}
 	
 	public static void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color){
-		font.drawString(x, y, text, scaleX, scaleY, color);
+		if(font != null){
+			font.drawString(x, y, text, scaleX, scaleY, color);
+		}
 	}
 	
 	public static void addLight(BaseLight baseLight){
@@ -562,6 +562,10 @@ public class RenderingEngine{
 		return skybox;
 	}
 	
+	public static Font getMainFont(){
+		return font;
+	}
+	
 	public static Shader getForwardAmbient(){
 		return forwardAmbientShader;
 	}
@@ -572,6 +576,10 @@ public class RenderingEngine{
 	
 	public static void setMainSkybox(Skybox skybox){
 		RenderingEngine.skybox = skybox;
+	}
+	
+	public static void setMainFont(Font font){
+		RenderingEngine.font = font;
 	}
 	
 	public static Matrix4f getLightMatrix(){

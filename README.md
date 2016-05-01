@@ -7,6 +7,7 @@
 - Renamed shadowMapGenerator shaders to shadowMapping
 - Renamed filterGausBlur7x1 shader to filterGausBlur
 - Fixed bloom blurScale value
+- Fixed font rendering and made the mainFont settable
 
 **Physics:**
 - Fixed physics simulation slowing down at lower frame rates
@@ -24,7 +25,6 @@
 
 **Rendering:**
 - PointLight Shadows
-- Rewrite font rendering and loading
 
 **Physics:**
 - Masking

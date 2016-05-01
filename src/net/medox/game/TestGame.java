@@ -27,10 +27,12 @@ import net.medox.neonengine.physics.Sphere;
 import net.medox.neonengine.rendering.Attenuation;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.DirectionalLight;
+import net.medox.neonengine.rendering.Font;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
 import net.medox.neonengine.rendering.ParticleMaterial;
 import net.medox.neonengine.rendering.PointLight;
+import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Skybox;
 import net.medox.neonengine.rendering.SpotLight;
 import net.medox.neonengine.rendering.Texture;
@@ -39,6 +41,8 @@ import net.medox.neonengine.rendering.Window;
 public class TestGame extends Game{
 	@Override
 	public void init(){
+		RenderingEngine.setMainFont(new Font("font.ttf", false));
+		
 //		RenderingEngine.setSkybox(new Skybox("left.png", "back.png", "right.png", "front.png", "top.png", "bottom.png"));
 //		RenderingEngine.useSkybox(true);
 		

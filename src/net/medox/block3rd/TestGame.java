@@ -18,8 +18,10 @@ import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.DirectionalLight;
+import net.medox.neonengine.rendering.Font;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
+import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Skybox;
 import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
@@ -27,6 +29,8 @@ import net.medox.neonengine.rendering.Window;
 public class TestGame extends Game{
 	@Override
 	public void init(){
+		RenderingEngine.setMainFont(new Font("font.ttf", false));
+		
 //		String es = Util.encrypt("Hallo mein name ist günther");
 //		System.out.println(es);
 //		es = Util.decrypt(es);
