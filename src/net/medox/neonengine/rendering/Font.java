@@ -17,7 +17,7 @@ import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 
 public class Font{
-	public final static int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
+	public static final int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
 	
 	private IntObject[] charArray = new IntObject[256];
     
@@ -27,20 +27,17 @@ public class Font{
 	private boolean antiAlias;
 	
 	private int fontSize = 0;
-	
 	private int fontHeight = 0;
 	
+	private java.awt.Font font;
+	private FontMetrics fontMetrics;
 	private Texture fontTexture;
 	
 	private int textureWidth = 512;
-	
 	private int textureHeight = 512;
 	
-	private java.awt.Font font;
-	
-	private FontMetrics fontMetrics;
-	
-	private int correctL = 9, correctR = 8;
+	private int correctL = 9;
+	private int correctR = 8;
 	
 	public Font(String fileName, boolean antiAlias, char[] additionalChars){
 		final String[] splitArray = fileName.split("\\.");
