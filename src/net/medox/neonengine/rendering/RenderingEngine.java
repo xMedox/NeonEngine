@@ -233,7 +233,7 @@ public class RenderingEngine{
 //		String fontName = null;
 //		
 //		if (!TrueTypeFont.isSupported(fontName)) fontName = "serif";
-//		Font fontOld = new Font(fontName, /*Font.PLAIN | */Font.PLAIN, /*40*/18 /*32*/);
+//		Font fontOld = new Font(fontName, /*Font.PLAIN | */Font.PLAIN, /*40*/16 /*32*/);
 		
 //		trueTypeFont = new TrueTypeFont(font, true, c);
 				
@@ -242,7 +242,7 @@ public class RenderingEngine{
 		Font customFont = null;
 		
 		try{
-			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")).deriveFont(/*Font.ITALIC, *//*64f*/18f);
+			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")).deriveFont(/*Font.ITALIC, *//*64f*/16f);
 			final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			//register the font
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./res/" + "font.ttf")));
