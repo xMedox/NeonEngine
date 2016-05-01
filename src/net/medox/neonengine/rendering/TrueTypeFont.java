@@ -17,7 +17,7 @@ import net.medox.neonengine.math.Vector3f;
 public class TrueTypeFont{
 	public final static int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
 	
-    private IntObject[] charArray = new IntObject[256];
+	private IntObject[] charArray = new IntObject[256];
     
 	@SuppressWarnings("rawtypes")
 	private Map customChars = new HashMap();
@@ -61,7 +61,7 @@ public class TrueTypeFont{
         if(on){
             correctL = 2;
             correctR = 1;
-        } else {
+        }else{
             correctL = 0;
             correctR = 0;
         }
@@ -109,87 +109,72 @@ public class TrueTypeFont{
     }
  
     @SuppressWarnings("unchecked")
-	private void createSet( char[] customCharsArray ) {
-        // If there are custom chars then I expand the font texture twice       
-        if  (customCharsArray != null && customCharsArray.length > 0) {
+	private void createSet(char[] customCharsArray){
+    	if(customCharsArray != null && customCharsArray.length > 0){
             textureWidth *= 2;
-        }
-         
-        // In any case this should be done in other way. Texture with size 512x512
-        // can maintain only 256 characters with resolution of 32x32. The texture
-        // size should be calculated dynamicaly by looking at character sizes. 
-         
-        try {
-             
-            BufferedImage imgTemp = new BufferedImage(textureWidth, textureHeight, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) imgTemp.getGraphics();
- 
-            g.setColor(new Color(0,0,0,1));
-            g.fillRect(0,0,textureWidth,textureHeight);
-             
+    	}
+    	
+    	try{
+    		BufferedImage imgTemp = new BufferedImage(textureWidth, textureHeight, BufferedImage.TYPE_INT_ARGB);
+    		Graphics2D g = (Graphics2D)imgTemp.getGraphics();
+            
+    		g.setColor(new Color(0, 0, 0, 1));
+            g.fillRect(0, 0, textureWidth, textureHeight);
+            
             int rowHeight = 0;
             int positionX = 0;
             int positionY = 0;
-             
-            int customCharsLength = ( customCharsArray != null ) ? customCharsArray.length : 0; 
- 
-            for (int i = 0; i < 256 + customCharsLength; i++) {
-                 
-                // get 0-255 characters and then custom characters
-                char ch = ( i < 256 ) ? (char) i : customCharsArray[i-256];
-                 
-                BufferedImage fontImage = getFontImage(ch);
- 
-                IntObject newIntObject = new IntObject();
- 
-                newIntObject.width = fontImage.getWidth();
-                newIntObject.height = fontImage.getHeight();
- 
-                if (positionX + newIntObject.width >= textureWidth) {
-                    positionX = 0;
-                    positionY += rowHeight;
-                    rowHeight = 0;
-                }
- 
-                newIntObject.storedX = positionX;
-                newIntObject.storedY = positionY;
- 
-                if (newIntObject.height > fontHeight) {
+            
+            int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
+            
+            for(int i = 0; i < 256 + customCharsLength; i++){
+            	char ch = (i < 256) ? (char) i : customCharsArray[i-256];
+            	
+            	BufferedImage fontImage = getFontImage(ch);
+            	
+            	IntObject newIntObject = new IntObject();
+            	
+            	newIntObject.width = fontImage.getWidth();
+            	newIntObject.height = fontImage.getHeight();
+            	
+            	if(positionX + newIntObject.width >= textureWidth){
+            		positionX = 0;
+            		positionY += rowHeight;
+            		rowHeight = 0;
+            	}
+            	
+            	newIntObject.storedX = positionX;
+            	newIntObject.storedY = positionY;
+            	
+                if(newIntObject.height > fontHeight){
                     fontHeight = newIntObject.height;
                 }
- 
-                if (newIntObject.height > rowHeight) {
+                
+                if(newIntObject.height > rowHeight){
                     rowHeight = newIntObject.height;
                 }
- 
-                // Draw it here
+                
                 g.drawImage(fontImage, positionX, positionY, null);
- 
+                
                 positionX += newIntObject.width;
- 
-                if( i < 256 ) { // standard characters
+                
+                if(i < 256){
                     charArray[i] = newIntObject;
-                } else { // custom characters
-                    customChars.put( new Character( ch ), newIntObject );
+                }else{
+                    customChars.put(new Character(ch), newIntObject);
                 }
- 
+                
                 fontImage = null;
             }
             
             fontTexture = new Texture(imgTemp);
-             
- 
- 
-                    //.getTexture(font.toString(), imgTemp);
- 
         }catch(Exception e){
             System.err.println("Failed to create font.");
             e.printStackTrace();
         }
     }
-     
-    private void drawQuad(float drawX, float drawY, float drawX2, float drawY2,
-            float srcX, float srcY, float srcX2, float srcY2, Vector3f color) {
+    
+    private void drawQuad(float drawX, float drawY, float drawX2, float drawY2, float srcX, float srcY, float srcX2, float srcY2, Vector3f color){
         float DrawWidth = drawX2 - drawX;
         float DrawHeight = drawY2 - drawY;
         float TextureSrcX = srcX / textureWidth;
@@ -199,46 +184,14 @@ public class TrueTypeFont{
         float RenderWidth = (SrcWidth / textureWidth);
         float RenderHeight = (SrcHeight / textureHeight);
         
-//		shader.bind();
-		
-//		RenderingEngine.setVector2f("xMax", new Vector2f(-RenderWidth, TextureSrcX));
-//		RenderingEngine.setVector2f("yMax", new Vector2f(-RenderHeight, TextureSrcY));
-		
-//		System.out.println((drawX+DrawWidth/2) + "|" + (drawY+DrawHeight/2) + "|" + -DrawWidth + "|" + DrawHeight);
-		
-//		t.setPos(new Vector3f((int)(drawX-DrawWidth/2), (int)(drawY+DrawHeight/2), 0.5f));
-		//t.setPos(new Vector3f((int)(drawX+DrawWidth), (int)(drawY), 0.5f));
-//		t.setPos(new Vector3f((int)0, (int)0, 0.5f));
-		//t.setScale(new Vector3f((int)-DrawWidth, (int)DrawHeight, 1));
-		
 		Transform2D t2 = new Transform2D();
 		
 		t2.setPos(new Vector2f((drawX+DrawWidth), (drawY)));
 		t2.setScale(new Vector2f(-DrawWidth, DrawHeight));
 		
-//		RenderingEngine.add2DMesh(t2, fontTexture, new Vector2f(TextureSrcX, TextureSrcY), new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight));
 		if(RenderingEngine.mesh2DInFrustum(t2)){
 			RenderingEngine.add2DMesh(t2, fontTexture, color, new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight), new Vector2f(TextureSrcX, TextureSrcY));
 		}
-		
-//		m.setTexture("diffuse", fontTexture);
-//		
-//		shader.updateUniforms(t, m, camera);
-//		
-//		ArrayList<Vector2f> texCoords = new ArrayList<Vector2f>();
-//		
-//		texCoords.add(new Vector2f(TextureSrcX, TextureSrcY + RenderHeight));
-//		texCoords.add(new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight));
-//		texCoords.add(new Vector2f(TextureSrcX, TextureSrcY));
-//		texCoords.add(new Vector2f(TextureSrcX + RenderWidth, TextureSrcY));
-		
-//		System.out.println(TextureSrcX + "|" + TextureSrcY + "|" + RenderWidth + "|" + RenderHeight);
-		
-//		mesh.lel(texCoords);
-		
-//		createSet(null);
-		
-//		mesh.draw();
     }
  
     public int getWidth(String whatchars) {
