@@ -53,12 +53,4 @@ public class DirectionalLight extends BaseLight{
 		
 		return result;
 	}
-	
-	public float getShadowArea(){
-		return halfShadowArea*2;
-	}
-	
-	public void setShadowArea(float shadowArea){
-		halfShadowArea = shadowArea/2.0f;
-	}
 }

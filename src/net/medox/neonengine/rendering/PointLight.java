@@ -59,14 +59,4 @@ public class PointLight extends BaseLight{
 	public Attenuation getAttenuation(){
 		return attenuation;
 	}
-	
-	public void setAttenuation(Attenuation attenuation){
-		this.attenuation = attenuation;
-		
-		final float a = attenuation.getExponent();
-		final float b = attenuation.getLinear();
-		final float c = attenuation.getConstant() - COLOR_DEPTH * getIntensity() * getColor().max();
-		
-		range = (float)(-b + Math.sqrt(b * b - 4 * a * c))/(2 * a);
-	}
 }

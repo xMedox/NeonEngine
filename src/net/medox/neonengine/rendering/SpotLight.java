@@ -42,8 +42,4 @@ public class SpotLight extends PointLight{
 	public float getCutoff(){
 		return cutoff;
 	}
-	
-	public void setViewAngle(float viewAngle){
-		cutoff = (float)Math.cos(viewAngle/2);
-	}
 }
