@@ -35,7 +35,7 @@ public class Main{
 		Window.setStartDimensions(854, 480);
 		Window.setStartFullscreen(false);
 		Window.setStartResizable(true);
-		Window.setStartIcon("./res/icon16.png", "./res/icon32.png");
+		Window.setStartIcon("icon16.png", "icon32.png");
 //		Window.setStartCursor("cursor test red.png", 0, 0);
 //		Window.setStartSizeLimits(256, 256, 854, 480);
 		

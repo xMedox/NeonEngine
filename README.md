@@ -19,6 +19,7 @@
 - Fixed getMousePosition function in the Input class
 - Moved all physics component classes to the components package
 - Moved the demos to the new demo repository
+- The icon and cursor resources now have to be in the res folder
 
 ## Features needed for 1.0.0:
 
