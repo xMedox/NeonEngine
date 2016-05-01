@@ -1,10 +1,13 @@
 package net.medox.neonengine.rendering;
 
 import java.awt.Color;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.GraphicsEnvironment;
@@ -39,8 +42,29 @@ public class Font{
 	
 	private int correctL = 9, correctR = 8;
 	
-	public Font(java.awt.Font font, boolean antiAlias, char[] additionalChars){
-		this.font = font;
+	public Font(String fileName, boolean antiAlias, char[] additionalChars){
+		final String[] splitArray = fileName.split("\\.");
+		final String ext = splitArray[splitArray.length - 1];
+		
+		if(ext.equals("ttf")){
+			java.awt.Font customFont = null;
+			
+			try{
+				customFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)).deriveFont(16f);
+				final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				
+				ge.registerFont(java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)));
+			}catch(IOException | FontFormatException e){
+	            e.printStackTrace();
+	        }
+			
+			font = customFont;
+		}else{
+			System.err.println("Error: '" + ext + "' file format not supported for font data.");
+			new Exception().printStackTrace();
+			System.exit(1);
+		}
+		
 		this.fontSize = font.getSize()+3;
 		this.antiAlias = antiAlias;
 		
@@ -52,8 +76,8 @@ public class Font{
 		}
 	}
 	
-	public Font(java.awt.Font font, boolean antiAlias){
-		this(font, antiAlias, null);
+	public Font(String fileName, boolean antiAlias){
+		this(fileName, antiAlias, null);
 	}
 	
 	public void setCorrection(boolean on){
