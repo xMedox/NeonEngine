@@ -68,46 +68,46 @@ public class TrueTypeFont{
     }
     
 	private BufferedImage getFontImage(char ch){
-        BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
-        
-        if(antiAlias == true){
-        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-        
-        g.setFont(font);
-        
-        fontMetrics = g.getFontMetrics();
-        
-        int charwidth = fontMetrics.charWidth(ch) + 8;
-        if(charwidth <= 0){
-        	charwidth = 7;
-        }
-        
-        int charheight = fontMetrics.getHeight() + 3;
-        if(charheight <= 0){
-        	charheight = fontSize;
-        }
-        
-        BufferedImage fontImage;
-        fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
-        
-        Graphics2D gt = (Graphics2D)fontImage.getGraphics();
-        
-        if(antiAlias == true){
-        	gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-        
-        gt.setFont(font);
-        gt.setColor(Color.WHITE);
-        
-        int charx = 3;
-        int chary = 1;
-        gt.drawString(String.valueOf(ch), (charx), (chary) + fontMetrics.getAscent());
-        
-        return fontImage;
-    }
-    
+		BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
+		
+		if(antiAlias == true){
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+		
+		g.setFont(font);
+		
+		fontMetrics = g.getFontMetrics();
+		
+		int charwidth = fontMetrics.charWidth(ch) + 8;
+		if(charwidth <= 0){
+			charwidth = 7;
+		}
+		
+		int charheight = fontMetrics.getHeight() + 3;
+		if(charheight <= 0){
+			charheight = fontSize;
+		}
+		
+		BufferedImage fontImage;
+		fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D gt = (Graphics2D)fontImage.getGraphics();
+		
+		if(antiAlias == true){
+			gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+		
+		gt.setFont(font);
+		gt.setColor(Color.WHITE);
+		
+		int charx = 3;
+		int chary = 1;
+		gt.drawString(String.valueOf(ch), (charx), (chary) + fontMetrics.getAscent());
+		
+		return fontImage;
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void createSet(char[] customCharsArray){
 		if(customCharsArray != null && customCharsArray.length > 0){
