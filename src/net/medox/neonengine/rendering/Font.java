@@ -36,7 +36,7 @@ public class Font{
 	private int textureWidth = 512;
 	private int textureHeight = 512;
 	
-	private int correctL = 9;
+	private int correctL = 8;
 	private int correctR = 8;
 	
 	public Font(String fileName, boolean antiAlias, char[] additionalChars){
@@ -79,7 +79,7 @@ public class Font{
 	
 	public void setCorrection(boolean on){
 		if(on){
-			correctL = 2;
+			correctL = 1;
 			correctR = 1;
 		}else{
 			correctL = 0;
@@ -345,7 +345,7 @@ public class Font{
 					drawQuad((totalwidth + intObject.width) * scaleX + x, startY * scaleY + y, totalwidth * scaleX + x, (startY + intObject.height) * scaleY + y, intObject.storedX + intObject.width, intObject.storedY + intObject.height,intObject.storedX, intObject.storedY, color);
 					
 					if(d > 0){
-						totalwidth += (intObject.width-c) * d + 1; //TODO remove +1?
+						totalwidth += (intObject.width-c) * d;
 					}
 				}
 				i += d;
