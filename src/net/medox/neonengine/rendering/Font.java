@@ -8,8 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.awt.GraphicsEnvironment;
  
 import net.medox.neonengine.core.Transform2D;
@@ -18,16 +18,15 @@ import net.medox.neonengine.math.Vector3f;
 
 public class Font{
 	public static final int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
+	public static final Transform2D transform = new Transform2D();
 	
-	private IntObject[] charArray = new IntObject[256];
-    
+	private final IntObject[] charArray = new IntObject[256];
 	@SuppressWarnings("rawtypes")
-	private Map customChars = new HashMap();
+	private final Map customChars = new ConcurrentHashMap();
+	private final boolean antiAlias;
+	private final int fontSize;
 	
-	private boolean antiAlias;
-	
-	private int fontSize = 0;
-	private int fontHeight = 0;
+	private int fontHeight;
 	
 	private java.awt.Font font;
 	private FontMetrics fontMetrics;
@@ -88,10 +87,10 @@ public class Font{
 	}
 	
 	private BufferedImage getFontImage(char ch){
-		BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
+		final BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+		final Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
 		
-		if(antiAlias == true){
+		if(antiAlias){
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
 		
@@ -112,18 +111,18 @@ public class Font{
 		BufferedImage fontImage;
 		fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
 		
-		Graphics2D gt = (Graphics2D)fontImage.getGraphics();
+		final Graphics2D gt = (Graphics2D)fontImage.getGraphics();
 		
-		if(antiAlias == true){
+		if(antiAlias){
 			gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
 		
 		gt.setFont(font);
 		gt.setColor(Color.WHITE);
 		
-		int charx = 3;
-		int chary = 1;
-		gt.drawString(String.valueOf(ch), (charx), (chary) + fontMetrics.getAscent());
+		final int charx = 3;
+		final int chary = 1;
+		gt.drawString(String.valueOf(ch), charx, chary + fontMetrics.getAscent());
 		
 		return fontImage;
 	}
@@ -135,8 +134,8 @@ public class Font{
 		}
     	
 		try{
-			BufferedImage imgTemp = new BufferedImage(textureWidth, textureHeight, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g = (Graphics2D)imgTemp.getGraphics();
+			final BufferedImage imgTemp = new BufferedImage(textureWidth, textureHeight, BufferedImage.TYPE_INT_ARGB);
+			final Graphics2D g = (Graphics2D)imgTemp.getGraphics();
 			
 			g.setColor(new Color(0, 0, 0, 1));
 			g.fillRect(0, 0, textureWidth, textureHeight);
@@ -145,14 +144,14 @@ public class Font{
 			int positionX = 0;
 			int positionY = 0;
 			
-			int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
+			final int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
 			
 			for(int i = 0; i < 256 + customCharsLength; i++){
-				char ch = (i < 256) ? (char) i : customCharsArray[i-256];
+				final char ch = i < 256 ? (char)i : customCharsArray[i-256];
 				
 				BufferedImage fontImage = getFontImage(ch);
 				
-				IntObject newIntObject = new IntObject();
+				final IntObject newIntObject = new IntObject();
 				
 				newIntObject.width = fontImage.getWidth();
 				newIntObject.height = fontImage.getHeight();
@@ -195,22 +194,20 @@ public class Font{
 	}
 	
 	private void drawQuad(float drawX, float drawY, float drawX2, float drawY2, float srcX, float srcY, float srcX2, float srcY2, Vector3f color){
-		float DrawWidth = drawX2 - drawX;
-		float DrawHeight = drawY2 - drawY;
-		float TextureSrcX = srcX / textureWidth;
-		float TextureSrcY = srcY / textureHeight;
-		float SrcWidth = srcX2 - srcX;
-		float SrcHeight = srcY2 - srcY;
-		float RenderWidth = (SrcWidth / textureWidth);
-		float RenderHeight = (SrcHeight / textureHeight);
+		final float drawWidth = drawX2 - drawX;
+		final float drawHeight = drawY2 - drawY;
+		final float textureSrcX = srcX / textureWidth;
+		final float textureSrcY = srcY / textureHeight;
+		final float srcWidth = srcX2 - srcX;
+		final float srcHeight = srcY2 - srcY;
+		final float renderWidth = srcWidth / textureWidth;
+		final float renderHeight = srcHeight / textureHeight;
 		
-		Transform2D t2 = new Transform2D();
+		transform.setPos(new Vector2f(drawX + drawWidth, drawY));
+		transform.setScale(new Vector2f(-drawWidth, drawHeight));
 		
-		t2.setPos(new Vector2f(drawX + DrawWidth, drawY));
-		t2.setScale(new Vector2f(-DrawWidth, DrawHeight));
-		
-		if(RenderingEngine.mesh2DInFrustum(t2)){
-			RenderingEngine.add2DMesh(t2, fontTexture, color, new Vector2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight), new Vector2f(TextureSrcX, TextureSrcY));
+		if(RenderingEngine.mesh2DInFrustum(transform)){
+			RenderingEngine.add2DMesh(transform, fontTexture, color, new Vector2f(textureSrcX + renderWidth, textureSrcY + renderHeight), new Vector2f(textureSrcX, textureSrcY));
 		}
 	}
     
@@ -239,7 +236,7 @@ public class Font{
 		return fontHeight;
 	}
 	
-	public int getHeight(String HeightString){
+	public int getHeight(String heightString){
 		return fontHeight;
 	}
 	
@@ -264,7 +261,9 @@ public class Font{
 		int charCurrent;
 		
 		int totalwidth = 0;
-		int i = startIndex, d, c;
+		int i = startIndex;
+		int d;
+		int c;
 		float startY = 0;
 		
 		switch(format){
@@ -353,23 +352,23 @@ public class Font{
 		}
 	}
 	
-	public static boolean isSupported(String fontname){
-		java.awt.Font font[] = getFonts();
-		for(int i = font.length-1; i >= 0; i--){
-			if(font[i].getName().equalsIgnoreCase(fontname)){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static java.awt.Font[] getFonts(){
-		return GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
-	}
-	
-	public static byte[] intToByteArray(int value){
-		return new byte[]{(byte)(value >>> 24), (byte)(value >>> 16), (byte)(value >>> 8), (byte)value};
-	}
+//	public static boolean isSupported(String fontname){
+//		java.awt.Font font[] = getFonts();
+//		for(int i = font.length-1; i >= 0; i--){
+//			if(font[i].getName().equalsIgnoreCase(fontname)){
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//	
+//	public static java.awt.Font[] getFonts(){
+//		return GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+//	}
+//	
+//	public static byte[] intToByteArray(int value){
+//		return new byte[]{(byte)(value >>> 24), (byte)(value >>> 16), (byte)(value >>> 8), (byte)value};
+//	}
 	
 	private class IntObject{
 		public int width;
