@@ -333,4 +333,3 @@ public class BatchRendererGL extends BatchRenderer{
 		}
 	}
 }
-
