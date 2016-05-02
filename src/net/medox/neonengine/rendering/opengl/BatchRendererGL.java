@@ -322,14 +322,15 @@ public class BatchRendererGL extends BatchRenderer{
 		GL15.glDeleteBuffers(vertexArrayBuffers);
 		GL30.glDeleteVertexArrays(vertexArrayObject);
 	}
-}
-
-class TextureSlot{
-	public Texture texture;
-	public int id;
 	
-	public TextureSlot(Texture texture, int id){
-		this.texture = texture;
-		this.id = id;
+	class TextureSlot{
+		public Texture texture;
+		public int id;
+		
+		public TextureSlot(Texture texture, int id){
+			this.texture = texture;
+			this.id = id;
+		}
 	}
 }
+

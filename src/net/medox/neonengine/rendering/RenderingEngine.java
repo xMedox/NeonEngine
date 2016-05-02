@@ -420,7 +420,6 @@ public class RenderingEngine{
 			
 			skybox.draw(skyboxShader, mainCamera);
 			
-//			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 			GL11.glDepthMask(true);
 		}
 	}
