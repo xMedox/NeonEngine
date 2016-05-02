@@ -5,6 +5,9 @@
 **Rendering:**
 - Added the ability to set the font size
 
+**Other:**
+- Cameras now have a mode value
+
 ## Features needed for 1.0.0:
 
 **Rendering:**

@@ -28,6 +28,10 @@ public class Camera extends EntityComponent{
 		base.update();
 	}
 	
+	public int getMode(){
+		return base.getMode();
+	}
+	
 	public Matrix4f getViewProjection(){
 		final Vector3f cameraPos = getTransform().getTransformedPos().mul(-1);
 		
@@ -151,9 +155,11 @@ public class Camera extends EntityComponent{
 }
 
 class Base{
+	private int mode;
 	private Matrix4f projection;
 	
 	public Base(){
+		mode = -1;
 		projection = new Matrix4f().initIdentity();
 	}
 	
@@ -161,12 +167,20 @@ class Base{
 		
 	}
 	
-	public void setProjection(Matrix4f projection){
-		this.projection = projection;
+	public int getMode(){
+		return mode;
+	}
+	
+	public void setMode(int mode){
+		this.mode = mode;
 	}
 	
 	public Matrix4f getProjection(){
 		return projection;
+	}
+	
+	public void setProjection(Matrix4f projection){
+		this.projection = projection;
 	}
 	
 	
@@ -264,6 +278,7 @@ class Perspective extends Base{
 		this.zNear = zNear;
 		this.zFar = zFar;
 		
+		setMode(0);
 		setProjection(new Matrix4f().initPerspective(fov, aspectRatio, zNear, zFar));
 	}
 	
@@ -339,6 +354,7 @@ class Orthographic extends Base{
 		this.near = near;
 		this.far = far;
 		
+		setMode(1);
 		setProjection(new Matrix4f().initOrthographic(left, right, bottom, top, near, far));
 	}
 	
