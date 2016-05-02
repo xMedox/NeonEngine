@@ -41,7 +41,7 @@ import net.medox.neonengine.rendering.Window;
 public class TestGame extends Game{
 	@Override
 	public void init(){
-		RenderingEngine.setMainFont(new Font("font.ttf", false));
+		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
 		
 //		RenderingEngine.setSkybox(new Skybox("left.png", "back.png", "right.png", "front.png", "top.png", "bottom.png"));
 //		RenderingEngine.useSkybox(true);

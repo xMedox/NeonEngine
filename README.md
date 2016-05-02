@@ -2,6 +2,8 @@
 
 ## Changelog:
 
+**Rendering:**
+- Added the ability to set the font size
 
 ## Features needed for 1.0.0:
 

@@ -38,7 +38,11 @@ public class Font{
 	private int correctL = 8;
 	private int correctR = 8;
 	
-	public Font(String fileName, boolean antiAlias, char[] additionalChars){
+	public Font(String fileName, int size, boolean antiAlias){
+		this(fileName, size, antiAlias, null);
+	}
+	
+	public Font(String fileName, int size, boolean antiAlias, char[] additionalChars){
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
@@ -46,7 +50,7 @@ public class Font{
 			java.awt.Font customFont = null;
 			
 			try{
-				customFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)).deriveFont(16f);
+				customFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)).deriveFont((float)size);
 				final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 				
 				ge.registerFont(java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)));
@@ -70,10 +74,6 @@ public class Font{
 		if(fontHeight <= 0){
 			fontHeight = 1;
 		}
-	}
-	
-	public Font(String fileName, boolean antiAlias){
-		this(fileName, antiAlias, null);
 	}
 	
 	public void setCorrection(boolean on){
