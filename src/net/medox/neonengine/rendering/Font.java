@@ -244,19 +244,19 @@ public class Font{
 		return fontHeight;
 	}
 	
-	public void drawString(float x, float y, String whatchars, float scaleX, float scaleY){
-		drawString(x, y, whatchars, 0, whatchars.length()-1, scaleX, scaleY, new Vector3f(1, 1, 1), ALIGN_LEFT);
+	public void drawString(float x, float y, String text, float scaleX, float scaleY){
+		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, new Vector3f(1, 1, 1), ALIGN_LEFT);
 	}
 	
-	public void drawString(float x, float y, String whatchars, float scaleX, float scaleY, Vector3f color){
-		drawString(x, y, whatchars, 0, whatchars.length()-1, scaleX, scaleY, color, ALIGN_LEFT);
+	public void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color){
+		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, color, ALIGN_LEFT);
 	}
 	
-	public void drawString(float x, float y, String whatchars, float scaleX, float scaleY, Vector3f color, int format){
-		drawString(x, y, whatchars, 0, whatchars.length()-1, scaleX, scaleY, color, format);
+	public void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color, int format){
+		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, color, format);
 	}
 	
-	public void drawString(float x, float y, String whatchars, int startIndex, int endIndex, float scaleX, float scaleY, Vector3f color, int format){
+	public void drawString(float x, float y, String text, int startIndex, int endIndex, float scaleX, float scaleY, Vector3f color, int format){
 		IntObject intObject = null;
 		int charCurrent;
 		
@@ -272,7 +272,7 @@ public class Font{
 				c = correctR;
 				
 				while(i < endIndex){
-					if(whatchars.charAt(i) == '\n'){
+					if(text.charAt(i) == '\n'){
 						startY -= fontHeight;
 					}
 					i++;
@@ -281,7 +281,7 @@ public class Font{
 			}
 			case ALIGN_CENTER:{
 				for(int l = startIndex; l <= endIndex; l++){
-					charCurrent = whatchars.charAt(l);
+					charCurrent = text.charAt(l);
 					
 					if(charCurrent == '\n'){
 						break;
@@ -306,7 +306,7 @@ public class Font{
 		}
 		
 		while(i >= startIndex && i <= endIndex){
-			charCurrent = whatchars.charAt(i);
+			charCurrent = text.charAt(i);
 			if(charCurrent < 256){
 				intObject = charArray[charCurrent];
 			}else{
@@ -323,7 +323,7 @@ public class Font{
 					totalwidth = 0;
 					if(format == ALIGN_CENTER){
 						for(int l = i+1; l <= endIndex; l++){
-							charCurrent = whatchars.charAt(l);
+							charCurrent = text.charAt(l);
 							
 							if(charCurrent == '\n'){
 								break;

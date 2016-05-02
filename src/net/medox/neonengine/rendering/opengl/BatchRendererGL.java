@@ -24,19 +24,19 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 public class BatchRendererGL extends BatchRenderer{
-	private final static int RENDERER_MAX_SPRITES = 1000;
-	private final static int RENDERER_MAX_TEXTURES = 32;
+	private static final int RENDERER_MAX_SPRITES = 1000;
+	private static final int RENDERER_MAX_TEXTURES = 32;
 	
-	private final static int VERTEX_INDEX = 0;
-	private final static int UV_INDEX = 1;
-	private final static int TID_INDEX = 2;
-	private final static int COLOR_INDEX = 3;
-	private final static int INDEX_INDEX = 4;
+	private static final int VERTEX_INDEX = 0;
+	private static final int UV_INDEX = 1;
+	private static final int TID_INDEX = 2;
+	private static final int COLOR_INDEX = 3;
+	private static final int INDEX_INDEX = 4;
 	
-	private final static int NUM_BUFFERS = 5;
+	private static final int NUM_BUFFERS = 5;
 	
-	private final static Transform TRANSFORM = new Transform();
-	private final static Material MATERIAL = new Material();
+	private static final Transform TRANSFORM = new Transform();
+	private static final Material MATERIAL = new Material();
 	
 	private final List<Vector3f> vertices;
 	private final List<Vector2f> uvs;
