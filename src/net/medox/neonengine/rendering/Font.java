@@ -22,8 +22,7 @@ public class Font{
 	private static final Transform2D transform = new Transform2D();
 	
 	private final IntObject[] charArray = new IntObject[256];
-	@SuppressWarnings("rawtypes")
-	private final Map customChars = new ConcurrentHashMap();
+	private final Map<Character, IntObject> customChars = new ConcurrentHashMap<Character, IntObject>();
 	private final boolean antiAlias;
 	private final int fontSize;
 	
@@ -128,7 +127,6 @@ public class Font{
 		return fontImage;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void createSet(char[] customCharsArray){
 		if(customCharsArray != null && customCharsArray.length > 0){
 			textureWidth *= 2;
