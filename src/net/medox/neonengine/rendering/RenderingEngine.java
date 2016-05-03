@@ -431,7 +431,12 @@ public class RenderingEngine{
 								lightCamera.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(180.0f)));
 							}
 							
-							lightMatrix = BIAS_MATRIX.mul(lightCamera.getViewProjection());
+//							lightMatrix = BIAS_MATRIX.mul(lightCamera.getViewProjection());
+//							lightMatrix = BIAS_MATRIX.mul(new Matrix4f().initPerspective((float)Math.toRadians(360), 1, 0.1f, 1));
+							
+							final Vector3f cameraPos = lightCamera.getTransform().getTransformedPos().mul(-1);
+							
+							lightMatrix = BIAS_MATRIX.mul(new Matrix4f().initPerspective((float)Math.toRadians(360), 1, -10, 0).mul(new Quaternion().conjugate().toRotationMatrix().mul(new Matrix4f().initTranslation(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ()))));
 							
 							lightCamera.updateFrustum();
 							
