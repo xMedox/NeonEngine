@@ -30,6 +30,7 @@ public class TestGame extends Game{
 	@Override
 	public void init(){
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
+		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
 		
 //		String es = Util.encrypt("Hallo mein name ist günther");
 //		System.out.println(es);
@@ -132,10 +133,6 @@ public class TestGame extends Game{
 ////		team2.getTransform().setPos(new Vector2f(0, 0));
 //		team2.getTransform().setScale(new Vector2f(64, 64));
 //		addEntity2D(team2);
-		
-		Entity skybox = new Entity();
-		skybox.addComponent(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
-		addEntity(skybox);
 		
 		Entity changeMode = new Entity();
 		changeMode.addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());

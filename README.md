@@ -7,6 +7,7 @@
 
 **Other:**
 - Cameras now have a mode value
+- Skyboxes aren't components anymore
 
 ## Features needed for 1.0.0:
 

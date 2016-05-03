@@ -416,8 +416,6 @@ public class RenderingEngine{
 		if(skybox != null){
 			GL11.glDepthMask(false);
 			
-			skybox.getTransform().setPos(mainCamera.getTransform().getTransformedPos());
-			
 			skybox.draw(skyboxShader, mainCamera);
 			
 			GL11.glDepthMask(true);

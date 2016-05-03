@@ -1,10 +1,12 @@
 package net.medox.neonengine.rendering;
 
-import net.medox.neonengine.core.EntityComponent;
+import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
-public class Skybox extends EntityComponent{
+public class Skybox{
+	private static final Transform transform = new Transform();
+	
 	private static Mesh mesh;
 	private final Material material;
 	
@@ -73,14 +75,11 @@ public class Skybox extends EntityComponent{
 		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, RenderingEngine.UNSIGNED_BYTE, true));
 	}
 	
-	@Override
-	public void addToEngine(){
-		RenderingEngine.setMainSkybox(this);
-	}
-	
 	public void draw(Shader shader, Camera camera){
+		transform.setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos());
+		
 		shader.bind();
-		shader.updateUniforms(getTransform(), material, camera);
+		shader.updateUniforms(transform, material, camera);
 		mesh.draw();
 	}
 }

@@ -42,18 +42,7 @@ public class TestGame extends Game{
 	@Override
 	public void init(){
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-		
-//		RenderingEngine.setSkybox(new Skybox("left.png", "back.png", "right.png", "front.png", "top.png", "bottom.png"));
-//		RenderingEngine.useSkybox(true);
-		
-		Entity skyboxEntity = new Entity();
-		Skybox skybox = new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png");
-//		RotateComponent rotate = new RotateComponent();
-		
-		skyboxEntity.addComponent(skybox);
-//		skyboxEntity.addComponent(rotate);
-		
-		addEntity(skyboxEntity);
+		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
