@@ -225,8 +225,8 @@ public class RenderingEngine{
 		}
 	}
 	
-	public static void changeRenderingMode(int RenderingMode){
-		RENDERING_MODE = RenderingMode;
+	public static void changeRenderingMode(int renderingMode){
+		RENDERING_MODE = renderingMode;
 		
 		if(RENDERING_MODE == OPENGL){
 			TEXTURE_2D = GL11.GL_TEXTURE_2D;

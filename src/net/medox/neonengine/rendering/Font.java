@@ -236,14 +236,6 @@ public class Font{
 		return fontHeight;
 	}
 	
-	public int getHeight(String heightString){
-		return fontHeight;
-	}
-	
-	public int getLineHeight(){
-		return fontHeight;
-	}
-	
 	public void drawString(float x, float y, String text, float scaleX, float scaleY){
 		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, new Vector3f(1, 1, 1), ALIGN_LEFT);
 	}
