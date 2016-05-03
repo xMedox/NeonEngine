@@ -323,7 +323,7 @@ public class BatchRendererGL extends BatchRenderer{
 		GL30.glDeleteVertexArrays(vertexArrayObject);
 	}
 	
-	class TextureSlot{
+	private class TextureSlot{
 		public Texture texture;
 		public int id;
 		
