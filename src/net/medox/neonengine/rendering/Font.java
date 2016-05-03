@@ -18,6 +18,7 @@ import net.medox.neonengine.math.Vector3f;
 
 public class Font{
 	public static final int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
+	
 	private static final Transform2D transform = new Transform2D();
 	
 	private final IntObject[] charArray = new IntObject[256];

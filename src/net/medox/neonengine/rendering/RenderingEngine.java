@@ -247,10 +247,6 @@ public class RenderingEngine{
 //		}
 	}
 	
-	public static int getFPS(){
-		return NeonEngine.fps;
-	}
-	
 	public static double displayRenderTime(double dividend){
 		return renderProfileTimer.displayAndReset("Render Time: ", dividend);
 	}
@@ -265,6 +261,10 @@ public class RenderingEngine{
 	
 	public static void updateUniformStruct(Transform transform, Material material, Shader shader, String uniformName, String uniformType){
 		throw new IllegalArgumentException(uniformType + " is not a supported type in Rendering Engine");
+	}
+	
+	public static int getFPS(){
+		return NeonEngine.fps;
 	}
 	
 	public static void render(Entity object){
@@ -304,8 +304,6 @@ public class RenderingEngine{
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
 					shadowMapIndex = shadowInfo.getShadowMapSizeAsPowerOf2() - 1;
 				}
-				
-//				assert(shadowMapIndex >= 0 && shadowMapIndex < NUM_SHADOW_MAPS);
 				
 				setTexture("shadowMap", shadowMaps[shadowMapIndex]);
 				shadowMaps[shadowMapIndex].bindAsRenderTarget();
@@ -423,8 +421,6 @@ public class RenderingEngine{
 	}
 	
 	private static void applyFilter(Shader filter, Texture source, Texture dest){
-//		assert(source != dest);
-		
 		if(dest == null){
 			Window.bindAsRenderTarget();
 		}else{
