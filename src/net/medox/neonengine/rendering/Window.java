@@ -141,7 +141,9 @@ public class Window{
 			setCursor(startCursor, startCursorX, startCursorY);
 		}
 		
-		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
+		if(minWidth != GLFW.GLFW_DONT_CARE || minHeight != GLFW.GLFW_DONT_CARE || maxWidth != GLFW.GLFW_DONT_CARE || maxHeight != GLFW.GLFW_DONT_CARE){
+			GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
+		}
 		
 		GLFW.glfwMakeContextCurrent(window);
 		
