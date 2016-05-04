@@ -73,6 +73,10 @@ float SampleVarianceShadowMap(sampler2D shadowMap, vec2 coords, float compare, f
 float SampleVarianceShadowMapCube(samplerCube shadowMap, vec3 lightDirection, float compare, float varianceMin, float lightBleedReductionAmount){
 	vec2 moments = texture(shadowMap, normalize(lightDirection)).xy;
 	
+	//moments *= vec2(0.1f, 0.1f);
+	
+	//moments *= vec2(32, 1);
+	
 	float variance = max(moments.y - moments.x * moments.x, varianceMin);
 	
 	float d = compare - moments.x;
