@@ -143,7 +143,6 @@ public class RenderingEngine{
 		samplerMap.put("shadowMap", 4);
 		
 		lights = new ArrayList<BaseLight>();
-		lightMatrix = new Matrix4f().initScale(0, 0, 0);
 		
 		setVector3f("ambient", new Vector3f(0.15f, 0.15f, 0.15f));
 		
@@ -199,16 +198,16 @@ public class RenderingEngine{
 		final IndexedModel filterIndexed = new IndexedModel();
 		
 		filterIndexed.addVertex(new Vector3f(1f, 0f, 1f));
-		filterIndexed.addTexCoord(new Vector2f(1f, 1f - 0f));
+		filterIndexed.addTexCoord(new Vector2f(1f, 1f));
 		
 		filterIndexed.addVertex(new Vector3f(-1f, 0f, 1f));
-		filterIndexed.addTexCoord(new Vector2f(0f, 1f - 0f));
+		filterIndexed.addTexCoord(new Vector2f(0f, 1f));
 		
 		filterIndexed.addVertex(new Vector3f(1f, 0f, -1f));
-		filterIndexed.addTexCoord(new Vector2f(1f, 1f - 1f));
+		filterIndexed.addTexCoord(new Vector2f(1f, 0f));
 		
 		filterIndexed.addVertex(new Vector3f(-1f, 0f, -1f));
-		filterIndexed.addTexCoord(new Vector2f(0f, 1f - 1f));
+		filterIndexed.addTexCoord(new Vector2f(0f, 0f));
 		
 		filterIndexed.addFace(1, 0, 2);
 		filterIndexed.addFace(3, 1, 2);
