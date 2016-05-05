@@ -78,8 +78,8 @@ public class Font{
 	
 	public void setCorrection(boolean value){
 		if(value){
-			correctL = 1;
-			correctR = 1;
+			correctL = 8;
+			correctR = 8;
 		}else{
 			correctL = 0;
 			correctR = 0;
