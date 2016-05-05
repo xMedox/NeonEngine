@@ -210,13 +210,13 @@ public class Font{
 		}
 	}
     
-	public int getWidth(String whatchars){
-		int totalwidth = 0;
+	public int getWidth(String text){
+		int totalWidth = 0;
 		IntObject intObject = null;
 		int currentChar = 0;
 		
-		for(int i = 0; i < whatchars.length(); i++){
-			currentChar = whatchars.charAt(i);
+		for(int i = 0; i < text.length(); i++){
+			currentChar = text.charAt(i);
 			
 			if(currentChar < 256){
 				intObject = charArray[currentChar];
@@ -225,10 +225,10 @@ public class Font{
 			}
 			
 			if(intObject != null){
-				totalwidth += intObject.width;
+				totalWidth += intObject.width;
 			}
 		}
-		return totalwidth;
+		return totalWidth;
 	}
 	
 	public int getHeight(){
