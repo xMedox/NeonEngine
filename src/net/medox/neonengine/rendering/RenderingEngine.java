@@ -521,12 +521,12 @@ public class RenderingEngine{
 	}
 	
 	public static void drawString(float x, float y, String text, Vector3f color){
-		drawString(x, y, text, 1, 1, color);
+		drawString(x, y, text, color, 1, 1);
 	}
 	
-	public static void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color){
+	public static void drawString(float x, float y, String text, Vector3f color, float scaleX, float scaleY){
 		if(font != null){
-			font.drawString(x, y, text, scaleX, scaleY, color);
+			font.drawString(x, y, text, color, scaleX, scaleY);
 		}
 	}
 	

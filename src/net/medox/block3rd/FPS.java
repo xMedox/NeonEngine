@@ -17,15 +17,15 @@ public class FPS extends Entity2DComponent{
 	
 	@Override
 	public void render(){
-		RenderingEngine.drawString(7, 3, Integer.toString(RenderingEngine.getFPS()), 2, 2, color.sub(0.6f));
-		RenderingEngine.drawString(5, 5, Integer.toString(RenderingEngine.getFPS()), 2, 2, color);
+		RenderingEngine.drawString(7, 3, Integer.toString(RenderingEngine.getFPS()), color.sub(0.6f), 2, 2);
+		RenderingEngine.drawString(5, 5, Integer.toString(RenderingEngine.getFPS()), color, 2, 2);
 		
 		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			RenderingEngine.drawString(7, 3+18+11, "OpenGL", 2, 2, color.sub(0.6f));
-			RenderingEngine.drawString(5, 5+18+11, "OpenGL", 2, 2, color);
+			RenderingEngine.drawString(7, 3+18+11, "OpenGL", color.sub(0.6f), 2, 2);
+			RenderingEngine.drawString(5, 5+18+11, "OpenGL", color, 2, 2);
 		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			RenderingEngine.drawString(7, 3+18+11, "Vulkan", 2, 2, color.sub(0.6f));
-			RenderingEngine.drawString(5, 5+18+11, "Vulkan", 2, 2, color);
+			RenderingEngine.drawString(7, 3+18+11, "Vulkan", color.sub(0.6f), 2, 2);
+			RenderingEngine.drawString(5, 5+18+11, "Vulkan", color, 2, 2);
 		}
 	}
 }

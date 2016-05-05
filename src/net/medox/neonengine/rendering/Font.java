@@ -235,19 +235,15 @@ public class Font{
 		return fontHeight;
 	}
 	
-	public void drawString(float x, float y, String text, float scaleX, float scaleY){
-		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, new Vector3f(1, 1, 1), ALIGN_LEFT);
+	public void drawString(float x, float y, String text, Vector3f color, float scaleX, float scaleY){
+		drawString(x, y, text, 0, text.length()-1, color, scaleX, scaleY, ALIGN_LEFT);
 	}
 	
-	public void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color){
-		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, color, ALIGN_LEFT);
+	public void drawString(float x, float y, String text, Vector3f color, float scaleX, float scaleY, int format){
+		drawString(x, y, text, 0, text.length()-1, color, scaleX, scaleY, format);
 	}
 	
-	public void drawString(float x, float y, String text, float scaleX, float scaleY, Vector3f color, int format){
-		drawString(x, y, text, 0, text.length()-1, scaleX, scaleY, color, format);
-	}
-	
-	public void drawString(float x, float y, String text, int startIndex, int endIndex, float scaleX, float scaleY, Vector3f color, int format){
+	public void drawString(float x, float y, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
 		IntObject intObject = null;
 		int charCurrent;
 		
