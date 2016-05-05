@@ -218,4 +218,9 @@ public class Quaternion{
 	public boolean equals(Quaternion r){
 		return x == r.getX() && y == r.getY() && z == r.getZ() && w == r.getW();
 	}
+	
+	@Override
+	public String toString(){
+		return "(" + x + ", " + y + ", " + z + ", " + w + ")";
+	}
 }

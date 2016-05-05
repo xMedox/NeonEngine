@@ -86,10 +86,6 @@ public class Vector2f{
 		return new Vector2f(Math.abs(x), Math.abs(y));
 	}
 	
-	public String toString(){
-		return "(" + x + ", " + y + ")";
-	}
-	
 	public Vector2f set(float x, float y){
 		this.x = x;
 		this.y = y;
@@ -122,5 +118,10 @@ public class Vector2f{
 	
 	public boolean equals(Vector2f r){
 		return x == r.getX() && y == r.getY();
+	}
+	
+	@Override
+	public String toString(){
+		return "(" + x + ", " + y + ")";
 	}
 }

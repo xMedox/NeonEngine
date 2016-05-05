@@ -9,6 +9,7 @@
 **Other:**
 - Cameras now have a mode value
 - Skyboxes aren't components anymore
+- Added a toString method to all math classes
 
 ## Features needed for 1.0.0:
 

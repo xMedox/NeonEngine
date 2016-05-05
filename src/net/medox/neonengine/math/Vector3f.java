@@ -101,10 +101,6 @@ public class Vector3f{
 		return new Vector3f(Math.abs(x), Math.abs(y), Math.abs(z));
 	}
 	
-	public String toString(){
-		return "(" + x + ", " + y + ", " + z + ")";
-	}
-	
 	public Vector2f getXY(){
 		return new Vector2f(x, y);
 	}
@@ -171,5 +167,10 @@ public class Vector3f{
 	
 	public boolean equals(Vector3f r){
 		return x == r.getX() && y == r.getY() && z == r.getZ();
+	}
+	
+	@Override
+	public String toString(){
+		return "(" + x + ", " + y + ", " + z + ")";
 	}
 }
