@@ -35,9 +35,6 @@ public class Font{
 	private int textureWidth = 512;
 	private int textureHeight = 512;
 	
-	private int correctL = 8;
-	private int correctR = 8;
-	
 	public Font(String fileName, int size, boolean antiAlias){
 		this(fileName, size, antiAlias, null);
 	}
@@ -73,16 +70,6 @@ public class Font{
 		fontHeight -= 1;
 		if(fontHeight <= 0){
 			fontHeight = 1;
-		}
-	}
-	
-	public void setCorrection(boolean value){
-		if(value){
-			correctL = 8;
-			correctR = 8;
-		}else{
-			correctL = 0;
-			correctR = 0;
 		}
 	}
 	
@@ -256,7 +243,7 @@ public class Font{
 		switch(format){
 			case ALIGN_RIGHT:{
 				d = -1;
-				c = correctR;
+				c = 8;
 				
 				while(i < endIndex){
 					if(text.charAt(i) == '\n'){
@@ -280,14 +267,14 @@ public class Font{
 						intObject = (IntObject)customChars.get(new Character((char) charCurrent));
 					}
 					
-					totalwidth += intObject.width-correctL;
+					totalwidth += intObject.width-8;
 				}
 				totalwidth /= -2;
 			}
 			case ALIGN_LEFT:
 				default:{
 					d = 1;
-					c = correctL;
+					c = 8;
 					break;
 	            }
 		}
@@ -322,7 +309,7 @@ public class Font{
 								intObject = (IntObject)customChars.get(new Character((char)charCurrent));
 							}
 							
-							totalwidth += intObject.width-correctL;
+							totalwidth += intObject.width-8;
 						}
 						totalwidth /= -2;
 					}
