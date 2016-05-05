@@ -129,6 +129,9 @@ public class RenderingEngine{
 		floatMap = new HashMap<String, Float>();
 		
 		samplerMap = new HashMap<String, Integer>();
+		samplerMap.put("filterTexture", 0);
+		samplerMap.put("cubeMap", 0);
+		
 		samplerMap.put("diffuse", 0);
 		samplerMap.put("normalMap", 1);
 //		samplerMap.put("dispMap", 2);
@@ -138,9 +141,6 @@ public class RenderingEngine{
 		samplerMap.put("specMap", 2);
 		samplerMap.put("glowMap", 3);
 		samplerMap.put("shadowMap", 4);
-		
-		samplerMap.put("filterTexture", 0);
-		samplerMap.put("cubeMap", 0);
 		
 		lights = new ArrayList<BaseLight>();
 		lightMatrix = new Matrix4f().initScale(0, 0, 0);
