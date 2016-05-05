@@ -4,6 +4,7 @@
 
 **Rendering:**
 - Added the ability to set the font size
+- The drawString method now takes the color in before the scale
 
 **Other:**
 - Cameras now have a mode value
