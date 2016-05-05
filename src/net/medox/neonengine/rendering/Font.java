@@ -76,8 +76,8 @@ public class Font{
 		}
 	}
 	
-	public void setCorrection(boolean on){
-		if(on){
+	public void setCorrection(boolean value){
+		if(value){
 			correctL = 1;
 			correctR = 1;
 		}else{
