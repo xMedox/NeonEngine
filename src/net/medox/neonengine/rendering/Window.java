@@ -169,23 +169,23 @@ public class Window{
 		
 		mousePosCallback = new GLFWCursorPosCallback(){
 			@Override
-			public void invoke(long window, double xpos, double ypos){
-				Input.mousePos(xpos, ypos);
+			public void invoke(long window, double xPos, double yPos){
+				Input.mousePos(xPos, yPos);
 			}
 		}.set(window);
 		
 		scrollCallback = new GLFWScrollCallback(){
 			@Override
-			public void invoke(long window, double xoffset, double yoffset){
-				Input.scroll(/*xoffset, */yoffset);
+			public void invoke(long window, double xOffset, double yOffset){
+				Input.scroll(yOffset);
 			}
 		}.set(window);
 		
 		posCallback = new GLFWWindowPosCallback(){
 			@Override
-			public void invoke(long window, int xpos, int ypos){
-				Window.xPos = xpos;
-				Window.yPos = ypos;
+			public void invoke(long window, int xPos, int yPos){
+				Window.xPos = xPos;
+				Window.yPos = yPos;
 			}
 		}.set(window);
 		

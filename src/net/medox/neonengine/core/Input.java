@@ -176,13 +176,13 @@ public class Input{
 		}
 	}
 	
-	public static void scroll(double y){
-		mouseWheel = (int)y;
+	public static void scroll(double yOffset){
+		mouseWheel = (int)yOffset;
 	}
 	
-	public static void mousePos(double x, double y){
-		mousePositionX = (int)x;
-		mousePositionY = Window.getHeight()-1 - (int)y;
+	public static void mousePos(double xPos, double yPos){
+		mousePositionX = (int)xPos;
+		mousePositionY = Window.getHeight()-1 - (int)yPos;
 	}
 	
 	public static void mouseButton(int button, int action, int mods){
