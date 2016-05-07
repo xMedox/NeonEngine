@@ -138,8 +138,8 @@ public class Entity2D{
 		}
 	}
 	
-	public ArrayList<Entity2D> getAllAttached(){
-		final ArrayList<Entity2D> result = new ArrayList<Entity2D>();
+	public List<Entity2D> getAllAttached(){
+		final List<Entity2D> result = new ArrayList<Entity2D>();
 		
 		for(int i = 0; i < children.size(); i++){
 			result.addAll(children.get(i).getAllAttached());

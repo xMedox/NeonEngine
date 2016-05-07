@@ -169,8 +169,8 @@ public class Entity{
 		}
 	}
 	
-	public ArrayList<Entity> getAllAttached(){
-		final ArrayList<Entity> result = new ArrayList<Entity>();
+	public List<Entity> getAllAttached(){
+		final List<Entity> result = new ArrayList<Entity>();
 		
 		for(int i = 0; i < children.size(); i++){
 			result.addAll(children.get(i).getAllAttached());
