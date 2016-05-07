@@ -40,6 +40,7 @@ uniform sampler2D T30_texture;
 uniform sampler2D T31_texture;
 
 layout(location = 0) out vec4 outputFS;
+layout(location = 1) out vec4 outputBloom;
 
 void main(){
 	vec4 diffuseMap;
@@ -120,6 +121,7 @@ void main(){
 	
 	if(diffuseMap.a >= 0.5f){
 		outputFS = diffuseMap * clamp((vec4(R_ambient, 1) + color0.z), 0, 1);
+		outputBloom = vec4(0, 0, 0, 0);
 	}else{
 		discard;
 	}

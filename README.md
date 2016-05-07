@@ -5,6 +5,8 @@
 **Rendering:**
 - Added the ability to set the font size
 - The drawString method now takes the color in before the scale
+- Now only the red component of the glowMap gets used
+- Removed particle bloom
 
 **Other:**
 - Cameras now have a mode value
