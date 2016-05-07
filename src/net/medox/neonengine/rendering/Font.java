@@ -220,15 +220,15 @@ public class Font{
 		return fontHeight;
 	}
 	
-	public void drawString(float x, float y, String text, Vector3f color, float scaleX, float scaleY){
-		drawString(x, y, text, 0, text.length()-1, color, scaleX, scaleY, ALIGN_LEFT);
+	public void drawString(float posX, float posY, String text, Vector3f color, float scaleX, float scaleY){
+		drawString(posX, posY, text, 0, text.length()-1, color, scaleX, scaleY, ALIGN_LEFT);
 	}
 	
-	public void drawString(float x, float y, String text, Vector3f color, float scaleX, float scaleY, int format){
-		drawString(x, y, text, 0, text.length()-1, color, scaleX, scaleY, format);
+	public void drawString(float posX, float posY, String text, Vector3f color, float scaleX, float scaleY, int format){
+		drawString(posX, posY, text, 0, text.length()-1, color, scaleX, scaleY, format);
 	}
 	
-	public void drawString(float x, float y, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
+	public void drawString(float posX, float posY, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
 		IntObject intObject = null;
 		int charCurrent;
 		
@@ -313,7 +313,7 @@ public class Font{
 					}
 					
 				}else{
-					drawQuad((totalwidth + intObject.width) * scaleX + x, startY * scaleY + y, totalwidth * scaleX + x, (startY + intObject.height) * scaleY + y, intObject.storedX + intObject.width, intObject.storedY + intObject.height,intObject.storedX, intObject.storedY, color);
+					drawQuad((totalwidth + intObject.width) * scaleX + posX, startY * scaleY + posY, totalwidth * scaleX + posX, (startY + intObject.height) * scaleY + posY, intObject.storedX + intObject.width, intObject.storedY + intObject.height,intObject.storedX, intObject.storedY, color);
 					
 					if(d > 0){
 						totalwidth += (intObject.width-c) * d;
