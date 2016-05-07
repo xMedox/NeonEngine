@@ -179,19 +179,19 @@ public class Font{
 		}
 	}
 	
-	private void drawQuad(float drawX, float drawY, float drawX2, float drawY2, float srcX, float srcY, float srcX2, float srcY2, Vector3f color){
-		final float drawWidth = drawX2 - drawX;
-		final float drawHeight = drawY2 - drawY;
-		final float textureSrcX = srcX / textureWidth;
-		final float textureSrcY = srcY / textureHeight;
-		final float renderWidth = (srcX2 - srcX) / textureWidth;
-		final float renderHeight = (srcY2 - srcY) / textureHeight;
+	private void drawQuad(float posX, float posY, float posX2, float posY2, float coordX, float coordY, float coordX2, float coordY2, Vector3f color){
+		final float drawWidth = posX2 - posX;
+		final float drawHeight = posY2 - posY;
+		final float textureCoordX = coordX / textureWidth;
+		final float textureCoordY = coordY / textureHeight;
+		final float renderWidth = (coordX2 - coordX) / textureWidth;
+		final float renderHeight = (coordY2 - coordY) / textureHeight;
 		
-		transform.setPos(new Vector2f(drawX + drawWidth, drawY));
+		transform.setPos(new Vector2f(posX + drawWidth, posY));
 		transform.setScale(new Vector2f(-drawWidth, drawHeight));
 		
 		if(RenderingEngine.mesh2DInFrustum(transform)){
-			RenderingEngine.add2DMesh(transform, fontTexture, color, new Vector2f(textureSrcX + renderWidth, textureSrcY + renderHeight), new Vector2f(textureSrcX, textureSrcY));
+			RenderingEngine.add2DMesh(transform, fontTexture, color, new Vector2f(textureCoordX + renderWidth, textureCoordY + renderHeight), new Vector2f(textureCoordX, textureCoordY));
 		}
 	}
     
