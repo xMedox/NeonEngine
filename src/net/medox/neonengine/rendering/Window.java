@@ -314,7 +314,7 @@ public class Window{
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		final int width = getWidth();
 		final int height = getHeight();
-		final ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * /*bpp*/4);
+		final ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * 4);
 		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	    
 		new ScreenshotSaver("screenshots/", buffer, width, height).start();

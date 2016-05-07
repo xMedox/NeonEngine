@@ -17,7 +17,7 @@ public class Frustum{
 			 final float zFar = camera.getZFar();
 			 final float ratio = camera.getAspectRatio();
 			 
-			 final float tang = (float)Math.tan(camera.getFov()/* * (float)Math.PI/180.0*/ * 0.5f);
+			 final float tang = (float)Math.tan(camera.getFov() * 0.5f);
 			 
 			 final float nearHeight = zNear * tang;
 			 final float farHeight = zFar * tang;
@@ -176,38 +176,37 @@ public class Frustum{
 		}
 		return true;
 	}
-}
-
-class Plane{
-	private final Vector3f normal;
-	private final float d;
 	
-	public Plane(Vector3f v1, Vector3f v2, Vector3f v3){
-//		Vector3f aux1 = v1.sub(v2);
-//		Vector3f aux2 = v2.sub(v3);
-//		
-//		normal = aux2.cross(aux1);
-//		
-//		normal = normal.normalized();
-//		d = -(normal.dot(v2));
+	private class Plane{
+		private final Vector3f normal;
+		private final float d;
 		
-//		Vector3f aux1 = v1.sub(v3);
-//		Vector3f aux2 = v2.sub(v1);
+		public Plane(Vector3f v1, Vector3f v2, Vector3f v3){
+//			Vector3f aux1 = v1.sub(v2);
+//			Vector3f aux2 = v2.sub(v3);
+//			
+//			normal = aux2.cross(aux1);
+//			
+//			normal = normal.normalized();
+//			d = -(normal.dot(v2));
+			
+//			Vector3f aux1 = v1.sub(v3);
+//			Vector3f aux2 = v2.sub(v1);
+			
+			normal = /*aux2*/v2.sub(v1).cross(/*aux1*/v1.sub(v3)).normalized();
+			
+//			normal = normal.normalized();
+			d = -(normal.dot(v2));
+		}
 		
-		normal = /*aux2*/v2.sub(v1).cross(/*aux1*/v1.sub(v3)).normalized();
+//		public Plane(Vector3f normal, Vector3f point){
+//			this.normal = normal;
+//			this.normal = this.normal.normalized();
+//			d = -(this.normal.dot(point));
+//		}
 		
-//		normal = normal.normalized();
-		d = -(normal.dot(v2));
+		public float distance(Vector3f p){
+			return d + normal.dot(p);
+		}
 	}
-	
-//	public Plane(Vector3f normal, Vector3f point){
-//		this.normal = normal;
-//		this.normal = this.normal.normalized();
-//		d = -(this.normal.dot(point));
-//	}
-	
-	public float distance(Vector3f p){
-		return d + normal.dot(p);
-	}
 }
-

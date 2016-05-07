@@ -325,10 +325,10 @@ public class Font{
 	}
 	
 	private class CharInfo{
-		public int width;
-		public int height;
-		
 		public int positionX;
 		public int positionY;
+		
+		public int width;
+		public int height;
 	}
 }
