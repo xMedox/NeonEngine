@@ -184,10 +184,8 @@ public class Font{
 		final float drawHeight = drawY2 - drawY;
 		final float textureSrcX = srcX / textureWidth;
 		final float textureSrcY = srcY / textureHeight;
-		final float srcWidth = srcX2 - srcX;
-		final float srcHeight = srcY2 - srcY;
-		final float renderWidth = srcWidth / textureWidth;
-		final float renderHeight = srcHeight / textureHeight;
+		final float renderWidth = (srcX2 - srcX) / textureWidth;
+		final float renderHeight = (srcY2 - srcY) / textureHeight;
 		
 		transform.setPos(new Vector2f(drawX + drawWidth, drawY));
 		transform.setScale(new Vector2f(-drawWidth, drawHeight));
