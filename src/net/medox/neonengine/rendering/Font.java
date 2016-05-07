@@ -21,8 +21,8 @@ public class Font{
 	
 	private static final Transform2D transform = new Transform2D();
 	
-	private final IntObject[] charArray = new IntObject[256];
-	private final Map<Character, IntObject> customChars = new ConcurrentHashMap<Character, IntObject>();
+	private final CharInfo[] charArray = new CharInfo[256];
+	private final Map<Character, CharInfo> customChars = new ConcurrentHashMap<Character, CharInfo>();
 	private final boolean antiAlias;
 	private final int fontSize;
 	
@@ -137,36 +137,36 @@ public class Font{
 				
 				BufferedImage fontImage = getFontImage(ch);
 				
-				final IntObject newIntObject = new IntObject();
+				final CharInfo charInfo = new CharInfo();
 				
-				newIntObject.width = fontImage.getWidth();
-				newIntObject.height = fontImage.getHeight();
+				charInfo.width = fontImage.getWidth();
+				charInfo.height = fontImage.getHeight();
 				
-				if(positionX + newIntObject.width >= textureWidth){
+				if(positionX + charInfo.width >= textureWidth){
 					positionX = 0;
 					positionY += rowHeight;
 					rowHeight = 0;
 				}
 				
-				newIntObject.storedX = positionX;
-				newIntObject.storedY = positionY;
+				charInfo.positionX = positionX;
+				charInfo.positionY = positionY;
 				
-				if(newIntObject.height > fontHeight){
-					fontHeight = newIntObject.height;
+				if(charInfo.height > fontHeight){
+					fontHeight = charInfo.height;
 				}
 				
-				if(newIntObject.height > rowHeight){
-					rowHeight = newIntObject.height;
+				if(charInfo.height > rowHeight){
+					rowHeight = charInfo.height;
 				}
 				
 				g.drawImage(fontImage, positionX, positionY, null);
 				
-				positionX += newIntObject.width;
+				positionX += charInfo.width;
 				
 				if(i < 256){
-					charArray[i] = newIntObject;
+					charArray[i] = charInfo;
 				}else{
-					customChars.put(new Character(ch), newIntObject);
+					customChars.put(new Character(ch), charInfo);
 				}
 				
 				fontImage = null;
@@ -197,20 +197,20 @@ public class Font{
     
 	public int getWidth(String text){
 		int totalWidth = 0;
-		IntObject intObject = null;
+		CharInfo charInfo = null;
 		int currentChar = 0;
 		
 		for(int i = 0; i < text.length(); i++){
 			currentChar = text.charAt(i);
 			
 			if(currentChar < 256){
-				intObject = charArray[currentChar];
+				charInfo = charArray[currentChar];
 			}else{
-				intObject = (IntObject)customChars.get(new Character((char)currentChar));
+				charInfo = (CharInfo)customChars.get(new Character((char)currentChar));
 			}
 			
-			if(intObject != null){
-				totalWidth += intObject.width;
+			if(charInfo != null){
+				totalWidth += charInfo.width;
 			}
 		}
 		return totalWidth;
@@ -229,7 +229,7 @@ public class Font{
 	}
 	
 	public void drawString(float posX, float posY, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
-		IntObject intObject = null;
+		CharInfo charInfo = null;
 		int charCurrent;
 		
 		int totalwidth = 0;
@@ -260,12 +260,12 @@ public class Font{
 					}
 					
 					if(charCurrent < 256){
-						intObject = charArray[charCurrent];
+						charInfo = charArray[charCurrent];
 					}else{
-						intObject = (IntObject)customChars.get(new Character((char) charCurrent));
+						charInfo = (CharInfo)customChars.get(new Character((char) charCurrent));
 					}
 					
-					totalwidth += intObject.width-8;
+					totalwidth += charInfo.width-8;
 				}
 				totalwidth /= -2;
 			}
@@ -280,14 +280,14 @@ public class Font{
 		while(i >= startIndex && i <= endIndex){
 			charCurrent = text.charAt(i);
 			if(charCurrent < 256){
-				intObject = charArray[charCurrent];
+				charInfo = charArray[charCurrent];
 			}else{
-				intObject = (IntObject)customChars.get(new Character((char)charCurrent));
+				charInfo = (CharInfo)customChars.get(new Character((char)charCurrent));
 			} 
 			
-			if(intObject != null){
+			if(charInfo != null){
 				if(d < 0){
-					totalwidth += (intObject.width-c) * d;
+					totalwidth += (charInfo.width-c) * d;
 				}
 				
 				if(charCurrent == '\n'){
@@ -302,21 +302,21 @@ public class Font{
 							}
 							
 							if(charCurrent < 256){
-								intObject = charArray[charCurrent];
+								charInfo = charArray[charCurrent];
 							}else{
-								intObject = (IntObject)customChars.get(new Character((char)charCurrent));
+								charInfo = (CharInfo)customChars.get(new Character((char)charCurrent));
 							}
 							
-							totalwidth += intObject.width-8;
+							totalwidth += charInfo.width-8;
 						}
 						totalwidth /= -2;
 					}
 					
 				}else{
-					drawQuad((totalwidth + intObject.width) * scaleX + posX, startY * scaleY + posY, totalwidth * scaleX + posX, (startY + intObject.height) * scaleY + posY, intObject.storedX + intObject.width, intObject.storedY + intObject.height,intObject.storedX, intObject.storedY, color);
+					drawQuad((totalwidth + charInfo.width) * scaleX + posX, startY * scaleY + posY, totalwidth * scaleX + posX, (startY + charInfo.height) * scaleY + posY, charInfo.positionX + charInfo.width, charInfo.positionY + charInfo.height, charInfo.positionX, charInfo.positionY, color);
 					
 					if(d > 0){
-						totalwidth += (intObject.width-c) * d;
+						totalwidth += (charInfo.width-c) * d;
 					}
 				}
 				i += d;
@@ -324,11 +324,11 @@ public class Font{
 		}
 	}
 	
-	private class IntObject{
+	private class CharInfo{
 		public int width;
 		public int height;
 		
-		public int storedX;
-		public int storedY;
+		public int positionX;
+		public int positionY;
 	}
 }
