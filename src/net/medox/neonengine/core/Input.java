@@ -161,7 +161,7 @@ public class Input{
 	private static int mousePositionY;
 	private static int mouseWheel;
 	
-	private static String charList = "";
+	private static String charList;
 	
 	public static void update(){
 		mouseWheel = 0;

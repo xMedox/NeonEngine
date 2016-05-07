@@ -18,7 +18,12 @@ void main(){
 		vec4 outvar = diffuseMap * clamp((vec4(R_ambient, 1) + vec4(glow.r, glow.r, glow.r, 1)), 0, 1);
 		
 		outputFS = outvar;
-		outputBloom = outvar;
+		
+		if(dot(glow.r, 0.8*2) > 0.0){
+			outputBloom = outvar;
+		}else{
+			outputBloom = vec4(0, 0, 0, 0);
+		}
 	}else{
 		discard;
 	}
