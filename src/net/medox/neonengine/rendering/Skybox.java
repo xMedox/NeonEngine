@@ -16,8 +16,8 @@ public class Skybox{
 	
 	public Skybox(String right, String left, String top, String bottom, String front, String back, boolean nearest){
 		if(mesh == null){
-			final float vertexMin = -50.0f/2;
-			final float vertexMax = 50.0f/2;
+			final float vertexMin = -10.0f/2;
+			final float vertexMax = 10.0f/2;
 			
 			final Vector3f[] vertices = new Vector3f[]{new Vector3f(vertexMin, vertexMax, vertexMin),
 													   new Vector3f(vertexMin, vertexMax, vertexMax),
