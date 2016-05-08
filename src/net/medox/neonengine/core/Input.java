@@ -6,14 +6,8 @@ import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.rendering.Window;
 
 public class Input{
-	public static final int NUM_KEYCODES 		= 349;
-	public static final int NUM_MOUSEBUTTONS 	= 8;
-	
-	private static final boolean[] keys = new boolean[NUM_KEYCODES];
-	private static final boolean[] mouse = new boolean[NUM_MOUSEBUTTONS];
-	
-	private static final boolean[] lastKeys = new boolean[NUM_KEYCODES];
-	private static final boolean[] lastMouse = new boolean[NUM_MOUSEBUTTONS];
+	public static final int NUM_KEYCODES 		= GLFW.GLFW_KEY_LAST+1;//349
+	public static final int NUM_MOUSEBUTTONS 	= GLFW.GLFW_MOUSE_BUTTON_LAST+1;//8
 	
 	public static final int MOUSE				= 0;
 	public static final int KEYBOARD 			= 1;
@@ -33,7 +27,6 @@ public class Input{
 	public static final int WHEEL_UP            = 1;
 	public static final int WHEEL_DOWN          = -1;
 	
-	public static final int KEY_UNKNOWN 		= GLFW.GLFW_KEY_UNKNOWN;
 	public static final int KEY_SPACE 			= GLFW.GLFW_KEY_SPACE;
 	public static final int KEY_APOSTROPHE 		= GLFW.GLFW_KEY_APOSTROPHE;
 	public static final int KEY_COMMA 			= GLFW.GLFW_KEY_COMMA;
@@ -154,6 +147,12 @@ public class Input{
 	public static final int KEY_RIGHT_ALT 		= GLFW.GLFW_KEY_RIGHT_ALT;
 	public static final int KEY_RIGHT_SUPER 	= GLFW.GLFW_KEY_RIGHT_SUPER;
 	public static final int KEY_MENU 			= GLFW.GLFW_KEY_MENU;
+	
+	private static final boolean[] keys = new boolean[NUM_KEYCODES];
+	private static final boolean[] mouse = new boolean[NUM_MOUSEBUTTONS];
+	
+	private static final boolean[] lastKeys = new boolean[NUM_KEYCODES];
+	private static final boolean[] lastMouse = new boolean[NUM_MOUSEBUTTONS];
 	
 //	public static boolean textInputMode;
 	
