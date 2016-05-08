@@ -19,7 +19,7 @@ void main(){
 		
 		outputFS = outvar;
 		
-		if(dot(glow.r, 0.8*2) > 0.0){
+		if(dot(glow.r, 0.8*2) > 1.0){
 			outputBloom = outvar;
 		}else{
 			outputBloom = vec4(0, 0, 0, 0);
