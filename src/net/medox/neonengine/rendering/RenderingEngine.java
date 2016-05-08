@@ -38,13 +38,13 @@ public class RenderingEngine{
 	
 	public static int RENDERING_MODE = 0;
 	
-	public static int TEXTURE_2D = GL11.GL_TEXTURE_2D;
-	public static int LINEAR = GL11.GL_LINEAR;
-	public static int NEAREST = GL11.GL_NEAREST;
-	public static int LINEAR_MIPMAP_LINEAR = GL11.GL_LINEAR_MIPMAP_LINEAR;
-	public static int RGBA = GL11.GL_RGBA;
-	public static int NONE = GL11.GL_NONE;
-	public static int UNSIGNED_BYTE = GL11.GL_UNSIGNED_BYTE;
+	public static int TEXTURE_2D			= GL11.GL_TEXTURE_2D;
+	public static int LINEAR				= GL11.GL_LINEAR;
+	public static int NEAREST				= GL11.GL_NEAREST;
+	public static int LINEAR_MIPMAP_LINEAR	= GL11.GL_LINEAR_MIPMAP_LINEAR;
+	public static int RGBA					= GL11.GL_RGBA;
+	public static int NONE					= GL11.GL_NONE;
+	public static int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
 	
 	private static BatchRenderer batchRenderer;
 	
@@ -228,21 +228,21 @@ public class RenderingEngine{
 		RENDERING_MODE = renderingMode;
 		
 		if(RENDERING_MODE == OPENGL){
-			TEXTURE_2D = GL11.GL_TEXTURE_2D;
-			LINEAR = GL11.GL_LINEAR;
-			NEAREST = GL11.GL_NEAREST;
-			LINEAR_MIPMAP_LINEAR = GL11.GL_LINEAR_MIPMAP_LINEAR;
-			RGBA = GL11.GL_RGBA;
-			NONE = GL11.GL_NONE;
-			UNSIGNED_BYTE = GL11.GL_UNSIGNED_BYTE;
+			TEXTURE_2D				= GL11.GL_TEXTURE_2D;
+			LINEAR					= GL11.GL_LINEAR;
+			NEAREST					= GL11.GL_NEAREST;
+			LINEAR_MIPMAP_LINEAR	= GL11.GL_LINEAR_MIPMAP_LINEAR;
+			RGBA					= GL11.GL_RGBA;
+			NONE					= GL11.GL_NONE;
+			UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
 		}/*else if(RENDERING_MODE == VULKAN){*/
-//			TEXTURE_2D = VK10.VK_IMAGE_TYPE_2D;
-//			LINEAR = VK10.VK_FILTER_LINEAR;
-//			NEAREST = VK10.VK_FILTER_NEAREST;
-//			LINEAR_MIPMAP_LINEAR = VK10.VK_;
-//			RGBA = VK10.VK_
-//			NONE = VK10.VK_
-//			UNSIGNED_BYTE = VK10.VK_
+//			TEXTURE_2D				= VK10.VK_IMAGE_TYPE_2D;
+//			LINEAR					= VK10.VK_FILTER_LINEAR;
+//			NEAREST					= VK10.VK_FILTER_NEAREST;
+//			LINEAR_MIPMAP_LINEAR	= VK10.VK_;
+//			RGBA					= VK10.VK_;
+//			NONE					= VK10.VK_;
+//			UNSIGNED_BYTE			= VK10.VK_;
 //		}
 	}
 	
