@@ -34,7 +34,14 @@ public class Mesh{
 	public Mesh(String meshName, IndexedModel model/*, boolean createShape*/){
 		this.fileName = meshName;
 		
-		if(!fileName.equals("")){
+		if(fileName.equals("")){
+			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
+				resource = new MeshDataGL(model/*, createShape*/);
+			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
+				resource = new MeshData(model/*, createShape*/);
+			}
+//			loadedModels.put(fileName, resource);
+		}else{
 			if(loadedModels.get(fileName) == null){
 				if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
 					resource = new MeshDataGL(model/*, createShape*/);
@@ -46,13 +53,6 @@ public class Mesh{
 				System.err.println("Error adding mesh " + meshName + ": Mesh already exists by the same name!");
 				System.exit(1);
 			}
-		}else{
-			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new MeshDataGL(model/*, createShape*/);
-			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new MeshData(model/*, createShape*/);
-			}
-			loadedModels.put(fileName, resource);
 		}
 	}
 	
