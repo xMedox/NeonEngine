@@ -520,13 +520,13 @@ public class RenderingEngine{
 		batchRenderer.add2DMesh(shader2D, camera2D, trans, id, color);
 	}
 	
-	public static void drawString(float posX, float posY, String text, Vector3f color){
-		drawString(posX, posY, text, color, 1, 1);
+	public static void drawString(float xPos, float yPos, String text, Vector3f color){
+		drawString(xPos, yPos, text, color, 1, 1);
 	}
 	
-	public static void drawString(float posX, float posY, String text, Vector3f color, float scaleX, float scaleY){
+	public static void drawString(float xPos, float yPos, String text, Vector3f color, float scaleX, float scaleY){
 		if(font != null){
-			font.drawString(posX, posY, text, color, scaleX, scaleY);
+			font.drawString(xPos, yPos, text, color, scaleX, scaleY);
 		}
 	}
 	

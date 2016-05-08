@@ -127,8 +127,8 @@ public class Font{
 			g.fillRect(0, 0, textureWidth, textureHeight);
 			
 			int rowHeight = 0;
-			int positionX = 0;
-			int positionY = 0;
+			int xPosition = 0;
+			int yPosition = 0;
 			
 			final int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
 			
@@ -142,14 +142,14 @@ public class Font{
 				charInfo.width = fontImage.getWidth();
 				charInfo.height = fontImage.getHeight();
 				
-				if(positionX + charInfo.width >= textureWidth){
-					positionX = 0;
-					positionY += rowHeight;
+				if(xPosition + charInfo.width >= textureWidth){
+					xPosition = 0;
+					yPosition += rowHeight;
 					rowHeight = 0;
 				}
 				
-				charInfo.positionX = positionX;
-				charInfo.positionY = positionY;
+				charInfo.xPosition = xPosition;
+				charInfo.yPosition = yPosition;
 				
 				if(charInfo.height > fontHeight){
 					fontHeight = charInfo.height;
@@ -159,9 +159,9 @@ public class Font{
 					rowHeight = charInfo.height;
 				}
 				
-				g.drawImage(fontImage, positionX, positionY, null);
+				g.drawImage(fontImage, xPosition, yPosition, null);
 				
-				positionX += charInfo.width;
+				xPosition += charInfo.width;
 				
 				if(i < 256){
 					charArray[i] = charInfo;
@@ -179,19 +179,19 @@ public class Font{
 		}
 	}
 	
-	private void drawQuad(float posX, float posY, float posX2, float posY2, float coordX, float coordY, float coordX2, float coordY2, Vector3f color){
-		final float drawWidth = posX2 - posX;
-		final float drawHeight = posY2 - posY;
-		final float textureCoordX = coordX / textureWidth;
-		final float textureCoordY = coordY / textureHeight;
-		final float renderWidth = (coordX2 - coordX) / textureWidth;
-		final float renderHeight = (coordY2 - coordY) / textureHeight;
+	private void drawQuad(float xPos, float yPos, float xPos2, float yPos2, float xCoord, float yCoord, float xCoord2, float yCoord2, Vector3f color){
+		final float drawWidth = xPos2 - xPos;
+		final float drawHeight = yPos2 - yPos;
+		final float textureXCoord = xCoord / textureWidth;
+		final float textureYCoord = yCoord / textureHeight;
+		final float renderWidth = (xCoord2 - xCoord) / textureWidth;
+		final float renderHeight = (yCoord2 - yCoord) / textureHeight;
 		
-		transform.setPos(new Vector2f(posX + drawWidth, posY));
+		transform.setPos(new Vector2f(xPos + drawWidth, yPos));
 		transform.setScale(new Vector2f(-drawWidth, drawHeight));
 		
 		if(RenderingEngine.mesh2DInFrustum(transform)){
-			RenderingEngine.add2DMesh(transform, fontTexture, color, new Vector2f(textureCoordX + renderWidth, textureCoordY + renderHeight), new Vector2f(textureCoordX, textureCoordY));
+			RenderingEngine.add2DMesh(transform, fontTexture, color, new Vector2f(textureXCoord + renderWidth, textureYCoord + renderHeight), new Vector2f(textureXCoord, textureYCoord));
 		}
 	}
     
@@ -220,15 +220,15 @@ public class Font{
 		return fontHeight;
 	}
 	
-	public void drawString(float posX, float posY, String text, Vector3f color, float scaleX, float scaleY){
-		drawString(posX, posY, text, 0, text.length()-1, color, scaleX, scaleY, ALIGN_LEFT);
+	public void drawString(float xPos, float yPos, String text, Vector3f color, float scaleX, float scaleY){
+		drawString(xPos, yPos, text, 0, text.length()-1, color, scaleX, scaleY, ALIGN_LEFT);
 	}
 	
-	public void drawString(float posX, float posY, String text, Vector3f color, float scaleX, float scaleY, int format){
-		drawString(posX, posY, text, 0, text.length()-1, color, scaleX, scaleY, format);
+	public void drawString(float xPos, float yPos, String text, Vector3f color, float scaleX, float scaleY, int format){
+		drawString(xPos, yPos, text, 0, text.length()-1, color, scaleX, scaleY, format);
 	}
 	
-	public void drawString(float posX, float posY, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
+	public void drawString(float xPos, float yPos, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
 		CharInfo charInfo = null;
 		int charCurrent;
 		
@@ -313,7 +313,7 @@ public class Font{
 					}
 					
 				}else{
-					drawQuad((totalwidth + charInfo.width) * scaleX + posX, startY * scaleY + posY, totalwidth * scaleX + posX, (startY + charInfo.height) * scaleY + posY, charInfo.positionX + charInfo.width, charInfo.positionY + charInfo.height, charInfo.positionX, charInfo.positionY, color);
+					drawQuad((totalwidth + charInfo.width) * scaleX + xPos, startY * scaleY + yPos, totalwidth * scaleX + xPos, (startY + charInfo.height) * scaleY + yPos, charInfo.xPosition + charInfo.width, charInfo.yPosition + charInfo.height, charInfo.xPosition, charInfo.yPosition, color);
 					
 					if(d > 0){
 						totalwidth += (charInfo.width-c) * d;
@@ -325,8 +325,8 @@ public class Font{
 	}
 	
 	private class CharInfo{
-		public int positionX;
-		public int positionY;
+		public int xPosition;
+		public int yPosition;
 		
 		public int width;
 		public int height;
