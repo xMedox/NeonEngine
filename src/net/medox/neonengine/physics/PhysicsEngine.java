@@ -41,7 +41,7 @@ public class PhysicsEngine{
 		dynamicsWorld.setGravity(new Vector3f(0, -9.81f, 0));
 //		dynamicsWorld.setGravity(new Vector3f(0, -1f, 0));
 		
-		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0f;
+		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0.001f;
 		
 		BulletGlobals.setContactAddedCallback(callback);
 //		BulletGlobals.setContactProcessedCallback(callback);
