@@ -3,19 +3,19 @@
 in vec2 texCoord0;
 
 uniform vec3 R_ambient;
-uniform sampler2D diffuse;
+uniform sampler2D diffuseMap;
 uniform sampler2D glowMap;
 
 layout(location = 0) out vec4 outputFS;
 layout(location = 1) out vec4 outputBloom;
 
 void main(){
-	vec4 diffuseMap = texture(diffuse, texCoord0);
+	vec4 diffuse = texture(diffuseMap, texCoord0);
 	
-	if(diffuseMap.a >= 0.5f){
+	if(diffuse.a >= 0.5f){
 		vec4 glow = texture(glowMap, texCoord0);
 		
-		vec4 outvar = diffuseMap * clamp((vec4(R_ambient, 1) + vec4(glow.r, glow.r, glow.r, 1)), 0, 1);
+		vec4 outvar = diffuse * clamp((vec4(R_ambient, 1) + vec4(glow.r, glow.r, glow.r, 1)), 0, 1);
 		
 		outputFS = outvar;
 		

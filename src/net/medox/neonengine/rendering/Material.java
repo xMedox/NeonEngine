@@ -6,7 +6,7 @@ import java.util.Map;
 import net.medox.neonengine.math.Vector3f;
 
 public class Material{
-	public static final Texture DEFAULT_DIFFUSE_TEXTURE = ImageUtil.createDefaultDiffuseMap();
+	public static final Texture DEFAULT_DIFFUSE_MAP_TEXTURE = ImageUtil.createDefaultDiffuseMap();
 	public static final Texture DEFAULT_NORMAL_MAP_TEXTURE = ImageUtil.createDefaultNormalMap();
 //	public static final Texture DEFAULT_DISPLACEMENT_MAP_TEXTURE = ImageUtil.createDefaultDisplacementMap();
 	public static final Texture DEFAULT_SPECULAR_MAP_TEXTURE = ImageUtil.createDefaultSpecularMap();
@@ -31,7 +31,7 @@ public class Material{
 		vector3fMap = new HashMap<String, Vector3f>();
 		floatMap = new HashMap<String, Float>();
 				
-		setTexture("diffuse", DEFAULT_DIFFUSE_TEXTURE);
+		setTexture("diffuseMap", DEFAULT_DIFFUSE_MAP_TEXTURE);
 		setTexture("normalMap", DEFAULT_NORMAL_MAP_TEXTURE);
 //		setTexture("dispMap", DEFAULT_DISPLACEMENT_MAP_TEXTURE);
 		setTexture("specMap", DEFAULT_SPECULAR_MAP_TEXTURE);
@@ -47,7 +47,7 @@ public class Material{
 	}
 	
 	public void setDiffuseMap(Texture texture){
-		setTexture("diffuse", texture);
+		setTexture("diffuseMap", texture);
 	}
 	
 	public void setNormalMap(Texture texture){

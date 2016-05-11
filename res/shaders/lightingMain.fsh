@@ -1,6 +1,6 @@
 #include "sampling.glh"
 
-uniform sampler2D diffuse;
+uniform sampler2D diffuseMap;
 uniform sampler2D normalMap;
 uniform sampler2D specMap;
 
@@ -26,6 +26,6 @@ float CalcShadowAmount(sampler2D shadowMap, vec4 initialShadowMapCoords){
 }
 
 void main(){
-    outputFS = texture(diffuse, texCoord0) * CalcLightingEffect(normalize(tbnMatrix * (255.0f/128.0f * texture(normalMap, texCoord0).xyz - 1)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
+    outputFS = texture(diffuseMap, texCoord0) * CalcLightingEffect(normalize(tbnMatrix * (255.0f/128.0f * texture(normalMap, texCoord0).xyz - 1)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
 	outputBloom = vec4(0, 0, 0, 0);
 }

@@ -2,10 +2,10 @@
 
 in vec2 texCoord0;
 
-uniform sampler2D diffuse;
+uniform sampler2D diffuseMap;
 
 layout(location = 0) out vec4 outputFS;
 
 void main(){
-	outputFS = texture(diffuse, texCoord0);
+	outputFS = texture(diffuseMap, texCoord0);
 }

@@ -132,7 +132,7 @@ public class RenderingEngine{
 		samplerMap.put("filterTexture", 0);
 		samplerMap.put("cubeMap", 0);
 		
-		samplerMap.put("diffuse", 0);
+		samplerMap.put("diffuseMap", 0);
 		samplerMap.put("normalMap", 1);
 //		samplerMap.put("dispMap", 2);
 //		samplerMap.put("specMap", 3);

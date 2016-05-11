@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParticleMaterial{
-	public static final Texture DEFAULT_DIFFUSE_TEXTURE = ImageUtil.createDefaultDiffuseMap();
+	public static final Texture DEFAULT_DIFFUSE_MAP_TEXTURE = ImageUtil.createDefaultDiffuseMap();
 	
 	public static final float DEFAULT_SPECULAR_INTENSITY = 0;
 	public static final float DEFAULT_SPECULAR_POWER = 0;
@@ -17,7 +17,7 @@ public class ParticleMaterial{
 		textureMap = new HashMap<String, Texture>();
 		floatMap = new HashMap<String, Float>();
 		
-		setTexture("diffuse", DEFAULT_DIFFUSE_TEXTURE);
+		setTexture("diffuseMap", DEFAULT_DIFFUSE_MAP_TEXTURE);
 		
 		setFloat("specularIntensity", DEFAULT_SPECULAR_INTENSITY);
 		setFloat("specularPower", DEFAULT_SPECULAR_POWER);
@@ -25,7 +25,7 @@ public class ParticleMaterial{
 	}
 	
 	public void setDiffuseMap(Texture texture){
-		setTexture("diffuse", texture);
+		setTexture("diffuseMap", texture);
 	}
 	
 	public void setSpecularIntensity(float value){

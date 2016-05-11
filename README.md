@@ -7,6 +7,7 @@
 - The drawString method now takes the color in before the scale
 - Now only the red component of the glowMap gets used
 - Removed particle bloom
+- Renamed diffuse texture to diffuseMap
 
 **Other:**
 - Cameras now have a mode value

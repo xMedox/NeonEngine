@@ -2,12 +2,12 @@
 
 in vec2 texCoord0;
 
-uniform sampler2D diffuse;
+uniform sampler2D diffuseMap;
 
 layout(location = 0) out vec4 outputFS;
 
 void main(){
-	if(texture(diffuse, texCoord0).a >= 0.5){
+	if(texture(diffuseMap, texCoord0).a >= 0.5){
 		float depth = gl_FragCoord.z;
 
 		float dx = dFdx(depth);
