@@ -23,11 +23,11 @@ public class AddCollision extends EntityComponent{
 	public AddCollision(){
 		red = new Material();
 		red.setDiffuseMap(new Texture("R.png", true));
-		red.setGlowMap(new Texture("G.png", true));
+		red.setEmissiveMap(new Texture("G.png", true));
 		
 		blue = new Material();
 		blue.setDiffuseMap(new Texture("B.png", true));
-		blue.setGlowMap(new Texture("G.png", true));
+		blue.setEmissiveMap(new Texture("G.png", true));
 		
 		crateM = new Mesh("block.obj");
 	}

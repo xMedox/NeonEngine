@@ -252,7 +252,7 @@ public class TestGame extends Game{
 		Mesh mesh2 = new Mesh("untitled.obj");
 		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
 		material2.setDiffuseMap(new Texture("untitled.png"));
-		material2.setGlowMap(new Texture("untitled_glow22.png"));
+		material2.setEmissiveMap(new Texture("untitled_glow22.png"));
 		material2.setSpecularIntensity(0.5f);
 		material2.setSpecularPower(1);
 		
@@ -372,7 +372,7 @@ public class TestGame extends Game{
 		Material bricks = new Material();
 		bricks.setDiffuseMap(new Texture("Lava22.png"));
 		bricks.setNormalMap(new Texture("Lava_normal22.jpg"));
-		bricks.setGlowMap(new Texture("Lava_glow22.png"));
+		bricks.setEmissiveMap(new Texture("Lava_glow22.png"));
 		bricks.setSpecularIntensity(0.25f);
 		bricks.setSpecularPower(2);
 
@@ -686,7 +686,7 @@ public class TestGame extends Game{
 				
 				ParticleMaterial pMat = new ParticleMaterial();
 				pMat.setDiffuseMap(new Texture("fire.png", true));
-				pMat.setGlow(1);
+				pMat.setEmissive(1);
 				
 				particle.addComponent(new ParticleRenderer(pMat));
 				
@@ -701,7 +701,7 @@ public class TestGame extends Game{
 				
 				ParticleMaterial pMat2 = new ParticleMaterial();
 				pMat2.setDiffuseMap(new Texture("rock2222.jpg"));
-				pMat2.setGlow(1);
+				pMat2.setEmissive(1);
 				
 				particle4.addComponent(new ParticleRenderer(pMat2));
 				

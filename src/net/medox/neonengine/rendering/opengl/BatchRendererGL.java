@@ -193,7 +193,7 @@ public class BatchRendererGL extends BatchRenderer{
 	
 	@Override
 	public void addMesh(Shader shader, Camera camera, boolean flipFaces, Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
-		final Texture texture = material.getTexture("diffuse");
+		final Texture texture = material.getTexture("diffuseMap");
 //		float specularIntensity = material.getFloat("specularIntensity");
 //		float specularPower = material.getFloat("specularPower");
 //		float glow = material.getFloat("glow");
@@ -255,7 +255,7 @@ public class BatchRendererGL extends BatchRenderer{
 			uvs.add(new Vector2f(minUV.getX(), maxUV.getY()));
 		}
 		
-		colors.add(new Vector3f(material.getFloat("specularIntensity"), material.getFloat("specularPower"), material.getFloat("glow")));
+		colors.add(new Vector3f(material.getFloat("specularIntensity"), material.getFloat("specularPower"), material.getFloat("emissive")));
 		
 		indexCount += 6;
 	}

@@ -45,7 +45,7 @@ public class ImageUtil{
 		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
 	}
 	
-	public static Texture createDefaultGlowMap(){
+	public static Texture createDefaultEmissiveMap(){
 		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
 	}
 	

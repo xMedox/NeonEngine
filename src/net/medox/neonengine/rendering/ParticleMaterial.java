@@ -8,7 +8,7 @@ public class ParticleMaterial{
 	
 	public static final float DEFAULT_SPECULAR_INTENSITY = 0;
 	public static final float DEFAULT_SPECULAR_POWER = 0;
-	public static final float DEFAULT_GLOW = 0;
+	public static final float DEFAULT_EMISSIVE = 0;
 	
 	private final Map<String, Texture> textureMap;
 	private final Map<String, Float> floatMap;
@@ -21,7 +21,7 @@ public class ParticleMaterial{
 		
 		setFloat("specularIntensity", DEFAULT_SPECULAR_INTENSITY);
 		setFloat("specularPower", DEFAULT_SPECULAR_POWER);
-		setFloat("glow", DEFAULT_GLOW);
+		setFloat("emissive", DEFAULT_EMISSIVE);
 	}
 	
 	public void setDiffuseMap(Texture texture){
@@ -36,8 +36,8 @@ public class ParticleMaterial{
 		setFloat("specularPower", value);
 	}
 	
-	public void setGlow(float value){
-		setFloat("glow", value);
+	public void setEmissive(float value){
+		setFloat("emissive", value);
 	}
 	
 	public Texture getDiffuseMap(){
@@ -52,8 +52,8 @@ public class ParticleMaterial{
 		return getFloat("specularPower");
 	}
 	
-	public float getGlow(){
-		return getFloat("glow");
+	public float getEmissive(){
+		return getFloat("emissive");
 	}
 	
 	public void setTexture(String name, Texture texture){

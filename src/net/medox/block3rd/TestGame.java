@@ -98,7 +98,7 @@ public class TestGame extends Game{
 			teamRenderer = new MeshRenderer2D(new Texture("RED.png", true));
 			
 			dragonM.setDiffuseMap(new Texture("redSword.png", true));
-			dragonM.setGlowMap(new Texture("block60_glow.png", true));
+			dragonM.setEmissiveMap(new Texture("block60_glow.png", true));
 		}else{
 			Window.setCursor("cursor test blue.png", 0, 0);
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(0, 0, 1))));
@@ -107,7 +107,7 @@ public class TestGame extends Game{
 			teamRenderer = new MeshRenderer2D(new Texture("BLUE.png", true));
 			
 			dragonM.setDiffuseMap(new Texture("blueSword.png", true));
-			dragonM.setGlowMap(new Texture("block60_glow.png", true));
+			dragonM.setEmissiveMap(new Texture("block60_glow.png", true));
 		}
 		
 		Entity dragon = new Entity();
@@ -166,7 +166,7 @@ public class TestGame extends Game{
 		
 		Material material = new Material();
 		material.setDiffuseMap(new Texture("blocks.png", true));
-		material.setGlowMap(new Texture("blocks_glow.png", true));
+		material.setEmissiveMap(new Texture("blocks_glow.png", true));
 		
 		Mesh mesh = new Mesh("blocks.obj");
 		

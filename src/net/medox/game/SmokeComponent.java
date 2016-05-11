@@ -22,7 +22,7 @@ public class SmokeComponent extends EntityComponent{
 			
 			ParticleMaterial pMat = new ParticleMaterial();
 			pMat.setDiffuseMap(new Texture("base.png"));
-			pMat.setGlow(1);
+			pMat.setEmissive(1);
 			
 			particle.addComponent(new ParticleRenderer(pMat));
 			particle.addComponent(new Smoke());

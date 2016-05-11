@@ -115,7 +115,7 @@ public class PlayerComponent extends EntityComponent{
 						}
 						
 						wolf.getMeshRenderer().setDiffuseMap(t);
-						wolf.getMeshRenderer().setGlowMap(g);
+						wolf.getMeshRenderer().setEmissiveMap(g);
 						
 						wolf.damage(1);
 					}

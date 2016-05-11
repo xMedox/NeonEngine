@@ -26,7 +26,7 @@ public class AddComponent extends EntityComponent{
 		bricks = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		bricks.setDiffuseMap(new Texture("rock2222.jpg"));
 		bricks.setNormalMap(new Texture("rock2_normal322.png"));
-		bricks.setGlowMap(new Texture("rock22_glow22.png"));
+		bricks.setEmissiveMap(new Texture("rock22_glow22.png"));
 		bricks.setSpecularIntensity(0.25f);
 		bricks.setSpecularPower(2);
 		

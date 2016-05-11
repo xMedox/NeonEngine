@@ -10,7 +10,7 @@ public class Material{
 	public static final Texture DEFAULT_NORMAL_MAP_TEXTURE = ImageUtil.createDefaultNormalMap();
 //	public static final Texture DEFAULT_DISPLACEMENT_MAP_TEXTURE = ImageUtil.createDefaultDisplacementMap();
 	public static final Texture DEFAULT_SPECULAR_MAP_TEXTURE = ImageUtil.createDefaultSpecularMap();
-	public static final Texture DEFAULT_GLOW_MAP_TEXTURE = ImageUtil.createDefaultGlowMap();
+	public static final Texture DEFAULT_EMISSIVE_MAP_TEXTURE = ImageUtil.createDefaultEmissiveMap();
 	
 //	public static final Texture defaultCubeMap = Util.createDefaultCubeMap();
 	
@@ -35,7 +35,7 @@ public class Material{
 		setTexture("normalMap", DEFAULT_NORMAL_MAP_TEXTURE);
 //		setTexture("dispMap", DEFAULT_DISPLACEMENT_MAP_TEXTURE);
 		setTexture("specMap", DEFAULT_SPECULAR_MAP_TEXTURE);
-		setTexture("glowMap", DEFAULT_GLOW_MAP_TEXTURE);
+		setTexture("emissiveMap", DEFAULT_EMISSIVE_MAP_TEXTURE);
 		
 		setFloat("specularIntensity", DEFAULT_SPECULAR_INTENSITY);
 		setFloat("specularPower", DEFAULT_SPECULAR_POWER);
@@ -58,8 +58,8 @@ public class Material{
 		setTexture("specMap", texture);
 	}
 	
-	public void setGlowMap(Texture texture){
-		setTexture("glowMap", texture);
+	public void setEmissiveMap(Texture texture){
+		setTexture("emissiveMap", texture);
 	}
 	
 	public void setSpecularIntensity(float value){
@@ -82,8 +82,8 @@ public class Material{
 		return getTexture("specMap");
 	}
 	
-	public Texture getGlowMap(){
-		return getTexture("glowMap");
+	public Texture getEmissiveMap(){
+		return getTexture("emissiveMap");
 	}
 	
 	public float getSpecularIntensity(){

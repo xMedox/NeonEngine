@@ -136,10 +136,10 @@ public class RenderingEngine{
 		samplerMap.put("normalMap", 1);
 //		samplerMap.put("dispMap", 2);
 //		samplerMap.put("specMap", 3);
-//		samplerMap.put("glowMap", 4);
+//		samplerMap.put("emissiveMap", 4);
 //		samplerMap.put("shadowMap", 5);
 		samplerMap.put("specMap", 2);
-		samplerMap.put("glowMap", 3);
+		samplerMap.put("emissiveMap", 3);
 		samplerMap.put("shadowMap", 4);
 		
 		lights = new ArrayList<BaseLight>();
