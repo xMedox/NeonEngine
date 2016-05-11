@@ -12,6 +12,7 @@
 
 **Physics:**
 - Fixed a collision bug
+- Some minor performance improvements
 
 **Other:**
 - Cameras now have a mode value

@@ -6,9 +6,9 @@ import javax.vecmath.Vector3f;
 
 import com.bulletphysics.BulletGlobals;
 import com.bulletphysics.ContactAddedCallback;
+import com.bulletphysics.collision.broadphase.AxisSweep3;
 import com.bulletphysics.collision.broadphase.BroadphaseInterface;
 import com.bulletphysics.collision.broadphase.CollisionFilterGroups;
-import com.bulletphysics.collision.broadphase.DbvtBroadphase;
 import com.bulletphysics.collision.dispatch.CollisionConfiguration;
 import com.bulletphysics.collision.dispatch.CollisionDispatcher;
 import com.bulletphysics.collision.dispatch.CollisionObject;
@@ -29,8 +29,8 @@ public class PhysicsEngine{
 		
 		final Callback callback = new Callback();
 		
-		final BroadphaseInterface broadphase = new DbvtBroadphase();
-//		BroadphaseInterface broadphase = new AxisSweep3(new Vector3f(-500, -500, -500), new Vector3f(500, 500, 500));
+//		final BroadphaseInterface broadphase = new DbvtBroadphase();
+		BroadphaseInterface broadphase = new AxisSweep3(new Vector3f(-10000, -10000, -10000), new Vector3f(10000, 10000, 10000));
 		final CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
 		final CollisionDispatcher dispatcher = new CollisionDispatcher(collisionConfiguration);
 		final ConstraintSolver solver = new SequentialImpulseConstraintSolver();
@@ -42,14 +42,6 @@ public class PhysicsEngine{
 //		dynamicsWorld.setGravity(new Vector3f(0, -1f, 0));
 		
 		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0f;
-		
-		
-//		StaticPlane plane = new StaticPlane(new net.medox.neonengine.core.Vector3f(0, 1, 0), 1f);
-//		
-//		plane.setMassProps(0, new net.medox.neonengine.core.Vector3f(0, 0, 0));
-////		plane.setRestitution(0.25f);
-//		
-//		addObject(plane);
 		
 		BulletGlobals.setContactAddedCallback(callback);
 //		BulletGlobals.setContactProcessedCallback(callback);
@@ -115,7 +107,7 @@ public class PhysicsEngine{
 	
 	public static float getGravity(){
 //		Vector3f gravity = dynamicsWorld.getGravity(new Vector3f(0, 0, 0));
-				
+		
 		return dynamicsWorld.getGravity(new Vector3f(0, 0, 0)).y;
 	}
 	
