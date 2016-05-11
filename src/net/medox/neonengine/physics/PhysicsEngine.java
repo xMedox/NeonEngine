@@ -41,6 +41,8 @@ public class PhysicsEngine{
 		dynamicsWorld.setGravity(new Vector3f(0, -9.81f, 0));
 //		dynamicsWorld.setGravity(new Vector3f(0, -1f, 0));
 		
+		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0f;
+		
 		
 //		StaticPlane plane = new StaticPlane(new net.medox.neonengine.core.Vector3f(0, 1, 0), 1f);
 //		

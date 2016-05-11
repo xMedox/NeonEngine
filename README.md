@@ -10,6 +10,9 @@
 - Renamed diffuse to diffuseMap
 - Renamed glowMap to emissiveMap
 
+**Physics:**
+- Fixed a collision bug
+
 **Other:**
 - Cameras now have a mode value
 - Skyboxes aren't components anymore

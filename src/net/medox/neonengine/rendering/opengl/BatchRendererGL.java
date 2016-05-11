@@ -196,7 +196,7 @@ public class BatchRendererGL extends BatchRenderer{
 		final Texture texture = material.getTexture("diffuseMap");
 //		float specularIntensity = material.getFloat("specularIntensity");
 //		float specularPower = material.getFloat("specularPower");
-//		float glow = material.getFloat("glow");
+//		float emissive = material.getFloat("emissive");
 		
 		if(texturesids.size() == RENDERER_MAX_SPRITES){
 			draw(shader, camera);
