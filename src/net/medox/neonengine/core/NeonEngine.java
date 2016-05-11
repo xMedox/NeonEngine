@@ -1,7 +1,5 @@
 package net.medox.neonengine.core;
 
-import java.io.File;
-
 import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.audio.SoundEngine;
 import net.medox.neonengine.physics.PhysicsEngine;
@@ -47,8 +45,7 @@ public class NeonEngine{
 	public static void init(Game game, int framerate){
 		System.out.println("Starting up");
 		
-		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
-		
+		Util.setLibraryPath();
 		Util.init();
 		
 		NeonEngine.game = game;
