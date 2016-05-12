@@ -14,7 +14,7 @@ import com.bulletphysics.linearmath.Transform;
 public class Box extends Collider{
 	private static final Transform DEFAULT_TRANSFORM = new Transform(new Matrix4f(new Quat4f(0, 0, 0, 1), new Vector3f(-5, 15, 0), 1.0f));
 	
-	private CollisionShape shape;
+	private final CollisionShape shape;
 	
 	public Box(net.medox.neonengine.math.Vector3f halfExtents){
 		super();

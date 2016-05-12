@@ -216,6 +216,7 @@ public class RenderingEngine{
 		
 		for(int i = 0; i < NUM_SHADOW_MAPS; i++){
 			final int shadowMapSize = 1 << (i + 1);
+			
 			shadowMaps[i] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, ARBTextureRG.GL_RG32F, GL11.GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 			shadowMapTempTargets[i] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, ARBTextureRG.GL_RG32F, GL11.GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 			
@@ -496,7 +497,7 @@ public class RenderingEngine{
 	
 	public static void addParticle(Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
 		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
-			batchRenderer.addMesh(particleShader, particleCamera/*mainCamera*/, particleFlipFaces, trans, material, minUV, maxUV);
+			batchRenderer.addMesh(particleShader, particleCamera, particleFlipFaces, trans, material, minUV, maxUV);
 		}
 	}
 	

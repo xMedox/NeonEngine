@@ -17,7 +17,7 @@ import com.bulletphysics.util.ObjectArrayList;
 public class MeshShape extends Collider{
 	private static final Transform DEFAULT_TRANSFORM = new Transform(new Matrix4f(new Quat4f(0, 0, 0, 1), new Vector3f(-10, 15, 0), 1.0f));
 	
-	private CollisionShape shape;
+	private final CollisionShape shape;
 	
 	public MeshShape(ArrayList<net.medox.neonengine.math.Vector3f> positions){
 		super();

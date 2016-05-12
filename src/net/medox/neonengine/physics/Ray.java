@@ -5,9 +5,9 @@ import javax.vecmath.Vector3f;
 import com.bulletphysics.collision.dispatch.CollisionWorld.ClosestRayResultCallback;
 
 public class Ray{
-	private Collider collider;
-	private net.medox.neonengine.math.Vector3f hitPoint;
-	private boolean hasHit;
+	private final Collider collider;
+	private final net.medox.neonengine.math.Vector3f hitPoint;
+	private final boolean hasHit;
 	
 	public Ray(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld){
 		final ClosestRayResultCallback callback = new ClosestRayResultCallback(new Vector3f(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3f(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()));

@@ -14,7 +14,7 @@ import com.bulletphysics.linearmath.Transform;
 public class Sphere extends Collider{
 	private static final Transform DEFAULT_TRANSFORM = new Transform(new Matrix4f(new Quat4f(0, 0, 0, 1), new Vector3f(0, 15, 0), 1.0f));
 	
-	private CollisionShape shape;
+	private final CollisionShape shape;
 	
 	public Sphere(float radius){
 		super();

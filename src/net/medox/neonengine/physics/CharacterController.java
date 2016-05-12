@@ -11,9 +11,9 @@ import com.bulletphysics.dynamics.character.KinematicCharacterController;
 import com.bulletphysics.linearmath.Transform;
 
 public class CharacterController{	
-	private PairCachingGhostObject ghostObject;
-	private KinematicCharacterController characterController;
-	private Collider collider;
+	private final PairCachingGhostObject ghostObject;
+	private final KinematicCharacterController characterController;
+	private final Collider collider;
 	
 	public CharacterController(Collider collider, float stepHeight){
 		this.collider = collider;

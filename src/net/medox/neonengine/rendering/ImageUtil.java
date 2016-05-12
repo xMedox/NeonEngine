@@ -25,9 +25,9 @@ public class ImageUtil{
 	    return ret;
 	}
 	
-	public static Texture createWhite(){
-		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
-	}
+//	public static Texture createWhite(){
+//		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
+//	}
 	
 	public static Texture createDefaultDiffuseMap(){
 		return new Texture(createImage(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}, 2, 2));
