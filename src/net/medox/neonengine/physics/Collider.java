@@ -167,8 +167,8 @@ public class Collider{
 	
 	public net.medox.neonengine.math.Vector3f getLinearVelocity(){
 		final Vector3f linearVelocity = body.getLinearVelocity(new Vector3f(0, 0, 0));
-				
-		return new net.medox.neonengine.math.Vector3f(linearVelocity.x, linearVelocity.y, linearVelocity.z); 
+		
+		return new net.medox.neonengine.math.Vector3f(linearVelocity.x, linearVelocity.y, linearVelocity.z);
 	}
 	
 	public void remove(){
@@ -212,13 +212,9 @@ public class Collider{
 	}
 	
 	public void setTransform(net.medox.neonengine.core.Transform worldTransform){
-		final net.medox.neonengine.math.Vector3f pos = worldTransform.getPos();
-		final net.medox.neonengine.math.Quaternion rot = worldTransform.getRot();
-//		final net.medox.neonengine.math.Vector3f scale = worldTransform.getScale();
+		body.setWorldTransform(new Transform(new Transform(new Matrix4f(new Quat4f(worldTransform.getRot().getX(), worldTransform.getRot().getY(), worldTransform.getRot().getZ(), worldTransform.getRot().getW()), new Vector3f(worldTransform.getPos().getX(), worldTransform.getPos().getY(), worldTransform.getPos().getZ()), 1.0f))));
 		
 		setScale(worldTransform.getScale());
-		
-		body.setWorldTransform(new Transform(new Transform(new Matrix4f(new Quat4f(rot.getX(), rot.getY(), rot.getZ(), rot.getW()), new Vector3f(pos.getX(), pos.getY(), pos.getZ()), 1.0f))));
 	}
 	
 	public float getGravity(){		
