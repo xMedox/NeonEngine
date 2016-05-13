@@ -41,6 +41,7 @@ public class Window{
 	private static GLFWCharCallback textCallback;
 	
 	private static String title = "NeonEngine";
+	
 	private static int oldXPos;
 	private static int oldYPos;
 	private static int oldWidth = 854;

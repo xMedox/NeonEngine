@@ -95,9 +95,7 @@ public class Font{
 			charheight = fontSize;
 		}
 		
-		BufferedImage fontImage;
-		fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
-		
+		final BufferedImage fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D gt = (Graphics2D)fontImage.getGraphics();
 		
 		if(antiAlias){
@@ -107,9 +105,7 @@ public class Font{
 		gt.setFont(font);
 		gt.setColor(Color.WHITE);
 		
-		final int charx = 3;
-		final int chary = 1;
-		gt.drawString(String.valueOf(ch), charx, chary + fontMetrics.getAscent());
+		gt.drawString(String.valueOf(ch), 3, 1 + fontMetrics.getAscent());
 		
 		return fontImage;
 	}
