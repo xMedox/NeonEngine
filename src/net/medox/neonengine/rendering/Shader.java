@@ -66,6 +66,14 @@ public class Shader{
 		setUniformi("emissiveMap", samplerSlot2);
 	}
 	
+	public void updateShadowUniforms(Transform transform, Material material, Camera camera){
+		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		final int samplerSlot = RenderingEngine.getSamplerSlot("diffuseMap");
+		material.getTexture("diffuseMap").bind(samplerSlot);
+		setUniformi("diffuseMap", samplerSlot);
+	}
+	
 	public void updateSkyboxUniforms(Transform transform, Material material, Camera camera){
 		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
 		

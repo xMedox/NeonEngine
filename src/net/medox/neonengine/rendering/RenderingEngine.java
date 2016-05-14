@@ -530,6 +530,8 @@ public class RenderingEngine{
 		
 		if(renderingState == 0){
 			shader.updateAmbientUniforms(trans, material, camera);
+		}else if(renderingState == 1){
+			shader.updateShadowUniforms(trans, material, camera);
 		}else{
 			shader.updateUniforms(trans, material, camera);
 		}
