@@ -262,7 +262,7 @@ public class BatchRendererGL extends BatchRenderer{
 	@Override
 	public void draw(Shader shader, Camera camera){
 		shader.bind();
-		shader.updateBatchRendererUniforms(TRANSFORM, camera);
+		updateUniforms(shader, TRANSFORM, camera);
 //		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_INDEX));
@@ -315,6 +315,43 @@ public class BatchRendererGL extends BatchRenderer{
 		colors.clear();
 		
 		indexCount = 0;
+	}
+	
+	public void updateUniforms(Shader shader, Transform transform, Camera camera){
+		shader.setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		shader.setUniformi("T0_texture", 0);
+		shader.setUniformi("T1_texture", 1);
+		shader.setUniformi("T2_texture", 2);
+		shader.setUniformi("T3_texture", 3);
+		shader.setUniformi("T4_texture", 4);
+		shader.setUniformi("T5_texture", 5);
+		shader.setUniformi("T6_texture", 6);
+		shader.setUniformi("T7_texture", 7);
+		shader.setUniformi("T8_texture", 8);
+		shader.setUniformi("T9_texture", 9);
+		shader.setUniformi("T10_texture", 10);
+		shader.setUniformi("T11_texture", 11);
+		shader.setUniformi("T12_texture", 12);
+		shader.setUniformi("T13_texture", 13);
+		shader.setUniformi("T14_texture", 14);
+		shader.setUniformi("T15_texture", 15);
+		shader.setUniformi("T16_texture", 16);
+		shader.setUniformi("T17_texture", 17);
+		shader.setUniformi("T18_texture", 18);
+		shader.setUniformi("T19_texture", 19);
+		shader.setUniformi("T20_texture", 20);
+		shader.setUniformi("T21_texture", 21);
+		shader.setUniformi("T22_texture", 22);
+		shader.setUniformi("T23_texture", 23);
+		shader.setUniformi("T24_texture", 24);
+		shader.setUniformi("T25_texture", 25);
+		shader.setUniformi("T26_texture", 26);
+		shader.setUniformi("T27_texture", 27);
+		shader.setUniformi("T28_texture", 28);
+		shader.setUniformi("T29_texture", 29);
+		shader.setUniformi("T30_texture", 30);
+		shader.setUniformi("T31_texture", 31);
 	}
 	
 	@Override
