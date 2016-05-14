@@ -9,6 +9,7 @@
 - Removed particle bloom
 - Renamed diffuse to diffuseMap
 - Renamed glowMap to emissiveMap
+- Added the addMesh method in the RenderingEngine
 
 **Physics:**
 - Fixed a collision bug

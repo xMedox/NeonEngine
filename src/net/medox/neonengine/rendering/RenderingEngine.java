@@ -521,6 +521,12 @@ public class RenderingEngine{
 		batchRenderer.add2DMesh(shader2D, camera2D, trans, id, color);
 	}
 	
+	public static void addMesh(Shader shader, Transform trans, Mesh mesh, Material material, Camera camera){
+		shader.bind();
+		shader.updateUniforms(trans, material, camera);
+		mesh.draw();
+	}
+	
 	public static void drawString(float xPos, float yPos, String text, Vector3f color){
 		drawString(xPos, yPos, text, color, 1, 1);
 	}
