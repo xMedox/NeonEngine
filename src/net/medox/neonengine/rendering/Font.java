@@ -187,7 +187,7 @@ public class Font{
 		transform.setScale(new Vector2f(-drawWidth, drawHeight));
 		
 		if(RenderingEngine.mesh2DInFrustum(transform)){
-			RenderingEngine.add2DMesh(transform, fontTexture, color, new Vector2f(textureXCoord + renderWidth, textureYCoord + renderHeight), new Vector2f(textureXCoord, textureYCoord));
+			RenderingEngine.render2DMesh(transform, fontTexture, color, new Vector2f(textureXCoord + renderWidth, textureYCoord + renderHeight), new Vector2f(textureXCoord, textureYCoord));
 		}
 	}
     

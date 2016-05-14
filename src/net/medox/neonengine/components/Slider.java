@@ -95,7 +95,7 @@ public class Slider extends Entity2DComponent{
 	@Override
 	public void render(){
 		if(RenderingEngine.mesh2DInFrustum(getTransform())){
-			RenderingEngine.add2DMesh(getTransform(), -1, new Vector3f(0f, 0f, 0f));
+			RenderingEngine.render2DMesh(getTransform(), -1, new Vector3f(0f, 0f, 0f));
 			
 			final Transform2D transform = new Transform2D();
 			
@@ -107,7 +107,7 @@ public class Slider extends Entity2DComponent{
 				transform.setScale(getTransform().getScale().sub(new Vector2f(0, 7)).sub(2).mul(new Vector2f(1, progress)));
 			}
 			
-			RenderingEngine.add2DMesh(transform, -1, color);
+			RenderingEngine.render2DMesh(transform, -1, color);
 			
 			if(orientation == 0){
 				transform.setPos(getTransform().getTransformedPos().add(new Vector2f(7, 0)).add(getTransform().getScale().sub(new Vector2f(14, 0)).mul(new Vector2f(progress, 0)).sub(new Vector2f(7, 0))));
@@ -117,12 +117,12 @@ public class Slider extends Entity2DComponent{
 				transform.setScale(getTransform().getScale().mul(new Vector2f(1, 0)).add(new Vector2f(0, 14)));
 			}
 			
-			RenderingEngine.add2DMesh(transform, -1, new Vector3f(0, 0, 0));
+			RenderingEngine.render2DMesh(transform, -1, new Vector3f(0, 0, 0));
 			
 			transform.setPos(transform.getTransformedPos().add(1));
 			transform.setScale(transform.getScale().sub(2));
 			
-			RenderingEngine.add2DMesh(transform, -1, colorSlider);
+			RenderingEngine.render2DMesh(transform, -1, colorSlider);
 		}
 	}
 }

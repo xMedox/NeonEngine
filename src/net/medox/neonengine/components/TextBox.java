@@ -90,13 +90,13 @@ public class TextBox extends Entity2DComponent{
 	@Override
 	public void render(){
 		if(RenderingEngine.mesh2DInFrustum(getTransform())){
-			RenderingEngine.add2DMesh(getTransform(), -1, new Vector3f(0f, 0f, 0f));
+			RenderingEngine.render2DMesh(getTransform(), -1, new Vector3f(0f, 0f, 0f));
 			
 			final Transform2D transform = new Transform2D();
 			transform.setPos(getTransform().getTransformedPos().add(1));
 			transform.setScale(getTransform().getScale().sub(2).mul(new Vector2f(1, 1)));
 			
-			RenderingEngine.add2DMesh(transform, -1, color);
+			RenderingEngine.render2DMesh(transform, -1, color);
 		}
 		
 		RenderingEngine.drawString(getTransform().getTransformedPos().getX(), getTransform().getTransformedPos().getY()+2, text, colorText);

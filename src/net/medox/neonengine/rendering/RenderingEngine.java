@@ -491,37 +491,37 @@ public class RenderingEngine{
 		return (int)transform.getTransformedPos().getX() + (int)transform.getScale().getX() >= 0 && (int)transform.getTransformedPos().getX() <= Window.getWidth() && (int)transform.getTransformedPos().getY() + (int)transform.getScale().getY() >= 0 && (int)transform.getTransformedPos().getY() <= Window.getHeight();
 	}
 	
-	public static void addParticle(Transform trans, ParticleMaterial material){
-		addParticle(trans, material, new Vector2f(0, 0), new Vector2f(1, 1));
+	public static void renderParticle(Transform trans, ParticleMaterial material){
+		renderParticle(trans, material, new Vector2f(0, 0), new Vector2f(1, 1));
 	}
 	
-	public static void addParticle(Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
+	public static void renderParticle(Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
 		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			batchRenderer.addMesh(particleShader, particleCamera, particleFlipFaces, trans, material, minUV, maxUV);
 		}
 	}
 	
-	public static void add2DMesh(Transform2D trans, Texture texture){
-		add2DMesh(trans, texture, new Vector3f(1, 1, 1), new Vector2f(0, 0), new Vector2f(1, 1));
+	public static void render2DMesh(Transform2D trans, Texture texture){
+		render2DMesh(trans, texture, new Vector3f(1, 1, 1), new Vector2f(0, 0), new Vector2f(1, 1));
 	}
 	
-	public static void add2DMesh(Transform2D trans, Texture texture, Vector3f color){
-		add2DMesh(trans, texture, color, new Vector2f(0, 0), new Vector2f(1, 1));
+	public static void render2DMesh(Transform2D trans, Texture texture, Vector3f color){
+		render2DMesh(trans, texture, color, new Vector2f(0, 0), new Vector2f(1, 1));
 	}
 	
-	public static void add2DMesh(Transform2D trans, Texture texture, Vector3f color, Vector2f minUV, Vector2f maxUV){
+	public static void render2DMesh(Transform2D trans, Texture texture, Vector3f color, Vector2f minUV, Vector2f maxUV){
 		batchRenderer.add2DMesh(shader2D, camera2D, trans, texture, color, minUV, maxUV);
 	}
 	
-	public static void add2DMesh(Transform2D trans, int id){
-		add2DMesh(trans, id, new Vector3f(1, 1, 1));
+	public static void render2DMesh(Transform2D trans, int id){
+		render2DMesh(trans, id, new Vector3f(1, 1, 1));
 	}
 	
-	public static void add2DMesh(Transform2D trans, int id, Vector3f color){
+	public static void render2DMesh(Transform2D trans, int id, Vector3f color){
 		batchRenderer.add2DMesh(shader2D, camera2D, trans, id, color);
 	}
 	
-	public static void addMesh(Shader shader, Transform trans, Mesh mesh, Material material, Camera camera){
+	public static void renderMesh(Shader shader, Transform trans, Mesh mesh, Material material, Camera camera){
 		shader.bind();
 		shader.updateUniforms(trans, material, camera);
 		mesh.draw();

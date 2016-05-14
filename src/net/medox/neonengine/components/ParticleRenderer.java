@@ -16,7 +16,7 @@ public class ParticleRenderer extends EntityComponent{
 	@Override
 	public void render(Shader shader, Camera camera){
 		if(RenderingEngine.particleInFrustum(getTransform(), camera)){
-			RenderingEngine.addParticle(getTransform(), material);
+			RenderingEngine.renderParticle(getTransform(), material);
 		}
 	}
 }

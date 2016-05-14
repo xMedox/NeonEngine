@@ -7,9 +7,9 @@
 - The drawString method now takes the color in before the scale
 - Now only the red component of the glowMap gets used
 - Removed particle bloom
-- Renamed diffuse to diffuseMap
 - Renamed glowMap to emissiveMap
-- Added a method in the RenderingEngine to add a mesh
+- Renamed add... methods in the RenderingEngine to render...
+- Added a method in the RenderingEngine to render a mesh
 
 **Physics:**
 - Fixed a collision bug

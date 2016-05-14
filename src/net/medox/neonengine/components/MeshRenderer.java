@@ -19,7 +19,7 @@ public class MeshRenderer extends EntityComponent{
 	@Override
 	public void render(Shader shader, Camera camera){
 		if(mesh.inFrustum(getTransform(), camera)){
-			RenderingEngine.addMesh(shader, getTransform(), mesh, material, camera);
+			RenderingEngine.renderMesh(shader, getTransform(), mesh, material, camera);
 		}
 	}
 }
