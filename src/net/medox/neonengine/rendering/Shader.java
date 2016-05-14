@@ -52,6 +52,20 @@ public class Shader{
 		resource.bind();
 	}
 	
+	public void updateAmbientUniforms(Transform transform, Material material, Camera camera){
+		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		setUniformVector3f("R_ambient", RenderingEngine.getVector3f("ambient"));
+		
+		final int samplerSlot = RenderingEngine.getSamplerSlot("diffuseMap");
+		material.getTexture("diffuseMap").bind(samplerSlot);
+		setUniformi("diffuseMap", samplerSlot);
+		
+		final int samplerSlot2 = RenderingEngine.getSamplerSlot("emissiveMap");
+		material.getTexture("emissiveMap").bind(samplerSlot2);
+		setUniformi("emissiveMap", samplerSlot2);
+	}
+	
 	public void updateSkyboxUniforms(Transform transform, Material material, Camera camera){
 		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
 		

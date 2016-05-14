@@ -96,6 +96,7 @@ public class RenderingEngine{
 //	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
 	
 	private static boolean wireframeMode; //TODO remove this
+	private static int renderingState;
 	
 	public static void init(){
 		//TODO remove this
@@ -284,6 +285,7 @@ public class RenderingEngine{
 		
 		renderSkybox();
 		
+		renderingState = 0;
 		object.renderAll(forwardAmbientShader, mainCamera);
 		
 		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
@@ -335,6 +337,7 @@ public class RenderingEngine{
 					
 					GL11.glEnable(GL32.GL_DEPTH_CLAMP);
 					
+					renderingState = 1;
 					object.renderAll(shadowMappingShader, lightCamera);
 					
 					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
@@ -366,6 +369,7 @@ public class RenderingEngine{
 			GL11.glDepthMask(false);
 			GL11.glDepthFunc(GL11.GL_EQUAL);
 			
+			renderingState = 2;
 			object.renderAll(activeLight.getShader(), mainCamera);
 			
 			if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
@@ -523,7 +527,13 @@ public class RenderingEngine{
 	
 	public static void addMesh(Shader shader, Transform trans, Mesh mesh, Material material, Camera camera){
 		shader.bind();
-		shader.updateUniforms(trans, material, camera);
+		
+		if(renderingState == 0){
+			shader.updateAmbientUniforms(trans, material, camera);
+		}else{
+			shader.updateUniforms(trans, material, camera);
+		}
+		
 		mesh.draw();
 	}
 	
