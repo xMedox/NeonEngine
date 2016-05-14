@@ -262,7 +262,7 @@ public class BatchRendererGL extends BatchRenderer{
 	@Override
 	public void draw(Shader shader, Camera camera){
 		shader.bind();
-		updateUniforms(shader, TRANSFORM, camera);
+		updateUniforms(shader, camera);
 //		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_INDEX));
@@ -317,8 +317,8 @@ public class BatchRendererGL extends BatchRenderer{
 		indexCount = 0;
 	}
 	
-	public void updateUniforms(Shader shader, Transform transform, Camera camera){
-		shader.setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+	public void updateUniforms(Shader shader, Camera camera){
+		shader.setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(TRANSFORM.getTransformation()));
 		
 		shader.setUniformi("T0_texture", 0);
 		shader.setUniformi("T1_texture", 1);

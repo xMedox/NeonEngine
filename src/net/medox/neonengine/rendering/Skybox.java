@@ -80,7 +80,15 @@ public class Skybox{
 		transform.setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos());
 		
 		shader.bind();
-		shader.updateUniforms(transform, material, camera);
+		updateUniforms(shader, camera);
 		mesh.draw();
+	}
+	
+	public void updateUniforms(Shader shader, Camera camera){
+		shader.setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		final int samplerSlot = RenderingEngine.getSamplerSlot("cubeMap");
+		material.getCubeMap("cubeMap").bind(samplerSlot);
+		shader.setUniformi("cubeMap", samplerSlot);
 	}
 }
