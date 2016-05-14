@@ -8,6 +8,7 @@ public class Skybox{
 	private static final Transform transform = new Transform();
 	
 	private static Mesh mesh;
+	
 	private final Material material;
 	
 	public Skybox(String right, String left, String top, String bottom, String front, String back){
@@ -16,8 +17,8 @@ public class Skybox{
 	
 	public Skybox(String right, String left, String top, String bottom, String front, String back, boolean nearest){
 		if(mesh == null){
-			final float vertexMin = -10.0f/2;
-			final float vertexMax = 10.0f/2;
+			final float vertexMin = -2.0f;
+			final float vertexMax = 2.0f;
 			
 			final Vector3f[] vertices = new Vector3f[]{new Vector3f(vertexMin, vertexMax, vertexMin),
 													   new Vector3f(vertexMin, vertexMax, vertexMax),
