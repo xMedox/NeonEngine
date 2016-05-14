@@ -52,6 +52,51 @@ public class Shader{
 		resource.bind();
 	}
 	
+	public void updateSkyboxUniforms(Transform transform, Material material, Camera camera){
+		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		final int samplerSlot = RenderingEngine.getSamplerSlot("cubeMap");
+		material.getCubeMap("cubeMap").bind(samplerSlot);
+		setUniformi("cubeMap", samplerSlot);
+	}
+	
+	public void updateBatchRendererUniforms(Transform transform, Camera camera){
+		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		setUniformi("T0_texture", 0);
+		setUniformi("T1_texture", 1);
+		setUniformi("T2_texture", 2);
+		setUniformi("T3_texture", 3);
+		setUniformi("T4_texture", 4);
+		setUniformi("T5_texture", 5);
+		setUniformi("T6_texture", 6);
+		setUniformi("T7_texture", 7);
+		setUniformi("T8_texture", 8);
+		setUniformi("T9_texture", 9);
+		setUniformi("T10_texture", 10);
+		setUniformi("T11_texture", 11);
+		setUniformi("T12_texture", 12);
+		setUniformi("T13_texture", 13);
+		setUniformi("T14_texture", 14);
+		setUniformi("T15_texture", 15);
+		setUniformi("T16_texture", 16);
+		setUniformi("T17_texture", 17);
+		setUniformi("T18_texture", 18);
+		setUniformi("T19_texture", 19);
+		setUniformi("T20_texture", 20);
+		setUniformi("T21_texture", 21);
+		setUniformi("T22_texture", 22);
+		setUniformi("T23_texture", 23);
+		setUniformi("T24_texture", 24);
+		setUniformi("T25_texture", 25);
+		setUniformi("T26_texture", 26);
+		setUniformi("T27_texture", 27);
+		setUniformi("T28_texture", 28);
+		setUniformi("T29_texture", 29);
+		setUniformi("T30_texture", 30);
+		setUniformi("T31_texture", 31);
+	}
+	
 	public void updateUniforms(Transform transform, Material material, Camera camera){
 		final Matrix4f worldMatrix = transform.getTransformation();
 		final Matrix4f MVPMatrix = camera.getViewProjection().mul(worldMatrix);
