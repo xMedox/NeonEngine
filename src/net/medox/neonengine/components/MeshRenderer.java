@@ -4,6 +4,7 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
+import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Shader;
 
 public class MeshRenderer extends EntityComponent{
@@ -18,9 +19,7 @@ public class MeshRenderer extends EntityComponent{
 	@Override
 	public void render(Shader shader, Camera camera){
 		if(mesh.inFrustum(getTransform(), camera)){
-			shader.bind();
-			shader.updateUniforms(getTransform(), material, camera);
-			mesh.draw();
+			RenderingEngine.addMesh(shader, getTransform(), mesh, material, camera);
 		}
 	}
 }
