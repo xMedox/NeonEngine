@@ -12,7 +12,6 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.BatchRenderer;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.DataUtil;
-import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.ParticleMaterial;
 import net.medox.neonengine.rendering.Shader;
 import net.medox.neonengine.rendering.Texture;
@@ -36,7 +35,7 @@ public class BatchRendererGL extends BatchRenderer{
 	private static final int NUM_BUFFERS = 5;
 	
 	private static final Transform TRANSFORM = new Transform();
-	private static final Material MATERIAL = new Material();
+//	private static final Material MATERIAL = new Material();
 	
 	private final List<Vector3f> vertices;
 	private final List<Vector2f> uvs;
@@ -263,7 +262,8 @@ public class BatchRendererGL extends BatchRenderer{
 	@Override
 	public void draw(Shader shader, Camera camera){
 		shader.bind();
-		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
+		shader.updateBatchRendererUniforms(TRANSFORM, camera);
+//		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_INDEX));
 		

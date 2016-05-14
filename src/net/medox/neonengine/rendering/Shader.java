@@ -52,6 +52,43 @@ public class Shader{
 		resource.bind();
 	}
 	
+	public void updateBatchRendererUniforms(Transform transform, Camera camera){
+		setUniformMatrix4f("T_MVP", camera.getViewProjection().mul(transform.getTransformation()));
+		
+		setUniformi("T0_texture", 0);
+		setUniformi("T1_texture", 1);
+		setUniformi("T2_texture", 2);
+		setUniformi("T3_texture", 3);
+		setUniformi("T4_texture", 4);
+		setUniformi("T5_texture", 5);
+		setUniformi("T6_texture", 6);
+		setUniformi("T7_texture", 7);
+		setUniformi("T8_texture", 8);
+		setUniformi("T9_texture", 9);
+		setUniformi("T10_texture", 10);
+		setUniformi("T11_texture", 11);
+		setUniformi("T12_texture", 12);
+		setUniformi("T13_texture", 13);
+		setUniformi("T14_texture", 14);
+		setUniformi("T15_texture", 15);
+		setUniformi("T16_texture", 16);
+		setUniformi("T17_texture", 17);
+		setUniformi("T18_texture", 18);
+		setUniformi("T19_texture", 19);
+		setUniformi("T20_texture", 20);
+		setUniformi("T21_texture", 21);
+		setUniformi("T22_texture", 22);
+		setUniformi("T23_texture", 23);
+		setUniformi("T24_texture", 24);
+		setUniformi("T25_texture", 25);
+		setUniformi("T26_texture", 26);
+		setUniformi("T27_texture", 27);
+		setUniformi("T28_texture", 28);
+		setUniformi("T29_texture", 29);
+		setUniformi("T30_texture", 30);
+		setUniformi("T31_texture", 31);
+	}
+	
 	public void updateUniforms(Transform transform, Material material, Camera camera){
 		final Matrix4f worldMatrix = transform.getTransformation();
 		final Matrix4f MVPMatrix = camera.getViewProjection().mul(worldMatrix);
@@ -60,87 +97,7 @@ public class Shader{
 			final String uniformName = resource.getUniformNames().get(i);
 			final String uniformType = resource.getUniformTypes().get(i);
 			
-			if(uniformName.charAt(0) == 'T' && Character.isDigit(uniformName.charAt(1))){
-				final String unprefixedUniformName = uniformName.substring(1);
-				
-				if(uniformType.equals("sampler2D")){
-					if(unprefixedUniformName.charAt(1) == '_'){
-						if(unprefixedUniformName.charAt(0) == '0'){
-							setUniformi(uniformName, 0);
-						}else if(unprefixedUniformName.charAt(0) == '1'){
-							setUniformi(uniformName, 1);
-						}else if(unprefixedUniformName.charAt(0) == '2'){
-							setUniformi(uniformName, 2);
-						}else if(unprefixedUniformName.charAt(0) == '3'){
-							setUniformi(uniformName, 3);
-						}else if(unprefixedUniformName.charAt(0) == '4'){
-							setUniformi(uniformName, 4);
-						}else if(unprefixedUniformName.charAt(0) == '5'){
-							setUniformi(uniformName, 5);
-						}else if(unprefixedUniformName.charAt(0) == '6'){
-							setUniformi(uniformName, 6);
-						}else if(unprefixedUniformName.charAt(0) == '7'){
-							setUniformi(uniformName, 7);
-						}else if(unprefixedUniformName.charAt(0) == '8'){
-							setUniformi(uniformName, 8);
-						}else if(unprefixedUniformName.charAt(0) == '9'){
-							setUniformi(uniformName, 9);
-						}
-					}else if(unprefixedUniformName.charAt(2) == '_'){
-						if(unprefixedUniformName.charAt(0) == '1'){
-							if(unprefixedUniformName.charAt(1) == '0'){
-								setUniformi(uniformName, 10);
-							}else if(unprefixedUniformName.charAt(1) == '1'){
-								setUniformi(uniformName, 11);
-							}else if(unprefixedUniformName.charAt(1) == '2'){
-								setUniformi(uniformName, 12);
-							}else if(unprefixedUniformName.charAt(1) == '3'){
-								setUniformi(uniformName, 13);
-							}else if(unprefixedUniformName.charAt(1) == '4'){
-								setUniformi(uniformName, 14);
-							}else if(unprefixedUniformName.charAt(1) == '5'){
-								setUniformi(uniformName, 15);
-							}else if(unprefixedUniformName.charAt(1) == '6'){
-								setUniformi(uniformName, 16);
-							}else if(unprefixedUniformName.charAt(1) == '7'){
-								setUniformi(uniformName, 17);
-							}else if(unprefixedUniformName.charAt(1) == '8'){
-								setUniformi(uniformName, 18);
-							}else if(unprefixedUniformName.charAt(1) == '9'){
-								setUniformi(uniformName, 19);
-							}
-						}else if(unprefixedUniformName.charAt(0) == '2'){
-							if(unprefixedUniformName.charAt(1) == '0'){
-								setUniformi(uniformName, 20);
-							}else if(unprefixedUniformName.charAt(1) == '1'){
-								setUniformi(uniformName, 21);
-							}else if(unprefixedUniformName.charAt(1) == '2'){
-								setUniformi(uniformName, 22);
-							}else if(unprefixedUniformName.charAt(1) == '3'){
-								setUniformi(uniformName, 23);
-							}else if(unprefixedUniformName.charAt(1) == '4'){
-								setUniformi(uniformName, 24);
-							}else if(unprefixedUniformName.charAt(1) == '5'){
-								setUniformi(uniformName, 25);
-							}else if(unprefixedUniformName.charAt(1) == '6'){
-								setUniformi(uniformName, 26);
-							}else if(unprefixedUniformName.charAt(1) == '7'){
-								setUniformi(uniformName, 27);
-							}else if(unprefixedUniformName.charAt(1) == '8'){
-								setUniformi(uniformName, 28);
-							}else if(unprefixedUniformName.charAt(1) == '9'){
-								setUniformi(uniformName, 29);
-							}
-						}else if(unprefixedUniformName.charAt(0) == '3'){
-							if(unprefixedUniformName.charAt(1) == '0'){
-								setUniformi(uniformName, 30);
-							}else if(unprefixedUniformName.charAt(1) == '1'){
-								setUniformi(uniformName, 31);
-							}
-						}
-					}
-				}
-			}else if(uniformName.charAt(0) == 'R'){
+			if(uniformName.charAt(0) == 'R'){
 				final String unprefixedName = uniformName.substring(1);
 				
 				if(unprefixedName.charAt(0) == '_'){
