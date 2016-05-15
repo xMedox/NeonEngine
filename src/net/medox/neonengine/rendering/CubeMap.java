@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
-import net.medox.neonengine.rendering.resourceManagement.opengl.CubeMapDataGL;
 
 public class CubeMap{
 	private static final Map<String[], CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String[], CubeMapData>();
@@ -29,12 +28,7 @@ public class CubeMap{
 		resource = loadedCubeMaps.get(fileNames);
 		
 		if(resource == null){
-			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new CubeMapDataGL(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, type, clamp, attachment);
-			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new CubeMapData(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, type, clamp, attachment);
-			}
-			
+			resource = new CubeMapData(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, type, clamp, attachment);
 			loadedCubeMaps.put(fileNames, resource);
 		}else{
 			resource.addReference();
@@ -68,12 +62,7 @@ public class CubeMap{
 	
 	public CubeMap(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		fileNames = new String[]{"", "", "", "", "", ""};
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new CubeMapDataGL(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
-		}
-		
+		resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
 	}
 	
 	@Override

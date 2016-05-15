@@ -29,7 +29,6 @@ public class NeonEngine{
 	public static int OPTION_MSAA_MULTIPLIER = 1; //texture size multiplier
 	public static int OPTION_TEXTURE_QUALITY = 0; //0 = best 1 = medium 2 = lowest
 	public static int OPTION_SHADOW_QUALITY = 0; //0 = best 1 = medium 2 = lowest
-	public static int OPTION_FORCE_RENDERING_MODE = RenderingEngine.OPENGL; //-1 = dont care 0 = GL 1 = VK
 	
 	public static int PROFILING_DISABLE_MESH_DRAWING = 0; //0 = false 1 = true
 	public static int PROFILING_DISABLE_SHADING = 0; //0 = false 1 = true

@@ -8,7 +8,6 @@ import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.resourceManagement.ShaderData;
-import net.medox.neonengine.rendering.resourceManagement.opengl.ShaderDataGL;
 
 public class Shader{
 	private static final Map<String, ShaderData> loadedShaders = new ConcurrentHashMap<String, ShaderData>();
@@ -28,11 +27,7 @@ public class Shader{
 		resource = loadedShaders.get(actualFileName);
 		
 		if(resource == null){
-			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new ShaderDataGL(fileName);
-			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new ShaderData(fileName);
-			}
+			resource = new ShaderData(fileName);
 			loadedShaders.put(actualFileName, resource);
 		}else{
 			resource.addReference();

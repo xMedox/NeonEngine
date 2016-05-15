@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
-import net.medox.neonengine.rendering.resourceManagement.opengl.TextureDataGL;
 
 public class Texture{
 	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
@@ -31,11 +30,7 @@ public class Texture{
 		if(resource == null){			
 			final ByteBuffer texture = loadTexture(fileName);
 
-			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new TextureDataGL(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
-			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
-			}
+			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 			loadedTextures.put(fileName, resource);
 		}else{
 			resource.addReference();
@@ -75,29 +70,17 @@ public class Texture{
 		final ByteBuffer texture = loadTexture(image);
 		
 		fileName = "";
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new TextureDataGL(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.UNSIGNED_BYTE}, false, new int[]{RenderingEngine.NONE});
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new TextureData(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.UNSIGNED_BYTE}, false, new int[]{RenderingEngine.NONE});
-		}
+		resource = new TextureData(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.UNSIGNED_BYTE}, false, new int[]{RenderingEngine.NONE});
 	}
 	
 	public Texture(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		fileName = "";
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new TextureDataGL(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
-		}
+		resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 	}
 	
 	public Texture(int width, int height, ByteBuffer[] data, int textureTarget, int[] filter, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachment){
 		fileName = "";
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			resource = new TextureDataGL(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
-		}
+		resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
 	}
 	
 	@Override

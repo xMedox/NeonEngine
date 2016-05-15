@@ -7,7 +7,6 @@ import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 import net.medox.neonengine.rendering.meshLoading.OBJModel;
 import net.medox.neonengine.rendering.resourceManagement.MeshData;
-import net.medox.neonengine.rendering.resourceManagement.opengl.MeshDataGL;
 
 public class Mesh{
 	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
@@ -36,19 +35,11 @@ public class Mesh{
 		this.fileName = meshName;
 		
 		if(fileName.equals("")){
-			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new MeshDataGL(model/*, createShape*/);
-			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new MeshData(model/*, createShape*/);
-			}
+			resource = new MeshData(model/*, createShape*/);
 //			loadedModels.put(fileName, resource);
 		}else{
 			if(loadedModels.get(fileName) == null){
-				if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-					resource = new MeshDataGL(model/*, createShape*/);
-				}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-					resource = new MeshData(model/*, createShape*/);
-				}
+				resource = new MeshData(model/*, createShape*/);
 				loadedModels.put(fileName, resource);
 			}else{
 				System.err.println("Error adding mesh " + meshName + ": Mesh already exists by the same name!");
@@ -84,11 +75,7 @@ public class Mesh{
 		final String ext = splitArray[splitArray.length - 1];
 		
 		if(ext.equals("obj")){
-			if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-				resource = new MeshDataGL(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
-			}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-				resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
-			}
+			resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
 		}else{
 			System.err.println("Error: '" + ext + "' file format not supported for mesh data.");
 			new Exception().printStackTrace();

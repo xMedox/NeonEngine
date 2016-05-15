@@ -17,7 +17,6 @@ import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
-import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.glfw.GLFWWindowPosCallback;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -217,30 +216,6 @@ public class Window{
 	}
 	
 	private static void initContext(){
-//		System.out.println(GL.getCapabilities().OpenGL33);
-		if(NeonEngine.OPTION_FORCE_RENDERING_MODE == -1){
-			if(GLFWVulkan.glfwVulkanSupported()){
-				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-				initContextVK();
-			}else{
-				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				initContextGL();
-			}
-		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
-			RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-			initContextGL();
-		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
-			if(GLFWVulkan.glfwVulkanSupported()){
-				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-				initContextVK();
-			}else{
-				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				initContextGL();
-			}
-		}
-	}
-	
-	private static void initContextGL(){
 		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
 		GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
 		
@@ -249,40 +224,8 @@ public class Window{
 		GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
 	}
 	
-	private static void initContextVK(){
-		
-	}
-	
 	private static void createContext(){
-//		System.out.println(GL.getCapabilities().OpenGL33);
-		if(NeonEngine.OPTION_FORCE_RENDERING_MODE == -1){
-			if(GLFWVulkan.glfwVulkanSupported()){
-				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-				createContextVK();
-			}else{
-				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				createContextGL();
-			}
-		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.OPENGL){
-			RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-			createContextGL();
-		}else if(NeonEngine.OPTION_FORCE_RENDERING_MODE == RenderingEngine.VULKAN){
-			if(GLFWVulkan.glfwVulkanSupported()){
-				RenderingEngine.changeRenderingMode(RenderingEngine.VULKAN);
-				createContextVK();
-			}else{
-				RenderingEngine.changeRenderingMode(RenderingEngine.OPENGL);
-				createContextGL();
-			}
-		}
-	}
-	
-	private static void createContextGL(){
 		GL.createCapabilities();
-	}
-	
-	private static void createContextVK(){
-		
 	}
 	
 	public static void dispose(){
@@ -304,14 +247,6 @@ public class Window{
 	}
 	
 	public static void takeScreenshot(){
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			takeScreenshotGL();
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			takeScreenshotVK();
-		}
-	}
-	
-	private static void takeScreenshotGL(){
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		final int width = getWidth();
 		final int height = getHeight();
@@ -319,10 +254,6 @@ public class Window{
 		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	    
 		new ScreenshotSaver("screenshots/", buffer, width, height).start();
-	}
-	
-	private static void takeScreenshotVK(){
-		
 	}
 	
 	public static void setStartTitle(String title){
@@ -520,14 +451,6 @@ public class Window{
 	}
 	
 	public static void bindAsRenderTarget(){
-		if(RenderingEngine.RENDERING_MODE == RenderingEngine.OPENGL){
-			bindAsRenderTargetGL();
-		}else if(RenderingEngine.RENDERING_MODE == RenderingEngine.VULKAN){
-			bindAsRenderTargetVK();
-		}
-	}
-	
-	private static void bindAsRenderTargetGL(){
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
 		if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
@@ -536,10 +459,6 @@ public class Window{
 			GL11.glViewport(0, 0, 1, 1);
 		}
 	}
-    
-    private static void bindAsRenderTargetVK(){
-    	
-    }
 	
 	public static int getX(){
 		return xPos;

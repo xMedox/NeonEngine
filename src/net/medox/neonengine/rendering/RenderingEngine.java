@@ -22,13 +22,9 @@ import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.rendering.opengl.BatchRendererGL;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class RenderingEngine{
-	public static final int OPENGL = 0;
-	public static final int VULKAN = 1;
-	
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
 	
@@ -36,15 +32,13 @@ public class RenderingEngine{
 	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
 	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
 	
-	public static int RENDERING_MODE = 0;
-	
-	public static int TEXTURE_2D			= GL11.GL_TEXTURE_2D;
-	public static int LINEAR				= GL11.GL_LINEAR;
-	public static int NEAREST				= GL11.GL_NEAREST;
-	public static int LINEAR_MIPMAP_LINEAR	= GL11.GL_LINEAR_MIPMAP_LINEAR;
-	public static int RGBA					= GL11.GL_RGBA;
-	public static int NONE					= GL11.GL_NONE;
-	public static int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
+	public static final int TEXTURE_2D				= GL11.GL_TEXTURE_2D;
+	public static final int LINEAR					= GL11.GL_LINEAR;
+	public static final int NEAREST					= GL11.GL_NEAREST;
+	public static final int LINEAR_MIPMAP_LINEAR	= GL11.GL_LINEAR_MIPMAP_LINEAR;
+	public static final int RGBA					= GL11.GL_RGBA;
+	public static final int NONE					= GL11.GL_NONE;
+	public static final int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
 	
 	private static BatchRenderer batchRenderer;
 	
@@ -106,21 +100,12 @@ public class RenderingEngine{
 		System.out.println("OS arch:          " + System.getProperty("os.arch"));
 		System.out.println("Arch data model:  " + System.getProperty("sun.arch.data.model"));
 		System.out.println("Java version:     " + System.getProperty("java.version"));
-		if(RENDERING_MODE == 0){
-			System.out.println("Rendering Mode:   OpenGL(" + GL11.glGetString(GL11.GL_VERSION) + ")");
-//			System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
-		}else if(RENDERING_MODE == 1){
-			System.out.println("Rendering Mode:   Vulkan(" + /*VK10.VK_VERSION_MAJOR + "." + VK10.VK_VERSION_MINOR + "." + VK10.VK_VERSION_PATCH + */")");
-//			System.out.println("Max Texture size: " + VK10.VK_WHOLE_SIZE);
-		}
+		System.out.println("Rendering Mode:   OpenGL(" + GL11.glGetString(GL11.GL_VERSION) + ")");
+		System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
 		System.out.println("LWJGL version:    " + Version.getVersion());
 		System.out.println("--------------------------------------------------------------");
 		
-		if(RENDERING_MODE == OPENGL){
-			batchRenderer = new BatchRendererGL();
-		}else if(RENDERING_MODE == VULKAN){
-			batchRenderer = new BatchRenderer();
-		}
+		batchRenderer = new BatchRenderer();
 		
 		textureMap = new HashMap<String, Texture>();
 //		cubeMapHashMap = new HashMap<String, CubeMap>();
@@ -223,28 +208,6 @@ public class RenderingEngine{
 //			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 //			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, ARBTextureRG.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0);
 		}
-	}
-	
-	public static void changeRenderingMode(int renderingMode){
-		RENDERING_MODE = renderingMode;
-		
-		if(RENDERING_MODE == OPENGL){
-			TEXTURE_2D				= GL11.GL_TEXTURE_2D;
-			LINEAR					= GL11.GL_LINEAR;
-			NEAREST					= GL11.GL_NEAREST;
-			LINEAR_MIPMAP_LINEAR	= GL11.GL_LINEAR_MIPMAP_LINEAR;
-			RGBA					= GL11.GL_RGBA;
-			NONE					= GL11.GL_NONE;
-			UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
-		}/*else if(RENDERING_MODE == VULKAN){*/
-//			TEXTURE_2D				= VK10.VK_IMAGE_TYPE_2D;
-//			LINEAR					= VK10.VK_FILTER_LINEAR;
-//			NEAREST					= VK10.VK_FILTER_NEAREST;
-//			LINEAR_MIPMAP_LINEAR	= VK10.VK_;
-//			RGBA					= VK10.VK_;
-//			NONE					= VK10.VK_;
-//			UNSIGNED_BYTE			= VK10.VK_;
-//		}
 	}
 	
 	public static double displayRenderTime(double dividend){
