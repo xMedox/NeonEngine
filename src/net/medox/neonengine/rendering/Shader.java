@@ -254,33 +254,33 @@ public class Shader{
 		}
 	}
 	
-	public void setUniformi(String uniformName, int value){
+	private void setUniformi(String uniformName, int value){
 		resource.setUniformi(uniformName, value);
 	}
 	
-	public void setUniformf(String uniformName, float value){
+	private void setUniformf(String uniformName, float value){
 		resource.setUniformf(uniformName, value);
 	}
 	
-	public void setUniformVector3f(String uniformName, Vector3f value){
+	private void setUniformVector3f(String uniformName, Vector3f value){
 		resource.setUniformVector3f(uniformName, value);
 	}
 	
-//	public void setUniformVector2f(String uniformName, Vector2f value){
+//	private void setUniformVector2f(String uniformName, Vector2f value){
 //		resource.setUniformVector2f(uniformName, value);
 //	}
 	
-	public void setUniformMatrix4f(String uniformName, Matrix4f value){
+	private void setUniformMatrix4f(String uniformName, Matrix4f value){
 		resource.setUniformMatrix4f(uniformName, value);
 	}
 	
-	public void setUniformDirectionalLight(String uniformName, DirectionalLight directionalLight){
+	private void setUniformDirectionalLight(String uniformName, DirectionalLight directionalLight){
 		setUniformVector3f(uniformName + ".base.color", directionalLight.getColor());
 		setUniformf(uniformName + ".base.intensity", directionalLight.getIntensity());
 		setUniformVector3f(uniformName + ".direction", directionalLight.getTransform().getTransformedRot().getForward());
 	}
 	
-	public void setUniformPointLight(String uniformName, PointLight pointLight){
+	private void setUniformPointLight(String uniformName, PointLight pointLight){
 		setUniformVector3f(uniformName + ".base.color", pointLight.getColor());
 		setUniformf(uniformName + ".base.intensity", pointLight.getIntensity());
 		setUniformf(uniformName + ".atten.constant", pointLight.getAttenuation().getConstant());
@@ -290,7 +290,7 @@ public class Shader{
 		setUniformf(uniformName + ".range", pointLight.getRange());
 	}
 	
-	public void setUniformSpotLight(String uniformName, SpotLight spotLight){
+	private void setUniformSpotLight(String uniformName, SpotLight spotLight){
 		setUniformVector3f(uniformName + ".pointLight.base.color", spotLight.getColor());
 		setUniformf(uniformName + ".pointLight.base.intensity", spotLight.getIntensity());
 		setUniformf(uniformName + ".pointLight.atten.constant", spotLight.getAttenuation().getConstant());
