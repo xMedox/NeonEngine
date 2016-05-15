@@ -86,7 +86,7 @@ private final int textureTarget;
 		return height;
 	}
 	
-	public void initTextures(ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp){
+	private void initTextures(ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp){
 //		this.internalFormat = internalFormat;
 //		this.format = format;
 		
@@ -145,7 +145,7 @@ private final int textureTarget;
 		}
 	}
 	
-	public void initRenderTargets(int attachments){
+	private void initRenderTargets(int attachments){
 		if(attachments == 0){
 			return;
 		}

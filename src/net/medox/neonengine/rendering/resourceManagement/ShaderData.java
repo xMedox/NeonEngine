@@ -186,7 +186,7 @@ public class ShaderData extends ReferenceCounter{
 //		}
 	}
 	
-	public void checkShaderError(int shader, int flag, boolean isProgram, String errorMessage){
+	private void checkShaderError(int shader, int flag, boolean isProgram, String errorMessage){
 		int success = 0;
 	    String error;
 

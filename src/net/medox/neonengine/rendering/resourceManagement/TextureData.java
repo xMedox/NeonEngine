@@ -88,7 +88,7 @@ public class TextureData extends ReferenceCounter{
 		return height;
 	}
 	
-	public void initTextures(ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp){
+	private void initTextures(ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp){
 		for(int i = 0; i < numTextures; i++){
 			textureID[i] = GL11.glGenTextures();
 			
@@ -114,7 +114,7 @@ public class TextureData extends ReferenceCounter{
 		}
 	}
 	
-	public void initRenderTargets(int[] attachments){
+	private void initRenderTargets(int[] attachments){
 		if(attachments == null){
 			return;
 		}
