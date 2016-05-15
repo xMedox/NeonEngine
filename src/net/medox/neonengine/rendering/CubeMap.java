@@ -18,6 +18,7 @@ public class CubeMap{
 	private static final Map<String[], CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String[], CubeMapData>();
 	
 	private final String fileNames[];
+	
 	private CubeMapData resource;
 	
 	private int width[] = new int[6];

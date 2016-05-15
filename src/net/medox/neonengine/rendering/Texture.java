@@ -18,6 +18,7 @@ public class Texture{
 	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
 	
 	private final String fileName;
+	
 	private TextureData resource;
 	
 	private int width;
