@@ -29,7 +29,7 @@ public class Font{
 	private int fontHeight;
 	
 	private java.awt.Font font;
-	private FontMetrics fontMetrics;
+//	private FontMetrics fontMetrics;
 	private Texture fontTexture;
 	
 	private int textureWidth = 512;
@@ -83,7 +83,8 @@ public class Font{
 		
 		g.setFont(font);
 		
-		fontMetrics = g.getFontMetrics();
+//		fontMetrics = g.getFontMetrics();
+		FontMetrics fontMetrics = g.getFontMetrics();
 		
 		int charwidth = fontMetrics.charWidth(ch) + 8;
 		if(charwidth <= 0){
