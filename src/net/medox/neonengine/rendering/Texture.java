@@ -29,7 +29,7 @@ public class Texture{
 		
 		if(resource == null){			
 			final ByteBuffer texture = loadTexture(fileName);
-
+			
 			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
 			loadedTextures.put(fileName, resource);
 		}else{

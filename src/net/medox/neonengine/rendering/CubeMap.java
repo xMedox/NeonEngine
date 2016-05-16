@@ -14,7 +14,7 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
 
 public class CubeMap{
-	private static final Map<String[], CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String[], CubeMapData>();
+	private static final Map<String, CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String, CubeMapData>();
 	
 	private final String fileNames[];
 	
@@ -25,11 +25,13 @@ public class CubeMap{
 	
 	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		this.fileNames = fileNames;
-		resource = loadedCubeMaps.get(fileNames);
+		resource = loadedCubeMaps.get(fileNames[0] + " " + fileNames[1] + " " + fileNames[2] + " " + fileNames[3] + " " + fileNames[4] + " " + fileNames[5]);
 		
 		if(resource == null){
-			resource = new CubeMapData(textureTarget, width, height, /*data*/loadTexture(fileNames), filter, internalFormat, format, type, clamp, attachment);
-			loadedCubeMaps.put(fileNames, resource);
+			final ByteBuffer[] textures = loadTexture(fileNames);
+			
+			resource = new CubeMapData(textureTarget, width, height, textures, filter, internalFormat, format, type, clamp, attachment);
+			loadedCubeMaps.put(fileNames[0] + " " + fileNames[1] + " " + fileNames[2] + " " + fileNames[3] + " " + fileNames[4] + " " + fileNames[5], resource);
 		}else{
 			resource.addReference();
 		}
