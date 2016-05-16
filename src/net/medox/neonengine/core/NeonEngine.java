@@ -21,12 +21,10 @@ public class NeonEngine{
 	
 	public static int OPTION_ENABLE_VSYNC = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_FXAA = 1; //0 = false 1 = true
-	public static int OPTION_ENABLE_MIPMAPPING = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_SHADOWS = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_2D = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_PARTICLES = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_BLOOM = 1; //0 = false 1 = true
-	public static int OPTION_MSAA_MULTIPLIER = 1; //texture size multiplier
 	public static int OPTION_TEXTURE_QUALITY = 0; //0 = best 1 = medium 2 = lowest
 	public static int OPTION_SHADOW_QUALITY = 0; //0 = best 1 = medium 2 = lowest
 	

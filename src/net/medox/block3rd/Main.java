@@ -7,12 +7,10 @@ public class Main{
 	public static void main(String[] args){
 //		NeonEngine.OPTION_ENABLE_VSYNC = 0;
 //		NeonEngine.OPTION_ENABLE_FXAA = 0;
-//		NeonEngine.OPTION_ENABLE_MIPMAPPING = 0;
 //		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
 //		NeonEngine.OPTION_ENABLE_2D = 1;
 //		NeonEngine.OPTION_ENABLE_PARTICLES = 0;
 //		NeonEngine.OPTION_ENABLE_BLOOM = 1;
-//		NeonEngine.OPTION_MSAA_MULTIPLIER = 1;
 //		NeonEngine.OPTION_TEXTURE_QUALITY = 0;
 //		NeonEngine.OPTION_SHADOW_QUALITY = 0;
 //		
@@ -20,12 +18,10 @@ public class Main{
 		
 		NeonEngine.OPTION_ENABLE_VSYNC = 1;
 		NeonEngine.OPTION_ENABLE_FXAA = 0;
-		NeonEngine.OPTION_ENABLE_MIPMAPPING = 0;
 		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
 		NeonEngine.OPTION_ENABLE_2D = 1;
 		NeonEngine.OPTION_ENABLE_PARTICLES = 0;
 		NeonEngine.OPTION_ENABLE_BLOOM = 1;
-		NeonEngine.OPTION_MSAA_MULTIPLIER = 1;
 		NeonEngine.OPTION_TEXTURE_QUALITY = 0;
 		NeonEngine.OPTION_SHADOW_QUALITY = 0;
 		
