@@ -10,6 +10,7 @@ import org.lwjgl.Version;
 import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.ARBTextureRG;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
 
 import net.medox.neonengine.core.NeonEngine;
@@ -73,6 +74,7 @@ public class RenderingEngine{
 	private static Shader fxaaFilter;
 	private static Shader shader2D;
 	private static Shader skyboxShader;
+	private static Shader toneMappingShader;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -131,6 +133,9 @@ public class RenderingEngine{
 		
 		setVector3f("ambient", new Vector3f(0.15f, 0.15f, 0.15f));
 		
+		setFloat("gamma", 1.0f);
+		setFloat("exposure", 1.5f);
+		
 		setFloat("fxaaSpanMax", 8.0f);
 		setFloat("fxaaReduceMin", 1.0f/128.0f);
 		setFloat("fxaaReduceMul", 1.0f/8.0f);
@@ -149,10 +154,12 @@ public class RenderingEngine{
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
 		new Entity().addComponent(camera2D);
 		
-		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
+		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL30.GL_RGBA16F}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		
+		setTexture("outputTexture", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		forwardAmbientShader = new Shader("forwardAmbient");
 		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
@@ -166,6 +173,7 @@ public class RenderingEngine{
 		fxaaFilter = new Shader("filterFxaa");
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
+		toneMappingShader = new Shader("toneMapping");
 		
 		lightCamera = new Camera();
 		new Entity().addComponent(lightCamera);
@@ -232,6 +240,12 @@ public class RenderingEngine{
 	
 	public static void render(Entity object){
 		renderProfileTimer.startInvocation();
+		
+//		if(getFloat("gamma") >= 0){
+//			setFloat("gamma", getFloat("gamma")-0.001f);
+//		}else{
+//			setFloat("gamma", 1);
+//		}
 		
 		mainCamera.updateFrustum();
 		
@@ -358,6 +372,8 @@ public class RenderingEngine{
 			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
 		}
 		
+		applyFilter(toneMappingShader, getTexture("displayTexture"), getTexture("outputTexture"));
+		
 		renderProfileTimer.stopInvocation();
 		
 		windowSyncProfileTimer.startInvocation();
@@ -365,9 +381,9 @@ public class RenderingEngine{
 		if(NeonEngine.OPTION_ENABLE_FXAA == 1){
 			setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 			
-			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
+			applyFilter(fxaaFilter, getTexture("outputTexture"), null);
 		}else{
-			applyFilter(nullFilter, getTexture("displayTexture"), null);
+			applyFilter(nullFilter, getTexture("outputTexture"), null);
 		}
 		
 		windowSyncProfileTimer.stopInvocation();
@@ -555,10 +571,12 @@ public class RenderingEngine{
 		mainCamera.update();
 		camera2D.update();
 		
-		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
+		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL30.GL_RGBA16F}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
+		
+		setTexture("outputTexture", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){
