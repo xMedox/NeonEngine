@@ -76,7 +76,7 @@ public class Skybox{
 		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, RenderingEngine.UNSIGNED_BYTE, true));
 	}
 	
-	public void draw(Shader shader, Camera camera){
+	public void render(Shader shader, Camera camera){
 		transform.setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos());
 		
 		shader.bind();

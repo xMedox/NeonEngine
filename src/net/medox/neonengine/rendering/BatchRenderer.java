@@ -116,7 +116,7 @@ public class BatchRenderer{
 	
 	public void add2DMesh(Shader shader, Camera camera, Transform2D trans, int textureID, Vector3f color){
 		if(texturesids.size() == RENDERER_MAX_SPRITES){
-			draw(shader, camera);
+			render(shader, camera);
 		}
 		
 		texturesids.add(textureID);
@@ -138,7 +138,7 @@ public class BatchRenderer{
 	
 	public void add2DMesh(Shader shader, Camera camera, Transform2D trans, Texture texture, Vector3f color, Vector2f minUV, Vector2f maxUV){
 		if(texturesids.size() == RENDERER_MAX_SPRITES){
-			draw(shader, camera);
+			render(shader, camera);
 		}
 		
 		int id = -1;
@@ -159,7 +159,7 @@ public class BatchRenderer{
 				
 				textures.add(new TextureSlot(texture, id));
 			}else{
-				draw(shader, camera);
+				render(shader, camera);
 				
 				texturesids.add(0);
 				
@@ -189,7 +189,7 @@ public class BatchRenderer{
 //		float emissive = material.getFloat("emissive");
 		
 		if(texturesids.size() == RENDERER_MAX_SPRITES){
-			draw(shader, camera);
+			render(shader, camera);
 		}
 		
 		int id = -1;
@@ -210,7 +210,7 @@ public class BatchRenderer{
 				
 				textures.add(new TextureSlot(texture, id));
 			}else{
-				draw(shader, camera);
+				render(shader, camera);
 				
 				texturesids.add(0);
 				
@@ -250,7 +250,7 @@ public class BatchRenderer{
 		indexCount += 6;
 	}
 	
-	public void draw(Shader shader, Camera camera){
+	public void render(Shader shader, Camera camera){
 		shader.bind();
 		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
 		

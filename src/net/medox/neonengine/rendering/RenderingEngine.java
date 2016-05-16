@@ -254,7 +254,7 @@ public class RenderingEngine{
 			particleShader = forwardParticleAmbientShader;
 			particleFlipFaces = false;
 			
-			batchRenderer.draw(particleShader, mainCamera);
+			batchRenderer.render(particleShader, mainCamera);
 		}
 		
 		for(int i = 0; i < lights.size(); i++){
@@ -305,7 +305,7 @@ public class RenderingEngine{
 						particleShader = particleShadowMappingShader;
 						particleFlipFaces = shadowInfo.getFlipFaces();
 						
-						batchRenderer.draw(particleShader, lightCamera);
+						batchRenderer.render(particleShader, lightCamera);
 					}
 					
 					GL11.glDisable(GL32.GL_DEPTH_CLAMP);
@@ -336,7 +336,7 @@ public class RenderingEngine{
 				particleShader = forwardParticleShader;
 				particleFlipFaces = false;
 				
-				batchRenderer.draw(particleShader, mainCamera);
+				batchRenderer.render(particleShader, mainCamera);
 			}
 			
 			GL11.glDepthMask(true);
@@ -377,7 +377,7 @@ public class RenderingEngine{
 		if(skybox != null){
 			GL11.glDepthMask(false);
 			
-			skybox.draw(skyboxShader, mainCamera);
+			skybox.render(skyboxShader, mainCamera);
 			
 			GL11.glDepthMask(true);
 		}
@@ -426,7 +426,7 @@ public class RenderingEngine{
 			
 			object.renderAll();
 			
-			batchRenderer.draw(shader2D, camera2D);
+			batchRenderer.render(shader2D, camera2D);
 			
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
