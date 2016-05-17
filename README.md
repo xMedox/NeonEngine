@@ -10,6 +10,7 @@
 - Renamed glowMap to emissiveMap
 - Renamed add... methods in the RenderingEngine to render...
 - Added a method in the RenderingEngine to render a mesh
+- Minor performance improvements
 
 **Physics:**
 - Fixed a collision bug
