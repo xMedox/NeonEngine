@@ -45,17 +45,6 @@ private final int textureTarget;
 		initRenderTargets(attachments);
 	}
 	
-//    public void bindAsRenderTarget(){
-//    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-//    	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
-//    	
-//    	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
-//    		GL11.glViewport(0, 0, width, height);
-//    	}else{
-//    		GL11.glViewport(0, 0, 1, 1);
-//    	}
-//    }
-	
 	public void bind(int samplerSlot){
 //		if(TextureDataGL.bound != textureID){
 			assert(samplerSlot >= 0 && samplerSlot <= 31);
@@ -161,7 +150,6 @@ private final int textureTarget;
 				hasDepth = true;
 			}else{
 				drawBuffers.put(i, attachments); 
-				
 			}
 			
 			if(attachments == GL11.GL_NONE){

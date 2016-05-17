@@ -93,7 +93,7 @@ public class TextureData extends ReferenceCounter{
 			textureID[i] = GL11.glGenTextures();
 			
 			GL11.glBindTexture(textureTarget, textureID[i]);
-
+			
 			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MIN_FILTER, filters[i]);
 			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MAG_FILTER, filters[i]);
 			
@@ -101,7 +101,7 @@ public class TextureData extends ReferenceCounter{
 				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
 				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
 			}
-
+			
 			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], type[i], data[i]);
 			
 			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST || filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR || filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST || filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
@@ -118,11 +118,11 @@ public class TextureData extends ReferenceCounter{
 		if(attachments == null){
 			return;
 		}
-
+		
 		final IntBuffer drawBuffers = BufferUtils.createIntBuffer(numTextures);
 //		IntBuffer.allocate(32);      //32 is the max number of bound textures in OpenGL
 		assert(numTextures <= 32);            //Assert to be sure no buffer overrun should occur
-
+		
 		boolean hasDepth = false;
 		for(int i = 0; i < numTextures; i++){
 			if(attachments[i] == ARBFramebufferObject.GL_DEPTH_ATTACHMENT){
@@ -130,26 +130,25 @@ public class TextureData extends ReferenceCounter{
 				hasDepth = true;
 			}else{
 				drawBuffers.put(i, attachments[i]); 
-				
 			}
-
+			
 			if(attachments[i] == GL11.GL_NONE){
 				continue;
 			}
-
+			
 			if(frameBuffer == 0){
 				frameBuffer = ARBFramebufferObject.glGenFramebuffers();
 //				glGenFramebuffers(1, frameBuffer);
 				ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
 			}
-
+			
 			ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, attachments[i], textureTarget, textureID[i], 0);
 		}
-
+		
 		if(frameBuffer == 0){
 			return;
 		}
-
+		
 		if(!hasDepth){
 			renderBuffer = ARBFramebufferObject.glGenRenderbuffers();
 //			glGenRenderbuffers(1, renderBuffer);
@@ -157,12 +156,12 @@ public class TextureData extends ReferenceCounter{
 			ARBFramebufferObject.glRenderbufferStorage(ARBFramebufferObject.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width, height);
 			ARBFramebufferObject.glFramebufferRenderbuffer(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_DEPTH_ATTACHMENT, ARBFramebufferObject.GL_RENDERBUFFER, renderBuffer);
 		}
-
+		
 		GL20.glDrawBuffers(/*numTextures, */drawBuffers);
 		
 //		glDrawBuffer(GL_NONE);
 //		glReadBuffer(GL_NONE);
-
+		
 //		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
 //			std::cerr << "Framebuffer creation failed!" << std::endl;
 //			assert(false);
@@ -172,7 +171,7 @@ public class TextureData extends ReferenceCounter{
 //			System.out.println("not completed...");
 			assert(false);
 		}
-
+		
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
 	}
 	
