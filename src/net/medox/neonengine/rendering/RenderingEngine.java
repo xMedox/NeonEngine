@@ -247,13 +247,15 @@ public class RenderingEngine{
 		
 		renderSkybox();
 		
-		object.renderAll(forwardAmbientShader, mainCamera);
-		
 		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			particleCamera = mainCamera;
 			particleShader = forwardParticleAmbientShader;
 			particleFlipFaces = false;
-			
+		}
+		
+		object.renderAll(forwardAmbientShader, mainCamera);
+		
+		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			batchRenderer.render(particleShader, mainCamera);
 		}
 		
@@ -298,13 +300,15 @@ public class RenderingEngine{
 					
 					GL11.glEnable(GL32.GL_DEPTH_CLAMP);
 					
-					object.renderAll(shadowMappingShader, lightCamera);
-					
 					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						particleCamera = lightCamera;
 						particleShader = particleShadowMappingShader;
 						particleFlipFaces = shadowInfo.getFlipFaces();
-						
+					}
+					
+					object.renderAll(shadowMappingShader, lightCamera);
+					
+					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						batchRenderer.render(particleShader, lightCamera);
 					}
 					
@@ -329,13 +333,15 @@ public class RenderingEngine{
 			GL11.glDepthMask(false);
 			GL11.glDepthFunc(GL11.GL_EQUAL);
 			
-			object.renderAll(activeLight.getShader(), mainCamera);
-			
 			if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 				particleCamera = mainCamera;
 				particleShader = forwardParticleShader;
 				particleFlipFaces = false;
-				
+			}
+			
+			object.renderAll(activeLight.getShader(), mainCamera);
+			
+			if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 				batchRenderer.render(particleShader, mainCamera);
 			}
 			
