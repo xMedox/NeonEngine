@@ -355,7 +355,16 @@ public class RenderingEngine{
 			blurBloomMap(8f);
 			blurBloomMap(2f);
 			
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//			GL11.glDepthMask(false);
+//			GL11.glDepthFunc(GL11.GL_EQUAL);
+			
 			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
+			
+//			GL11.glDepthMask(true);
+//			GL11.glDepthFunc(GL11.GL_LESS);
+			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
 		renderProfileTimer.stopInvocation();
