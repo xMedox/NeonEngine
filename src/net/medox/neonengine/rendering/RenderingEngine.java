@@ -25,13 +25,6 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class RenderingEngine{
-	private static final int NUM_SHADOW_MAPS = 10;
-	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
-	
-	private static final ProfileTimer renderProfileTimer = new ProfileTimer();
-	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
-	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
-	
 	public static final int TEXTURE_2D				= GL11.GL_TEXTURE_2D;
 	public static final int LINEAR					= GL11.GL_LINEAR;
 	public static final int NEAREST					= GL11.GL_NEAREST;
@@ -39,6 +32,13 @@ public class RenderingEngine{
 	public static final int RGBA					= GL11.GL_RGBA;
 	public static final int NONE					= GL11.GL_NONE;
 	public static final int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
+	
+	private static final int NUM_SHADOW_MAPS = 10;
+	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
+	
+	private static final ProfileTimer renderProfileTimer = new ProfileTimer();
+	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
+	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
 	
 	private static BatchRenderer batchRenderer;
 	
