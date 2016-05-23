@@ -5,6 +5,7 @@ import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.Box;
 import net.medox.neonengine.physics.Cone;
@@ -15,6 +16,11 @@ import net.medox.neonengine.rendering.Mesh;
 import net.medox.neonengine.rendering.Texture;
 
 public class AddComponent extends EntityComponent{
+	private Transform boxTransform;
+	private Transform sphereTransform;
+	private Transform cylinderTransform;
+	private Transform coneTransform;
+	
 	private Material bricks;
 	
 	private Mesh crateM;
@@ -34,6 +40,18 @@ public class AddComponent extends EntityComponent{
 		sphereM = new Mesh("sphere.obj");
 		cylinderM = new Mesh("Cylinder.obj");
 		coneM = new Mesh("Cone.obj");
+		
+		boxTransform = new Transform();
+		boxTransform.setPos(new Vector3f(-5, 15, 0));
+		
+		sphereTransform = new Transform();
+		sphereTransform.setPos(new Vector3f(0, 15, 0));
+		
+		cylinderTransform = new Transform();
+		cylinderTransform.setPos(new Vector3f(5, 15, 0));
+		
+		coneTransform = new Transform();
+		coneTransform.setPos(new Vector3f(10, 15, 0));
 	}
 	
 	@Override
@@ -44,6 +62,8 @@ public class AddComponent extends EntityComponent{
 			Box box = new Box(new Vector3f(1f, 1f, 1f));
 			box.setMassProps(4);
 			
+			box.setTransform(boxTransform);
+			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(box)).addComponent(new MeshRenderer(crateM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
 		
@@ -52,6 +72,8 @@ public class AddComponent extends EntityComponent{
 			
 			Sphere sphere = new Sphere(1);
 			sphere.setMassProps(4);
+			
+			sphere.setTransform(sphereTransform);
 						
 			getParent().addChild(entity.addComponent(new PhysicsComponent(sphere)).addComponent(new MeshRenderer(sphereM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
@@ -64,6 +86,8 @@ public class AddComponent extends EntityComponent{
 			Cylinder cylinder = new Cylinder(new Vector3f(1f, 1f, 1f));
 			cylinder.setMassProps(4);
 			
+			cylinder.setTransform(cylinderTransform);
+			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(cylinder)).addComponent(new MeshRenderer(cylinderM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
 		
@@ -72,6 +96,8 @@ public class AddComponent extends EntityComponent{
 			
 			Cone cone = new Cone(1f, 2f);
 			cone.setMassProps(4);
+			
+			cone.setTransform(coneTransform);
 			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(cone)).addComponent(new MeshRenderer(coneM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}

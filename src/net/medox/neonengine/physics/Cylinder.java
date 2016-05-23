@@ -1,7 +1,5 @@
 package net.medox.neonengine.physics;
 
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 import com.bulletphysics.collision.shapes.CollisionShape;
@@ -9,11 +7,8 @@ import com.bulletphysics.collision.shapes.CylinderShape;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
 import com.bulletphysics.linearmath.DefaultMotionState;
-import com.bulletphysics.linearmath.Transform;
 
 public class Cylinder extends Collider{
-	private static final Transform DEFAULT_TRANSFORM = new Transform(new Matrix4f(new Quat4f(0, 0, 0, 1), new Vector3f(5, 15, 0), 1.0f));
-	
 	private final CollisionShape shape;
 	
 	public Cylinder(net.medox.neonengine.math.Vector3f halfExtents){

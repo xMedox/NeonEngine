@@ -13,6 +13,8 @@ import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.Transform;
 
 public class Collider{
+	public static final Transform DEFAULT_TRANSFORM = new Transform(new Matrix4f(new Quat4f(0, 0, 0, 1), new Vector3f(0, 0, 0), 1.0f));
+	
 	private final List<Collider> hitList;
 	
 	private RigidBody body;

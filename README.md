@@ -16,6 +16,7 @@
 **Physics:**
 - Fixed a collision bug
 - Some minor performance improvements
+- Removed the hard coded position of physics objects
 
 **Other:**
 - Cameras now have a mode value
