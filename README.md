@@ -21,9 +21,10 @@
 **Other:**
 - Cameras now have a mode value
 - Skyboxes aren't components anymore
-- Added a toString method to all math classes
+- Added the toString method to all math classes
 - Fixed CubeMaps getting loaded even if the same CubeMap already exists
 - Removed OPTION_ENABLE_MIPMAPPING and OPTION_MSAA_MULTIPLIER in the NeonEngine
+- Added the getSecond method in the Time class
 
 ## Features needed for 1.0.0:
 

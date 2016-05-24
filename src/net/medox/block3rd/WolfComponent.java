@@ -2,6 +2,7 @@ package net.medox.block3rd;
 
 import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.core.EntityComponent;
+import net.medox.neonengine.core.Time;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
@@ -126,7 +127,7 @@ public class WolfComponent extends EntityComponent{
 				
 				move(dir.mul(speed));
 	//		}else{
-	//			timer = 1*60*0.016666668f;
+	//			timer = 1*Time.getSecond();
 				
 	//			int i = Util.randomInt(0, 4);
 	//			

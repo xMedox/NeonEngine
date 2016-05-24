@@ -3,6 +3,7 @@ package net.medox.game;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
+import net.medox.neonengine.core.Time;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.ParticleMaterial;
@@ -16,7 +17,7 @@ public class SmokeComponent extends EntityComponent{
 		if(timer > 0){
 			timer -= delta;
 		}else{
-			timer = Util.randomFloat()*0.6f*60*0.016666668f;
+			timer = Util.randomFloat()*0.6f*Time.getSecond();
 			
 			Entity particle = new Entity();
 			

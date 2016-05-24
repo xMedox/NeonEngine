@@ -1,6 +1,7 @@
 package net.medox.game;
 
 import net.medox.neonengine.core.EntityComponent;
+import net.medox.neonengine.core.Time;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.BaseLight;
 
@@ -25,16 +26,16 @@ public class Light extends EntityComponent{
 			Vector3f color = light.getColor();
 			
 //			color = color.sub(((color.sub(goColor)).div(20*0.016666668f)).mul(delta));
-//			color = color.lerp(goColor, 2*60*0.016666668f*delta);
+//			color = color.lerp(goColor, 2*Time.getSecond()*delta);
 //			
 //			light.setColor(color);
 //			
-//			timer2 = 1*60*0.016666668f;
-			color = color.lerp(goColor, 2*60*0.016666668f*delta);
+//			timer2 = 1*Time.getSecond();
+			color = color.lerp(goColor, 2*Time.getSecond()*delta);
 			
 			light.setColor(color);
 			
-			timer2 = 60*0.016666668f;
+			timer2 = Time.getSecond();
 		}else{
 			light.setColor(goColor);
 //			Random rand = new Random();
@@ -47,7 +48,7 @@ public class Light extends EntityComponent{
 			if(timer2 > 0){
 				timer2 -= delta;
 			}else{
-				timer = 2*60*0.016666668f;
+				timer = 2*Time.getSecond();
 				
 				if(colorInt == 0){
 					goColor = new Vector3f(1, 0, 0);

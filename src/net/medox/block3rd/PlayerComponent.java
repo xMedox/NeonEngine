@@ -3,6 +3,7 @@ package net.medox.block3rd;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.Time;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
@@ -95,7 +96,7 @@ public class PlayerComponent extends EntityComponent{
 			attackTimer -= delta;
 		}else{
 			if(Input.getMouseDown(Input.BUTTON_LEFT) && Input.isGrabbed()){
-				attackTimer = 2*60*0.016666668f;
+				attackTimer = 2*Time.getSecond();
 				
 				Ray ray = new Ray(getTransform().getTransformedPos(), entity.getTransform().getTransformedPos().add(entity.getTransform().getRot().getForward().mul(10)));
 				
