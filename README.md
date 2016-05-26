@@ -26,6 +26,7 @@
 - Removed OPTION_ENABLE_MIPMAPPING and OPTION_MSAA_MULTIPLIER in the NeonEngine
 - Added the getSecond method in the Time class
 - You can now get the CharacterController of the PlayerPhysicsComponent
+- The engine now updates the internal input last
 
 ## Features needed for 1.0.0:
 

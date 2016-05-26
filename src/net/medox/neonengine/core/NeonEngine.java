@@ -148,19 +148,17 @@ public class NeonEngine{
 				
 				game.input((float)frameTime);
 				
+				enginePhysicTimer.startInvocation();
+				PhysicsEngine.update((float)frameTime);
+				enginePhysicTimer.stopInvocation();
+								
+				game.update((float)frameTime);
+				
 				engineInputTimer.startInvocation();
 				if(Window.gotCreated()){
 					Input.update();
 				}
 				engineInputTimer.stopInvocation();
-				
-				
-				enginePhysicTimer.startInvocation();
-				PhysicsEngine.update((float)frameTime);
-				enginePhysicTimer.stopInvocation();
-				
-				
-				game.update((float)frameTime);
 				
 				if(Window.gotCreated()){
 					render = true;
