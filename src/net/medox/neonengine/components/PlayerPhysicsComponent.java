@@ -51,8 +51,8 @@ public class PlayerPhysicsComponent extends EntityComponent{
 		this.camera = camera;
 	}
 	
-	public Capsule getCapsule(){
-		return capsule;
+	public CharacterController getController(){
+		return controller;
 	}
 	
 	@Override
