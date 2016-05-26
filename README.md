@@ -25,6 +25,7 @@
 - Fixed CubeMaps getting loaded even if the same CubeMap already exists
 - Removed OPTION_ENABLE_MIPMAPPING and OPTION_MSAA_MULTIPLIER in the NeonEngine
 - Added the getSecond method in the Time class
+- You can now get the CharacterController of the PlayerPhysicsComponent
 
 ## Features needed for 1.0.0:
 
