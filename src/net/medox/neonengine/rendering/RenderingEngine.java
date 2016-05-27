@@ -326,6 +326,11 @@ public class RenderingEngine{
 				}
 				
 				getTexture("displayTexture").bindAsRenderTarget();
+			}else{
+				setTexture("shadowMap", shadowMaps[0]);
+				lightMatrix = new Matrix4f().initScale(0, 0, 0);
+				setFloat("shadowVarianceMin", 0.00002f);
+				setFloat("shadowLightBleedingReduction", 0.0f);
 			}
 			
 			GL11.glEnable(GL11.GL_BLEND);

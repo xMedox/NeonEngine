@@ -27,6 +27,7 @@
 - Added the getSecond method in the Time class
 - You can now get the CharacterController of the PlayerPhysicsComponent
 - The engine now updates the internal input last
+- Fixed the disable shadow option
 
 ## Features needed for 1.0.0:
 
