@@ -26,21 +26,16 @@ void main(){
 	
 	float inverseDirAdjustment = 1.0f/(min(abs(dir.x), abs(dir.y)) + max((lumaTL + lumaTR + lumaBL + lumaBR) * (R_fxaaReduceMul * 0.25f), R_fxaaReduceMin));
 	
-	dir = min(vec2(R_fxaaSpanMax, R_fxaaSpanMax), 
-		max(vec2(-R_fxaaSpanMax, -R_fxaaSpanMax), dir * inverseDirAdjustment));
+	dir = min(vec2(R_fxaaSpanMax, R_fxaaSpanMax), max(vec2(-R_fxaaSpanMax, -R_fxaaSpanMax), dir * inverseDirAdjustment));
 	
 	dir.x = dir.x * step(1.0f, abs(dir.x));
 	dir.y = dir.y * step(1.0f, abs(dir.y));
 	
 	dir = dir * texCoordOffset;
 
-	vec3 result1 = (1.0f/2.0f) * (
-		texture(R_filterTexture, texCoord0.xy + (dir * vec2(1.0f/3.0f - 0.5f))).xyz +
-		texture(R_filterTexture, texCoord0.xy + (dir * vec2(2.0f/3.0f - 0.5f))).xyz);
+	vec3 result1 = (1.0f/2.0f) * (texture(R_filterTexture, texCoord0.xy + (dir * vec2(1.0f/3.0f - 0.5f))).xyz + texture(R_filterTexture, texCoord0.xy + (dir * vec2(2.0f/3.0f - 0.5f))).xyz);
 
-	vec3 result2 = result1 * (1.0f/2.0f) + (1.0f/4.0f) * (
-		texture(R_filterTexture, texCoord0.xy + (dir * vec2(0.0f/3.0f - 0.5f))).xyz +
-		texture(R_filterTexture, texCoord0.xy + (dir * vec2(3.0f/3.0f - 0.5f))).xyz);
+	vec3 result2 = result1 * (1.0f/2.0f) + (1.0f/4.0f) * (texture(R_filterTexture, texCoord0.xy + (dir * vec2(0.0f/3.0f - 0.5f))).xyz + texture(R_filterTexture, texCoord0.xy + (dir * vec2(3.0f/3.0f - 0.5f))).xyz);
 
 	float lumaResult2 = dot(luma, result2);
 

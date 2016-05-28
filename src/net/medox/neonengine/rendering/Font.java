@@ -82,7 +82,7 @@ public class Font{
 		
 		g.setFont(font);
 		
-		FontMetrics fontMetrics = g.getFontMetrics();
+		final FontMetrics fontMetrics = g.getFontMetrics();
 		
 		int charwidth = fontMetrics.charWidth(ch) + 8;
 		if(charwidth <= 0){
@@ -125,7 +125,7 @@ public class Font{
 			int xPosition = 0;
 			int yPosition = 0;
 			
-			final int customCharsLength = (customCharsArray != null) ? customCharsArray.length : 0; 
+			final int customCharsLength = (customCharsArray == null) ? 0 : customCharsArray.length;
 			
 			for(int i = 0; i < 256 + customCharsLength; i++){
 				final char ch = i < 256 ? (char)i : customCharsArray[i-256];

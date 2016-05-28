@@ -62,7 +62,7 @@ public class FreeLook extends EntityComponent{
 			if(deltaPos.getY() == 0){
 				x = 0;
 			}else{
-float xSave = (float)-Math.toRadians(deltaPos.getY() * sensitivity);
+				float xSave = (float)-Math.toRadians(deltaPos.getY() * sensitivity);
 				
 //				float rot = Math.max(-57, Math.min(57, (float)Math.toDegrees(getTransform().getRot().getForward().getY()) + (float)Math.toDegrees(x)));
 				
