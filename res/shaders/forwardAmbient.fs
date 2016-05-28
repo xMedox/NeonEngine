@@ -19,7 +19,8 @@ void main(){
 		
 		outputFS = outvar;
 		
-		if(dot(emissive.r, 0.8*2) > 1.0){
+		//if(dot(emissive.r, 0.8*2) > 1.0){
+		if(emissive.r > 0){
 			outputBloom = outvar;
 		}else{
 			outputBloom = vec4(0, 0, 0, 0);
