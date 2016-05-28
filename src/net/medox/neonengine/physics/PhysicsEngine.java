@@ -43,6 +43,8 @@ public class PhysicsEngine{
 		
 		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0.001f;
 		
+		dynamicsWorld.getSolverInfo().numIterations = 20;
+		
 		BulletGlobals.setContactAddedCallback(callback);
 //		BulletGlobals.setContactProcessedCallback(callback);
 //		dynamicsWorld.getPairCache().setInternalGhostPairCallback(new GhostPairCallback());
