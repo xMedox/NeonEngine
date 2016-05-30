@@ -43,7 +43,7 @@ public class PhysicsEngine{
 		
 		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0.001f;
 		
-		dynamicsWorld.getSolverInfo().numIterations = 20;
+		dynamicsWorld.getSolverInfo().numIterations = 60;
 		
 		BulletGlobals.setContactAddedCallback(callback);
 //		BulletGlobals.setContactProcessedCallback(callback);
@@ -100,7 +100,7 @@ public class PhysicsEngine{
 			colliders.get(i).clearList();
 		}
 		
-		dynamicsWorld.stepSimulation(delta, 10);
+		dynamicsWorld.stepSimulation(delta, 60);
 	}
 	
 	public static void setGravity(float gravity){
