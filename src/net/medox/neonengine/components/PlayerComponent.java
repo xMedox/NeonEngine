@@ -8,13 +8,13 @@ import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.rendering.Camera;
 
-public class PlayerPhysicsComponent extends EntityComponent{
+public class PlayerComponent extends EntityComponent{
 	private Camera camera;
 	private Capsule capsule;
 	
 	private CharacterController controller;
 	
-	public PlayerPhysicsComponent(Camera camera){		
+	public PlayerComponent(Camera camera){		
 //		cylinder = new Cylinder(1, 2);
 //		capsule = new Cylinder(new Vector3f(0.5f, 2, 0.5f));
 		capsule = new Capsule(0.5f, 1f);

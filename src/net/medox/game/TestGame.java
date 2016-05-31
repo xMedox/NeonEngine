@@ -8,7 +8,7 @@ import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.MeshRenderer2D;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.components.PhysicsComponent;
-import net.medox.neonengine.components.PlayerPhysicsComponent;
+import net.medox.neonengine.components.PlayerComponent;
 import net.medox.neonengine.components.ScreenshotTaker;
 import net.medox.neonengine.components.Slider;
 import net.medox.neonengine.components.StaticPhysicsComponent;
@@ -80,7 +80,7 @@ public class TestGame extends Game{
 		PhysicsComponent testphys = new PhysicsComponent(sphere2);
 //		testphys.getSphere().setMassProps(0);
 		
-		PlayerPhysicsComponent p = new PlayerPhysicsComponent(cam);
+		PlayerComponent p = new PlayerComponent(cam);
 		
 		player.addComponent(p);
 		

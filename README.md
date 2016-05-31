@@ -28,7 +28,9 @@
 - You can now get the CharacterController of the PlayerPhysicsComponent
 - The engine now updates the internal input last
 - Fixed the disable shadow option
-- Added a getter for the hitNormal to the ray test
+- Added a getter for the hitNormal to the Ray class
+- Added mouse inversion for the FreeLook component
+- Renamed PlayerPhysicsComponent to PlayerComponent
 
 ## Features needed for 1.0.0:
 
