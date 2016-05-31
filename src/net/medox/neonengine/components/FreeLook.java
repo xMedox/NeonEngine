@@ -15,20 +15,26 @@ public class FreeLook extends EntityComponent{
 	private final InputKey setMouse;
 	
 	private float sensitivity;
+	private boolean invertY;
 	
 	private float x;
 	private float y;
 	
 	public FreeLook(float sensitivity){
-		this(sensitivity, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE), new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
+		this(sensitivity, false, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE), new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
-	public FreeLook(float sensitivity, InputKey unlockMouseKey){
-		this(sensitivity, unlockMouseKey, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
+	public FreeLook(float sensitivity, boolean invertY){
+		this(sensitivity, invertY, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE), new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
-	public FreeLook(float sensitivity, InputKey unlockMouseKey, InputKey setMouse){
+	public FreeLook(float sensitivity, boolean invertY, InputKey unlockMouseKey){
+		this(sensitivity, invertY, unlockMouseKey, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
+	}
+	
+	public FreeLook(float sensitivity, boolean invertY, InputKey unlockMouseKey, InputKey setMouse){
 		this.sensitivity = sensitivity;
+		this.invertY = invertY;
 		this.unlockMouseKey = unlockMouseKey;
 		this.setMouse = setMouse;
 	}
@@ -62,7 +68,13 @@ public class FreeLook extends EntityComponent{
 			if(deltaPos.getY() == 0){
 				x = 0;
 			}else{
-				float xSave = (float)-Math.toRadians(deltaPos.getY() * sensitivity);
+				float xSave = 0;
+				
+				if(invertY){
+					xSave = (float)Math.toRadians(deltaPos.getY() * sensitivity);
+				}else{
+					xSave = (float)-Math.toRadians(deltaPos.getY() * sensitivity);
+				}
 				
 //				float rot = Math.max(-57, Math.min(57, (float)Math.toDegrees(getTransform().getRot().getForward().getY()) + (float)Math.toDegrees(x)));
 				
