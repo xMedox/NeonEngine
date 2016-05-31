@@ -28,6 +28,7 @@
 - You can now get the CharacterController of the PlayerPhysicsComponent
 - The engine now updates the internal input last
 - Fixed the disable shadow option
+- Added a getter for the hitNormal to the ray test
 
 ## Features needed for 1.0.0:
 

@@ -7,6 +7,7 @@ import com.bulletphysics.collision.dispatch.CollisionWorld.ClosestRayResultCallb
 public class Ray{
 	private final Collider collider;
 	private final net.medox.neonengine.math.Vector3f hitPoint;
+	private final net.medox.neonengine.math.Vector3f hitNormal;
 	private final boolean hasHit;
 	
 	public Ray(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld){
@@ -23,6 +24,8 @@ public class Ray{
 		}else{
 			collider = new Collider();
 		}
+		
+		hitNormal = new net.medox.neonengine.math.Vector3f(callback.hitNormalWorld.x, callback.hitNormalWorld.y, callback.hitNormalWorld.z);
 	}
 	
 	public Collider getHitCollider(){
@@ -31,6 +34,10 @@ public class Ray{
 	
 	public net.medox.neonengine.math.Vector3f getHitPoint(){
 		return hitPoint;
+	}
+	
+	public net.medox.neonengine.math.Vector3f getHitNormal(){
+		return hitNormal;
 	}
 	
 	public boolean hasHit(){
