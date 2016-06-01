@@ -123,7 +123,7 @@ public class TestGame extends Game{
 //		planeObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180));
 		planeObject.addComponent(meshRenderer);
 		
-		StaticPhysicsComponent physic = new StaticPhysicsComponent(new Box(new Vector3f(200, 1f, 200)));
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(new Box(new Vector3f(100, 1f, 100)));
 		
 		Transform t = new Transform();
 		
@@ -438,7 +438,7 @@ public class TestGame extends Game{
 		stair1.getTransform().setPos(new Vector3f(5, -1 + 0.15f, 10));
 		stair1.getTransform().setScale(new Vector3f(0.5f, 0.15f, 0.75f));
 		
-		box1.setTransform(stair1.getTransform());
+		box1.setPos(stair1.getTransform().getTransformedPos());
 		
 		box1.setMassProps(0, new Vector3f(0, 0, 0));
 		
@@ -457,7 +457,7 @@ public class TestGame extends Game{
 		stair2.getTransform().setPos(new Vector3f(6, -1 + 0.3f, 10));
 		stair2.getTransform().setScale(new Vector3f(0.5f, 0.3f, 0.75f));
 		
-		box2.setTransform(stair2.getTransform());
+		box2.setPos(stair2.getTransform().getTransformedPos());
 		
 		box2.setMassProps(0, new Vector3f(0, 0, 0));
 		
@@ -476,7 +476,7 @@ public class TestGame extends Game{
 		stair3.getTransform().setPos(new Vector3f(7, -1 + 0.45f, 10));
 		stair3.getTransform().setScale(new Vector3f(0.5f, 0.45f, 0.75f));
 		
-		box3.setTransform(stair3.getTransform());
+		box3.setPos(stair3.getTransform().getTransformedPos());
 		
 		box3.setMassProps(0, new Vector3f(0, 0, 0));
 		
@@ -495,7 +495,7 @@ public class TestGame extends Game{
 		stair4.getTransform().setPos(new Vector3f(8, -1 + 0.6f, 10));
 		stair4.getTransform().setScale(new Vector3f(0.5f, 0.6f, 0.75f));
 		
-		box4.setTransform(stair4.getTransform());
+		box4.setPos(stair4.getTransform().getTransformedPos());
 		
 		box4.setMassProps(0, new Vector3f(0, 0, 0));
 		
