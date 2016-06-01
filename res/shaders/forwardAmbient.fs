@@ -14,14 +14,12 @@ void main(){
 	
 	if(diffuse.a >= 0.5f){
 		vec4 emissive = texture(emissiveMap, texCoord0);
-		
-		vec4 outvar = diffuse * clamp((vec4(R_ambient, 1) + vec4(emissive.r, emissive.r, emissive.r, 1)), 0, 1);
-		
-		outputFS = outvar;
+				
+		outputFS = diffuse * (vec4(R_ambient, 1) + vec4(emissive.r, emissive.r, emissive.r, 1));
 		
 		//if(dot(emissive.r, 0.8*2) > 1.0){
 		if(emissive.r > 0){
-			outputBloom = outvar;
+			outputBloom = diffuse * vec4(emissive.r, emissive.r, emissive.r, 1);
 		}else{
 			outputBloom = vec4(0, 0, 0, 0);
 		}

@@ -12,6 +12,7 @@
 - Added a method in the RenderingEngine to render a mesh
 - Minor performance improvements
 - Fixed the particles
+- Changed the color of the bloom output
 
 **Physics:**
 - Fixed a collision bug
