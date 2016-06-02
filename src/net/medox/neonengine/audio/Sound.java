@@ -103,6 +103,10 @@ public class Sound{
 		return this;
 	}
 	
+	public float getLength(){
+		return resource.getLength();
+	}
+	
 	public static void dispose(){
 		for(final SoundData data : loadedAudios.values()){
 			data.dispose();

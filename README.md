@@ -32,6 +32,7 @@
 - Added a getter for the hitNormal to the Ray class
 - Added mouse inversion for the FreeLook component
 - Renamed PlayerPhysicsComponent to PlayerComponent
+- You can now get the length of a sound
 
 ## Features needed for 1.0.0:
 

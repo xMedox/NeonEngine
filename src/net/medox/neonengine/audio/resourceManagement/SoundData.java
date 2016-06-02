@@ -8,6 +8,8 @@ import net.medox.neonengine.core.ReferenceCounter;
 public class SoundData extends ReferenceCounter{
 	private final int buffer;
 	
+	private final float length;
+	
 	public SoundData(IndexedSound audio){
 		super();
 		
@@ -18,10 +20,16 @@ public class SoundData extends ReferenceCounter{
 		}finally{
 			audio.dispose();
 		}
+
+		length = (float)(AL10.alGetBufferi(buffer, AL10.AL_SIZE) * 8 / (AL10.alGetBufferi(buffer, AL10.AL_CHANNELS) * AL10.alGetBufferi(buffer, AL10.AL_BITS))) / (float)(AL10.alGetBufferi(buffer, AL10.AL_FREQUENCY));
 	}
 	
 	public int getID(){
 		return buffer;
+	}
+	
+	public float getLength(){
+		return length;
 	}
 	
 	public void dispose(){
