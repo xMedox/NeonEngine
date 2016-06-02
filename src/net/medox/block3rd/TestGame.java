@@ -12,6 +12,7 @@ import net.medox.neonengine.components.Slider;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.Entity2D;
 import net.medox.neonengine.core.Game;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector2f;
@@ -27,6 +28,42 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class TestGame extends Game{
+	public static void main(String[] args){
+//		NeonEngine.OPTION_ENABLE_VSYNC = 0;
+//		NeonEngine.OPTION_ENABLE_FXAA = 0;
+//		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
+//		NeonEngine.OPTION_ENABLE_2D = 1;
+//		NeonEngine.OPTION_ENABLE_PARTICLES = 0;
+//		NeonEngine.OPTION_ENABLE_BLOOM = 1;
+//		NeonEngine.OPTION_TEXTURE_QUALITY = 0;
+//		NeonEngine.OPTION_SHADOW_QUALITY = 0;
+//		
+//		NeonEngine.init(new TestGame(), /*60*/1000);
+		
+		NeonEngine.OPTION_ENABLE_VSYNC = 1;
+		NeonEngine.OPTION_ENABLE_FXAA = 0;
+		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
+		NeonEngine.OPTION_ENABLE_2D = 1;
+		NeonEngine.OPTION_ENABLE_PARTICLES = 0;
+		NeonEngine.OPTION_ENABLE_BLOOM = 1;
+		NeonEngine.OPTION_TEXTURE_QUALITY = 0;
+		NeonEngine.OPTION_SHADOW_QUALITY = 0;
+		
+		NeonEngine.init(new TestGame(), 60);
+		
+		Window.setStartTitle("Project Robot");
+		Window.setStartDimensions(854, 480);
+		Window.setStartFullscreen(false);
+		Window.setStartResizable(true);
+		Window.setStartIcon("icon16.png", "icon32.png");
+//		Window.setStartCursor("cursor test red.png", 0, 0);
+//		Window.setStartSizeLimits(256, 256, 854, 480);
+		
+		NeonEngine.createWindow();
+		
+		NeonEngine.start();
+	}
+	
 	@Override
 	public void init(){
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
