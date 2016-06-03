@@ -2,38 +2,6 @@
 
 ## Changelog:
 
-**Rendering:**
-- Added the ability to set the font size
-- The drawString method now takes the color in before the scale
-- Now only the red component of the glowMap gets used
-- Removed particle bloom
-- Renamed glowMap to emissiveMap
-- Renamed add... methods in the RenderingEngine to render...
-- Added a method in the RenderingEngine to render a mesh
-- Minor performance improvements
-- Fixed the particles
-- Changed the color of the bloom output
-- You can now get the renderingState(Used if objects should not cast shadows)
-
-**Physics:**
-- Fixed a collision bug
-- Some minor performance improvements
-- Removed the hard coded position of physics objects
-
-**Other:**
-- Cameras now have a mode value
-- Skyboxes aren't components anymore
-- Added the toString method to all math classes
-- Fixed CubeMaps getting loaded even if the same CubeMap already exists
-- Removed OPTION_ENABLE_MIPMAPPING and OPTION_MSAA_MULTIPLIER in the NeonEngine
-- Added the getSecond method in the Time class
-- You can now get the CharacterController of the PlayerPhysicsComponent
-- The engine now updates the internal input last
-- Fixed the disable shadow option
-- Added a getter for the hitNormal to the Ray class
-- Added mouse inversion for the FreeLook component
-- Renamed PlayerPhysicsComponent to PlayerComponent
-- You can now get the length of a sound
 
 ## Features needed for 1.0.0:
 
