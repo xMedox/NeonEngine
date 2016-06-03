@@ -18,8 +18,6 @@ import net.medox.neonengine.rendering.DataUtil;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class MeshData extends ReferenceCounter{
-//	private static int bound;
-	
 	public static final int POSITION_VB = 0;
 	public static final int TEXCOORD_VB = 1;
 	public static final int NORMAL_VB = 2;
@@ -104,14 +102,14 @@ public class MeshData extends ReferenceCounter{
 	}
 	
 	public void draw(){
-//		if(bound != vertexArrayObject){
+//		if(RenderingEngine.meshBound != vertexArrayObject){
 			GL30.glBindVertexArray(vertexArrayObject);
 			
 			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
 				GL11.glDrawElements(GL11.GL_TRIANGLES, drawCount, GL11.GL_UNSIGNED_INT, 0);
 			}
 			
-//			bound = vertexArrayObject;
+//			RenderingEngine.meshBound = vertexArrayObject;
 //		}else{
 //			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
 //				GL11.glDrawElements(GL11.GL_TRIANGLES, drawCount, GL11.GL_UNSIGNED_INT, 0);

@@ -291,11 +291,19 @@ public class BatchRenderer{
 		GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, DataUtil.createFlippedBufferTimes3(vertexData4));
 		
 		
-		GL30.glBindVertexArray(vertexArrayObject);
-		
-		if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
-			GL11.glDrawElements(GL11.GL_TRIANGLES, indexCount, GL11.GL_UNSIGNED_INT, 0);
-		}
+//		if(RenderingEngine.meshBound != vertexArrayObject){
+			GL30.glBindVertexArray(vertexArrayObject);
+			
+			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
+				GL11.glDrawElements(GL11.GL_TRIANGLES, indexCount, GL11.GL_UNSIGNED_INT, 0);
+			}
+			
+//			RenderingEngine.meshBound = vertexArrayObject;
+//		}else{
+//			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
+//				GL11.glDrawElements(GL11.GL_TRIANGLES, indexCount, GL11.GL_UNSIGNED_INT, 0);
+//			}
+//		}
 		
 		vertices.clear();
 		uvs.clear();

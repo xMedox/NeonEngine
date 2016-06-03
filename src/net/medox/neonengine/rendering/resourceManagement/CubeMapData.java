@@ -46,12 +46,12 @@ private final int textureTarget;
 	}
 	
 	public void bind(int samplerSlot){
-//		if(TextureDataGL.bound != textureID){
+//		if(RenderingEngine.textureBound != textureID){
 			assert(samplerSlot >= 0 && samplerSlot <= 31);
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
 //			
-//			TextureDataGL.bound = textureID;
+//			RenderingEngine.textureBound = textureID;
 //		}
 	}
 	

@@ -16,8 +16,6 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.DataUtil;
 
 public class ShaderData extends ReferenceCounter{
-//	private static int bound;
-	
 	private final int program;
 	private final List<Integer> shaders;
 	private final List<String> uniformNames;
@@ -326,9 +324,9 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void bind(){
-//		if(bound != program){
+//		if(RenderingEngine.shaderBound != program){
 			GL20.glUseProgram(program);
-//			bound = program; 
+//			RenderingEngine.shaderBound = program;
 //		}
 	}
 	

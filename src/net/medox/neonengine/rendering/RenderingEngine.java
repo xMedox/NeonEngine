@@ -44,6 +44,10 @@ public class RenderingEngine{
 	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
 	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
 	
+//	public static int meshBound;
+//	public static int textureBound;
+//	public static int shaderBound;
+	
 	private static int renderingState;
 	
 	private static BatchRenderer batchRenderer;

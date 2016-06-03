@@ -18,8 +18,6 @@ import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.core.Util;
 
 public class TextureData extends ReferenceCounter{
-//	public static int bound;
-	
 	private final int textureTarget;
 	private final int numTextures;
 	
@@ -50,22 +48,22 @@ public class TextureData extends ReferenceCounter{
 	}
 	
 	public void bind(int samplerSlot){
-//		if(bound != textureID[0]){
+//		if(RenderingEngine.textureBound != textureID[0]){
 			assert(samplerSlot >= 0 && samplerSlot <= 31);
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(textureTarget, textureID[0]);
 //			
-//			bound = textureID[0];
+//			RenderingEngine.textureBound = textureID[0];
 //		}
 	}
 	
 	public void bind(int samplerSlot, int id){
-//		if(bound != textureID[id]){
+//		if(RenderingEngine.textureBound != textureID[id]){
 			assert(samplerSlot >= 0 && samplerSlot <= 31);
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(textureTarget, textureID[id]);
 //			
-//			bound = textureID[id];
+//			RenderingEngine.textureBound = textureID[id];
 //		}
 	}
 	
