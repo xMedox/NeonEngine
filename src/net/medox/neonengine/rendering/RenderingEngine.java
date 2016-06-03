@@ -40,6 +40,8 @@ public class RenderingEngine{
 	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
 	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
 	
+	private static int renderingState;
+	
 	private static BatchRenderer batchRenderer;
 	
 	private static Map<String, Texture> textureMap;
@@ -226,6 +228,10 @@ public class RenderingEngine{
 		throw new IllegalArgumentException(uniformType + " is not a supported type in Rendering Engine");
 	}
 	
+	public static int getRenderingState(){
+		return renderingState;
+	}
+	
 	public static int getFPS(){
 		return NeonEngine.fps;
 	}
@@ -246,6 +252,8 @@ public class RenderingEngine{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		
 		renderSkybox();
+		
+		renderingState = 0;
 		
 		if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 			particleCamera = mainCamera;
@@ -300,6 +308,8 @@ public class RenderingEngine{
 					
 					GL11.glEnable(GL32.GL_DEPTH_CLAMP);
 					
+					renderingState = 1;
+					
 					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						particleCamera = lightCamera;
 						particleShader = particleShadowMappingShader;
@@ -337,6 +347,8 @@ public class RenderingEngine{
 			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 			GL11.glDepthMask(false);
 			GL11.glDepthFunc(GL11.GL_EQUAL);
+			
+			renderingState = 2;
 			
 			if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 				particleCamera = mainCamera;

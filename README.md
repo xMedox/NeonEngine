@@ -13,6 +13,7 @@
 - Minor performance improvements
 - Fixed the particles
 - Changed the color of the bloom output
+- You can now get the renderingState(Used if objects should not cast shadows)
 
 **Physics:**
 - Fixed a collision bug
