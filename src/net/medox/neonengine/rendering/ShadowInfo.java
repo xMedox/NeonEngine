@@ -46,7 +46,7 @@ public class ShadowInfo{
 		return base;
 	}
 
-	public boolean getFlipFaces(){
+	public boolean shouldFlipFaces(){
 		return flipFaces;
 	}
 }

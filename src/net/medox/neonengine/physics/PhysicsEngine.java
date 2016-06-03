@@ -30,7 +30,7 @@ public class PhysicsEngine{
 		final Callback callback = new Callback();
 		
 //		final BroadphaseInterface broadphase = new DbvtBroadphase();
-		BroadphaseInterface broadphase = new AxisSweep3(new Vector3f(-10000, -10000, -10000), new Vector3f(10000, 10000, 10000));
+		final BroadphaseInterface broadphase = new AxisSweep3(new Vector3f(-10000, -10000, -10000), new Vector3f(10000, 10000, 10000));
 		final CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
 		final CollisionDispatcher dispatcher = new CollisionDispatcher(collisionConfiguration);
 		final ConstraintSolver solver = new SequentialImpulseConstraintSolver();

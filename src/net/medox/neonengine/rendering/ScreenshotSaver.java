@@ -9,10 +9,10 @@ import java.util.Calendar;
 import javax.imageio.ImageIO;
 
 public class ScreenshotSaver extends Thread{
-	private String destination;
-	private ByteBuffer buffer;
-	private int width;
-	private int height;
+	private final String destination;
+	private final ByteBuffer buffer;
+	private final int width;
+	private final int height;
 	
 	public ScreenshotSaver(String destination, ByteBuffer buffer, int width, int height){
 		this.destination = destination;
@@ -23,8 +23,8 @@ public class ScreenshotSaver extends Thread{
 	
 	public void run(){
 		if(width > 0 && height > 0){
-		    final String a2 = String.valueOf(Calendar.getInstance().get(Calendar.YEAR)) + "-" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH)+1) + "-" + String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-		    final String b2 = String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) + "." + String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)) + "." + String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
+		    final String YMD = Calendar.getInstance().get(Calendar.YEAR) + "-" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		    final String HMS = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "." + Calendar.getInstance().get(Calendar.MINUTE) + "." + Calendar.getInstance().get(Calendar.SECOND);
 			
 		    new File(destination).mkdir();
 		    
@@ -38,7 +38,7 @@ public class ScreenshotSaver extends Thread{
 		    }
 		     
 		    try{
-			   	ImageIO.write(image, "PNG", new File(destination + (Window.getTitle() + " " + a2 + "_" + b2) + ".png"));
+			   	ImageIO.write(image, "PNG", new File(destination + (Window.getTitle() + " " + YMD + "_" + HMS) + ".png"));
 		    }catch(IOException e){
 		    	e.printStackTrace();
 		    }

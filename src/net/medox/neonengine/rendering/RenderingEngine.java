@@ -310,7 +310,7 @@ public class RenderingEngine{
 					setFloat("shadowVarianceMin", shadowInfo.getMinVariance());
 					setFloat("shadowLightBleedingReduction", shadowInfo.getLightBleedReductionAmount());
 					
-					if(shadowInfo.getFlipFaces()){
+					if(shadowInfo.shouldFlipFaces()){
 						GL11.glCullFace(GL11.GL_FRONT);
 					}
 					
@@ -321,7 +321,7 @@ public class RenderingEngine{
 					if(NeonEngine.OPTION_ENABLE_PARTICLES == 1){
 						particleCamera = lightCamera;
 						particleShader = particleShadowMappingShader;
-						particleFlipFaces = shadowInfo.getFlipFaces();
+						particleFlipFaces = shadowInfo.shouldFlipFaces();
 					}
 					
 					object.renderAll(shadowMappingShader, lightCamera);
@@ -332,7 +332,7 @@ public class RenderingEngine{
 					
 					GL11.glDisable(GL32.GL_DEPTH_CLAMP);
 					
-					if(shadowInfo.getFlipFaces()){
+					if(shadowInfo.shouldFlipFaces()){
 						GL11.glCullFace(GL11.GL_BACK);
 					}
 					

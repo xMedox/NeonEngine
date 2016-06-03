@@ -22,7 +22,7 @@ public class Entity2D{
 		child.setParent(this);
 		child.getTransform().setParent(transform);
 		
-		if(added == true){
+		if(added){
 			child.addToEngine();
 		}
 		
@@ -33,7 +33,7 @@ public class Entity2D{
 		components.add(component);
 		component.setParent(this);
 		
-		if(added == true){
+		if(added){
 			component.addToEngine();
 		}
 		
