@@ -34,7 +34,6 @@
 - Added mouse inversion for the FreeLook component
 - Renamed PlayerPhysicsComponent to PlayerComponent
 - You can now get the length of a sound
-- Added a new MeshRendererNoShadow component
 
 ## Features needed for 1.0.0:
 
