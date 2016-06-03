@@ -4,11 +4,11 @@ import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 
 import net.medox.neonengine.core.NeonEngine;
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.rendering.ImageUtil.ImageData;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCharCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
@@ -248,7 +248,7 @@ public class Window{
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		final int width = getWidth();
 		final int height = getHeight();
-		final ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * 4);
+		final ByteBuffer buffer = DataUtil.createByteBuffer(width * height * 4);
 		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	    
 		new ScreenshotSaver("screenshots/", buffer, width, height).start();

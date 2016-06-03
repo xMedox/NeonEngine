@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
 

@@ -8,6 +8,8 @@ import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
 
+import net.medox.neonengine.core.DataUtil;
+
 public class ImageUtil{
 	public static BufferedImage createImage(int[][] red, int[][] green, int[][] blue, int width, int height){
 		final BufferedImage ret = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);

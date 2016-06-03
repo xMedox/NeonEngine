@@ -4,10 +4,10 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.ALC;
@@ -50,7 +50,7 @@ public class SoundEngine{
 //		assert(defaultDeviceSpecifier != null);
 //		System.out.println("Default device: " + defaultDeviceSpecifier);
 //		
-//		IntBuffer attribs = BufferUtils.createIntBuffer(16);
+//		IntBuffer attribs = DataUtil.createIntBuffer(16);
 //
 //		attribs.put(ALC10.ALC_FREQUENCY);
 //		attribs.put(44100);
@@ -71,13 +71,13 @@ public class SoundEngine{
 //		
 //		context.makeCurrent();
 		
-		listenerPosition = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		listenerPosition = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		listenerPosition.flip();
 		
-		listenerVelocity = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		listenerVelocity = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		listenerVelocity.flip();
 		
-		listenerOrientation = BufferUtils.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
+		listenerOrientation = DataUtil.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
 		listenerOrientation.flip();
 	}
 	

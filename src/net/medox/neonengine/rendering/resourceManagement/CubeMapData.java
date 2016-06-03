@@ -3,7 +3,6 @@ package net.medox.neonengine.rendering.resourceManagement;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11;
@@ -13,6 +12,7 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.core.Util;
@@ -139,7 +139,7 @@ private final int textureTarget;
 			return;
 		}
 		
-		final IntBuffer drawBuffers = BufferUtils.createIntBuffer(32);
+		final IntBuffer drawBuffers = DataUtil.createIntBuffer(32);
 //		IntBuffer.allocate(32);      //32 is the max number of bound textures in OpenGL
 		assert(1 <= 32);            //Assert to be sure no buffer overrun should occur
 		

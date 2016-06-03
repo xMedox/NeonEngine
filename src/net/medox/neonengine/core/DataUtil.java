@@ -1,4 +1,4 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.core;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;

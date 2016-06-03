@@ -4,12 +4,12 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.Transform2D;
@@ -49,7 +49,7 @@ public class BatchRenderer{
 		textures = new ArrayList<TextureSlot>();
 		colors = new ArrayList<Vector3f>();
 		
-		vertexArrayBuffers = BufferUtils.createIntBuffer(NUM_BUFFERS);
+		vertexArrayBuffers = DataUtil.createIntBuffer(NUM_BUFFERS);
 		
 		vertexArrayObject = GL30.glGenVertexArrays();
 		GL30.glBindVertexArray(vertexArrayObject);

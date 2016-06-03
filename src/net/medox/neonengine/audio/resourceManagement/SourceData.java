@@ -2,9 +2,9 @@ package net.medox.neonengine.audio.resourceManagement;
 
 import java.nio.FloatBuffer;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.math.Vector3f;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
 
 public class SourceData{
@@ -16,10 +16,10 @@ public class SourceData{
 	public SourceData(){
 		source = AL10.alGenSources();
 		
-		sourcePosition = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		sourcePosition = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		sourcePosition.flip();
 		
-		sourceVelocity = BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		sourceVelocity = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		sourceVelocity.flip();
 	}
 	

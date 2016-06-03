@@ -10,10 +10,10 @@ import java.util.Map;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL32;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.rendering.DataUtil;
 
 public class ShaderData extends ReferenceCounter{
 	private final int program;

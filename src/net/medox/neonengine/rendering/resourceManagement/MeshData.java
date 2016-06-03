@@ -2,19 +2,18 @@ package net.medox.neonengine.rendering.resourceManagement;
 
 import java.nio.IntBuffer;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.Camera;
-import net.medox.neonengine.rendering.DataUtil;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class MeshData extends ReferenceCounter{
@@ -53,7 +52,7 @@ public class MeshData extends ReferenceCounter{
 //		minVertex = model.getMinVertex();
 //		maxVertex = model.getMaxVertex();
 		
-		vertexArrayBuffers = BufferUtils.createIntBuffer(NUM_BUFFERS);
+		vertexArrayBuffers = DataUtil.createIntBuffer(NUM_BUFFERS);
 		
 		vertexArrayObject = GL30.glGenVertexArrays();
 		GL30.glBindVertexArray(vertexArrayObject);

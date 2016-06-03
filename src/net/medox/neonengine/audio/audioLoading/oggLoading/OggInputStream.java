@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import org.lwjgl.BufferUtils;
-
 import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Block;
 import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Comment;
 import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.DspState;
@@ -15,6 +13,7 @@ import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Packet;
 import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.Page;
 import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.StreamState;
 import net.medox.neonengine.audio.audioLoading.oggLoading.jorbis.SyncState;
+import net.medox.neonengine.core.DataUtil;
 
 public class OggInputStream extends InputStream implements AudioInputStream{
 	private int convsize = 4096 * 4;
@@ -39,7 +38,7 @@ public class OggInputStream extends InputStream implements AudioInputStream{
 	boolean inited = false;
 	
 	private int readIndex;
-	final private ByteBuffer pcmBuffer = BufferUtils.createByteBuffer(4096 * 500);
+	final private ByteBuffer pcmBuffer = DataUtil.createByteBuffer(4096 * 500);
 	final private int total;
 	
 	public OggInputStream(InputStream input) throws IOException{

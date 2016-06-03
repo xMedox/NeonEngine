@@ -26,13 +26,12 @@ public class Font{
 	private final boolean antialiasing;
 	private final int fontSize;
 	
-	private int fontHeight;
+	private int textureWidth = 512;
+	private int textureHeight = 512;
 	
 	private java.awt.Font font;
 	private Texture fontTexture;
-	
-	private int textureWidth = 512;
-	private int textureHeight = 512;
+	private int fontHeight;
 	
 	public Font(String fileName, int size, boolean antialiasing){
 		this(fileName, size, antialiasing, null);
