@@ -23,7 +23,7 @@ public class Font{
 	
 	private final CharInfo[] charArray = new CharInfo[256];
 	private final Map<Character, CharInfo> customChars = new ConcurrentHashMap<Character, CharInfo>();
-	private final boolean antiAlias;
+	private final boolean antialiasing;
 	private final int fontSize;
 	
 	private int fontHeight;
@@ -34,11 +34,11 @@ public class Font{
 	private int textureWidth = 512;
 	private int textureHeight = 512;
 	
-	public Font(String fileName, int size, boolean antiAlias){
-		this(fileName, size, antiAlias, null);
+	public Font(String fileName, int size, boolean antialiasing){
+		this(fileName, size, antialiasing, null);
 	}
 	
-	public Font(String fileName, int size, boolean antiAlias, char[] additionalChars){
+	public Font(String fileName, int size, boolean antialiasing, char[] additionalChars){
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
@@ -62,7 +62,7 @@ public class Font{
 		}
 		
 		this.fontSize = font.getSize()+3;
-		this.antiAlias = antiAlias;
+		this.antialiasing = antialiasing;
 		
 		createSet(additionalChars);
 		
@@ -76,7 +76,7 @@ public class Font{
 		final BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
 		
-		if(antiAlias){
+		if(antialiasing){
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
 		
@@ -97,7 +97,7 @@ public class Font{
 		final BufferedImage fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D gt = (Graphics2D)fontImage.getGraphics();
 		
-		if(antiAlias){
+		if(antialiasing){
 			gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
 		
