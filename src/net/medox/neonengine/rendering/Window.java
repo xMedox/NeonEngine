@@ -9,15 +9,9 @@ import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.rendering.ImageUtil.ImageData;
 
+import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWCharCallback;
-import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
-import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.glfw.GLFWMouseButtonCallback;
-import org.lwjgl.glfw.GLFWScrollCallback;
-import org.lwjgl.glfw.GLFWWindowPosCallback;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.ARBFramebufferObject;
@@ -30,14 +24,14 @@ public class Window{
 	
     public static long window;
     
-	private static GLFWErrorCallback errorCallback;
-	private static GLFWKeyCallback keyCallback;
-	private static GLFWMouseButtonCallback mouseButtonCallback;
-	private static GLFWCursorPosCallback mousePosCallback;
-	private static GLFWScrollCallback scrollCallback;
-	private static GLFWWindowPosCallback posCallback;
-	private static GLFWFramebufferSizeCallback sizeCallback;
-	private static GLFWCharCallback textCallback;
+//	private static GLFWErrorCallback errorCallback;
+//	private static GLFWKeyCallback keyCallback;
+//	private static GLFWMouseButtonCallback mouseButtonCallback;
+//	private static GLFWCursorPosCallback mousePosCallback;
+//	private static GLFWScrollCallback scrollCallback;
+//	private static GLFWWindowPosCallback posCallback;
+//	private static GLFWFramebufferSizeCallback sizeCallback;
+//	private static GLFWCharCallback textCallback;
 	
 	private static String title = "NeonEngine";
 	
@@ -76,7 +70,8 @@ public class Window{
 	private static boolean gotCreated;
 	
 	public static void createWindow(){
-		errorCallback = GLFWErrorCallback.createPrint().set();
+//		errorCallback = GLFWErrorCallback.createPrint().set();
+		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
 		
 		if(!GLFW.glfwInit()){
 			throw new IllegalStateException("Unable to initialize GLFW");
@@ -151,60 +146,61 @@ public class Window{
 			GLFW.glfwSwapInterval(0);
 		}
 		
-		keyCallback = new GLFWKeyCallback(){
-			@Override
-			public void invoke(long window, int key, int scancode, int action, int mods){
-				Input.key(key, scancode, action, mods);
-			}
-		}.set(window);
+//		keyCallback = new GLFWKeyCallback(){
+//			@Override
+//			public void invoke(long window, int key, int scancode, int action, int mods){
+//				Input.key(key, scancode, action, mods);
+//			}
+//		}.set(window);
+		GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> Input.key(key, scancode, action, mods));
 		
-		mouseButtonCallback = new GLFWMouseButtonCallback(){
-			@Override
-			public void invoke(long window, int button, int action, int mods){
-				Input.mouseButton(button, action, mods);
-			}
-		}.set(window);
+//		mouseButtonCallback = new GLFWMouseButtonCallback(){
+//			@Override
+//			public void invoke(long window, int button, int action, int mods){
+//				Input.mouseButton(button, action, mods);
+//			}
+//		}.set(window);
+		GLFW.glfwSetMouseButtonCallback(window, (window, button, action, mods) -> Input.mouseButton(button, action, mods));
 		
-		mousePosCallback = new GLFWCursorPosCallback(){
-			@Override
-			public void invoke(long window, double xPos, double yPos){
-				Input.mousePos(xPos, yPos);
-			}
-		}.set(window);
+//		mousePosCallback = new GLFWCursorPosCallback(){
+//			@Override
+//			public void invoke(long window, double xPos, double yPos){
+//				Input.mousePos(xPos, yPos);
+//			}
+//		}.set(window);
+		GLFW.glfwSetCursorPosCallback(window, (window, xPos, yPos) -> Input.mousePos(xPos, yPos));
 		
-		scrollCallback = new GLFWScrollCallback(){
-			@Override
-			public void invoke(long window, double xOffset, double yOffset){
-				Input.scroll(yOffset);
-			}
-		}.set(window);
+//		scrollCallback = new GLFWScrollCallback(){
+//			@Override
+//			public void invoke(long window, double xOffset, double yOffset){
+//				Input.scroll(yOffset);
+//			}
+//		}.set(window);
+		GLFW.glfwSetScrollCallback(window, (window, xOffset, yOffset) -> Input.scroll(yOffset));
 		
-		posCallback = new GLFWWindowPosCallback(){
-			@Override
-			public void invoke(long window, int xPos, int yPos){
-				Window.xPos = xPos;
-				Window.yPos = yPos;
-			}
-		}.set(window);
+//		posCallback = new GLFWWindowPosCallback(){
+//			@Override
+//			public void invoke(long window, int xPos, int yPos){
+//				setPos(xPos, yPos);
+//			}
+//		}.set(window);
+		GLFW.glfwSetWindowPosCallback(window, (window, xPos, yPos) -> setPos(xPos, yPos));
 		
-		sizeCallback = new GLFWFramebufferSizeCallback(){
-			@Override
-			public void invoke(long window, int width, int height){
-				gotResized = true;
-				
-				Window.width = width;
-				Window.height = height;
-				Window.centerPositionX = (int)width/2;
-				Window.centerPositionY = (int)height/2;
-			}
-		}.set(window);
+//		sizeCallback = new GLFWFramebufferSizeCallback(){
+//			@Override
+//			public void invoke(long window, int width, int height){
+//				setFramebufferSize(width, height)
+//			}
+//		}.set(window);
+		GLFW.glfwSetFramebufferSizeCallback(window, (window, width, height) -> setFramebufferSize(width, height));
 		
-		textCallback = new GLFWCharCallback(){
-			@Override
-			public void invoke(long window, int codepoint){
-				Input.chars(codepoint);
-			}
-		}.set(window);
+//		textCallback = new GLFWCharCallback(){
+//			@Override
+//			public void invoke(long window, int codepoint){
+//				Input.chars(codepoint);
+//			}
+//		}.set(window);
+		GLFW.glfwSetCharCallback(window, (window, codepoint) -> Input.chars(codepoint));
 		
 		GLFW.glfwShowWindow(window);
 		
@@ -226,22 +222,48 @@ public class Window{
 		GL.createCapabilities();
 	}
 	
+	private static void setPos(int xPos, int yPos){
+		Window.xPos = xPos;
+		Window.yPos = yPos;
+	}
+	
+	private static void setFramebufferSize(int width, int height){
+		gotResized = true;
+		
+		Window.width = width;
+		Window.height = height;
+		Window.centerPositionX = (int)width/2;
+		Window.centerPositionY = (int)height/2;
+	}
+	
 	public static void dispose(){
-		GLFW.glfwDestroyWindow(window);
-		keyCallback.free();
-		mouseButtonCallback.free();
-		mousePosCallback.free();
-		scrollCallback.free();
-		posCallback.free();
-		sizeCallback.free();
-		textCallback.free();
+		Callbacks.glfwFreeCallbacks(window);
+		
+//		keyCallback.free();
+//		mouseButtonCallback.free();
+//		mousePosCallback.free();
+//		scrollCallback.free();
+//		posCallback.free();
+//		sizeCallback.free();
+//		textCallback.free();
+		
+//		GLFW.glfwSetKeyCallback(null).free();
+//		GLFW.glfwSetMouseButtonCallback(null).free();
+//		GLFW.glfwSetCursorPosCallback(null).free();
+//		GLFW.glfwSetScrollCallback(null).free();
+//		GLFW.glfwSetWindowPosCallback(null).free();
+//		GLFW.glfwSetFramebufferSizeCallback(null).free();
+//		GLFW.glfwSetCharCallback(null).free();
 		
 		if(cursor != MemoryUtil.NULL){
 			GLFW.glfwDestroyCursor(cursor);
 		}
+		
+		GLFW.glfwDestroyWindow(window);
         
 		GLFW.glfwTerminate();
-		errorCallback.free();
+//		errorCallback.free();
+		GLFW.glfwSetErrorCallback(null).free();
 	}
 	
 	public static void takeScreenshot(){
