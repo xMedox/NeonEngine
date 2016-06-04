@@ -26,6 +26,16 @@ float CalcShadowAmount(sampler2D shadowMap, vec4 initialShadowMapCoords){
 }
 
 void main(){
+	//vec4 diffuse = texture(diffuseMap, texCoord0);
+	//vec4 lighting = CalcLightingEffect(normalize(tbnMatrix * (255.0f/128.0f * texture(normalMap, texCoord0).xyz - 1)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
+	
     outputFS = texture(diffuseMap, texCoord0) * CalcLightingEffect(normalize(tbnMatrix * (255.0f/128.0f * texture(normalMap, texCoord0).xyz - 1)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
-	outputBloom = vec4(0, 0, 0, 0);
+	
+	//float brightness = dot(lighting.rgb, vec3(0.25, 0.25, 0.25));
+	
+	//if(brightness > 1.0){		
+		//outputBloom = (diffuse * lighting)*vec4(0.5, 0.5, 0.5, 1);
+	//}else{		
+		outputBloom = vec4(0, 0, 0, 0);
+	//}
 }
