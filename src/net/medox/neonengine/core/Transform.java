@@ -8,40 +8,40 @@ public class Transform{
 	private Transform parent;
 	private Matrix4f parentMatrix;
 	
-	private Vector3f pos;
-	private Quaternion rot;
+	private Vector3f position;
+	private Quaternion rotation;
 	private Vector3f scale;
 	
-	private Vector3f oldPos;
-	private Quaternion oldRot;
+	private Vector3f oldPosition;
+	private Quaternion oldRotation;
 	private Vector3f oldScale;
 	
 	public Transform(){
-		pos = new Vector3f(0, 0, 0);
-		rot = new Quaternion(0, 0, 0, 1);
+		position = new Vector3f(0, 0, 0);
+		rotation = new Quaternion(0, 0, 0, 1);
 		scale = new Vector3f(1, 1, 1);
 		
-		oldPos = pos;
-		oldRot = rot;
+		oldPosition = position;
+		oldRotation = rotation;
 		oldScale = scale;
 		
 		parentMatrix = new Matrix4f().initIdentity();
 	}
 	
 	public void update(){
-//		if(oldPos != null){
-//			oldPos.set(pos);
-//			oldRot.set(rot);
+//		if(oldPosition != null){
+//			oldPosition.set(position);
+//			oldRotation.set(rotation);
 //			oldScale.set(scale);
 //		}else{
-			oldPos = new Vector3f(0, 0, 0).set(pos).add(1.0f);
-			oldRot = new Quaternion(0, 0, 0, 0).set(rot).mul(0.5f);
+			oldPosition = new Vector3f(0, 0, 0).set(position).add(1.0f);
+			oldRotation = new Quaternion(0, 0, 0, 0).set(rotation).mul(0.5f);
 			oldScale = new Vector3f(0, 0, 0).set(scale).add(1.0f);
 //		}
 	}
 	
 	public void move(Vector3f add){
-		pos = pos.add(add);
+		position = position.add(add);
 	}
 	
 	public void scale(Vector3f add){
@@ -49,27 +49,27 @@ public class Transform{
 	}
 	
 	public void rotate(Vector3f axis, float angle){
-		rot = new Quaternion(axis, angle).mul(rot).normalized();
+		rotation = new Quaternion(axis, angle).mul(rotation).normalized();
 	}
 	
 	public void rotate(Quaternion quaternion){
-		rot = quaternion.mul(rot).normalized();
+		rotation = quaternion.mul(rotation).normalized();
 	}
 	
 	public void lookAt(Vector3f point, Vector3f up){
-		rot = getLookAtRotation(point, up);
+		rotation = getLookAtRotation(point, up);
 	}
 	
 	public Quaternion getLookAtRotation(Vector3f point, Vector3f up){
-		return new Quaternion(new Matrix4f().initRotation(point.sub(pos).normalized(), up));
+		return new Quaternion(new Matrix4f().initRotation(point.sub(position).normalized(), up));
 	}
 	
 	public boolean hasChanged(){
-		return parent != null && parent.hasChanged() ? true : !pos.equals(oldPos) ? true: !rot.equals(oldRot) ? true: !scale.equals(oldScale) ? true: false;
+		return parent != null && parent.hasChanged() ? true : !position.equals(oldPosition) ? true: !rotation.equals(oldRotation) ? true: !scale.equals(oldScale) ? true: false;
 	}
 	
 	public Matrix4f getTransformation(){
-		return getParentMatrix().mul(/*translationMatrix*/new Matrix4f().initTranslation(pos.getX(), pos.getY(), pos.getZ()).mul(rot.toRotationMatrix().mul(/*scaleMatrix*/new Matrix4f().initScale(scale.getX(), scale.getY(), scale.getZ()))));
+		return getParentMatrix().mul(/*translationMatrix*/new Matrix4f().initTranslation(position.getX(), position.getY(), position.getZ()).mul(rotation.toRotationMatrix().mul(/*scaleMatrix*/new Matrix4f().initScale(scale.getX(), scale.getY(), scale.getZ()))));
 	}
 	
 //	public Matrix4f getTransformationList(){
@@ -107,7 +107,7 @@ public class Transform{
 	}
 	
 	public Vector3f getTransformedPos(){
-		return getParentMatrix().transform(pos);
+		return getParentMatrix().transform(position);
 	}
 	
 	public Quaternion getTransformedRot(){
@@ -117,31 +117,31 @@ public class Transform{
 			parentRotation = parent.getTransformedRot();
 		}
 		
-		return parentRotation.mul(rot);
+		return parentRotation.mul(rotation);
 	}
 	
 	public Vector3f getPos(){
-		return pos;
+		return position;
 	}
 	
 	public void setPos(Vector3f translation){
-		pos = translation;
+		position = translation;
 	}
 	
 	public void setPos(float x, float y, float z){
-		pos.set(x, y, z);
+		position.set(x, y, z);
 	}
 	
 	public Quaternion getRot(){
-		return rot;
+		return rotation;
 	}
 	
 	public void setRot(Quaternion rotation){
-		rot = rotation;
+		this.rotation = rotation;
 	}
 	
 	public void setRot(float x, float y, float z, float w){
-		rot.set(x, y, z, w);
+		rotation.set(x, y, z, w);
 	}
 	
 	public Vector3f getScale(){

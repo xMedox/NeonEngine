@@ -8,35 +8,35 @@ public class Transform2D{
 	private Transform2D parent;
 	private Matrix4f parentMatrix;
 	
-	private Vector2f pos;
+	private Vector2f position;
 	private Vector2f scale;
 	
-	private Vector2f oldPos;
+	private Vector2f oldPosition;
 	private Vector2f oldScale;
 	
 	public Transform2D(){
-		pos = new Vector2f(0, 0);
+		position = new Vector2f(0, 0);
 		scale = new Vector2f(1, 1);
 		
-		oldPos = pos;
+		oldPosition = position;
 		oldScale = scale;
 		
 		parentMatrix = new Matrix4f().initIdentity();
 	}
 	
 	public void update(){
-//		if(oldPos != null){
-//			oldPos.set(pos);
+//		if(oldPosition != null){
+//			oldPosition.set(position);
 //			oldRot.set(rot);
 //			oldScale.set(scale);
 //		}else{
-			oldPos = new Vector2f(0, 0).set(pos).add(1.0f);
+			oldPosition = new Vector2f(0, 0).set(position).add(1.0f);
 			oldScale = new Vector2f(0, 0).set(scale).add(1.0f);
 //		}
 	}
 	
 	public void move(Vector2f add){
-		pos = pos.add(add);
+		position = position.add(add);
 	}
 	
 	public void scale(Vector2f add){
@@ -60,11 +60,11 @@ public class Transform2D{
 //	}
 	
 	public boolean hasChanged(){
-		return parent != null && parent.hasChanged() ? true : !pos.equals(oldPos) ? true: !scale.equals(oldScale) ? true: false;
+		return parent != null && parent.hasChanged() ? true : !position.equals(oldPosition) ? true: !scale.equals(oldScale) ? true: false;
 	}
 	
 	public Matrix4f getTransformation(){
-		return getParentMatrix().mul(/*translationMatrix*/new Matrix4f().initTranslation(pos.getX(), pos.getY(), 0).mul(/*rotationMatrix*/new Quaternion(0, 0, 0, 1).toRotationMatrix().mul(/*scaleMatrix*/new Matrix4f().initScale(scale.getX(), scale.getY(), 0))));
+		return getParentMatrix().mul(/*translationMatrix*/new Matrix4f().initTranslation(position.getX(), position.getY(), 0).mul(/*rotationMatrix*/new Quaternion(0, 0, 0, 1).toRotationMatrix().mul(/*scaleMatrix*/new Matrix4f().initScale(scale.getX(), scale.getY(), 0))));
 	}
 	
 	private Matrix4f getParentMatrix(){
@@ -86,21 +86,21 @@ public class Transform2D{
 			parentPos = parent.getTransformedPos();
 		}
 		
-		return parentPos.add(pos);
+		return parentPos.add(position);
 		
 //		return new Vector2f(getParentMatrix().transform(new Vector3f(pos.getX(), pos.getY(), 0)).getX(), getParentMatrix().transform(new Vector3f(pos.getX(), pos.getY(), 0)).getY());
 	}
 	
 	public Vector2f getPos(){
-		return pos;
+		return position;
 	}
 	
 	public void setPos(Vector2f translation){
-		pos = translation;
+		position = translation;
 	}
 	
 	public void setPos(float x, float y){
-		pos.set(x, y);
+		position.set(x, y);
 	}
 	
 //	public Quaternion getRot(){
