@@ -26,11 +26,11 @@ public class Transform2D{
 	
 	public void update(){
 //		if(oldPosition != null){
-			oldPosition.set(position);
-			oldScale.set(scale);
+//			oldPosition.set(position);
+//			oldScale.set(scale);
 //		}else{
-//			oldPosition = position.add(1.0f);
-//			oldScale = scale.add(1.0f);
+			oldPosition = position.add(1.0f);
+			oldScale = scale.add(1.0f);
 //		}
 	}
 	
@@ -59,7 +59,7 @@ public class Transform2D{
 //	}
 	
 	public boolean hasChanged(){
-		return parent != null && parent.hasChanged() ? true : !position.equals(oldPosition) ? true: !scale.equals(oldScale) ? true: false;
+		return parent != null && parent.hasChanged() ? true : !position.equals(oldPosition) ? true : !scale.equals(oldScale) ? true : false;
 	}
 	
 	public Matrix4f getTransformation(){

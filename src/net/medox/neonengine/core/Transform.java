@@ -30,13 +30,13 @@ public class Transform{
 	
 	public void update(){
 //		if(oldPosition != null){
-			oldPosition.set(position);
-			oldRotation.set(rotation);
-			oldScale.set(scale);
+//			oldPosition.set(position);
+//			oldRotation.set(rotation);
+//			oldScale.set(scale);
 //		}else{
-//			oldPosition = position.add(1.0f);
-//			oldRotation = rotation.mul(0.5f);
-//			oldScale = scale.add(1.0f);
+			oldPosition = position.add(1.0f);
+			oldRotation = rotation.mul(0.5f);
+			oldScale = scale.add(1.0f);
 //		}
 	}
 	
@@ -65,7 +65,7 @@ public class Transform{
 	}
 	
 	public boolean hasChanged(){
-		return parent != null && parent.hasChanged() ? true : !position.equals(oldPosition) ? true: !rotation.equals(oldRotation) ? true: !scale.equals(oldScale) ? true: false;
+		return parent != null && parent.hasChanged() ? true : !position.equals(oldPosition) ? true : !rotation.equals(oldRotation) ? true : !scale.equals(oldScale) ? true : false;
 	}
 	
 	public Matrix4f getTransformation(){
