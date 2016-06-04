@@ -286,13 +286,14 @@ public class RenderingEngine{
 				}
 				
 				setTexture("shadowMap", shadowMaps[shadowMapIndex]);
-				shadowMaps[shadowMapIndex].bindAsRenderTarget();
 				
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() == 0){
 					lightMatrix = new Matrix4f().initScale(0, 0, 0);
 					setFloat("shadowVarianceMin", 0.00002f);
 					setFloat("shadowLightBleedingReduction", 0.0f);
 				}else{
+					shadowMaps[shadowMapIndex].bindAsRenderTarget();
+					
 					GL11.glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 					GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
 					
