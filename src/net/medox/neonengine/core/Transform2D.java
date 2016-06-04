@@ -26,12 +26,11 @@ public class Transform2D{
 	
 	public void update(){
 //		if(oldPosition != null){
-//			oldPosition.set(position);
-//			oldRot.set(rot);
-//			oldScale.set(scale);
+			oldPosition.set(position);
+			oldScale.set(scale);
 //		}else{
-			oldPosition = new Vector2f(0, 0).set(position).add(1.0f);
-			oldScale = new Vector2f(0, 0).set(scale).add(1.0f);
+//			oldPosition = position.add(1.0f);
+//			oldScale = scale.add(1.0f);
 //		}
 	}
 	

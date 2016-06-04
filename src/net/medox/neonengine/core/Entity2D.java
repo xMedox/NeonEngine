@@ -163,7 +163,7 @@ public class Entity2D{
 	
 	public void setParent(Entity2D parent){
 		this.parent = parent;
-		getTransform().setParent(transform);
+		getTransform().setParent(parent.getTransform());
 	}
 	
 	public Entity2D getParent(){

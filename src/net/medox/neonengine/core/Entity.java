@@ -194,7 +194,7 @@ public class Entity{
 	
 	public void setParent(Entity parent){
 		this.parent = parent;
-		getTransform().setParent(transform);
+		getTransform().setParent(parent.getTransform());
 	}
 	
 	public Entity getParent(){
