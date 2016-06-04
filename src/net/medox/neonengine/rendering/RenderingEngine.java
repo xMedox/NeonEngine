@@ -149,8 +149,6 @@ public class RenderingEngine{
 		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
 		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
 		
-		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		
 		GL11.glFrontFace(GL11.GL_CW);
 		GL11.glCullFace(GL11.GL_BACK);
 		GL11.glEnable(GL11.GL_CULL_FACE);
@@ -277,9 +275,10 @@ public class RenderingEngine{
 		
 		for(int i = 0; i < lights.size(); i++){
 			activeLight = lights.get(i);
-			final ShadowInfo shadowInfo = activeLight.getShadowInfo();
 			
 			if(NeonEngine.OPTION_ENABLE_SHADOWS == 1){
+				final ShadowInfo shadowInfo = activeLight.getShadowInfo();
+				
 				int shadowMapIndex = 0;
 				
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
