@@ -2,6 +2,8 @@
 
 ## Changelog:
 
+**Other:**
+- Renamed the setOrientation method in the SoundEngine class to setRotation
 
 ## Features needed for 1.0.0:
 

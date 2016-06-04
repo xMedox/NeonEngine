@@ -19,8 +19,8 @@ public class SoundEngine{
 	private static long device;
 	
 	private static FloatBuffer listenerPosition;
+	private static FloatBuffer listenerRotation;
 	private static FloatBuffer listenerVelocity;
-	private static FloatBuffer listenerOrientation;
 	
 	public static void init(){
 		device = ALC10.alcOpenDevice((ByteBuffer)null);
@@ -77,8 +77,8 @@ public class SoundEngine{
 		listenerVelocity = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		listenerVelocity.flip();
 		
-		listenerOrientation = DataUtil.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
-		listenerOrientation.flip();
+		listenerRotation = DataUtil.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
+		listenerRotation.flip();
 	}
 	
 	public static void setPosition(Vector3f value){
@@ -97,15 +97,15 @@ public class SoundEngine{
 		AL10.alListenerfv(AL10.AL_VELOCITY, listenerVelocity);
 	}
 	
-	public static void setOrientation(Quaternion value){
-		listenerOrientation.put(0, -value.getForward().getX());
-		listenerOrientation.put(1, -value.getForward().getY());
-		listenerOrientation.put(2, -value.getForward().getZ());
-		listenerOrientation.put(3, value.getUp().getX());
-		listenerOrientation.put(4, value.getUp().getY());
-		listenerOrientation.put(5, value.getUp().getZ());
+	public static void setRotation(Quaternion value){
+		listenerRotation.put(0, -value.getForward().getX());
+		listenerRotation.put(1, -value.getForward().getY());
+		listenerRotation.put(2, -value.getForward().getZ());
+		listenerRotation.put(3, value.getUp().getX());
+		listenerRotation.put(4, value.getUp().getY());
+		listenerRotation.put(5, value.getUp().getZ());
 		
-		AL10.alListenerfv(AL10.AL_ORIENTATION, listenerOrientation);
+		AL10.alListenerfv(AL10.AL_ORIENTATION, listenerRotation);
 	}
 	
 	public static void setGain(float value){

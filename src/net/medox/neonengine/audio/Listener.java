@@ -6,6 +6,6 @@ public class Listener extends EntityComponent{
 	@Override
 	public void update(float delta){
 		SoundEngine.setPosition(getTransform().getTransformedPos());
-		SoundEngine.setOrientation(getTransform().getTransformedRot());
+		SoundEngine.setRotation(getTransform().getTransformedRot());
 	}
 }
