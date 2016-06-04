@@ -251,9 +251,6 @@ public class BatchRenderer{
 	}
 	
 	public void render(Shader shader, Camera camera){
-		shader.bind();
-		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
-		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_INDEX));
 		
 		final Vector3f[] vertexData = new Vector3f[vertices.size()];
@@ -290,6 +287,9 @@ public class BatchRenderer{
 		
 		GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, DataUtil.createFlippedBufferTimes3(vertexData4));
 		
+		
+		shader.bind();
+		shader.updateUniforms(TRANSFORM, MATERIAL, camera);
 		
 //		if(RenderingEngine.meshBound != vertexArrayObject){
 			GL30.glBindVertexArray(vertexArrayObject);
