@@ -137,10 +137,8 @@ public class PhysicsEngine{
 class Callback extends ContactListener{
 	@Override
     public boolean onContactAdded(btManifoldPoint cp, btCollisionObjectWrapper colObj0Wrap, int partId0, int index0, btCollisionObjectWrapper colObj1Wrap, int partId1, int index1){
-//		if(colObj0Wrap.getCollisionObject().getUserValue() < PhysicsEngine.getSize() && colObj1Wrap.getCollisionObject().getUserValue() < PhysicsEngine.getSize()){
-			PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()));
-			PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()));
-//		}
+		PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()));
+		PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()));
 		
 		return false;
     }
