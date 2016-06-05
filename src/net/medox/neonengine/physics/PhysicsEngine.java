@@ -33,7 +33,7 @@ public class PhysicsEngine{
 		
 		colliders = new ArrayList<Collider>();
 		collidersSave = new ConcurrentHashMap<Integer, Collider>();
-				
+		
 //		final btBroadphaseInterface broadphase = new btDbvtBroadphase();
 		final btBroadphaseInterface broadphase = new btAxisSweep3(new Vector3(-10000, -10000, -10000), new Vector3(10000, 10000, 10000));
 		final btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
@@ -51,7 +51,6 @@ public class PhysicsEngine{
 		dynamicsWorld.getSolverInfo().setNumIterations(60);
 		
 		new Callback();
-		
 		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
 	}
 	
