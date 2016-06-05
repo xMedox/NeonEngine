@@ -1,6 +1,8 @@
 package net.medox.neonengine.physics;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.Bullet;
@@ -23,10 +25,14 @@ public class PhysicsEngine{
 	private static ArrayList<Collider> colliders;
 	private static btDiscreteDynamicsWorld dynamicsWorld;
 	
+	private static Map<Integer, Collider> collidersSave;
+	private static int nextValue;
+	
 	public static void init(){
 		Bullet.init();
 		
 		colliders = new ArrayList<Collider>();
+		collidersSave = new ConcurrentHashMap<Integer, Collider>();
 		
 //		final Callback callback = new Callback();
 		
@@ -61,22 +67,38 @@ public class PhysicsEngine{
 	}
 	
 	public static Collider getById(int index){
-		return colliders.get(index);
+//		if(index < colliders.size()){
+			return collidersSave.get(index);
+//		}else{
+//			return new Collider();
+//		}
+//		return index < colliders.size() ? colliders.get(index) : new Collider();
 	}
+	
+//	public static int getSize(){
+//		return colliders.size();
+//	}
 	
 	public static void addObject(Collider collider){
 		dynamicsWorld.addRigidBody(collider.getBody());
 		colliders.add(collider);
-		collider.getBody().setUserValue(colliders.size()-1);
+		collidersSave.put(nextValue, collider);
+		collider.getBody().setUserValue(nextValue);
+		
+		nextValue += 1;
 	}
 	
 	public static void addObject(Collider collider, int group, int mask){
 		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
 		colliders.add(collider);
-		collider.getBody().setUserValue(colliders.size()-1);
+		collidersSave.put(nextValue, collider);
+		collider.getBody().setUserValue(nextValue);
+		
+		nextValue += 1;
 	}
 	
 	public static void removeObject(Collider collider){
+		collidersSave.remove(collider.getBody().getUserValue());
 		dynamicsWorld.removeRigidBody(collider.getBody());
 		colliders.remove(collider);
 	}
@@ -95,7 +117,10 @@ public class PhysicsEngine{
 		dynamicsWorld.addAction(controller.getController());
 		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)CollisionFilterGroups.CharacterFilter, (short)(CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter));
 		colliders.add(controller.getCollider());
-		controller.getGhost().setUserValue(colliders.size()-1);
+		collidersSave.put(nextValue, controller.getCollider());
+		controller.getGhost().setUserValue(nextValue);
+		
+		nextValue += 1;
 	}
 	
 //	public static void addController(CharacterController controller, int group, int mask){
@@ -105,6 +130,7 @@ public class PhysicsEngine{
 //	}
 	
 	public static void removeController(CharacterController controller){
+		collidersSave.remove(controller.getGhost().getUserValue());
 		dynamicsWorld.removeAction(controller.getController());
 		dynamicsWorld.removeCollisionObject(controller.getGhost());
 		colliders.remove(controller.getCollider());
@@ -148,8 +174,11 @@ class Callback extends ContactListener{
     public boolean onContactAdded(btManifoldPoint cp, btCollisionObjectWrapper colObj0Wrap, int partId0, int index0, btCollisionObjectWrapper colObj1Wrap, int partId1, int index1){
 //		((Collider)colObj0Wrap.getUserPointer()).add(((Collider)colObj1Wrap.getUserPointer()));
 //		((Collider)colObj1Wrap.getUserPointer()).add(((Collider)colObj0Wrap.getUserPointer()));
-		PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()));
-		PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()));
+		
+//		if(colObj0Wrap.getCollisionObject().getUserValue() < PhysicsEngine.getSize() && colObj1Wrap.getCollisionObject().getUserValue() < PhysicsEngine.getSize()){
+			PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()));
+			PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()));
+//		}
 		
 		return false;
     }
