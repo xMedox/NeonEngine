@@ -1,24 +1,23 @@
 package net.medox.neonengine.physics;
 
-import javax.vecmath.Vector3f;
-
-import com.bulletphysics.collision.shapes.CollisionShape;
-import com.bulletphysics.collision.shapes.SphereShape;
-import com.bulletphysics.dynamics.RigidBody;
-import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
-import com.bulletphysics.linearmath.DefaultMotionState;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
+import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
+import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
+import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
+import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
 public class Sphere extends Collider{
-	private final CollisionShape shape;
+	private final btCollisionShape shape;
 	
 	public Sphere(float radius){
 		super();
 		
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
 		
-		shape = new SphereShape(radius);
+		shape = new btSphereShape(radius);
 		
-		final Vector3f inertia = new Vector3f(0, 0, 0);
+		final Vector3 inertia = new Vector3(0, 0, 0);
 		shape.calculateLocalInertia(1f, inertia);
 		
 //		final RigidBodyConstructionInfo bodyConstructionInfo = new RigidBodyConstructionInfo(1f, motionState, shape, inertia);
@@ -28,12 +27,12 @@ public class Sphere extends Collider{
 		
 //		setBody(new RigidBody(bodyConstructionInfo));
 //		setBody(new RigidBody(new RigidBodyConstructionInfo(1f, motionState, shape, inertia)));
-		setBody(new RigidBody(new RigidBodyConstructionInfo(1f, new DefaultMotionState(DEFAULT_TRANSFORM), shape, inertia)));
+		setBody(new btRigidBody(new btRigidBodyConstructionInfo(1f, new btDefaultMotionState(DEFAULT_TRANSFORM), shape, inertia)));
 	}
 	
 	@Override
 	public void setMassProps(float mass){
-		final Vector3f inertia = new Vector3f(0, 0, 0);
+		final Vector3 inertia = new Vector3(0, 0, 0);
 		shape.calculateLocalInertia(mass, inertia);
 		
 		setMassProps(mass, new net.medox.neonengine.math.Vector3f(inertia.x, inertia.y, inertia.z));
@@ -41,27 +40,27 @@ public class Sphere extends Collider{
 	
 	@Override
 	public net.medox.neonengine.math.Vector3f getScale(){
-		final Vector3f scale = shape.getLocalScaling(new Vector3f());
+		final Vector3 scale = shape.getLocalScaling();
 		
 		return new net.medox.neonengine.math.Vector3f(scale.x, scale.y, scale.z);
 	}
 	
 	@Override
 	public void setScale(net.medox.neonengine.math.Vector3f scale){
-		shape.setLocalScaling(new Vector3f(scale.getX(), scale.getY(), scale.getZ()));
+		shape.setLocalScaling(new Vector3(scale.getX(), scale.getY(), scale.getZ()));
 		
 		getBody().setCollisionShape(shape);
 	}
 	
 	@Override
 	public void setScale(float scale){
-		shape.setLocalScaling(new Vector3f(scale, scale, scale));
+		shape.setLocalScaling(new Vector3(scale, scale, scale));
 		
 		getBody().setCollisionShape(shape);
 	}
 	
 	@Override
-	public CollisionShape getCollisionShape(){
+	public btCollisionShape getCollisionShape(){
 		return shape;
 	}
 }

@@ -1,17 +1,17 @@
 package net.medox.neonengine.physics;
 
-import com.bulletphysics.dynamics.constraintsolver.TypedConstraint;
+import com.badlogic.gdx.physics.bullet.dynamics.btTypedConstraint;
 
 public class Constraint{
-	private TypedConstraint constraint;
+	private btTypedConstraint constraint;
 	
-	public void setConstraint(TypedConstraint constraint){
+	public void setConstraint(btTypedConstraint constraint){
 		this.constraint = constraint;
 //		body.setUserPointer(this);
 //		body.setCollisionFlags(body.getCollisionFlags() | CollisionFlags.CUSTOM_MATERIAL_CALLBACK);
 	}
 	
-	public TypedConstraint getConstraint(){
+	public btTypedConstraint getConstraint(){
 		return constraint;
 	}
 }

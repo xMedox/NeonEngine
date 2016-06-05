@@ -2,6 +2,9 @@
 
 ## Changelog:
 
+**Physics:**
+- The engine now uses the LibGDX Bullet wrapper
+
 **Other:**
 - Renamed the setOrientation method in the SoundEngine class to setRotation
 

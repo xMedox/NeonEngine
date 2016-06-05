@@ -1,35 +1,34 @@
 package net.medox.neonengine.physics;
 
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
-import com.bulletphysics.collision.dispatch.CollisionFlags;
-import com.bulletphysics.collision.dispatch.PairCachingGhostObject;
-import com.bulletphysics.collision.shapes.ConvexShape;
-import com.bulletphysics.dynamics.character.KinematicCharacterController;
-import com.bulletphysics.linearmath.Transform;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionObject.CollisionFlags;
+import com.badlogic.gdx.physics.bullet.collision.btConvexShape;
+import com.badlogic.gdx.physics.bullet.collision.btPairCachingGhostObject;
+import com.badlogic.gdx.physics.bullet.dynamics.btKinematicCharacterController;
 
 public class CharacterController{	
-	private final PairCachingGhostObject ghostObject;
-	private final KinematicCharacterController characterController;
+	private final btPairCachingGhostObject ghostObject;
+	private final btKinematicCharacterController characterController;
 	private final Collider collider;
 	
 	public CharacterController(Collider collider, float stepHeight){
 		this.collider = collider;
 		
-		ghostObject = new PairCachingGhostObject();
-		ghostObject.setWorldTransform(collider.getBody().getWorldTransform(new Transform()));
+		ghostObject = new btPairCachingGhostObject();
+		ghostObject.setWorldTransform(collider.getBody().getWorldTransform());
 		
 		ghostObject.setCollisionShape(collider.getCollisionShape());
-		ghostObject.setCollisionFlags(CollisionFlags.CHARACTER_OBJECT);
+		ghostObject.setCollisionFlags(CollisionFlags.CF_CHARACTER_OBJECT);
 		
-		ghostObject.setUserPointer(collider);
-		ghostObject.setCollisionFlags(ghostObject.getCollisionFlags() | CollisionFlags.CUSTOM_MATERIAL_CALLBACK);
+//		ghostObject.setUserPointer(collider);//TODO
+		ghostObject.setCollisionFlags(ghostObject.getCollisionFlags() | CollisionFlags.CF_CUSTOM_MATERIAL_CALLBACK);
 		
 //		ghostObject.forceActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
-		characterController = new KinematicCharacterController(ghostObject, (ConvexShape)collider.getCollisionShape(), stepHeight);
+//		characterController = new btKinematicCharacterController(ghostObject, (ConvexShape)collider.getCollisionShape(), stepHeight);
+		characterController = new btKinematicCharacterController(ghostObject, (btConvexShape)collider.getCollisionShape(), stepHeight);
 		
 		characterController.setGravity(-PhysicsEngine.getGravity());
 		
@@ -43,7 +42,7 @@ public class CharacterController{
 //	}
 	
 	public void setWalkDirection(net.medox.neonengine.math.Vector3f dir){
-		characterController.setWalkDirection(new Vector3f(dir.getX(), dir.getY(), dir.getZ()));
+		characterController.setWalkDirection(new Vector3(dir.getX(), dir.getY(), dir.getZ()));
 	}
 	
 	public void jump(){
@@ -79,13 +78,13 @@ public class CharacterController{
 	}
 	
 	public net.medox.neonengine.math.Vector3f getPos(){
-		final Vector3f pos = ghostObject.getWorldTransform(new Transform()).origin;
+		final Vector3 pos = ghostObject.getWorldTransform().getTranslation(new Vector3());
 		
 		return new net.medox.neonengine.math.Vector3f(pos.x, pos.y, pos.z);
 	}
 	
 	public net.medox.neonengine.math.Quaternion getRot(){
-		final Quat4f rot = ghostObject.getWorldTransform(new Transform()).getRotation(new Quat4f());
+		final Quaternion rot = ghostObject.getWorldTransform().getRotation(new Quaternion());
 		
 		return new net.medox.neonengine.math.Quaternion(rot.x, rot.y, rot.z, rot.w);
 	}
@@ -93,9 +92,9 @@ public class CharacterController{
 	public net.medox.neonengine.core.Transform getTransform(){
 		final net.medox.neonengine.core.Transform result = new net.medox.neonengine.core.Transform();
 		
-		final Transform t = ghostObject.getWorldTransform(new Transform());
-		final Vector3f pos = t.origin;
-		final Quat4f rot = t.getRotation(new Quat4f());
+		final Matrix4 t = ghostObject.getWorldTransform();
+		final Vector3 pos = t.getTranslation(new Vector3());
+		final Quaternion rot = t.getRotation(new Quaternion());
 		
 		result.setPos(new net.medox.neonengine.math.Vector3f(pos.x, pos.y, pos.z));
 		result.setRot(new net.medox.neonengine.math.Quaternion(rot.x, rot.y, rot.z, rot.w));
@@ -119,11 +118,11 @@ public class CharacterController{
 		return collider.collidesWith(c);
 	}
 	
-	public KinematicCharacterController getController(){
+	public btKinematicCharacterController getController(){
 		return characterController;
 	}
 	
-	public PairCachingGhostObject getGhost(){
+	public btPairCachingGhostObject getGhost(){
 		return ghostObject;
 	}
 	
@@ -132,24 +131,28 @@ public class CharacterController{
 	}
 	
 	public void setTransform(net.medox.neonengine.core.Transform worldTransform){
-		final net.medox.neonengine.math.Vector3f pos = worldTransform.getPos();
-		final net.medox.neonengine.math.Quaternion rot = worldTransform.getRot();
-		
-		ghostObject.setWorldTransform(new Transform(new Transform(new Matrix4f(new Quat4f(rot.getX(), rot.getY(), rot.getZ(), rot.getW()), new Vector3f(pos.getX(), pos.getY(), pos.getZ()), 1.0f))));
+//		final net.medox.neonengine.math.Vector3f pos = worldTransform.getPos();
+//		final net.medox.neonengine.math.Quaternion rot = worldTransform.getRot();
+//		
+//		ghostObject.setWorldTransform(new Transform(new Transform(new Matrix4f(new Quat4f(rot.getX(), rot.getY(), rot.getZ(), rot.getW()), new Vector3f(pos.getX(), pos.getY(), pos.getZ()), 1.0f))));
+		ghostObject.setWorldTransform(new Matrix4().set(new Vector3(worldTransform.getPos().getX(), worldTransform.getPos().getY(), worldTransform.getPos().getZ()), new Quaternion(worldTransform.getRot().getX(), worldTransform.getRot().getY(), worldTransform.getRot().getZ(), worldTransform.getRot().getW())));
 	}
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
-		final Transform t = ghostObject.getWorldTransform(new Transform());
-		t.origin.x = transform.getX();
-		t.origin.y = transform.getY();
-		t.origin.z = transform.getZ();
+		final Matrix4 t = ghostObject.getWorldTransform();
+//		t.origin.x = transform.getX();
+//		t.origin.y = transform.getY();
+//		t.origin.z = transform.getZ();
+		
+		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
 		ghostObject.setWorldTransform(t);
 	}
 	
 	public void setRot(net.medox.neonengine.math.Quaternion rotation){
-		final Transform t = ghostObject.getWorldTransform(new Transform());
-		t.setRotation(new Quat4f(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()));
+		final Matrix4 t = ghostObject.getWorldTransform();
+//		t.setRotation(new Quat4f(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()));
+		t.set(t.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), t.getScale(new Vector3()));
 		
 		ghostObject.setWorldTransform(t);
 	}

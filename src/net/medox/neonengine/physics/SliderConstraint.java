@@ -1,10 +1,9 @@
 package net.medox.neonengine.physics;
 
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
-import com.bulletphysics.linearmath.Transform;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.dynamics.btSliderConstraint;
 
 public class SliderConstraint extends Constraint{
 	public SliderConstraint(Collider cA, Collider cB, net.medox.neonengine.core.Transform frameInA, net.medox.neonengine.core.Transform frameInB, boolean useLinearReferenceFrameA){
@@ -26,7 +25,8 @@ public class SliderConstraint extends Constraint{
 //		Transform resultB = new Transform(new Transform(new Matrix4f(new Quat4f(rotB.getX(), rotB.getY(), rotB.getZ(), rotB.getW()), new Vector3f(posB.getX(), posB.getY(), posB.getZ()), 1.0f)));
 		
 //		setConstraint(new com.bulletphysics.dynamics.constraintsolver.SliderConstraint(cA.getBody(), cB.getBody(), resultA, resultB, useLinearReferenceFrameA));
-		setConstraint(new com.bulletphysics.dynamics.constraintsolver.SliderConstraint(cA.getBody(), cB.getBody(), new Transform(new Transform(new Matrix4f(new Quat4f(rotA.getX(), rotA.getY(), rotA.getZ(), rotA.getW()), new Vector3f(posA.getX(), posA.getY(), posA.getZ()), 1.0f))), new Transform(new Transform(new Matrix4f(new Quat4f(rotB.getX(), rotB.getY(), rotB.getZ(), rotB.getW()), new Vector3f(posB.getX(), posB.getY(), posB.getZ()), 1.0f))), useLinearReferenceFrameA));
+//		setConstraint(new com.bulletphysics.dynamics.constraintsolver.SliderConstraint(cA.getBody(), cB.getBody(), new Transform(new Transform(new Matrix4f(new Quat4f(rotA.getX(), rotA.getY(), rotA.getZ(), rotA.getW()), new Vector3f(posA.getX(), posA.getY(), posA.getZ()), 1.0f))), new Transform(new Transform(new Matrix4f(new Quat4f(rotB.getX(), rotB.getY(), rotB.getZ(), rotB.getW()), new Vector3f(posB.getX(), posB.getY(), posB.getZ()), 1.0f))), useLinearReferenceFrameA));
+		setConstraint(new btSliderConstraint(cA.getBody(), cB.getBody(), new Matrix4().set(new Vector3(posA.getX(), posA.getY(), posA.getZ()), new Quaternion(rotA.getX(), rotA.getY(), rotA.getZ(), rotA.getW())), new Matrix4().set(new Vector3(posB.getX(), posB.getY(), posB.getZ()), new Quaternion(rotB.getX(), rotB.getY(), rotB.getZ(), rotB.getW())), useLinearReferenceFrameA));
 	}
 	
 //	@Override

@@ -1,8 +1,7 @@
 package net.medox.neonengine.physics;
 
-import javax.vecmath.Vector3f;
-
-import com.bulletphysics.collision.dispatch.CollisionWorld.ClosestRayResultCallback;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 
 public class Ray{
 	private final Collider collider;
@@ -11,21 +10,28 @@ public class Ray{
 	private final boolean hasHit;
 	
 	public Ray(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld){
-		final ClosestRayResultCallback callback = new ClosestRayResultCallback(new Vector3f(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3f(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()));
+		final ClosestRayResultCallback callback = new ClosestRayResultCallback(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()));
 		
 		PhysicsEngine.rayTest(rayFromWorld, rayToWorld, callback);
 		
 		hasHit = callback.hasHit();
 		
-		hitPoint = new net.medox.neonengine.math.Vector3f(callback.hitPointWorld.x, callback.hitPointWorld.y, callback.hitPointWorld.z);
+		Vector3 hitPointWorld = new Vector3(0, 0, 0);
+		callback.getHitPointWorld(hitPointWorld);
+		
+		hitPoint = new net.medox.neonengine.math.Vector3f(hitPointWorld.x, hitPointWorld.y, hitPointWorld.z);
+		
+		Vector3 hitNormalWorld = new Vector3(0, 0, 0);
+		callback.getHitNormalWorld(hitNormalWorld);
+		
+		hitNormal = new net.medox.neonengine.math.Vector3f(hitNormalWorld.x, hitNormalWorld.y, hitNormalWorld.z);
 		
 		if(callback.hasHit()){
-			collider = ((Collider)callback.collisionObject.getUserPointer());
+//			collider = ((Collider)callback.getCollisionObject().getUserPointer());
+			collider = PhysicsEngine.getById(callback.getCollisionObject().getUserValue());
 		}else{
 			collider = new Collider();
 		}
-		
-		hitNormal = new net.medox.neonengine.math.Vector3f(callback.hitNormalWorld.x, callback.hitNormalWorld.y, callback.hitNormalWorld.z);
 	}
 	
 	public Collider getHitCollider(){

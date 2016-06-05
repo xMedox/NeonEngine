@@ -25,6 +25,7 @@ import net.medox.neonengine.physics.Box;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.Sphere;
+import net.medox.neonengine.physics.StaticPlane;
 import net.medox.neonengine.rendering.Attenuation;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.DirectionalLight;
@@ -165,13 +166,13 @@ public class TestGame extends Game{
 //		planeObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180));
 		planeObject.addComponent(meshRenderer);
 		
-		StaticPhysicsComponent physic = new StaticPhysicsComponent(new Box(new Vector3f(100, 1f, 100)));
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlane(new Vector3f(0, 1, 0), -1));
 		
-		Transform t = new Transform();
+//		Transform t = new Transform();
+//		
+//		t.setPos(new Vector3f(0, -1-1f, 5));
 		
-		t.setPos(new Vector3f(0, -1-1f, 5));
-		
-		physic.getCollider().setTransform(t);
+//		physic.getCollider().setTransform(t);
 		
 		physic.getCollider().setMassProps(0);
 		

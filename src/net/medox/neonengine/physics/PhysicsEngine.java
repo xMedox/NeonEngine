@@ -2,64 +2,78 @@ package net.medox.neonengine.physics;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Vector3f;
-
-import com.bulletphysics.BulletGlobals;
-import com.bulletphysics.ContactAddedCallback;
-import com.bulletphysics.collision.broadphase.AxisSweep3;
-import com.bulletphysics.collision.broadphase.BroadphaseInterface;
-import com.bulletphysics.collision.broadphase.CollisionFilterGroups;
-import com.bulletphysics.collision.dispatch.CollisionConfiguration;
-import com.bulletphysics.collision.dispatch.CollisionDispatcher;
-import com.bulletphysics.collision.dispatch.CollisionObject;
-import com.bulletphysics.collision.dispatch.CollisionWorld.RayResultCallback;
-import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
-import com.bulletphysics.collision.dispatch.GhostPairCallback;
-import com.bulletphysics.collision.narrowphase.ManifoldPoint;
-import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
-import com.bulletphysics.dynamics.constraintsolver.ConstraintSolver;
-import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.Bullet;
+import com.badlogic.gdx.physics.bullet.collision.ContactListener;
+import com.badlogic.gdx.physics.bullet.collision.RayResultCallback;
+import com.badlogic.gdx.physics.bullet.collision.btAxisSweep3;
+import com.badlogic.gdx.physics.bullet.collision.btBroadphaseInterface;
+import com.badlogic.gdx.physics.bullet.collision.btBroadphaseProxy.CollisionFilterGroups;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionObjectWrapper;
+import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btGhostPairCallback;
+import com.badlogic.gdx.physics.bullet.collision.btManifoldPoint;
+import com.badlogic.gdx.physics.bullet.dynamics.btConstraintSolver;
+import com.badlogic.gdx.physics.bullet.dynamics.btDiscreteDynamicsWorld;
+import com.badlogic.gdx.physics.bullet.dynamics.btSequentialImpulseConstraintSolver;
 
 public class PhysicsEngine{
 	private static ArrayList<Collider> colliders;
-	private static DiscreteDynamicsWorld dynamicsWorld;
+	private static btDiscreteDynamicsWorld dynamicsWorld;
 	
 	public static void init(){
+		Bullet.init();
+		
 		colliders = new ArrayList<Collider>();
 		
-		final Callback callback = new Callback();
+//		final Callback callback = new Callback();
 		
-//		final BroadphaseInterface broadphase = new DbvtBroadphase();
-		final BroadphaseInterface broadphase = new AxisSweep3(new Vector3f(-10000, -10000, -10000), new Vector3f(10000, 10000, 10000));
-		final CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
-		final CollisionDispatcher dispatcher = new CollisionDispatcher(collisionConfiguration);
-		final ConstraintSolver solver = new SequentialImpulseConstraintSolver();
-		dynamicsWorld = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+//		final btBroadphaseInterface broadphase = new btDbvtBroadphase();
+		final btBroadphaseInterface broadphase = new btAxisSweep3(new Vector3(-10000, -10000, -10000), new Vector3(10000, 10000, 10000));
+		final btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
+		final btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
+		final btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
+		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 		
-//		dynamicsWorld.setGravity(new Vector3f(0, -10, 0));
-//		dynamicsWorld.setGravity(new Vector3f(0, -9.80665f, 0));
-		dynamicsWorld.setGravity(new Vector3f(0, -9.81f, 0));
-//		dynamicsWorld.setGravity(new Vector3f(0, -1f, 0));
+//		dynamicsWorld.setGravity(new Vector3(0, -10, 0));
+//		dynamicsWorld.setGravity(new Vector3(0, -9.80665f, 0));
+		dynamicsWorld.setGravity(new Vector3(0, -9.81f, 0));
+//		dynamicsWorld.setGravity(new Vector3(0, -1f, 0));
 		
-		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0.001f;
+//		dynamicsWorld.getDispatchInfo().allowedCcdPenetration = 0.001f;
+		dynamicsWorld.getDispatchInfo().setAllowedCcdPenetration(0.001f);
 		
-		dynamicsWorld.getSolverInfo().numIterations = 60;
+//		dynamicsWorld.getSolverInfo().numIterations = 60;
+		dynamicsWorld.getSolverInfo().setNumIterations(60);
 		
-		BulletGlobals.setContactAddedCallback(callback);
+//		BulletGlobals.setContactAddedCallback(callback);
+		new Callback();
+		
 //		BulletGlobals.setContactProcessedCallback(callback);
 //		dynamicsWorld.getPairCache().setInternalGhostPairCallback(new GhostPairCallback());
-		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new GhostPairCallback());
+		
+//		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new GhostPairCallback());
+		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
+		
 //		GImpactCollisionAlgorithm.registerAlgorithm(dispatcher);
+	}
+	
+	public static Collider getById(int index){
+		return colliders.get(index);
 	}
 	
 	public static void addObject(Collider collider){
 		dynamicsWorld.addRigidBody(collider.getBody());
 		colliders.add(collider);
+		collider.getBody().setUserValue(colliders.size()-1);
 	}
 	
 	public static void addObject(Collider collider, int group, int mask){
 		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
 		colliders.add(collider);
+		collider.getBody().setUserValue(colliders.size()-1);
 	}
 	
 	public static void removeObject(Collider collider){
@@ -79,8 +93,9 @@ public class PhysicsEngine{
 	
 	public static void addController(CharacterController controller){
 		dynamicsWorld.addAction(controller.getController());
-		dynamicsWorld.addCollisionObject(controller.getGhost(), CollisionFilterGroups.CHARACTER_FILTER, (short)(CollisionFilterGroups.STATIC_FILTER | CollisionFilterGroups.DEFAULT_FILTER));
+		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)CollisionFilterGroups.CharacterFilter, (short)(CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter));
 		colliders.add(controller.getCollider());
+		controller.getGhost().setUserValue(colliders.size()-1);
 	}
 	
 //	public static void addController(CharacterController controller, int group, int mask){
@@ -104,28 +119,48 @@ public class PhysicsEngine{
 	}
 	
 	public static void setGravity(float gravity){
-		dynamicsWorld.setGravity(new Vector3f(0, gravity, 0));
+		dynamicsWorld.setGravity(new Vector3(0, gravity, 0));
 	}
 	
 	public static float getGravity(){
 //		Vector3f gravity = dynamicsWorld.getGravity(new Vector3f(0, 0, 0));
 		
-		return dynamicsWorld.getGravity(new Vector3f(0, 0, 0)).y;
+		return dynamicsWorld.getGravity().y;
 	}
 	
 	public static void rayTest(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld, RayResultCallback resultCallback){
-		dynamicsWorld.rayTest(new Vector3f(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3f(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()), resultCallback);
+		dynamicsWorld.rayTest(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()), resultCallback);
 	}
 }
 
-class Callback extends ContactAddedCallback{
+//class Callback extends ContactAddedCallback{
+//	@Override
+//	public boolean contactAdded(ManifoldPoint arg0, CollisionObject arg1, int arg2, int arg3, CollisionObject arg4, int arg5, int arg6){
+//		((Collider)arg1.getUserPointer()).add(((Collider)arg4.getUserPointer()));
+//		((Collider)arg4.getUserPointer()).add(((Collider)arg1.getUserPointer()));
+//		
+//		return false;
+//	}
+//}
+
+class Callback extends ContactListener{
 	@Override
-	public boolean contactAdded(ManifoldPoint arg0, CollisionObject arg1, int arg2, int arg3, CollisionObject arg4, int arg5, int arg6){
-		((Collider)arg1.getUserPointer()).add(((Collider)arg4.getUserPointer()));
-		((Collider)arg4.getUserPointer()).add(((Collider)arg1.getUserPointer()));
+    public boolean onContactAdded(btManifoldPoint cp, btCollisionObjectWrapper colObj0Wrap, int partId0, int index0, btCollisionObjectWrapper colObj1Wrap, int partId1, int index1){
+//		((Collider)colObj0Wrap.getUserPointer()).add(((Collider)colObj1Wrap.getUserPointer()));
+//		((Collider)colObj1Wrap.getUserPointer()).add(((Collider)colObj0Wrap.getUserPointer()));
+		PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()));
+		PhysicsEngine.getById(colObj1Wrap.getCollisionObject().getUserValue()).add(PhysicsEngine.getById(colObj0Wrap.getCollisionObject().getUserValue()));
 		
 		return false;
-	}
+    }
+	
+//	@Override
+//	public boolean contactAdded(ManifoldPoint arg0, CollisionObject arg1, int arg2, int arg3, CollisionObject arg4, int arg5, int arg6){
+//		((Collider)arg1.getUserPointer()).add(((Collider)arg4.getUserPointer()));
+//		((Collider)arg4.getUserPointer()).add(((Collider)arg1.getUserPointer()));
+//		
+//		return false;
+//	}
 }
 
 //	class Callback extends ContactProcessedCallback{
