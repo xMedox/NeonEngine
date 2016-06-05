@@ -53,24 +53,12 @@ public class Collider{
 	}
 	
 	public boolean collidesWith(Collider c){
-//		for(int i = 0; i < hitList.size(); i++){
-//			if(hitList.get(i).equals(c)){
-//				return true;
-//			}
-//		}
-		
-//		return body.checkCollideWith(c.getBody());
-		
 		return hitList.contains(c);
-//		return false;
 	}
 	
 	public void setBody(btRigidBody body){
 		this.body = body;
-//		body.setSleepingThresholds(0, 0);
-//		body.setUserPointer(this);
 		body.setCollisionFlags(body.getCollisionFlags() | CollisionFlags.CF_CUSTOM_MATERIAL_CALLBACK);
-//		setSleepingThresholds(0, 0);
 	}
 	
 	public void activate(boolean forceActivation){
@@ -124,14 +112,12 @@ public class Collider{
 	}
 	
 	public net.medox.neonengine.math.Vector3f getPos(){
-//		Vector3f pos = body.getWorldTransform(new Transform()).origin;
 		final Vector3 pos = body.getCenterOfMassPosition();
 		
 		return new net.medox.neonengine.math.Vector3f(pos.x, pos.y, pos.z);
 	}
 	
 	public net.medox.neonengine.math.Quaternion getRot(){
-//		Quat4f rot = body.getWorldTransform(new Transform()).getRotation(new Quat4f());
 		final Quaternion rot = body.getOrientation();
 		
 		return new net.medox.neonengine.math.Quaternion(rot.x, rot.y, rot.z, rot.w);
@@ -152,11 +138,8 @@ public class Collider{
 	public net.medox.neonengine.core.Transform getTransform(){
 		final net.medox.neonengine.core.Transform result = new net.medox.neonengine.core.Transform();
 		
-//		Vector3f pos = body.getWorldTransform(new Transform()).origin;
 		final Vector3 pos = body.getCenterOfMassPosition();
-//		Quat4f rot = body.getWorldTransform(new Transform()).getRotation(new Quat4f());
 		final Quaternion rot = body.getOrientation();
-//		net.medox.neonengine.math.Vector3f scale = getScale();
 		
 		result.setPos(pos.x, pos.y, pos.z);
 		result.setRot(rot.x, rot.y, rot.z, rot.w);
@@ -212,7 +195,6 @@ public class Collider{
 	}
 	
 	public void setTransform(net.medox.neonengine.core.Transform worldTransform){
-//		body.setWorldTransform(new Transform(new Transform(new Matrix4f(new Quat4f(worldTransform.getRot().getX(), worldTransform.getRot().getY(), worldTransform.getRot().getZ(), worldTransform.getRot().getW()), new Vector3f(worldTransform.getPos().getX(), worldTransform.getPos().getY(), worldTransform.getPos().getZ()), 1.0f))));
 		body.setWorldTransform(new Matrix4().set(new Vector3(worldTransform.getPos().getX(), worldTransform.getPos().getY(), worldTransform.getPos().getZ()), new Quaternion(worldTransform.getRot().getX(), worldTransform.getRot().getY(), worldTransform.getRot().getZ(), worldTransform.getRot().getW())));
 		
 		setScale(worldTransform.getScale());
@@ -228,9 +210,6 @@ public class Collider{
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
 		final Matrix4 t = body.getWorldTransform();
-//		t.origin.x = transform.getX();
-//		t.origin.y = transform.getY();
-//		t.origin.z = transform.getZ();
 		
 		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
@@ -239,7 +218,6 @@ public class Collider{
 	
 	public void setRot(net.medox.neonengine.math.Quaternion rotation){
 		final Matrix4 t = body.getWorldTransform();
-//		t.setRotation(new Quat4f(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()));
 		t.set(t.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), t.getScale(new Vector3()));
 		
 		body.setWorldTransform(t);

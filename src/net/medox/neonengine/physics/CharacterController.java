@@ -22,7 +22,6 @@ public class CharacterController{
 		ghostObject.setCollisionShape(collider.getCollisionShape());
 		ghostObject.setCollisionFlags(CollisionFlags.CF_CHARACTER_OBJECT);
 		
-//		ghostObject.setUserPointer(collider);
 		ghostObject.setCollisionFlags(ghostObject.getCollisionFlags() | CollisionFlags.CF_CUSTOM_MATERIAL_CALLBACK);
 		
 //		ghostObject.forceActivationState(CollisionObject.DISABLE_DEACTIVATION);
@@ -131,18 +130,11 @@ public class CharacterController{
 	}
 	
 	public void setTransform(net.medox.neonengine.core.Transform worldTransform){
-//		final net.medox.neonengine.math.Vector3f pos = worldTransform.getPos();
-//		final net.medox.neonengine.math.Quaternion rot = worldTransform.getRot();
-//		
-//		ghostObject.setWorldTransform(new Transform(new Transform(new Matrix4f(new Quat4f(rot.getX(), rot.getY(), rot.getZ(), rot.getW()), new Vector3f(pos.getX(), pos.getY(), pos.getZ()), 1.0f))));
 		ghostObject.setWorldTransform(new Matrix4().set(new Vector3(worldTransform.getPos().getX(), worldTransform.getPos().getY(), worldTransform.getPos().getZ()), new Quaternion(worldTransform.getRot().getX(), worldTransform.getRot().getY(), worldTransform.getRot().getZ(), worldTransform.getRot().getW())));
 	}
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
 		final Matrix4 t = ghostObject.getWorldTransform();
-//		t.origin.x = transform.getX();
-//		t.origin.y = transform.getY();
-//		t.origin.z = transform.getZ();
 		
 		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
@@ -151,7 +143,6 @@ public class CharacterController{
 	
 	public void setRot(net.medox.neonengine.math.Quaternion rotation){
 		final Matrix4 t = ghostObject.getWorldTransform();
-//		t.setRotation(new Quat4f(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()));
 		t.set(t.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), t.getScale(new Vector3()));
 		
 		ghostObject.setWorldTransform(t);
