@@ -22,7 +22,7 @@ public class CharacterController{
 		ghostObject.setCollisionShape(collider.getCollisionShape());
 		ghostObject.setCollisionFlags(CollisionFlags.CF_CHARACTER_OBJECT);
 		
-//		ghostObject.setUserPointer(collider);//TODO
+//		ghostObject.setUserPointer(collider);
 		ghostObject.setCollisionFlags(ghostObject.getCollisionFlags() | CollisionFlags.CF_CUSTOM_MATERIAL_CALLBACK);
 		
 //		ghostObject.forceActivationState(CollisionObject.DISABLE_DEACTIVATION);
