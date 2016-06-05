@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.Version;
 import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.ARBTextureRG;
 import org.lwjgl.opengl.GL11;
@@ -112,7 +111,7 @@ public class RenderingEngine{
 		System.out.println("Java version:     " + System.getProperty("java.version"));
 		System.out.println("Rendering Mode:   OpenGL(" + GL11.glGetString(GL11.GL_VERSION) + ")");
 		System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
-		System.out.println("LWJGL version:    " + Version.getVersion());
+//		System.out.println("LWJGL version:    " + Version.getVersion());
 		System.out.println("--------------------------------------------------------------");
 		
 		batchRenderer = new BatchRenderer();

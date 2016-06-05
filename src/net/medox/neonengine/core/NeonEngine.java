@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0b";
+	private static final String VERSION = "1.0.0b Build 7";
 	
 	private static final ProfileTimer sleepTimer = new ProfileTimer();
 	private static final ProfileTimer swapBufferTimer = new ProfileTimer();
