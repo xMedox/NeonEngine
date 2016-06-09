@@ -38,10 +38,8 @@ public class PhysicsEngine{
 		final btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 		
-//		dynamicsWorld.setGravity(new Vector3(0, -10, 0));
 //		dynamicsWorld.setGravity(new Vector3(0, -9.80665f, 0));
 		dynamicsWorld.setGravity(new Vector3(0, -9.81f, 0));
-//		dynamicsWorld.setGravity(new Vector3(0, -1f, 0));
 		
 		dynamicsWorld.getDispatchInfo().setAllowedCcdPenetration(0.001f);
 		
@@ -67,14 +65,14 @@ public class PhysicsEngine{
 		nextValue += 1;
 	}
 	
-	public static void addCollider(Collider collider, int group, int mask){
-		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
-		colliders.add(collider);
-		collidersSave.put(nextValue, collider);
-		collider.getBody().setUserValue(nextValue);
-		
-		nextValue += 1;
-	}
+//	public static void addCollider(Collider collider, int group, int mask){
+//		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
+//		colliders.add(collider);
+//		collidersSave.put(nextValue, collider);
+//		collider.getBody().setUserValue(nextValue);
+//		
+//		nextValue += 1;
+//	}
 	
 	public static void removeCollider(Collider collider){
 		collidersSave.remove(collider.getBody().getUserValue());
