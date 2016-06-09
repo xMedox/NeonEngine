@@ -200,7 +200,7 @@ public class Collider{
 		setScale(worldTransform.getScale());
 	}
 	
-	public float getGravity(){		
+	public float getGravity(){	
 		return body.getGravity().y;
 	}
 	
@@ -209,16 +209,16 @@ public class Collider{
 	}
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
-		final Matrix4 t = body.getWorldTransform();
-		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
+		final Matrix4 trans = body.getWorldTransform();
+		trans.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
-		body.setWorldTransform(t);
+		body.setWorldTransform(trans);
 	}
 	
 	public void setRot(net.medox.neonengine.math.Quaternion rotation){
-		final Matrix4 t = body.getWorldTransform();
-		t.set(t.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), t.getScale(new Vector3()));
+		final Matrix4 trans = body.getWorldTransform();
+		trans.set(trans.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), trans.getScale(new Vector3()));
 		
-		body.setWorldTransform(t);
+		body.setWorldTransform(trans);
 	}
 }

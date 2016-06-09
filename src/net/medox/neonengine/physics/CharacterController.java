@@ -91,9 +91,8 @@ public class CharacterController{
 	public net.medox.neonengine.core.Transform getTransform(){
 		final net.medox.neonengine.core.Transform result = new net.medox.neonengine.core.Transform();
 		
-		final Matrix4 t = ghostObject.getWorldTransform();
-		final Vector3 pos = t.getTranslation(new Vector3());
-		final Quaternion rot = t.getRotation(new Quaternion());
+		final Vector3 pos = ghostObject.getWorldTransform().getTranslation(new Vector3());
+		final Quaternion rot = ghostObject.getWorldTransform().getRotation(new Quaternion());
 		
 		result.setPos(new net.medox.neonengine.math.Vector3f(pos.x, pos.y, pos.z));
 		result.setRot(new net.medox.neonengine.math.Quaternion(rot.x, rot.y, rot.z, rot.w));
@@ -134,16 +133,16 @@ public class CharacterController{
 	}
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
-		final Matrix4 t = ghostObject.getWorldTransform();
-		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
+		final Matrix4 trans = ghostObject.getWorldTransform();
+		trans.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
-		ghostObject.setWorldTransform(t);
+		ghostObject.setWorldTransform(trans);
 	}
 	
 	public void setRot(net.medox.neonengine.math.Quaternion rotation){
-		final Matrix4 t = ghostObject.getWorldTransform();
-		t.set(t.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), t.getScale(new Vector3()));
+		final Matrix4 trans = ghostObject.getWorldTransform();
+		trans.set(trans.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), trans.getScale(new Vector3()));
 		
-		ghostObject.setWorldTransform(t);
+		ghostObject.setWorldTransform(trans);
 	}
 }
