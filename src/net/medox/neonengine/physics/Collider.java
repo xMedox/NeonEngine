@@ -210,7 +210,6 @@ public class Collider{
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
 		final Matrix4 t = body.getWorldTransform();
-		
 		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
 		body.setWorldTransform(t);

@@ -135,7 +135,6 @@ public class CharacterController{
 	
 	public void setPos(net.medox.neonengine.math.Vector3f transform){
 		final Matrix4 t = ghostObject.getWorldTransform();
-		
 		t.setTranslation(new Vector3(transform.getX(), transform.getY(), transform.getZ()));
 		
 		ghostObject.setWorldTransform(t);
