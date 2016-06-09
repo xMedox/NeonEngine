@@ -22,17 +22,14 @@ import com.badlogic.gdx.physics.bullet.dynamics.btDiscreteDynamicsWorld;
 import com.badlogic.gdx.physics.bullet.dynamics.btSequentialImpulseConstraintSolver;
 
 public class PhysicsEngine{
-	private static ArrayList<Collider> colliders;
 	private static btDiscreteDynamicsWorld dynamicsWorld;
 	
+	private static ArrayList<Collider> colliders;
 	private static Map<Integer, Collider> collidersSave;
 	private static int nextValue;
 	
 	public static void init(){
 		Bullet.init();
-		
-		colliders = new ArrayList<Collider>();
-		collidersSave = new ConcurrentHashMap<Integer, Collider>();
 		
 //		final btBroadphaseInterface broadphase = new btDbvtBroadphase();
 		final btBroadphaseInterface broadphase = new btAxisSweep3(new Vector3(-10000, -10000, -10000), new Vector3(10000, 10000, 10000));
@@ -52,13 +49,16 @@ public class PhysicsEngine{
 		
 		new Callback();
 		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
+		
+		colliders = new ArrayList<Collider>();
+		collidersSave = new ConcurrentHashMap<Integer, Collider>();
 	}
 	
 	public static Collider getById(int index){
 		return collidersSave.get(index);
 	}
 	
-	public static void addObject(Collider collider){
+	public static void addCollider(Collider collider){
 		dynamicsWorld.addRigidBody(collider.getBody());
 		colliders.add(collider);
 		collidersSave.put(nextValue, collider);
@@ -67,7 +67,7 @@ public class PhysicsEngine{
 		nextValue += 1;
 	}
 	
-	public static void addObject(Collider collider, int group, int mask){
+	public static void addCollider(Collider collider, int group, int mask){
 		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
 		colliders.add(collider);
 		collidersSave.put(nextValue, collider);
@@ -76,7 +76,7 @@ public class PhysicsEngine{
 		nextValue += 1;
 	}
 	
-	public static void removeObject(Collider collider){
+	public static void removeCollider(Collider collider){
 		collidersSave.remove(collider.getBody().getUserValue());
 		dynamicsWorld.removeRigidBody(collider.getBody());
 		colliders.remove(collider);

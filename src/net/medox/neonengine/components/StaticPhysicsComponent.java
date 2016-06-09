@@ -32,12 +32,12 @@ public class StaticPhysicsComponent extends EntityComponent{
 //		if(group != -1 && mask != -1){
 //			PhysicsEngine.addObject(this.collider, group, mask);
 //		}else{
-			PhysicsEngine.addObject(this.collider);
+			PhysicsEngine.addCollider(this.collider);
 //		}
 	}
 	
 	@Override
 	public void cleanUp(){
-		PhysicsEngine.removeObject(collider);
+		PhysicsEngine.removeCollider(collider);
 	}
 }

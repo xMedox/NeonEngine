@@ -154,10 +154,6 @@ public class Collider{
 		return new net.medox.neonengine.math.Vector3f(linearVelocity.x, linearVelocity.y, linearVelocity.z);
 	}
 	
-	public void remove(){
-		PhysicsEngine.removeObject(this);
-	}
-	
 	public void setAngularFactor(float angFac){
 		body.setAngularFactor(angFac);
 	}
