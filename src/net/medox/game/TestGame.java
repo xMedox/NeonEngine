@@ -21,11 +21,11 @@ import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Box;
+import net.medox.neonengine.physics.BoxCollider;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
-import net.medox.neonengine.physics.Sphere;
-import net.medox.neonengine.physics.StaticPlane;
+import net.medox.neonengine.physics.SphereCollider;
+import net.medox.neonengine.physics.StaticPlaneCollider;
 import net.medox.neonengine.rendering.Attenuation;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.DirectionalLight;
@@ -118,7 +118,7 @@ public class TestGame extends Game{
 		playerHead.addComponent(cam);
 		playerHead.addComponent(new FreeLook(0.15f));
 		
-		Sphere sphere2 = new Sphere(1);
+		SphereCollider sphere2 = new SphereCollider(1);
 		sphere2.setMassProps(1f);
 		PhysicsComponent testphys = new PhysicsComponent(sphere2);
 //		testphys.getSphere().setMassProps(0);
@@ -166,7 +166,7 @@ public class TestGame extends Game{
 //		planeObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180));
 		planeObject.addComponent(meshRenderer);
 		
-		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlane(new Vector3f(0, 1, 0), -1));
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlaneCollider(new Vector3f(0, 1, 0), -1));
 		
 //		Transform t = new Transform();
 //		
@@ -431,7 +431,7 @@ public class TestGame extends Game{
 		
 		addEntity(entity.addComponent(testphys).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
 		
-		Sphere sphere = new Sphere(1);
+		SphereCollider sphere = new SphereCollider(1);
 		sphere.setMassProps(1f);
 		PhysicsComponent testphys2 = new PhysicsComponent(sphere);
 		
@@ -476,7 +476,7 @@ public class TestGame extends Game{
 		
 		Entity stair1 = new Entity();
 		
-		Box box1 = new Box(new Vector3f(0.5f, 0.15f, 0.75f));
+		BoxCollider box1 = new BoxCollider(new Vector3f(0.5f, 0.15f, 0.75f));
 		
 		stair1.getTransform().setPos(new Vector3f(5, -1 + 0.15f, 10));
 		stair1.getTransform().setScale(new Vector3f(0.5f, 0.15f, 0.75f));
@@ -495,7 +495,7 @@ public class TestGame extends Game{
 		
 		Entity stair2 = new Entity();
 		
-		Box box2 = new Box(new Vector3f(0.5f, 0.3f, 0.75f));
+		BoxCollider box2 = new BoxCollider(new Vector3f(0.5f, 0.3f, 0.75f));
 		
 		stair2.getTransform().setPos(new Vector3f(6, -1 + 0.3f, 10));
 		stair2.getTransform().setScale(new Vector3f(0.5f, 0.3f, 0.75f));
@@ -514,7 +514,7 @@ public class TestGame extends Game{
 		
 		Entity stair3 = new Entity();
 		
-		Box box3 = new Box(new Vector3f(0.5f, 0.45f, 0.75f));
+		BoxCollider box3 = new BoxCollider(new Vector3f(0.5f, 0.45f, 0.75f));
 		
 		stair3.getTransform().setPos(new Vector3f(7, -1 + 0.45f, 10));
 		stair3.getTransform().setScale(new Vector3f(0.5f, 0.45f, 0.75f));
@@ -533,7 +533,7 @@ public class TestGame extends Game{
 		
 		Entity stair4 = new Entity();
 		
-		Box box4 = new Box(new Vector3f(0.5f, 0.6f, 0.75f));
+		BoxCollider box4 = new BoxCollider(new Vector3f(0.5f, 0.6f, 0.75f));
 		
 		stair4.getTransform().setPos(new Vector3f(8, -1 + 0.6f, 10));
 		stair4.getTransform().setScale(new Vector3f(0.5f, 0.6f, 0.75f));

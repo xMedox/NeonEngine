@@ -1,32 +1,32 @@
 package net.medox.neonengine.physics;
 
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision.btCapsuleShape;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
+import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
-public class Capsule extends Collider{
+public class SphereCollider extends Collider{
 	private final btCollisionShape shape;
 	
-	public Capsule(float radius, float height){
+	public SphereCollider(float radius){
 		super();
 		
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
 		
-		shape = new btCapsuleShape(radius, height);
+		shape = new btSphereShape(radius);
 		
 		final Vector3 inertia = new Vector3(0, 0, 0);
 		shape.calculateLocalInertia(1f, inertia);
 		
-//		RigidBodyConstructionInfo bodyConstructionInfo = new RigidBodyConstructionInfo(1f, motionState, shape, inertia);
-//		RigidBodyConstructionInfo bodyConstructionInfo = new RigidBodyConstructionInfo(1f, new DefaultMotionState(DEFAULT_TRANSFORM), shape, inertia);
+//		final RigidBodyConstructionInfo bodyConstructionInfo = new RigidBodyConstructionInfo(1f, motionState, shape, inertia);
 		
 //		ballBodyConstructionInfo.restitution = 0.5f;
 //		ballBodyConstructionInfo.angularDamping = 0.95f;
 		
 //		setBody(new RigidBody(bodyConstructionInfo));
+//		setBody(new RigidBody(new RigidBodyConstructionInfo(1f, motionState, shape, inertia)));
 		setBody(new btRigidBody(new btRigidBodyConstructionInfo(1f, new btDefaultMotionState(DEFAULT_TRANSFORM), shape, inertia)));
 	}
 	

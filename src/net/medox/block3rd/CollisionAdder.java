@@ -10,7 +10,7 @@ import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Box;
+import net.medox.neonengine.physics.BoxCollider;
 
 public class CollisionAdder extends EntityComponent{
 	public static int worldWidth = 16;
@@ -70,7 +70,7 @@ public class CollisionAdder extends EntityComponent{
 	}
 	
 	private void addCollision(int x, int y, int z, Entity e){
-		Box box = new Box(new Vector3f(0.5f, 0.5f, 0.5f));
+		BoxCollider box = new BoxCollider(new Vector3f(0.5f, 0.5f, 0.5f));
 		box.setMassProps(0);
 		
 		Transform t = new Transform();

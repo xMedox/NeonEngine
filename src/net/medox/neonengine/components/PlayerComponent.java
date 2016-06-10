@@ -3,21 +3,21 @@ package net.medox.neonengine.components;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Capsule;
+import net.medox.neonengine.physics.CapsuleCollider;
 import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.rendering.Camera;
 
 public class PlayerComponent extends EntityComponent{
 	private Camera camera;
-	private Capsule capsule;
+	private CapsuleCollider capsule;
 	
 	private CharacterController controller;
 	
 	public PlayerComponent(Camera camera){		
 //		cylinder = new Cylinder(1, 2);
 //		capsule = new Cylinder(new Vector3f(0.5f, 2, 0.5f));
-		capsule = new Capsule(0.5f, 1f);
+		capsule = new CapsuleCollider(0.5f, 1f);
 		
 //		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
 		capsule.setMassProps(2.5f);

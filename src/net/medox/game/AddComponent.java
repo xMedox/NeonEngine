@@ -7,10 +7,10 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Box;
-import net.medox.neonengine.physics.Cone;
-import net.medox.neonengine.physics.Cylinder;
-import net.medox.neonengine.physics.Sphere;
+import net.medox.neonengine.physics.BoxCollider;
+import net.medox.neonengine.physics.ConeCollider;
+import net.medox.neonengine.physics.CylinderCollider;
+import net.medox.neonengine.physics.SphereCollider;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
 import net.medox.neonengine.rendering.Texture;
@@ -59,7 +59,7 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_N)){
 			Entity entity = new Entity();
 			
-			Box box = new Box(new Vector3f(1f, 1f, 1f));
+			BoxCollider box = new BoxCollider(new Vector3f(1f, 1f, 1f));
 			box.setMassProps(4);
 			
 			box.setTransform(boxTransform);
@@ -70,7 +70,7 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_B)){
 			Entity entity = new Entity();
 			
-			Sphere sphere = new Sphere(1);
+			SphereCollider sphere = new SphereCollider(1);
 			sphere.setMassProps(4);
 			
 			sphere.setTransform(sphereTransform);
@@ -83,7 +83,7 @@ public class AddComponent extends EntityComponent{
 			
 			entity.getTransform().setScale(new Vector3f(2, 2, 2));
 			
-			Cylinder cylinder = new Cylinder(new Vector3f(1f, 1f, 1f));
+			CylinderCollider cylinder = new CylinderCollider(new Vector3f(1f, 1f, 1f));
 			cylinder.setMassProps(4);
 			
 			cylinder.setTransform(cylinderTransform);
@@ -94,7 +94,7 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_C)){
 			Entity entity = new Entity();
 			
-			Cone cone = new Cone(1f, 2f);
+			ConeCollider cone = new ConeCollider(1f, 2f);
 			cone.setMassProps(4);
 			
 			cone.setTransform(coneTransform);

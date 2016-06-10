@@ -7,10 +7,10 @@ import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
-public class Box extends Collider{
+public class BoxCollider extends Collider{
 	private final btCollisionShape shape;
 	
-	public Box(net.medox.neonengine.math.Vector3f halfExtents){
+	public BoxCollider(net.medox.neonengine.math.Vector3f halfExtents){
 		super();
 				
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);

@@ -12,10 +12,10 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
 import net.medox.neonengine.core.DataUtil;
 
-public class MeshShape extends Collider{
+public class MeshCollider extends Collider{
 	private final btCollisionShape shape;
 	
-	public MeshShape(ArrayList<net.medox.neonengine.math.Vector3f> positions){
+	public MeshCollider(ArrayList<net.medox.neonengine.math.Vector3f> positions){
 		super();
 		
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);

@@ -7,7 +7,7 @@ import net.medox.neonengine.core.Time;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Box;
+import net.medox.neonengine.physics.BoxCollider;
 import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.Ray;
@@ -15,7 +15,7 @@ import net.medox.neonengine.rendering.Texture;
 
 public class PlayerComponent extends EntityComponent{
 	private Entity entity;
-	private Box box;
+	private BoxCollider box;
 	
 	private float attackTimer;
 	
@@ -28,7 +28,7 @@ public class PlayerComponent extends EntityComponent{
 	private Texture g;
 	
 	public PlayerComponent(Entity entity){
-		box = new Box(new Vector3f(0.475f, 0.975f, 0.475f));
+		box = new BoxCollider(new Vector3f(0.475f, 0.975f, 0.475f));
 		
 //		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
 		box.setMassProps(2.5f);
@@ -60,7 +60,7 @@ public class PlayerComponent extends EntityComponent{
 		g = new Texture("block60_glow.png", true);
 	}
 	
-	public Box getBox(){
+	public BoxCollider getBox(){
 		return box;
 	}
 	

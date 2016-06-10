@@ -6,6 +6,7 @@
 - The engine now uses the LibGDX Bullet wrapper(better performance and simulation quality)
 - Fixed the StaticPlane
 - Renamed the add- and removeObject methods to add- and removeCollider in the PhysicsEngine
+- Renamed the colliders to have Collider at the end
 
 **Other:**
 - Renamed the setOrientation method in the SoundEngine class to setRotation

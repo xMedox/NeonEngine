@@ -5,7 +5,7 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Box;
+import net.medox.neonengine.physics.BoxCollider;
 import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.PhysicsEngine;
 
@@ -13,7 +13,7 @@ public class WolfComponent extends EntityComponent{
 	private float health;
 	private boolean dead;
 	
-	private Box box;
+	private BoxCollider box;
 	private Vector3f add;
 	private Vector3f sub;
 //	private float timer;
@@ -30,7 +30,7 @@ public class WolfComponent extends EntityComponent{
 		
 //		cylinder = new Cylinder(1, 2);
 //		capsule = new Cylinder(new Vector3f(0.5f, 2, 0.5f));
-		box = new Box(new Vector3f(0.275f, 0.575f, 0.775f));
+		box = new BoxCollider(new Vector3f(0.275f, 0.575f, 0.775f));
 		
 		add = new Vector3f(0, -0.575f, 0);
 		sub = new Vector3f(0, 1, 0);
@@ -90,7 +90,7 @@ public class WolfComponent extends EntityComponent{
 		}
 	}
 	
-	public Box getBox(){
+	public BoxCollider getBox(){
 		return box;
 	}
 	

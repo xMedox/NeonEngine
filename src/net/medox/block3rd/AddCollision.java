@@ -7,7 +7,7 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.Box;
+import net.medox.neonengine.physics.BoxCollider;
 import net.medox.neonengine.rendering.Attenuation;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
@@ -42,7 +42,7 @@ public class AddCollision extends EntityComponent{
 //			Transform t = new Transform();
 //			t.setPos(new Vector3f(8, 10, 8));
 			
-			Box box = new Box(new Vector3f(0.5f, 0.5f, 0.5f));
+			BoxCollider box = new BoxCollider(new Vector3f(0.5f, 0.5f, 0.5f));
 			box.setMassProps(1);
 			
 			box.setTransform(/*t*/entity.getTransform());

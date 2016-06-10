@@ -2,20 +2,20 @@ package net.medox.neonengine.physics;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
-import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
+import com.badlogic.gdx.physics.bullet.collision.btStaticPlaneShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
-public class Sphere extends Collider{
+public class StaticPlaneCollider extends Collider{
 	private final btCollisionShape shape;
 	
-	public Sphere(float radius){
+	public StaticPlaneCollider(net.medox.neonengine.math.Vector3f planeNormal, float planeConstant){
 		super();
 		
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
 		
-		shape = new btSphereShape(radius);
+		shape = new btStaticPlaneShape(new Vector3(planeNormal.getX(), planeNormal.getY(), planeNormal.getZ()), planeConstant);
 		
 		final Vector3 inertia = new Vector3(0, 0, 0);
 		shape.calculateLocalInertia(1f, inertia);
