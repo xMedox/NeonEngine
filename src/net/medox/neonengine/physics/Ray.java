@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 
 public class Ray{
-	private final Collider collider;
+	private final Collider hitCollider;
 	private final net.medox.neonengine.math.Vector3f hitPoint;
 	private final net.medox.neonengine.math.Vector3f hitNormal;
 	private final boolean hasHit;
@@ -27,15 +27,15 @@ public class Ray{
 		hitNormal = new net.medox.neonengine.math.Vector3f(hitNormalWorld.x, hitNormalWorld.y, hitNormalWorld.z);
 		
 		if(callback.hasHit()){
-//			collider = ((Collider)callback.getCollisionObject().getUserPointer());
-			collider = PhysicsEngine.getById(callback.getCollisionObject().getUserValue());
+//			hitCollider = ((Collider)callback.getCollisionObject().getUserPointer());
+			hitCollider = PhysicsEngine.getById(callback.getCollisionObject().getUserValue());
 		}else{
-			collider = new Collider();
+			hitCollider = new Collider();
 		}
 	}
 	
 	public Collider getHitCollider(){
-		return collider;
+		return hitCollider;
 	}
 	
 	public net.medox.neonengine.math.Vector3f getHitPoint(){
