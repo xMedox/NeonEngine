@@ -20,7 +20,7 @@ public class SoundData extends ReferenceCounter{
 		}finally{
 			audio.dispose();
 		}
-
+		
 		length = (float)(AL10.alGetBufferi(buffer, AL10.AL_SIZE) * 8 / (AL10.alGetBufferi(buffer, AL10.AL_CHANNELS) * AL10.alGetBufferi(buffer, AL10.AL_BITS))) / (float)(AL10.alGetBufferi(buffer, AL10.AL_FREQUENCY));
 	}
 	

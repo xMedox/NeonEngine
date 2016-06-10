@@ -7,8 +7,6 @@ public class Constraint{
 	
 	public void setConstraint(btTypedConstraint constraint){
 		this.constraint = constraint;
-//		body.setUserPointer(this);
-//		body.setCollisionFlags(body.getCollisionFlags() | CollisionFlags.CUSTOM_MATERIAL_CALLBACK);
 	}
 	
 	public btTypedConstraint getConstraint(){
