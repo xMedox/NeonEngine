@@ -7,6 +7,7 @@
 - Fixed the StaticPlane
 - Renamed the add- and removeObject methods to add- and removeCollider in the PhysicsEngine
 - Renamed the colliders to have Collider at the end
+- Fixed the setUpAxis method in the CharacterController class
 
 **Other:**
 - Renamed the setOrientation method in the SoundEngine class to setRotation

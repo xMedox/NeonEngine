@@ -31,8 +31,6 @@ public class CharacterController{
 		
 		characterController.setGravity(-PhysicsEngine.getGravity());
 		
-//		kinematicCharacterController.setUpAxis(1);
-		
 //		physics.getWorld().addCollisionObject(ghostObject, BroadphaseProxy.CharacterFilter, btBroadphaseProxy.StaticFilter | BroadphaseProxy.DefaultFilter);
 	}
 	
@@ -68,8 +66,8 @@ public class CharacterController{
 //		kinematicCharacterController.setFallSpeed(fallSpeed);
 //	}
 	
-	public void setUpAxis(float axis){
-		characterController.setUpAxis(0);
+	public void setUpAxis(int axis){
+		characterController.setUpAxis(axis);
 	}
 	
 	public void setGravity(float gravity){
