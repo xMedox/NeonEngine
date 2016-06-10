@@ -4,6 +4,7 @@
 
 **Physics:**
 - The engine now uses the LibGDX Bullet wrapper(better performance and simulation quality)
+- Fixed the StaticPlane
 - Renamed the add- and removeObject methods to add- and removeCollider in the PhysicsEngine
 
 **Other:**
