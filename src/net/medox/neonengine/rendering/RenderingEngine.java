@@ -109,7 +109,7 @@ public class RenderingEngine{
 		System.out.println("OS arch:          " + System.getProperty("os.arch"));
 		System.out.println("Arch data model:  " + System.getProperty("sun.arch.data.model"));
 		System.out.println("Java version:     " + System.getProperty("java.version"));
-		System.out.println("Rendering Mode:   OpenGL(" + GL11.glGetString(GL11.GL_VERSION) + ")");
+		System.out.println("OpenGL version:   " + GL11.glGetString(GL11.GL_VERSION));
 		System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
 //		System.out.println("LWJGL version:    " + Version.getVersion());
 		System.out.println("--------------------------------------------------------------");
