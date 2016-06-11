@@ -25,8 +25,8 @@ public class PhysicsEngine{
 	private static btDiscreteDynamicsWorld dynamicsWorld;
 	
 	private static ArrayList<Collider> colliders;
-	private static Map<Integer, Collider> collidersSave;
-	private static int nextValue;
+	private static Map<Integer, Collider> colliderIds;
+	private static int nextId;
 	
 	public static void init(){
 		Bullet.init();
@@ -49,20 +49,20 @@ public class PhysicsEngine{
 		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
 		
 		colliders = new ArrayList<Collider>();
-		collidersSave = new ConcurrentHashMap<Integer, Collider>();
+		colliderIds = new ConcurrentHashMap<Integer, Collider>();
 	}
 	
 	public static Collider getById(int index){
-		return collidersSave.get(index);
+		return colliderIds.get(index);
 	}
 	
 	public static void addCollider(Collider collider){
 		dynamicsWorld.addRigidBody(collider.getBody());
 		colliders.add(collider);
-		collidersSave.put(nextValue, collider);
-		collider.getBody().setUserValue(nextValue);
+		colliderIds.put(nextId, collider);
+		collider.getBody().setUserValue(nextId);
 		
-		nextValue += 1;
+		nextId += 1;
 	}
 	
 //	public static void addCollider(Collider collider, int group, int mask){
@@ -75,7 +75,7 @@ public class PhysicsEngine{
 //	}
 	
 	public static void removeCollider(Collider collider){
-		collidersSave.remove(collider.getBody().getUserValue());
+		colliderIds.remove(collider.getBody().getUserValue());
 		dynamicsWorld.removeRigidBody(collider.getBody());
 		colliders.remove(collider);
 	}
@@ -92,10 +92,10 @@ public class PhysicsEngine{
 		dynamicsWorld.addAction(controller.getController());
 		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)CollisionFilterGroups.CharacterFilter, (short)(CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter));
 		colliders.add(controller.getCollider());
-		collidersSave.put(nextValue, controller.getCollider());
-		controller.getGhost().setUserValue(nextValue);
+		colliderIds.put(nextId, controller.getCollider());
+		controller.getGhost().setUserValue(nextId);
 		
-		nextValue += 1;
+		nextId += 1;
 	}
 	
 //	public static void addController(CharacterController controller, int group, int mask){
@@ -105,7 +105,7 @@ public class PhysicsEngine{
 //	}
 	
 	public static void removeController(CharacterController controller){
-		collidersSave.remove(controller.getGhost().getUserValue());
+		colliderIds.remove(controller.getGhost().getUserValue());
 		dynamicsWorld.removeAction(controller.getController());
 		dynamicsWorld.removeCollisionObject(controller.getGhost());
 		colliders.remove(controller.getCollider());
