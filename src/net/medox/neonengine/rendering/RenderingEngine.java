@@ -145,7 +145,7 @@ public class RenderingEngine{
 		setFloat("fxaaReduceMul", 1.0f/8.0f);
 		setFloat("fxaaAspectDistortion", 150.0f);
 		
-		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
+//		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
 		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
 		
 		GL11.glFrontFace(GL11.GL_CW);
@@ -588,7 +588,7 @@ public class RenderingEngine{
 	}
 	
 	public static void updateViewport(){
-		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
+//		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
 		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
 		
 		mainCamera.update();
