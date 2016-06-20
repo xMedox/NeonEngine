@@ -382,8 +382,8 @@ public class RenderingEngine{
 		if(NeonEngine.OPTION_ENABLE_BLOOM == 1){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
-			blurBloomMap(8f);
-			blurBloomMap(2f);
+			blurBloomMap(4f);
+			blurBloomMap(1f);
 			
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
@@ -448,10 +448,10 @@ public class RenderingEngine{
 	}
 	
 	private static void blurBloomMap(float blurAmount){
-		setVector3f("blurScale", new Vector3f(blurAmount/getTexture("displayTexture").getWidth(), blurAmount/getTexture("displayTexture").getHeight(), 0.0f));
+		setVector3f("blurScale", new Vector3f(blurAmount/getTexture("bloomTexture1").getWidth(), blurAmount/getTexture("bloomTexture1").getHeight(), 0.0f));
 		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 		
-		setVector3f("blurScale", new Vector3f(-blurAmount/getTexture("displayTexture").getWidth(), blurAmount/getTexture("displayTexture").getHeight(), 0.0f));
+		setVector3f("blurScale", new Vector3f(-blurAmount/getTexture("bloomTexture1").getWidth(), blurAmount/getTexture("bloomTexture1").getHeight(), 0.0f));
 		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 	}
 	
