@@ -201,8 +201,6 @@ public class Window{
 	
 	public static void takeScreenshot(){
 		GL11.glReadBuffer(GL11.GL_FRONT);
-		final int width = getWidth();
-		final int height = getHeight();
 		final ByteBuffer buffer = DataUtil.createByteBuffer(width * height * 4);
 		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 	    
@@ -307,10 +305,10 @@ public class Window{
 			}
 			
 			final ImageData pixels = ImageUtil.imageToByteBuffer("./res/" + fileName);
-			final GLFWImage img = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
+			final GLFWImage image = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
-			cursor = GLFW.glfwCreateCursor(img, -xPos, yPos);
-			img.free();
+			cursor = GLFW.glfwCreateCursor(image, -xPos, yPos);
+			image.free();
 			
 			if(cursor == MemoryUtil.NULL){
 				throw new RuntimeException("Failed to create the GLFW cursor");
@@ -407,7 +405,7 @@ public class Window{
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
 		if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
-			GL11.glViewport(0, 0, getWidth(), getHeight());
+			GL11.glViewport(0, 0, width, height);
 		}else{
 			GL11.glViewport(0, 0, 1, 1);
 		}

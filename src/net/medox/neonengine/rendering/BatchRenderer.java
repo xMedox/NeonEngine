@@ -86,7 +86,6 @@ public class BatchRenderer{
 		
 		
 		
-		
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vertexArrayBuffers.get(INDEX_INDEX));
 		
 		
