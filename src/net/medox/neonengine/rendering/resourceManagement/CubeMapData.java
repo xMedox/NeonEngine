@@ -210,4 +210,3 @@ private final int textureTarget;
 //		}
 	}
 }
-

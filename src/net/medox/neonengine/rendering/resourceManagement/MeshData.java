@@ -129,4 +129,3 @@ public class MeshData extends ReferenceCounter{
 		GL30.glDeleteVertexArrays(vertexArrayObject);
 	}
 }
-
