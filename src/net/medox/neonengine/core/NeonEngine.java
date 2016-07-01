@@ -42,7 +42,7 @@ public class NeonEngine{
 	public static void init(Game game, int framerate){
 		System.out.println("Starting up");
 		
-		Util.setLibraryPath();
+//		Util.setLibraryPath();
 		Util.init();
 		
 		NeonEngine.game = game;

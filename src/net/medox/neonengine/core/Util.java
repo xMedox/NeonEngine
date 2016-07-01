@@ -161,7 +161,7 @@ public class Util{
 		return value < min ? min : value > max ? max : value;
 	}
 	
-	public static void setLibraryPath(){
-		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
-	}
+//	public static void setLibraryPath(){
+//		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
+//	}
 }

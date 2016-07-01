@@ -2,9 +2,21 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-bullet-1.9.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-bullet-platform-1.9.3-natives-desktop.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-1.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-natives-linux.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-natives-macos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-glfw.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-glfw-natives-linux.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-glfw-natives-macos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-glfw-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-opengl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-linux.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-macos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-windows.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
