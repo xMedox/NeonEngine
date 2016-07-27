@@ -11,6 +11,7 @@
 
 **Other:**
 - Renamed the setOrientation method in the SoundEngine class to setRotation
+- Renamed fileExists and directoryExists to doesFileExist and doesDirectoryExist
 
 ## Features needed for 1.0.0:
 

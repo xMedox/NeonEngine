@@ -88,13 +88,13 @@ public class Util{
 //		return (float)Math.toDegrees(value);
 //	}
 	
-	public static boolean fileExists(String filePath){
+	public static boolean doesFileExist(String filePath){
 		final File file = new File(filePath);
 		
 		return file.exists() && !file.isDirectory();
 	}
 	
-	public static boolean directoryExists(String filePath){
+	public static boolean doesDirectoryExist(String filePath){
 		final File file = new File(filePath);
 		
 		return file.exists() && file.isDirectory();

@@ -9,13 +9,9 @@ public abstract class Game{
 	private final ProfileTimer updateTimer = new ProfileTimer();
 	private final ProfileTimer inputTimer = new ProfileTimer();
 	
-	public void init(){
-		
-	}
+	public void init(){}
 	
-	public void cleanUp(){
-		
-	}
+	public void cleanUp(){}
 	
 	public void dispose(){
 		root.removeChildren();
