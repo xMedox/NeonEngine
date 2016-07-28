@@ -1,7 +1,9 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.lighting;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.PerspectiveBase;
+import net.medox.neonengine.rendering.Shader;
 
 public class SpotLight extends PointLight{
 	private float cutoff;
@@ -35,7 +37,7 @@ public class SpotLight extends PointLight{
 			}
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
-			setShadowInfo(new ShadowInfo(new Perspective(viewAngle, 1.0f, 0.1f, getRange()), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
+			setShadowInfo(new ShadowInfo(new PerspectiveBase(viewAngle, 1.0f, 0.1f, getRange()), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
 		}
 	}
 	

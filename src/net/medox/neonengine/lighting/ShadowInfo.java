@@ -1,4 +1,6 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.lighting;
+
+import net.medox.neonengine.rendering.Base;
 
 public class ShadowInfo{
 	private final Base base;

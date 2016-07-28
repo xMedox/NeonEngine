@@ -13,6 +13,8 @@
 - Renamed the setOrientation method in the SoundEngine class to setRotation
 - Renamed fileExists and directoryExists to doesFileExist and doesDirectoryExist
 - Fixed spelling of the createDirectory method
+- The camera bases have their own files now
+- Moved the light classes to the new lightning package
 
 ## Features needed for 1.0.0:
 

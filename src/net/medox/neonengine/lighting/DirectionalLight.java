@@ -1,8 +1,10 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.lighting;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.OrthographicBase;
+import net.medox.neonengine.rendering.Shader;
 
 public class DirectionalLight extends BaseLight{
 	private float halfShadowArea;
@@ -34,7 +36,7 @@ public class DirectionalLight extends BaseLight{
 			}
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
-			setShadowInfo(new ShadowInfo(new Orthographic(-halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea), true, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
+			setShadowInfo(new ShadowInfo(new OrthographicBase(-halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea), true, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
 		}
 	}
 	

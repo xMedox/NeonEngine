@@ -1,7 +1,9 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.lighting;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.PerspectiveBase;
+import net.medox.neonengine.rendering.Shader;
 
 public class PointLight extends BaseLight{
 	private static final int COLOR_DEPTH = 256;
@@ -48,7 +50,7 @@ public class PointLight extends BaseLight{
 			}
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
-			setShadowInfo(new ShadowInfo(new Perspective((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
+			setShadowInfo(new ShadowInfo(new PerspectiveBase((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
 		}
 	}
 	

@@ -5,6 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
+import net.medox.neonengine.lighting.DirectionalLight;
+import net.medox.neonengine.lighting.PointLight;
+import net.medox.neonengine.lighting.SpotLight;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.resourceManagement.ShaderData;

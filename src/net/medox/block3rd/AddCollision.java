@@ -6,12 +6,12 @@ import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Util;
+import net.medox.neonengine.lighting.Attenuation;
+import net.medox.neonengine.lighting.PointLight;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
-import net.medox.neonengine.rendering.Attenuation;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
-import net.medox.neonengine.rendering.PointLight;
 import net.medox.neonengine.rendering.Texture;
 
 public class AddCollision extends EntityComponent{

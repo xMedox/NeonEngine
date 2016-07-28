@@ -1,4 +1,4 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.lighting;
 
 import net.medox.neonengine.math.Vector3f;
 

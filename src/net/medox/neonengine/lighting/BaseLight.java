@@ -1,8 +1,10 @@
-package net.medox.neonengine.rendering;
+package net.medox.neonengine.lighting;
 
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.RenderingEngine;
+import net.medox.neonengine.rendering.Shader;
 
 public class BaseLight extends EntityComponent{
 	private Vector3f color;

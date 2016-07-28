@@ -2,8 +2,8 @@ package net.medox.game;
 
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Time;
+import net.medox.neonengine.lighting.BaseLight;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.rendering.BaseLight;
 
 public class Light extends EntityComponent{
 	private BaseLight light;
