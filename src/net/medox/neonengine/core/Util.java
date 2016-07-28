@@ -112,7 +112,7 @@ public class Util{
 		}
 	}
 	
-	public static void createDiretory(String filePath){
+	public static void createDirectory(String filePath){
 		new File(filePath).mkdirs();
 	}
 	
