@@ -14,7 +14,7 @@
 - Renamed fileExists and directoryExists to doesFileExist and doesDirectoryExist
 - Fixed spelling of the createDirectory method
 - The camera bases have their own files now
-- Moved the light classes to the new lightning package
+- Moved the light classes to the new lighting package
 
 ## Features needed for 1.0.0:
 
