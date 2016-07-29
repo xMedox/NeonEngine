@@ -2,7 +2,7 @@ package net.medox.neonengine.rendering;
 
 import net.medox.neonengine.math.Matrix4f;
 
-public class OrthographicBase extends Base{
+public class OrthographicBase extends CameraBase{
 	private float left;
 	private float right;
 	private float bottom;

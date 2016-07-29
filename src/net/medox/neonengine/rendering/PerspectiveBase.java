@@ -2,7 +2,7 @@ package net.medox.neonengine.rendering;
 
 import net.medox.neonengine.math.Matrix4f;
 
-public class PerspectiveBase extends Base{
+public class PerspectiveBase extends CameraBase{
 	private float fov;
 	private float aspectRatio;
 	private float zNear;

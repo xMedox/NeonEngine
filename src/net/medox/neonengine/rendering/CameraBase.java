@@ -2,18 +2,16 @@ package net.medox.neonengine.rendering;
 
 import net.medox.neonengine.math.Matrix4f;
 
-public class Base{
+public class CameraBase{
 	private int mode;
 	private Matrix4f projection;
 	
-	public Base(){
+	public CameraBase(){
 		mode = -1;
 		projection = new Matrix4f().initIdentity();
 	}
 	
-	public void update(){
-		
-	}
+	public void update(){}
 	
 	public int getMode(){
 		return mode;
@@ -48,21 +46,13 @@ public class Base{
 		return -1;
 	}
 	
-	public void setFov(float fov){
-		
-	}
+	public void setFov(float fov){}
 	
-	public void setAspectRatio(float aspectRatio){
-		
-	}
+	public void setAspectRatio(float aspectRatio){}
 	
-	public void setZNear(float zNear){
-		
-	}
+	public void setZNear(float zNear){}
 	
-	public void setZFar(float zFar){
-		
-	}
+	public void setZFar(float zFar){}
 	
 	
 	public float getLeft(){
@@ -89,27 +79,15 @@ public class Base{
 		return -1;
 	}
 	
-	public void setLeft(float left){
-		
-	}
+	public void setLeft(float left){}
 	
-	public void setRight(float right){
-		
-	}
+	public void setRight(float right){}
 	
-	public void setBottom(float bottom){
-		
-	}
+	public void setBottom(float bottom){}
 	
-	public void setTop(float top){
-		
-	}
+	public void setTop(float top){}
 	
-	public void setNear(float near){
-		
-	}
+	public void setNear(float near){}
 	
-	public void setFar(float far){
-		
-	}
+	public void setFar(float far){}
 }

@@ -5,11 +5,11 @@ import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
 
 public class Camera extends EntityComponent{
-	private Base base;
+	private CameraBase base;
 	private Frustum frustum;
 	
 	public Camera(){
-		base = new Base();
+		base = new CameraBase();
 	}
 	
 	public Camera(float fov, float aspectRatio, float zNear, float zFar){
@@ -66,7 +66,7 @@ public class Camera extends EntityComponent{
 		frustum = null;
 	}
 	
-	public void changeMode(Base base){
+	public void changeMode(CameraBase base){
 		this.base = base;
 		frustum = null;
 	}
