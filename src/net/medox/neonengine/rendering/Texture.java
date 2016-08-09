@@ -28,7 +28,7 @@ public class Texture{
 		this.fileName = fileName;
 		resource = loadedTextures.get(fileName);
 		
-		if(resource == null){			
+		if(resource == null){
 			final ByteBuffer texture = loadTexture(fileName);
 			
 			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
@@ -67,7 +67,7 @@ public class Texture{
 		this(image, true);
 	}
 	
-	public Texture(BufferedImage image, boolean nearest){		
+	public Texture(BufferedImage image, boolean nearest){
 		final ByteBuffer texture = loadTexture(image);
 		
 		fileName = "";
