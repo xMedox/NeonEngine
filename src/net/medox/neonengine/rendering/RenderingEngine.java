@@ -170,7 +170,7 @@ public class RenderingEngine{
 		bloomSwitchShader = new Shader("bloomSwitch");
 		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMappingShader =  new Shader("shadowMapping");
-		particleShadowMappingShader = new Shader("paricleShadowMapping");
+		particleShadowMappingShader = new Shader("particleShadowMapping");
 		nullFilter = new Shader("filterNull");
 		gausBlurFilter = new Shader("filterGausBlur");
 		fxaaFilter = new Shader("filterFxaa");
