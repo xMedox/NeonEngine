@@ -16,6 +16,7 @@
 - The camera bases have their own files now
 - Moved the light classes to the new lighting package
 - Changed the shader extensions from fs to frag and from vs to vert
+- Improved the radius calculation for the models
 
 ## Features needed for 1.0.0:
 
@@ -35,6 +36,7 @@
 - HDR
 - SSAO(Normal-oriented Hemisphere)
 - MSAA
+- Fix flipped models
 
 **Other:**
 - Add a text input system(copy, paste, delete, return, mark and cut)

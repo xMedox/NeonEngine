@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0b Build 11";
+	private static final String VERSION = "1.0.0b Build 12";
 	
 	private static final ProfileTimer sleepTimer = new ProfileTimer();
 	private static final ProfileTimer swapBufferTimer = new ProfileTimer();
@@ -83,7 +83,14 @@ public class NeonEngine{
 	private static void run(){
 		isRunning = true;
 		
+//		final ProfileTimer test = new ProfileTimer();
+//		
+//		test.startInvocation();
 		game.init();
+//		test.stopInvocation();
+//		
+//		test.displayAndReset("Start Time:");
+//		System.out.println("--------------------------------------------------------------");
 		
 		double lastTime = Time.getTime();
 		double unprocssedTime = 0;

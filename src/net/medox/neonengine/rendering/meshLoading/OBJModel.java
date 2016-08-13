@@ -126,17 +126,23 @@ public class OBJModel{
 
 		if(!hasNormals){
 			normalModel.calcNormals();
-
+			
 			for(int i = 0; i < result.getPositions().size(); i++){
 				result.getNormals().add(normalModel.getNormals().get(indexMap.get(i)));
 			}
 		}
 
 		normalModel.calcTangents();
-
+		
+		float radius = -Float.MAX_VALUE;
+		
 		for(int i = 0; i < result.getPositions().size(); i++){
+			radius = Math.max(radius, result.getPositions().get(i).length());
+			
 			result.getTangents().add(normalModel.getTangents().get(indexMap.get(i)));
 		}
+		
+		result.setRadius(radius);
 
 		return result;
 	}

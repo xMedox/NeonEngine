@@ -15,7 +15,7 @@ public class IndexedModel{
 	
 //	private Vector3f minVertex;
 //	private Vector3f maxVertex;
-//	private float radius;
+	private float radius;
 	
 	public IndexedModel(){
 		positions = new ArrayList<Vector3f>();
@@ -33,13 +33,11 @@ public class IndexedModel{
 //	}
 	
 	public float getRadius(){
-		float radiusMax = -Float.MAX_VALUE;
-		
-		for(int i = 0; i < positions.size(); i++){
-			radiusMax = Math.max(radiusMax, positions.get(i).length());
-		}
-		
-		return radiusMax;
+		return radius;
+	}
+	
+	public void setRadius(float radius){
+		this.radius = radius;
 	}
 	
 //	public void updateBoundingBox(){
