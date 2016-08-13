@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL32;
 
 import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.ReferenceCounter;
@@ -257,11 +256,6 @@ public class ShaderData extends ReferenceCounter{
 		return shaderSource.toString();
 	}
 	
-	private class GLSLStruct{
-		public String name;
-		public String type;
-	}
-	
 	private HashMap<String, ArrayList<GLSLStruct>> findUniformStructs(String shaderText){
 		final HashMap<String, ArrayList<GLSLStruct>> result = new HashMap<String, ArrayList<GLSLStruct>>();
 		
@@ -343,7 +337,6 @@ public class ShaderData extends ReferenceCounter{
 		GL20.glUniform3f(uniformMap.get(uniformName), value.getX(), value.getY(), value.getZ());
 	}
 	
-//	@Override
 //	public void setUniformVector2f(String uniformName, Vector2f value){
 //		GL20.glUniform2f(uniformMap.get(uniformName), value.getX(), value.getY());
 //	}
@@ -359,5 +352,10 @@ public class ShaderData extends ReferenceCounter{
 		}
 		
 		GL20.glDeleteProgram(program);
+	}
+	
+	private class GLSLStruct{
+		public String name;
+		public String type;
 	}
 }

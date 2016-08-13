@@ -33,6 +33,8 @@
 **Rendering:**
 - Remove the black line of DirectionalLight Shadows
 - HDR
+- SSAO(Normal-oriented Hemisphere)
+- MSAA
 
 **Other:**
 - Add a text input system(copy, paste, delete, return, mark and cut)
