@@ -15,6 +15,7 @@
 - Fixed spelling of the createDirectory method
 - The camera bases have their own files now
 - Moved the light classes to the new lighting package
+- Changed the shader extensions from fs and vs to frag and vert
 
 ## Features needed for 1.0.0:
 

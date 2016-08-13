@@ -39,8 +39,8 @@ public class ShaderData extends ReferenceCounter{
 		uniformTypes = new ArrayList<String>();
 		uniformMap = new HashMap<String, Integer>();
 		
-		final String vetexShaderText = loadShader(fileName + ".vs");
-		final String fragmentShaderText = loadShader(fileName + ".fs");
+		final String vetexShaderText = loadShader(fileName + ".vert");
+		final String fragmentShaderText = loadShader(fileName + ".frag");
 
 		addVertexShader(vetexShaderText);
 		addFragmentShader(fragmentShaderText);
