@@ -3,10 +3,10 @@
 ## Changelog:
 
 **Physics:**
-- The engine now uses the LibGDX Bullet wrapper(better performance and simulation quality)
-- Fixed the StaticPlane
+- The engine now uses the LibGDX Bullet wrapper(results in better performance and simulation quality)
 - Renamed the add- and removeObject methods to add- and removeCollider in the PhysicsEngine
 - Renamed the colliders to have Collider at the end
+- Fixed the StaticPlaneCollider
 - Fixed the setUpAxis method in the CharacterController class
 
 **Other:**
