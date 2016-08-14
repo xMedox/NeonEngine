@@ -14,9 +14,9 @@
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-glfw-natives-macos.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-glfw-natives-windows.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-opengl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-linux.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-macos.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
