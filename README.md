@@ -17,6 +17,7 @@
 - Moved the light classes to the new lighting package
 - Changed the shader extensions from fs to frag and from vs to vert
 - Improved the radius calculation for the models
+- Added the licenses of the libraries used
 
 ## Features needed for 1.0.0:
 
