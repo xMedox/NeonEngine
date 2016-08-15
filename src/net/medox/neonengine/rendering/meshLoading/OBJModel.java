@@ -74,14 +74,14 @@ public class OBJModel{
 		final Map<OBJIndex, Integer> resultIndexMap = new ConcurrentHashMap<OBJIndex, Integer>();
 		final Map<Integer, Integer> normalIndexMap = new ConcurrentHashMap<Integer, Integer>();
 		final Map<Integer, Integer> indexMap = new ConcurrentHashMap<Integer, Integer>();
-
+		
 		for(int i = 0; i < indices.size(); i++){
 			final OBJIndex currentIndex = indices.get(i);
-
+			
 			final Vector3f currentPosition = positions.get(currentIndex.getVertexIndex());
 			Vector2f currentTexCoord;
 			Vector3f currentNormal;
-
+			
 			if(hasTexCoords){
 				currentTexCoord = texCoords.get(currentIndex.getTexCoordIndex());
 			}else{
@@ -95,35 +95,35 @@ public class OBJModel{
 			}
 			
 			Integer modelVertexIndex = resultIndexMap.get(currentIndex);
-
+			
 			if(modelVertexIndex == null){
 				modelVertexIndex = result.getPositions().size();
 				resultIndexMap.put(currentIndex, modelVertexIndex);
-
+				
 				result.getPositions().add(currentPosition);
 				result.getTexCoords().add(currentTexCoord);
 				if(hasNormals){
 					result.getNormals().add(currentNormal);
 				}
 			}
-
+			
 			Integer normalModelIndex = normalIndexMap.get(currentIndex.getVertexIndex());
-
+			
 			if(normalModelIndex == null){
 				normalModelIndex = normalModel.getPositions().size();
 				normalIndexMap.put(currentIndex.getVertexIndex(), normalModelIndex);
-
+				
 				normalModel.getPositions().add(currentPosition);
 				normalModel.getTexCoords().add(currentTexCoord);
 				normalModel.getNormals().add(currentNormal);
 				normalModel.getTangents().add(new Vector3f(0.0f, 0.0f, 0.0f));
 			}
-
+			
 			result.getIndices().add(modelVertexIndex);
 			normalModel.getIndices().add(normalModelIndex);
 			indexMap.put(modelVertexIndex, normalModelIndex);
 		}
-
+		
 		if(!hasNormals){
 			normalModel.calcNormals();
 			
@@ -131,7 +131,7 @@ public class OBJModel{
 				result.getNormals().add(normalModel.getNormals().get(indexMap.get(i)));
 			}
 		}
-
+		
 		normalModel.calcTangents();
 		
 		float radius = -Float.MAX_VALUE;
@@ -143,7 +143,7 @@ public class OBJModel{
 		}
 		
 		result.setRadius(radius);
-
+		
 		return result;
 	}
 	
@@ -184,7 +184,7 @@ public class OBJModel{
 		public int getNormalIndex(){
 			return normalIndex;
 		}
-
+		
 		public void setVertexIndex(int val){
 			vertexIndex = val;
 		}

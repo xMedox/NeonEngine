@@ -13,9 +13,9 @@ public class IndexedModel{
 	private final List<Vector3f> tangents;
 	private final List<Integer> indices;
 	
+	private float radius;
 //	private Vector3f minVertex;
 //	private Vector3f maxVertex;
-	private float radius;
 	
 	public IndexedModel(){
 		positions = new ArrayList<Vector3f>();
@@ -28,10 +28,6 @@ public class IndexedModel{
 //		maxVertex = new Vector3f(-Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE);
 	}
 	
-//	public MeshShape createShape(){
-//		return new MeshShape(positions);
-//	}
-	
 	public float getRadius(){
 		return radius;
 	}
@@ -39,6 +35,10 @@ public class IndexedModel{
 	public void setRadius(float radius){
 		this.radius = radius;
 	}
+	
+//	public MeshShape createShape(){
+//		return new MeshShape(positions);
+//	}
 	
 //	public void updateBoundingBox(){
 //		for(int i = 0; i < positions.size(); i++){
@@ -181,11 +181,11 @@ public class IndexedModel{
 	public List<Vector3f> getPositions(){
 		return positions;
 	}
-
+	
 	public List<Vector2f> getTexCoords(){
 		return texCoords;
 	}
-
+	
 	public List<Vector3f> getNormals(){
 		return normals;
 	}
