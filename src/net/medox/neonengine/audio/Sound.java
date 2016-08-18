@@ -10,7 +10,7 @@ import net.medox.neonengine.audio.resourceManagement.SourceData;
 import net.medox.neonengine.math.Vector3f;
 
 public class Sound{
-	private static final Map<String, SoundData> loadedAudios = new ConcurrentHashMap<String, SoundData>();
+	private static final Map<String, SoundData> loadedSounds = new ConcurrentHashMap<String, SoundData>();
 	private static final Map<String, SourceData> loadedSources = new ConcurrentHashMap<String, SourceData>();
 	
 	private final SourceData source;
@@ -23,11 +23,11 @@ public class Sound{
 		
 		source = new SourceData();
 		
-		resource = loadedAudios.get(fileName);
+		resource = loadedSounds.get(fileName);
 		
 		if(resource == null){
-			loadAudio(fileName);
-			loadedAudios.put(fileName, resource);
+			loadSound(fileName);
+			loadedSounds.put(fileName, resource);
 		}else{
 			resource.addReference();
 		}
@@ -40,7 +40,7 @@ public class Sound{
 		source.dispose();
 		if(resource.removeReference() && !fileName.isEmpty()){
 			resource.dispose();
-			loadedAudios.remove(fileName);
+			loadedSounds.remove(fileName);
 		}
 		
 		super.finalize();
@@ -86,14 +86,14 @@ public class Sound{
 		source.setRolloffFactor(value);
 	}
 	
-	private Sound loadAudio(String fileName){
+	private Sound loadSound(String fileName){
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
 		if(ext.equals("wav")){
-			resource = new SoundData(new WAVSound("./res/sounds/" + fileName).toIndexedAudio());
+			resource = new SoundData(new WAVSound("./res/sounds/" + fileName).toIndexedSound());
 		}else if(ext.equals("ogg")){
-			resource = new SoundData(new OGGSound("./res/sounds/" + fileName).toIndexedAudio());
+			resource = new SoundData(new OGGSound("./res/sounds/" + fileName).toIndexedSound());
 		}else{
 			System.err.println("Error: '" + ext + "' file format not supported for audio data.");
 			new Exception().printStackTrace();
@@ -108,7 +108,7 @@ public class Sound{
 	}
 	
 	public static void dispose(){
-		for(final SoundData data : loadedAudios.values()){
+		for(final SoundData data : loadedSounds.values()){
 			data.dispose();
 		}
 		

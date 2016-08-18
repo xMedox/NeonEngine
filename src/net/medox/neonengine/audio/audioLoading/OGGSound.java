@@ -32,7 +32,7 @@ public class OGGSound{
 		}
 	}
 	
-	public IndexedSound toIndexedAudio(){
+	public IndexedSound toIndexedSound(){
 		final IndexedSound result = new IndexedSound();
 		
 		result.setData(data);

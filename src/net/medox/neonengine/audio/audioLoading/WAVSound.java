@@ -32,7 +32,7 @@ public class WAVSound{
 		create(new BufferedInputStream(fin));
 	}
 	
-	public IndexedSound toIndexedAudio(){
+	public IndexedSound toIndexedSound(){
 		final IndexedSound result = new IndexedSound();
 		
 		result.setData(data);
