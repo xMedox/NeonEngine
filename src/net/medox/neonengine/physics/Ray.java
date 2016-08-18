@@ -49,5 +49,4 @@ public class Ray{
 	public boolean hasHit(){
 		return hasHit;
 	}
-	
 }
