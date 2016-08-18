@@ -2,4 +2,4 @@
 
 out vec2 texCoord0;
 
-#include "filter.vsh"
+#include "filter.verth"

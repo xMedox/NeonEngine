@@ -1,6 +1,6 @@
 #version 330
 
-#include "forwardlighting.fsh"
+#include "forwardlighting.fragh"
 
 #include "lighting.glh"
 
@@ -14,4 +14,4 @@ vec4 CalcLightingEffect(vec3 normal, vec3 worldPos, float specular){
 	return CalcPointLight(R_pointLight, normal, worldPos, specular, specularIntensity, specularPower, C_eyePos);
 }
 
-#include "lightingMain.fsh"
+#include "lightingMain.fragh"
