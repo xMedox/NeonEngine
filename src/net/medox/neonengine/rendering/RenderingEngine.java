@@ -59,7 +59,6 @@ public class RenderingEngine{
 	private static Map<String, Vector3f> vector3fMap;
 //	private static Map<String, Vector2f> vector2fMap;
 	private static Map<String, Float> floatMap;
-	
 	private static Map<String, Integer> samplerMap;
 	
 	private static Camera mainCamera;
@@ -124,8 +123,8 @@ public class RenderingEngine{
 		vector3fMap = new HashMap<String, Vector3f>();
 //		vector2fHashMap = new  HashMap<String, Vector2f>();
 		floatMap = new HashMap<String, Float>();
-		
 		samplerMap = new HashMap<String, Integer>();
+		
 		samplerMap.put("filterTexture", 0);
 		samplerMap.put("cubeMap", 0);
 		
