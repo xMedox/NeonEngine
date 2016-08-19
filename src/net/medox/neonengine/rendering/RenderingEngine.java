@@ -61,6 +61,8 @@ public class RenderingEngine{
 	private static Map<String, Float> floatMap;
 	private static Map<String, Integer> samplerMap;
 	
+	private static MSAATexture renderTexture;
+	
 	private static Camera mainCamera;
 	private static Camera camera2D;
 	
@@ -157,6 +159,7 @@ public class RenderingEngine{
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);
 		new Entity().addComponent(camera2D);
 		
+		renderTexture = new MSAATexture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, 8, new int[]{GL11.GL_NEAREST, GL11.GL_NEAREST}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1});
 		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_NEAREST, GL11.GL_NEAREST}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
@@ -252,7 +255,8 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 		}
 		
-		getTexture("displayTexture").bindAsRenderTarget();
+		renderTexture.bindAsRenderTarget();
+//		getTexture("displayTexture").bindAsRenderTarget();
 		
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -343,7 +347,8 @@ public class RenderingEngine{
 					}
 				}
 				
-				getTexture("displayTexture").bindAsRenderTarget();
+				renderTexture.bindAsRenderTarget();
+//				getTexture("displayTexture").bindAsRenderTarget();
 			}else{
 				setTexture("shadowMap", shadowMaps[0]);
 				lightMatrix = new Matrix4f().initScale(0, 0, 0);
@@ -380,35 +385,37 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
-		if(NeonEngine.OPTION_ENABLE_BLOOM == 1){
-			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
-			
-			blurBloomMap(4f);
-			blurBloomMap(1f);
-			
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-//			GL11.glDepthMask(false);
-//			GL11.glDepthFunc(GL11.GL_EQUAL);
-			
-			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
-			
-//			GL11.glDepthMask(true);
-//			GL11.glDepthFunc(GL11.GL_LESS);
-			GL11.glDisable(GL11.GL_BLEND);
-		}
+		renderTexture.transferToTexture(getTexture("displayTexture"));
+		
+//		if(NeonEngine.OPTION_ENABLE_BLOOM == 1){
+//			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
+//			
+//			blurBloomMap(4f);
+//			blurBloomMap(1f);
+//			
+//			GL11.glEnable(GL11.GL_BLEND);
+//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+////			GL11.glDepthMask(false);
+////			GL11.glDepthFunc(GL11.GL_EQUAL);
+//			
+//			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
+//			
+////			GL11.glDepthMask(true);
+////			GL11.glDepthFunc(GL11.GL_LESS);
+//			GL11.glDisable(GL11.GL_BLEND);
+//		}
 		
 		renderProfileTimer.stopInvocation();
 		
 		windowSyncProfileTimer.startInvocation();
 		
-		if(NeonEngine.OPTION_ENABLE_FXAA == 1){
-			setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
-			
-			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
-		}else{
+//		if(NeonEngine.OPTION_ENABLE_FXAA == 1){
+//			setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
+//			
+//			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
+//		}else{
 			applyFilter(nullFilter, getTexture("displayTexture"), null);
-		}
+//		}
 		
 		windowSyncProfileTimer.stopInvocation();
 	}
@@ -595,6 +602,7 @@ public class RenderingEngine{
 		mainCamera.update();
 		camera2D.update();
 		
+		renderTexture = new MSAATexture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, 8, new int[]{GL11.GL_NEAREST, GL11.GL_NEAREST}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1});
 		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_NEAREST, GL11.GL_NEAREST}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));

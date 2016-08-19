@@ -11,14 +11,15 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.GL32;
 
 import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.core.Util;
 
-public class TextureData extends ReferenceCounter{
-	private final int textureTarget;
+public class MSAATextureData extends ReferenceCounter{
+	private final int samples;
 	private final int numTextures;
 	
 	private int[] textureID;
@@ -27,9 +28,9 @@ public class TextureData extends ReferenceCounter{
 	private int width;
 	private int height;
 	
-	public TextureData(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
+	public MSAATextureData(int samples, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
 		textureID = new int[numTextures];
-		this.textureTarget = textureTarget;
+		this.samples = samples;
 		this.numTextures = numTextures;
 		
 		if(NeonEngine.PROFILING_SET_2x2_TEXTURE == 0){
@@ -51,7 +52,7 @@ public class TextureData extends ReferenceCounter{
 //		if(RenderingEngine.textureBound != textureID[0]){
 			assert(samplerSlot >= 0 && samplerSlot <= 31);
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-			GL11.glBindTexture(textureTarget, textureID[0]);
+			GL11.glBindTexture(GL32.GL_TEXTURE_2D_MULTISAMPLE, textureID[0]);
 //			
 //			RenderingEngine.textureBound = textureID[0];
 //		}
@@ -61,14 +62,14 @@ public class TextureData extends ReferenceCounter{
 //		if(RenderingEngine.textureBound != textureID[id]){
 			assert(samplerSlot >= 0 && samplerSlot <= 31);
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
-			GL11.glBindTexture(textureTarget, textureID[id]);
+			GL11.glBindTexture(GL32.GL_TEXTURE_2D_MULTISAMPLE, textureID[id]);
 //			
 //			RenderingEngine.textureBound = textureID[id];
 //		}
 	}
 	
     public void bindAsRenderTarget(){
-    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+    	GL11.glBindTexture(GL32.GL_TEXTURE_2D_MULTISAMPLE, 0);
     	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
     	
     	if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
@@ -76,6 +77,12 @@ public class TextureData extends ReferenceCounter{
     	}else{
     		GL11.glViewport(0, 0, 1, 1);
     	}
+    }
+    
+    public void transferToTexture(int targetBuffer){
+    	GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, frameBuffer);
+    	GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, targetBuffer);
+    	GL30.glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL11.GL_COLOR_BUFFER_BIT, GL11.GL_NEAREST);
     }
 	
 	public int getWidth(){
@@ -90,24 +97,24 @@ public class TextureData extends ReferenceCounter{
 		for(int i = 0; i < numTextures; i++){
 			textureID[i] = GL11.glGenTextures();
 			
-			GL11.glBindTexture(textureTarget, textureID[i]);
+			GL11.glBindTexture(GL32.GL_TEXTURE_2D_MULTISAMPLE, textureID[i]);
 			
-			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MIN_FILTER, filters[i]);
-			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MAG_FILTER, filters[i]);
+			GL11.glTexParameterf(GL32.GL_TEXTURE_2D_MULTISAMPLE, GL11.GL_TEXTURE_MIN_FILTER, filters[i]);
+			GL11.glTexParameterf(GL32.GL_TEXTURE_2D_MULTISAMPLE, GL11.GL_TEXTURE_MAG_FILTER, filters[i]);
 			
 			if(clamp){
-				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
-				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+				GL11.glTexParameterf(GL32.GL_TEXTURE_2D_MULTISAMPLE, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+				GL11.glTexParameterf(GL32.GL_TEXTURE_2D_MULTISAMPLE, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
 			}
 			
-			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], type[i], data[i]);
+			GL32.glTexImage2DMultisample(GL32.GL_TEXTURE_2D_MULTISAMPLE, samples, internalFormat[i], width, height, true);
 			
 			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST || filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR || filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST || filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
-				GL30.glGenerateMipmap(textureTarget);
-				GL11.glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
+				GL30.glGenerateMipmap(GL32.GL_TEXTURE_2D_MULTISAMPLE);
+				GL11.glTexParameterf(GL32.GL_TEXTURE_2D_MULTISAMPLE, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
 			}else{
-				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_BASE_LEVEL, 0);
-				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_MAX_LEVEL, 0);
+				GL11.glTexParameteri(GL32.GL_TEXTURE_2D_MULTISAMPLE, GL12.GL_TEXTURE_BASE_LEVEL, 0);
+				GL11.glTexParameteri(GL32.GL_TEXTURE_2D_MULTISAMPLE, GL12.GL_TEXTURE_MAX_LEVEL, 0);
 			}
 		}
 	}
@@ -140,7 +147,7 @@ public class TextureData extends ReferenceCounter{
 				ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
 			}
 			
-			ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, attachments[i], textureTarget, textureID[i], 0);
+			ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, attachments[i], GL32.GL_TEXTURE_2D_MULTISAMPLE, textureID[i], 0);
 		}
 		
 		if(frameBuffer == 0){
@@ -151,7 +158,7 @@ public class TextureData extends ReferenceCounter{
 			renderBuffer = ARBFramebufferObject.glGenRenderbuffers();
 //			glGenRenderbuffers(1, renderBuffer);
 			ARBFramebufferObject.glBindRenderbuffer(ARBFramebufferObject.GL_RENDERBUFFER, renderBuffer);
-			ARBFramebufferObject.glRenderbufferStorage(ARBFramebufferObject.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width, height);
+			ARBFramebufferObject.glRenderbufferStorageMultisample(ARBFramebufferObject.GL_RENDERBUFFER, samples, GL11.GL_DEPTH_COMPONENT, width, height);
 			ARBFramebufferObject.glFramebufferRenderbuffer(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_DEPTH_ATTACHMENT, ARBFramebufferObject.GL_RENDERBUFFER, renderBuffer);
 		}
 		
@@ -175,10 +182,6 @@ public class TextureData extends ReferenceCounter{
 	
 	public int getID(){
 		return textureID[0];
-	}
-	
-	public int getFrameBuffer(){
-		return frameBuffer;
 	}
 	
 	public void dispose(){

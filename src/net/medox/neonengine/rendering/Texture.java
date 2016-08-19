@@ -251,6 +251,10 @@ public class Texture{
 		return resource.getID();
 	}
 	
+	public int getFrameBuffer(){
+		return resource.getFrameBuffer();
+	}
+	
 	public static void dispose(){
 		for(final TextureData data : loadedTextures.values()){
 			data.dispose();
