@@ -100,7 +100,7 @@ public class RenderingEngine{
 //	private static CubeMap[] shadowCubeMaps = new CubeMap[NUM_SHADOW_MAPS];
 //	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
 	
-	private static boolean wireframeMode; //TODO remove this
+	private static boolean wireframeMode;
 	
 	public static void init(){
 		//TODO remove this
@@ -247,7 +247,6 @@ public class RenderingEngine{
 		
 		mainCamera.updateFrustum();
 		
-		//TODO remove this
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 		}
@@ -375,7 +374,6 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
-		//TODO remove this
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
@@ -654,11 +652,11 @@ public class RenderingEngine{
 		return getVector3f("ambient");
 	}
 	
-	public static void setWireframeMode(boolean wire){ //TODO remove this
+	public static void setWireframeMode(boolean wire){
 		wireframeMode = wire;
 	}
 	
-	public static boolean isWireframeMode(){ //TODO remove this
+	public static boolean isWireframeMode(){
 		return wireframeMode;
 	}
 	

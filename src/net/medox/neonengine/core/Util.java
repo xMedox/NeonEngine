@@ -160,8 +160,4 @@ public class Util{
 	public static float clamp(float value, float min, float max){
 		return value < min ? min : value > max ? max : value;
 	}
-	
-//	public static void setLibraryPath(){
-//		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
-//	}
 }
