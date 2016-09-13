@@ -200,8 +200,8 @@ public class TestGame extends Game{
 		
 		Mesh meshDrake = new Mesh("Dragon 3.obj");
 		Material materialDrake = new Material();
-		materialDrake.setDiffuseMap(new Texture("Dragon 2.png"));
-//		materialDrake.setNormalMap(new Texture("rock2_normal322.png"));
+		materialDrake.setDiffuseMap(new Texture("Dragon 3.png"));
+		materialDrake.setEmissiveMap(new Texture("Dragon 3_glow.png"));
 		materialDrake.setSpecularIntensity(0.25f);
 		materialDrake.setSpecularPower(2);
 		
