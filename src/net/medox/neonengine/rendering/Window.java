@@ -52,7 +52,6 @@ public class Window{
 	private static String startCursor = "";
 	private static int startCursorX;
 	private static int startCursorY;
-	
 	private static long cursor;
 	
 	private static int centerPositionX;

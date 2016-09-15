@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0b Build 12";
+	private static final String VERSION = "1.0.0b Build 14";
 	
 	private static final ProfileTimer sleepTimer = new ProfileTimer();
 	private static final ProfileTimer swapBufferTimer = new ProfileTimer();
@@ -42,7 +42,6 @@ public class NeonEngine{
 	public static void init(Game game, int framerate){
 		System.out.println("Starting up");
 		
-//		Util.setLibraryPath();
 		Util.init();
 		
 		NeonEngine.game = game;
@@ -92,16 +91,23 @@ public class NeonEngine{
 //		test.displayAndReset("Start Time:");
 //		System.out.println("--------------------------------------------------------------");
 		
+		boolean render;
+		
+		double startTime;
+		double passedTime;
 		double lastTime = Time.getTime();
 		double unprocssedTime = 0;
 		double frameCounter = 0;
 		int frames = 0;
 		
+		double totalTime;
+		double totalMeasuredTime;
+		
 		while(isRunning){
-			boolean render = false;
+			render = false;
 			
-			final double startTime = Time.getTime();
-			final double passedTime = startTime - lastTime;
+			startTime = Time.getTime();
+			passedTime = startTime - lastTime;
 			lastTime = startTime;
 			
 			unprocssedTime += passedTime;
@@ -109,8 +115,8 @@ public class NeonEngine{
 			
 			if(frameCounter >= 1.0){
 				if(Window.gotCreated()){
-					final double totalTime = (1000.0 * frameCounter)/((double)frames);
-					double totalMeasuredTime = 0.0;
+					totalTime = (1000.0 * frameCounter)/((double)frames);
+					totalMeasuredTime = 0.0;
 					
 					totalMeasuredTime += game.displayInputTime((double)frames);
 					totalMeasuredTime += game.displayUpdateTime((double)frames);

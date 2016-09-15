@@ -10,6 +10,9 @@ import net.medox.neonengine.rendering.ParticleMaterial;
 import net.medox.neonengine.rendering.Texture;
 
 public class SmokeComponent extends EntityComponent{
+	private static Texture texture1 = new Texture("base.png");
+	private static Texture texture2 = new Texture("base 2.png");
+	
 	private float timer = 0;
 	
 	@Override
@@ -22,7 +25,12 @@ public class SmokeComponent extends EntityComponent{
 			Entity particle = new Entity();
 			
 			ParticleMaterial pMat = new ParticleMaterial();
-			pMat.setDiffuseMap(new Texture("base.png"));
+			
+			if(Util.randomBoolean()){
+				pMat.setDiffuseMap(texture1);
+			}else{
+				pMat.setDiffuseMap(texture2);
+			}
 			pMat.setEmissive(1);
 			
 			particle.addComponent(new ParticleRenderer(pMat));

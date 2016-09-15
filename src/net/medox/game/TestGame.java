@@ -198,6 +198,20 @@ public class TestGame extends Game{
 //		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 1), (float)Math.toRadians(45));
 		planeObjectx.addComponent(meshRendererx);
 		
+		Mesh meshDrake = new Mesh("Dragon 3.obj");
+		Material materialDrake = new Material();
+		materialDrake.setDiffuseMap(new Texture("Dragon 3.png"));
+		materialDrake.setEmissiveMap(new Texture("white.png"));
+		materialDrake.setSpecularIntensity(0.25f);
+		materialDrake.setSpecularPower(2);
+		
+		MeshRenderer meshRendererDrake = new MeshRenderer(meshDrake, materialDrake);
+		
+		Entity planeObjectDrake = new Entity();
+		planeObjectDrake.addComponent(meshRendererDrake);
+		planeObjectDrake.getTransform().getPos().set(14, -1, 15);
+		planeObjectDrake.getTransform().setScale(new Vector3f(4, 4, 4));
+		
 		Mesh meshRock = new Mesh("rock 7.obj");
 		Material materialRock = new Material();
 		materialRock.setDiffuseMap(new Texture("rock232.jpg"));
@@ -365,6 +379,7 @@ public class TestGame extends Game{
 		
 		addEntity(swordObject3);
 		
+		addEntity(planeObjectDrake);
 		addEntity(planeObjectRock);
 //		addEntity(planeObjectTree);
 		

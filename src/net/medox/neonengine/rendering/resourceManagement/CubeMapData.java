@@ -18,7 +18,7 @@ import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.core.Util;
 
 public class CubeMapData extends ReferenceCounter{
-private final int textureTarget;
+	private final int textureTarget;
 	
 	private int textureID;
 	private int frameBuffer;
