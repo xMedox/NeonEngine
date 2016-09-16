@@ -2,11 +2,11 @@ package net.medox.neonengine.rendering;
 
 import net.medox.neonengine.math.Matrix4f;
 
-public class CameraBase{
+public class BaseCamera{
 	private int mode;
 	private Matrix4f projection;
 	
-	public CameraBase(){
+	public BaseCamera(){
 		mode = -1;
 		projection = new Matrix4f().initIdentity();
 	}
