@@ -18,6 +18,7 @@
 - Changed the shader extensions from fs to frag and from vs to vert
 - Improved the radius calculation for the models
 - Added the licenses of the libraries used
+- The glfw window variable is now private
 
 ## Features needed for 1.0.0:
 

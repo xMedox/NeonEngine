@@ -22,7 +22,7 @@ import org.lwjgl.system.MemoryUtil;
 public class Window{
 	public static final int DONT_CARE = GLFW.GLFW_DONT_CARE;
 	
-    public static long window;
+	private static long window;
 	
 	private static String title = "NeonEngine";
 	
@@ -448,5 +448,17 @@ public class Window{
 	
 	public static Vector2f getCenterPosition(){
 		return new Vector2f(centerPositionX, centerPositionY);
+	}
+	
+	public static void setCursorPos(int xpos, int ypos){
+		GLFW.glfwSetCursorPos(window, (double)xpos, (double)ypos);
+	}
+	
+	public static void setInputMode(int mode, int value){
+		GLFW.glfwSetInputMode(window, mode, value);
+	}
+	
+	public static int getInputMode(int mode){
+		return GLFW.glfwGetInputMode(window, mode);
 	}
 }

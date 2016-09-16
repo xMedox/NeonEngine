@@ -290,19 +290,19 @@ public class Input{
 		mouseXPosition = (int)pos.getX();
 		mouseYPosition = (int)pos.getY();
 		
-		GLFW.glfwSetCursorPos(Window.window, (double)mouseXPosition, (double)(Window.getHeight()-1 - mouseYPosition));
+		Window.setCursorPos(mouseXPosition, (Window.getHeight()-1 - mouseYPosition));
 	}
 	
 	public static void setGrabbed(boolean value){
 		if(value){
-			GLFW.glfwSetInputMode(Window.window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+			Window.setInputMode(GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 		}else{
-			GLFW.glfwSetInputMode(Window.window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
+			Window.setInputMode(GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
 		}
 	}
 	
 	public static boolean isGrabbed(){
-		return GLFW.glfwGetInputMode(Window.window, GLFW.GLFW_CURSOR) == GLFW.GLFW_CURSOR_DISABLED;
+		return Window.getInputMode(GLFW.GLFW_CURSOR) == GLFW.GLFW_CURSOR_DISABLED;
 	}
 	
 	public static String getChars(){
