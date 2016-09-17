@@ -23,6 +23,7 @@ public class Window{
 	public static final int DONT_CARE = GLFW.GLFW_DONT_CARE;
 	
 	private static long window;
+	private static long cursor;
 	
 	private static String title = "NeonEngine";
 	
@@ -50,9 +51,9 @@ public class Window{
 	private static String startIcon32 = "";
 	
 	private static String startCursor = "";
+	
 	private static int startCursorX;
 	private static int startCursorY;
-	private static long cursor;
 	
 	private static int centerPositionX;
 	private static int centerPositionY;
