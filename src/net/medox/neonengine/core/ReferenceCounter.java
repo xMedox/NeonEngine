@@ -1,22 +1,22 @@
 package net.medox.neonengine.core;
 
 public class ReferenceCounter{
-	private int refCount;
+	private int referenceCount;
 	
 	public ReferenceCounter(){
-		refCount = 1;
+		referenceCount = 1;
 	}
 	
 	public int getReferenceCount(){
-		return refCount;
+		return referenceCount;
 	}
 	
 	public void addReference(){
-		refCount++;
+		referenceCount++;
 	}
 	
 	public boolean removeReference(){
-		refCount--;
-		return refCount <= 0;
+		referenceCount--;
+		return referenceCount <= 0;
 	}
 }
