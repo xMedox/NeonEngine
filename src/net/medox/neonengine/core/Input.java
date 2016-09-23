@@ -158,6 +158,7 @@ public class Input{
 	
 	private static int mouseXPosition;
 	private static int mouseYPosition;
+	
 	private static int mouseWheel;
 	
 	private static String charList;

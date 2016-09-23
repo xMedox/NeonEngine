@@ -6,11 +6,11 @@ public class Frustum{
 	private final Plane[] planes;
 	
 	public Frustum(Camera camera){		
-		final Vector3f position = camera.getTransform().getTransformedPos();
-		
-		final Vector3f x = camera.getTransform().getTransformedRot().getRight();
-		final Vector3f y = camera.getTransform().getTransformedRot().getUp();
-		final Vector3f z = camera.getTransform().getTransformedRot().getForward();
+//		final Vector3f position = camera.getTransform().getTransformedPos();
+//		
+//		final Vector3f x = camera.getTransform().getTransformedRot().getRight();
+//		final Vector3f y = camera.getTransform().getTransformedRot().getUp();
+//		final Vector3f z = camera.getTransform().getTransformedRot().getForward();
 		
 		 if(camera.getMode() == 0){
 			 final float zNear = camera.getZNear();
@@ -22,15 +22,25 @@ public class Frustum{
 			 final float nearHeight = zNear * tang;
 			 final float farHeight = zFar * tang;
 			 
-			 final Vector3f nearClipping = position.add(z.mul(zNear));
-			 final Vector3f farClipping = position.add(z.mul(zFar));
+			 final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(zNear));
+			 final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(zFar));
 			 
 			 
-			 final Vector3f near1 = y.mul(nearHeight);
-			 final Vector3f near2 = x.mul(nearHeight * ratio);
+			 final Vector3f near1 = camera.getTransform().getTransformedRot().getUp().mul(nearHeight);
+			 final Vector3f near2 = camera.getTransform().getTransformedRot().getRight().mul(nearHeight * ratio);
 			 
-			 final Vector3f far1 = y.mul(farHeight);
-			 final Vector3f far2 = x.mul(farHeight * ratio);
+			 final Vector3f far1 = camera.getTransform().getTransformedRot().getUp().mul(farHeight);
+			 final Vector3f far2 = camera.getTransform().getTransformedRot().getRight().mul(farHeight * ratio);
+			 
+//			 final Vector3f nearClipping = position.add(z.mul(zNear));
+//			 final Vector3f farClipping = position.add(z.mul(zFar));
+//			 
+//			 
+//			 final Vector3f near1 = y.mul(nearHeight);
+//			 final Vector3f near2 = x.mul(nearHeight * ratio);
+//			 
+//			 final Vector3f far1 = y.mul(farHeight);
+//			 final Vector3f far2 = x.mul(farHeight * ratio);
 			 
 			 final Vector3f ntl = nearClipping.add(near1).sub(near2);
 			 final Vector3f ntr = nearClipping.add(near1).add(near2);
@@ -50,15 +60,25 @@ public class Frustum{
 			final float height = camera.getTop() - camera.getBottom();
 			final float width = camera.getRight() - camera.getLeft();
 			
-			final Vector3f nearClipping = position.add(z.mul((near - far)*2)); //add offset to remove clipping bug
-			final Vector3f farClipping = position.add(z.mul((far - near)*2)); //add offset to remove clipping bug
+			final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((near - far)*2)); //add offset to remove clipping bug
+			final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((far - near)*2)); //add offset to remove clipping bug
 			
 			
-			final Vector3f near1 = y.mul(height);
-			final Vector3f near2 = x.mul(width);
+			final Vector3f near1 = camera.getTransform().getTransformedRot().getUp().mul(height);
+			final Vector3f near2 = camera.getTransform().getTransformedRot().getRight().mul(width);
 			
-			final Vector3f far1 = y.mul(height);
-			final Vector3f far2 = x.mul(width);
+			final Vector3f far1 = camera.getTransform().getTransformedRot().getUp().mul(height);
+			final Vector3f far2 = camera.getTransform().getTransformedRot().getRight().mul(width);
+			
+//			final Vector3f nearClipping = position.add(z.mul((near - far)*2)); //add offset to remove clipping bug
+//			final Vector3f farClipping = position.add(z.mul((far - near)*2)); //add offset to remove clipping bug
+//			
+//			
+//			final Vector3f near1 = y.mul(height);
+//			final Vector3f near2 = x.mul(width);
+//			
+//			final Vector3f far1 = y.mul(height);
+//			final Vector3f far2 = x.mul(width);
 			
 			final Vector3f ntl = nearClipping.add(near1).sub(near2);
 			final Vector3f ntr = nearClipping.add(near1).add(near2);

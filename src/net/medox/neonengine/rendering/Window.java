@@ -37,10 +37,10 @@ public class Window{
 	private static int width = 854;
 	private static int height = 480;
 	
-	private static int minWidth = GLFW.GLFW_DONT_CARE;
-	private static int minHeight = GLFW.GLFW_DONT_CARE;
-	private static int maxWidth = GLFW.GLFW_DONT_CARE;
-	private static int maxHeight = GLFW.GLFW_DONT_CARE;
+	private static int minWidth = DONT_CARE;
+	private static int minHeight = DONT_CARE;
+	private static int maxWidth = DONT_CARE;
+	private static int maxHeight = DONT_CARE;
 	
 	private static boolean isFullscreen;
 	private static boolean gotResized;
@@ -450,6 +450,7 @@ public class Window{
 	public static Vector2f getCenterPosition(){
 		return new Vector2f(centerPositionX, centerPositionY);
 	}
+	
 	
 	public static void setCursorPos(int xpos, int ypos){
 		GLFW.glfwSetCursorPos(window, (double)xpos, (double)ypos);
