@@ -13,24 +13,24 @@ public class Frustum{
 //		final Vector3f z = camera.getTransform().getTransformedRot().getForward();
 		
 		 if(camera.getMode() == 0){
-			 final float zNear = camera.getZNear();
-			 final float zFar = camera.getZFar();
-			 final float ratio = camera.getAspectRatio();
+//			 final float zNear = camera.getZNear();
+//			 final float zFar = camera.getZFar();
+//			 final float ratio = camera.getAspectRatio();
 			 
 			 final float tang = (float)Math.tan(camera.getFov() * 0.5f);
 			 
-			 final float nearHeight = zNear * tang;
-			 final float farHeight = zFar * tang;
+			 final float nearHeight = camera.getZNear() * tang;
+			 final float farHeight = camera.getZFar() * tang;
 			 
-			 final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(zNear));
-			 final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(zFar));
+			 final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(camera.getZNear()));
+			 final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(camera.getZFar()));
 			 
 			 
 			 final Vector3f near1 = camera.getTransform().getTransformedRot().getUp().mul(nearHeight);
-			 final Vector3f near2 = camera.getTransform().getTransformedRot().getRight().mul(nearHeight * ratio);
+			 final Vector3f near2 = camera.getTransform().getTransformedRot().getRight().mul(nearHeight * camera.getAspectRatio());
 			 
 			 final Vector3f far1 = camera.getTransform().getTransformedRot().getUp().mul(farHeight);
-			 final Vector3f far2 = camera.getTransform().getTransformedRot().getRight().mul(farHeight * ratio);
+			 final Vector3f far2 = camera.getTransform().getTransformedRot().getRight().mul(farHeight * camera.getAspectRatio());
 			 
 //			 final Vector3f nearClipping = position.add(z.mul(zNear));
 //			 final Vector3f farClipping = position.add(z.mul(zFar));
@@ -54,14 +54,14 @@ public class Frustum{
 			 
 			 planes = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
 		}else{
-			final float near = camera.getNear();
-			final float far = camera.getFar();
+//			final float near = camera.getNear();
+//			final float far = camera.getFar();
 			
 			final float height = camera.getTop() - camera.getBottom();
 			final float width = camera.getRight() - camera.getLeft();
 			
-			final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((near - far)*2)); //add offset to remove clipping bug
-			final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((far - near)*2)); //add offset to remove clipping bug
+			final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((camera.getNear() - camera.getFar())*2)); //add offset to remove clipping bug
+			final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((camera.getFar() - camera.getNear())*2)); //add offset to remove clipping bug
 			
 			
 			final Vector3f near1 = camera.getTransform().getTransformedRot().getUp().mul(height);
