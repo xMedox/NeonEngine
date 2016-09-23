@@ -13,10 +13,6 @@ public class Frustum{
 //		final Vector3f z = camera.getTransform().getTransformedRot().getForward();
 		
 		 if(camera.getMode() == 0){
-//			 final float zNear = camera.getZNear();
-//			 final float zFar = camera.getZFar();
-//			 final float ratio = camera.getAspectRatio();
-			 
 			 final float tang = (float)Math.tan(camera.getFov() * 0.5f);
 			 
 			 final float nearHeight = camera.getZNear() * tang;
@@ -54,9 +50,6 @@ public class Frustum{
 			 
 			 planes = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
 		}else{
-//			final float near = camera.getNear();
-//			final float far = camera.getFar();
-			
 			final float height = camera.getTop() - camera.getBottom();
 			final float width = camera.getRight() - camera.getLeft();
 			
@@ -144,58 +137,58 @@ public class Frustum{
 		return true;
 	}
 	
-	public boolean boxInFrustum(Vector3f min, Vector3f max){
-	    for(int i = 0; i < 6; i++){
-	        int in = 0;
-	        
-	        if(planes[i].distance(new Vector3f(min.getX(), min.getY(), min.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(max.getX(), min.getY(), min.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(min.getX(), min.getY(), max.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(max.getX(), min.getY(), max.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(min.getX(), max.getY(), min.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(max.getX(), max.getY(), min.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(min.getX(), max.getY(), max.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(planes[i].distance(new Vector3f(max.getX(), max.getY(), max.getZ())) < 0){
-	            in++;
-	        }
-	        
-	        if(in == 8){
-	        	return false;
-	        }
-	    }
-
-	    return true;
-	 }
+//	public boolean boxInFrustum(Vector3f min, Vector3f max){
+//	    for(int i = 0; i < 6; i++){
+//	        int in = 0;
+//	        
+//	        if(planes[i].distance(new Vector3f(min.getX(), min.getY(), min.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(max.getX(), min.getY(), min.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(min.getX(), min.getY(), max.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(max.getX(), min.getY(), max.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(min.getX(), max.getY(), min.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(max.getX(), max.getY(), min.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(min.getX(), max.getY(), max.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(planes[i].distance(new Vector3f(max.getX(), max.getY(), max.getZ())) < 0){
+//	            in++;
+//	        }
+//	        
+//	        if(in == 8){
+//	        	return false;
+//	        }
+//	    }
+//
+//	    return true;
+//	 }
 	
-	public boolean pointInFrustum(Vector3f p){
-		for(int i = 0; i < 6; i++){
-			if(planes[i].distance(p) < 0){
-				return false;
-			}
-		}
-		return true;
-	}
+//	public boolean pointInFrustum(Vector3f point){
+//		for(int i = 0; i < 6; i++){
+//			if(planes[i].distance(point) < 0){
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
 	
 	private class Plane{
 		private final Vector3f normal;
