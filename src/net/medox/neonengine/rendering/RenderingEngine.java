@@ -85,6 +85,8 @@ public class RenderingEngine{
 	private static Shader shader2D;
 	private static Shader skyboxShader;
 	
+	private static List<Shader> filters;
+	
 	private static Camera particleCamera;
 	private static Shader particleShader;
 	private static boolean particleFlipFaces;
@@ -158,6 +160,7 @@ public class RenderingEngine{
 		new Entity().addComponent(camera2D);
 		
 		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_NEAREST, GL11.GL_NEAREST}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
+		setTexture("postFilterTexture", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_NEAREST, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
@@ -174,6 +177,8 @@ public class RenderingEngine{
 		fxaaFilter = new Shader("filterFxaa");
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
+		
+		filters = new ArrayList<Shader>();
 		
 		lightCamera = new Camera();
 		new Entity().addComponent(lightCamera);
@@ -400,12 +405,58 @@ public class RenderingEngine{
 		
 		windowSyncProfileTimer.startInvocation();
 		
-		if(NeonEngine.OPTION_ENABLE_FXAA == 1){
-			setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
-			
-			applyFilter(fxaaFilter, getTexture("displayTexture"), null);
+		if(filters.isEmpty()){
+			if(NeonEngine.OPTION_ENABLE_FXAA == 1){
+				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
+				
+				applyFilter(fxaaFilter, getTexture("displayTexture"), null);
+			}else{
+				applyFilter(nullFilter, getTexture("displayTexture"), null);
+			}
 		}else{
-			applyFilter(nullFilter, getTexture("displayTexture"), null);
+			if(NeonEngine.OPTION_ENABLE_FXAA == 1){
+				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
+				
+				applyFilter(fxaaFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+				
+				boolean evenNumber = true; 
+				for(int i = 0; i < filters.size(); i++){
+					if(evenNumber){
+						if(filters.size()-1 == i){
+							applyFilter(filters.get(i), getTexture("postFilterTexture"), null);
+						}else{
+							applyFilter(filters.get(i), getTexture("postFilterTexture"), getTexture("displayTexture"));
+						}
+					}else{
+						if(filters.size()-1 == i){
+							applyFilter(filters.get(i), getTexture("displayTexture"), null);
+						}else{
+							applyFilter(filters.get(i), getTexture("displayTexture"), getTexture("postFilterTexture"));
+						}
+					}
+					
+					evenNumber = !evenNumber;
+				}
+			}else{
+				boolean evenNumber = true; 
+				for(int i = 0; i < filters.size(); i++){
+					if(evenNumber){
+						if(filters.size()-1 == i){
+							applyFilter(filters.get(i), getTexture("displayTexture"), null);
+						}else{
+							applyFilter(filters.get(i), getTexture("displayTexture"), getTexture("postFilterTexture"));
+						}
+					}else{
+						if(filters.size()-1 == i){
+							applyFilter(filters.get(i), getTexture("postFilterTexture"), null);
+						}else{
+							applyFilter(filters.get(i), getTexture("postFilterTexture"), getTexture("displayTexture"));
+						}
+					}
+					
+					evenNumber = !evenNumber;
+				}
+			}
 		}
 		
 		windowSyncProfileTimer.stopInvocation();
@@ -546,6 +597,14 @@ public class RenderingEngine{
 		lights.remove(baseLight);
 	}
 	
+	public static void addFilter(Shader filter){
+		filters.add(filter);
+	}
+	
+	public static void removeFilter(Shader filter){
+		filters.remove(filter);
+	}
+	
 	public static int getSamplerSlot(String samplerName){
 		return samplerMap.get(samplerName);
 	}
@@ -594,6 +653,7 @@ public class RenderingEngine{
 		camera2D.update();
 		
 		setTexture("displayTexture", new Texture(Window.getWidth(), Window.getHeight(), new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_NEAREST, GL11.GL_NEAREST}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{ARBFramebufferObject.GL_COLOR_ATTACHMENT0, ARBFramebufferObject.GL_COLOR_ATTACHMENT1}));
+		setTexture("postFilterTexture", new Texture(Window.getWidth(), Window.getHeight(), (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_NEAREST, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		
 		setTexture("bloomTexture1", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(Window.getWidth()/2, Window.getHeight()/2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, ARBFramebufferObject.GL_COLOR_ATTACHMENT0));

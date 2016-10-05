@@ -2,6 +2,9 @@
 
 ## Changelog:
 
+**Rendering:**
+- Added the ability to add filters
+
 **Physics:**
 - The engine now uses the LibGDX Bullet wrapper(results in better simulation quality and performance)
 - Renamed the add- and removeObject methods to add- and removeCollider in the PhysicsEngine
