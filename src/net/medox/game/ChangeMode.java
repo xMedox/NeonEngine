@@ -5,16 +5,24 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.rendering.RenderingEngine;
+import net.medox.neonengine.rendering.Shader;
 
 public class ChangeMode extends EntityComponent{
 	private InputKey wireframeKey;
 	
+	private Shader filter;
+	private boolean filterEnabled;
+	
 	public ChangeMode(){
 		this.wireframeKey = new InputKey(Input.KEYBOARD, Input.KEY_F2);
+		
+		filter = new Shader("filterGrey");
 	}
 	
 	public ChangeMode(InputKey screenshotKey){
 		this.wireframeKey = screenshotKey;
+		
+		filter = new Shader("filterGrey");
 	}
 	
 	@Override
@@ -30,6 +38,17 @@ public class ChangeMode extends EntityComponent{
 				NeonEngine.OPTION_ENABLE_2D = 0;
 			}else{
 				NeonEngine.OPTION_ENABLE_2D = 1;
+			}
+		}
+		if(Input.getKeyDown(Input.KEY_F4)){
+			if(!filterEnabled){
+				RenderingEngine.addFilter(filter);
+				
+				filterEnabled = !filterEnabled;
+			}else{
+				RenderingEngine.removeFilter(filter);
+				
+				filterEnabled = !filterEnabled;
 			}
 		}
 	}

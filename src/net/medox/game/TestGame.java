@@ -36,7 +36,6 @@ import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
 import net.medox.neonengine.rendering.ParticleMaterial;
 import net.medox.neonengine.rendering.RenderingEngine;
-import net.medox.neonengine.rendering.Shader;
 import net.medox.neonengine.rendering.Skybox;
 import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
@@ -87,7 +86,7 @@ public class TestGame extends Game{
 	public void init(){
 //		RenderingEngine.addFilter(new Shader("filterInvert"));
 //		RenderingEngine.addFilter(new Shader("filterBits"));
-		RenderingEngine.addFilter(new Shader("filterGrey"));
+//		RenderingEngine.addFilter(new Shader("filterGrey"));
 //		RenderingEngine.addFilter(new Shader("filterFlip"));
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
