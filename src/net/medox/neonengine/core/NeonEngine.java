@@ -33,11 +33,10 @@ public class NeonEngine{
 	public static int PROFILING_SET_1x1_VIEWPORT = 0; //0 = false 1 = true
 	public static int PROFILING_SET_2x2_TEXTURE = 0; //0 = false 1 = true
 	
-	public static int fps;
-	
 	private static Game game;
 	private static boolean isRunning;
 	private static double frameTime;
+	private static int fps;
 	
 	public static void init(Game game, int framerate){
 		System.out.println("Starting up");
@@ -65,6 +64,10 @@ public class NeonEngine{
 		Window.createWindow();
 		
 		RenderingEngine.init();
+	}
+	
+	public static int getFPS(){
+		return fps;
 	}
 	
 	public static void start(){

@@ -244,7 +244,7 @@ public class RenderingEngine{
 	}
 	
 	public static int getFPS(){
-		return NeonEngine.fps;
+		return NeonEngine.getFPS();
 	}
 	
 	public static void render(Entity object){
