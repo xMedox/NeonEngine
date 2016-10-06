@@ -39,7 +39,7 @@ public class Shader{
 	
 	@Override
 	protected void finalize() throws Throwable{
-		if(resource.removeReference() && !fileName.isEmpty()){
+		if(resource.removeReference() && !fileName.equals("")){
 			resource.dispose();
 			loadedShaders.remove(fileName);
 		}

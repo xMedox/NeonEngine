@@ -1,5 +1,7 @@
 package net.medox.neonengine.rendering;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,6 +12,8 @@ import net.medox.neonengine.rendering.resourceManagement.MeshData;
 
 public class Mesh{
 	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
+	
+	private static final List<MeshData> customModels = new ArrayList<MeshData>();
 	
 	private final String fileName;
 	
@@ -36,7 +40,7 @@ public class Mesh{
 		
 		if(fileName.equals("")){
 			resource = new MeshData(model/*, createShape*/);
-//			loadedModels.put(fileName, resource);
+			customModels.add(resource);
 		}else{
 			if(loadedModels.get(fileName) == null){
 				resource = new MeshData(model/*, createShape*/);
@@ -58,9 +62,14 @@ public class Mesh{
 	
 	@Override
 	protected void finalize() throws Throwable{
-		if(resource.removeReference() && !fileName.isEmpty()){
+		if(fileName.equals("")){
 			resource.dispose();
-			loadedModels.remove(fileName);
+			customModels.remove(resource);
+		}else{
+			if(resource.removeReference()){
+				resource.dispose();
+				loadedModels.remove(fileName);
+			}
 		}
 		
 		super.finalize();
@@ -87,6 +96,10 @@ public class Mesh{
 	
 	public static void dispose(){
 		for(final MeshData data : loadedModels.values()){
+			data.dispose();
+		}
+		
+		for(final MeshData data : customModels){
 			data.dispose();
 		}
 	}

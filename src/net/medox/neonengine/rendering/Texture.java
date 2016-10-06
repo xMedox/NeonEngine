@@ -5,6 +5,8 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,6 +18,8 @@ import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
 public class Texture{
 	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
+	
+	private static final List<TextureData> customTextures = new ArrayList<TextureData>();
 	
 	private final String fileName;
 	
@@ -72,23 +76,31 @@ public class Texture{
 		
 		fileName = "";
 		resource = new TextureData(RenderingEngine.TEXTURE_2D, width, height, 1, new ByteBuffer[]{texture}, new int[]{nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.RGBA}, new int[]{RenderingEngine.UNSIGNED_BYTE}, false, new int[]{RenderingEngine.NONE});
+		customTextures.add(resource);
 	}
 	
 	public Texture(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		fileName = "";
 		resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
+		customTextures.add(resource);
 	}
 	
 	public Texture(int width, int height, ByteBuffer[] data, int textureTarget, int[] filter, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachment){
 		fileName = "";
 		resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
+		customTextures.add(resource);
 	}
 	
 	@Override
 	protected void finalize() throws Throwable{
-		if(resource.removeReference() && !fileName.isEmpty()){
+		if(fileName.equals("")){
 			resource.dispose();
-			loadedTextures.remove(fileName);
+			loadedTextures.remove(resource);
+		}else{
+			if(resource.removeReference()){
+				resource.dispose();
+				loadedTextures.remove(fileName);
+			}
 		}
 		
 		super.finalize();
@@ -253,6 +265,10 @@ public class Texture{
 	
 	public static void dispose(){
 		for(final TextureData data : loadedTextures.values()){
+			data.dispose();
+		}
+		
+		for(final TextureData data : customTextures){
 			data.dispose();
 		}
 	}

@@ -72,6 +72,8 @@ public class RenderingEngine{
 	private static Skybox skybox;
 	private static Font font;
 	
+	private static List<Shader> filters;
+	
 	private static Shader forwardAmbientShader;
 	private static Shader forwardParticleAmbientShader;
 	private static Shader bloomCombineShader;
@@ -84,8 +86,6 @@ public class RenderingEngine{
 	private static Shader fxaaFilter;
 	private static Shader shader2D;
 	private static Shader skyboxShader;
-	
-	private static List<Shader> filters;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;

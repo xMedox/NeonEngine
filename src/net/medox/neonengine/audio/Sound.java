@@ -38,7 +38,7 @@ public class Sound{
 	@Override
 	protected void finalize() throws Throwable{
 		source.dispose();
-		if(resource.removeReference() && !fileName.isEmpty()){
+		if(resource.removeReference() && !fileName.equals("")){
 			resource.dispose();
 			loadedSounds.remove(fileName);
 		}

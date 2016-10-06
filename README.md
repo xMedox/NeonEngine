@@ -22,6 +22,7 @@
 - Improved the radius calculation for the models
 - Added the licenses of the libraries used
 - The glfw window variable is now private
+- Meshes and textures are now getting cleaned up after closing the engine
 
 ## Features needed for 1.0.0:
 

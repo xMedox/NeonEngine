@@ -63,14 +63,14 @@ public class CubeMap{
 		this(fileNames, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR);
 	}
 	
-	public CubeMap(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
-		fileNames = new String[]{"", "", "", "", "", ""};
-		resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
-	}
+//	public CubeMap(int width, int height, ByteBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
+//		fileNames = new String[]{"", "", "", "", "", ""};
+//		resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
+//	}
 	
 	@Override
 	protected void finalize() throws Throwable{
-		if(resource.removeReference()){
+		if(resource.removeReference() && !fileNames[0].equals("") && !fileNames[1].equals("") && !fileNames[2].equals("") && !fileNames[3].equals("") && !fileNames[4].equals("") && !fileNames[5].equals("")){
 			resource.dispose();
 			loadedCubeMaps.remove(fileNames);
 		}
