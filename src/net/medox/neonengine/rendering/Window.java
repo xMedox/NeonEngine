@@ -130,7 +130,7 @@ public class Window{
 		
 		GLFW.glfwMakeContextCurrent(window);
 		
-		if(NeonEngine.isVSyncEnabled() == 1){
+		if(NeonEngine.isVSyncEnabled()){
 			GLFW.glfwSwapInterval(1);
 		}else{
 			GLFW.glfwSwapInterval(0);
@@ -356,7 +356,7 @@ public class Window{
 				final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 				GLFW.glfwSetWindowMonitor(window, GLFW.glfwGetPrimaryMonitor(), 0, 0, vidMode.width(), vidMode.height(), vidMode.refreshRate());
 				
-				if(NeonEngine.isVSyncEnabled() == 1){
+				if(NeonEngine.isVSyncEnabled()){
 					GLFW.glfwSwapInterval(1);
 				}else{
 					GLFW.glfwSwapInterval(0);
@@ -373,7 +373,7 @@ public class Window{
 				
 				GLFW.glfwSetWindowMonitor(window, MemoryUtil.NULL, oldXPos, oldYPos, oldWidth, oldHeight, 0);
 				
-				if(NeonEngine.isVSyncEnabled() == 1){
+				if(NeonEngine.isVSyncEnabled()){
 					GLFW.glfwSwapInterval(1);
 				}else{
 					GLFW.glfwSwapInterval(0);
@@ -407,7 +407,7 @@ public class Window{
 	public static void bindAsRenderTarget(){
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
-		if(NeonEngine.is1x1ViewportEnabled() == 0){
+		if(!NeonEngine.is1x1ViewportEnabled()){
 			GL11.glViewport(0, 0, width, height);
 		}else{
 			GL11.glViewport(0, 0, 1, 1);

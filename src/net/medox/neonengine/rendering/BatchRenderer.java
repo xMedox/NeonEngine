@@ -293,7 +293,7 @@ public class BatchRenderer{
 //		if(RenderingEngine.meshBound != vertexArrayObject){
 			GL30.glBindVertexArray(vertexArrayObject);
 			
-			if(NeonEngine.isMeshDrawingDisabled() == 0){
+			if(!NeonEngine.isMeshDrawingDisabled()){
 				GL11.glDrawElements(GL11.GL_TRIANGLES, indexCount, GL11.GL_UNSIGNED_INT, 0);
 			}
 			

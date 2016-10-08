@@ -32,7 +32,7 @@ public class TextureData extends ReferenceCounter{
 		this.textureTarget = textureTarget;
 		this.numTextures = numTextures;
 		
-		if(NeonEngine.is2x2TextureEnabled() == 0){
+		if(!NeonEngine.is2x2TextureEnabled()){
 			this.width = width;
 			this.height = height;
 		}else{
@@ -71,7 +71,7 @@ public class TextureData extends ReferenceCounter{
     	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
     	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
     	
-    	if(NeonEngine.is1x1ViewportEnabled() == 0){
+    	if(!NeonEngine.is1x1ViewportEnabled()){
     		GL11.glViewport(0, 0, width, height);
     	}else{
     		GL11.glViewport(0, 0, 1, 1);

@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0b Build 18";
+	private static final String VERSION = "1.0.0b Build 19";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -19,20 +19,20 @@ public class NeonEngine{
 	private static ProfileTimer engineInputTimer;
 	private static ProfileTimer enginePhysicTimer;
 	
-	private static int optionEnableProfiling = 0; //0 = false 1 = true
-	private static int optionEnableVSync = 1; //0 = false 1 = true
-	private static int optionEnableFXAA = 1; //0 = false 1 = true
-	private static int optionEnableShadows = 1; //0 = false 1 = true
-	private static int optionEnable2D = 1; //0 = false 1 = true
-	private static int optionEnableParticles = 1; //0 = false 1 = true
-	private static int optionEnableBloom = 1; //0 = false 1 = true
+	private static boolean optionEnableProfiling = false;
+	private static boolean optionEnableVSync = true;
+	private static boolean optionEnableFXAA = true;
+	private static boolean optionEnableShadows = true;
+	private static boolean optionEnable2D = true;
+	private static boolean optionEnableParticles = true;
+	private static boolean optionEnableBloom = true;
 	private static int optionTextureQuality = 0; //0 = best 1 = medium 2 = lowest
 	private static int optionShadowQuality = 0; //0 = best 1 = medium 2 = lowest
 	
-	private static int profilingDisableMeshDrawing = 0; //0 = false 1 = true
-	private static int profilingDisableShading = 0; //0 = false 1 = true
-	private static int profilingEnable1x1Viewport = 0; //0 = false 1 = true
-	private static int profilingEnable2x2Texture = 0; //0 = false 1 = true
+	private static boolean profilingDisableMeshDrawing = false;
+	private static boolean profilingDisableShading = false;
+	private static boolean profilingEnable1x1Viewport = false;
+	private static boolean profilingEnable2x2Texture = false;
 	
 	private static Game game;
 	private static boolean isRunning;
@@ -40,7 +40,7 @@ public class NeonEngine{
 	private static int fps;
 	
 	public static void init(Game game, int framerate){
-		if(optionEnableProfiling == 1){
+		if(optionEnableProfiling){
 			System.out.println("Starting up");
 		
 			sleepTimer = new ProfileTimer();
@@ -127,7 +127,7 @@ public class NeonEngine{
 			
 			if(frameCounter >= 1.0){
 				if(Window.gotCreated()){
-					if(optionEnableProfiling == 1){
+					if(optionEnableProfiling){
 						totalTime = (1000.0 * frameCounter)/((double)frames);
 						totalMeasuredTime = 0.0;
 						
@@ -171,35 +171,35 @@ public class NeonEngine{
 					Window.updateInput();
 				}
 				
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					windowUpdateTimer.startInvocation();
 				}
 				if(Window.gotCreated() && Window.isCloseRequested()){
 					stop();
 				}
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					windowUpdateTimer.stopInvocation();
 				}
 				
 				game.input((float)frameTime);
 				
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					enginePhysicTimer.startInvocation();
 				}
 				PhysicsEngine.update((float)frameTime);
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					enginePhysicTimer.stopInvocation();
 				}
 								
 				game.update((float)frameTime);
 				
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					engineInputTimer.startInvocation();
 				}
 				if(Window.gotCreated()){
 					Input.update();
 				}
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					engineInputTimer.stopInvocation();
 				}
 				
@@ -217,16 +217,16 @@ public class NeonEngine{
 				
 				game.render();
 				
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					swapBufferTimer.startInvocation();
 				}
 				Window.render();
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					swapBufferTimer.stopInvocation();
 				}
 				frames++;
 			}else{
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					sleepTimer.startInvocation();
 				}
 				try{
@@ -234,13 +234,13 @@ public class NeonEngine{
 				}catch(InterruptedException e){
 					e.printStackTrace();
 				}
-				if(optionEnableProfiling == 1){
+				if(optionEnableProfiling){
 					sleepTimer.stopInvocation();
 				}
 			}
 		}
 		
-		if(optionEnableProfiling == 1){
+		if(optionEnableProfiling){
 			System.out.println("--------------------------------------------------------------");
 			System.out.println("Shutting down");
 		}
@@ -253,25 +253,25 @@ public class NeonEngine{
 		System.exit(0);
 	}
 	
-	public static void enableProfiling(int value){
+	public static void enableProfiling(boolean value){
 		optionEnableProfiling = value;
 	}
-	public static void enableVSync(int value){
+	public static void enableVSync(boolean value){
 		optionEnableVSync = value;
 	}
-	public static void enableFXAA(int value){
+	public static void enableFXAA(boolean value){
 		optionEnableFXAA = value;
 	}
-	public static void enableShadows(int value){
+	public static void enableShadows(boolean value){
 		optionEnableShadows = value;
 	}
-	public static void enable2D(int value){
+	public static void enable2D(boolean value){
 		optionEnable2D = value;
 	}
-	public static void enableParticles(int value){
+	public static void enableParticles(boolean value){
 		optionEnableParticles = value;
 	}
-	public static void enableBloom(int value){
+	public static void enableBloom(boolean value){
 		optionEnableBloom = value;
 	}
 	public static void setTextureQuality(int value){
@@ -281,25 +281,25 @@ public class NeonEngine{
 		optionShadowQuality = value;
 	}
 	
-	public static int isProfilingEnabled(){
+	public static boolean isProfilingEnabled(){
 		return optionEnableProfiling;
 	}
-	public static int isVSyncEnabled(){
+	public static boolean isVSyncEnabled(){
 		return optionEnableVSync;
 	}
-	public static int isFXAAEnabled(){
+	public static boolean isFXAAEnabled(){
 		return optionEnableFXAA;
 	}
-	public static int areShadowsEnabled(){
+	public static boolean areShadowsEnabled(){
 		return optionEnableShadows;
 	}
-	public static int is2DEnabled(){
+	public static boolean is2DEnabled(){
 		return optionEnable2D;
 	}
-	public static int areParticlesEnabled(){
+	public static boolean areParticlesEnabled(){
 		return optionEnableParticles;
 	}
-	public static int isBloomEnabled(){
+	public static boolean isBloomEnabled(){
 		return optionEnableBloom;
 	}
 	public static int getTextureQuality(){
@@ -309,29 +309,29 @@ public class NeonEngine{
 		return optionShadowQuality;
 	}
 	
-	public static void disableMeshDrawing(int value){
+	public static void disableMeshDrawing(boolean value){
 		profilingDisableMeshDrawing = value;
 	}
-	public static void disableShading(int value){
+	public static void disableShading(boolean value){
 		profilingDisableShading = value;
 	}
-	public static void enable1x1Viewport(int value){
+	public static void enable1x1Viewport(boolean value){
 		profilingEnable1x1Viewport = value;
 	}
-	public static void enable2x2Texture(int value){
+	public static void enable2x2Texture(boolean value){
 		profilingEnable2x2Texture = value;
 	}
 	
-	public static int isMeshDrawingDisabled(){
+	public static boolean isMeshDrawingDisabled(){
 		return profilingDisableMeshDrawing;
 	}
-	public static int isMeshShadingDisabled(){
+	public static boolean isMeshShadingDisabled(){
 		return profilingDisableShading;
 	}
-	public static int is1x1ViewportEnabled(){
+	public static boolean is1x1ViewportEnabled(){
 		return profilingEnable1x1Viewport;
 	}
-	public static int is2x2TextureEnabled(){
+	public static boolean is2x2TextureEnabled(){
 		return profilingEnable2x2Texture;
 	}
 	

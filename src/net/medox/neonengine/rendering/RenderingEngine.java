@@ -105,7 +105,7 @@ public class RenderingEngine{
 	private static boolean wireframeMode;
 	
 	public static void init(){
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			System.out.println("--------------------------------------------------------------");
 			System.out.println("Engine version:   " + NeonEngine.getVersion());
 			System.out.println("OS name:          " + System.getProperty("os.name"));
@@ -253,7 +253,7 @@ public class RenderingEngine{
 	}
 	
 	public static void render(Entity object){
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer.startInvocation();
 		}
 		
@@ -272,7 +272,7 @@ public class RenderingEngine{
 		
 		renderingState = DIFFUSE_STATE;
 		
-		if(NeonEngine.areParticlesEnabled() == 1){
+		if(NeonEngine.areParticlesEnabled()){
 			particleCamera = mainCamera;
 			particleShader = forwardParticleAmbientShader;
 			particleFlipFaces = false;
@@ -280,14 +280,14 @@ public class RenderingEngine{
 		
 		object.renderAll(forwardAmbientShader, mainCamera);
 		
-		if(NeonEngine.areParticlesEnabled() == 1){
+		if(NeonEngine.areParticlesEnabled()){
 			batchRenderer.render(particleShader, mainCamera);
 		}
 		
 		for(int i = 0; i < lights.size(); i++){
 			activeLight = lights.get(i);
 			
-			if(NeonEngine.areShadowsEnabled() == 1){
+			if(NeonEngine.areShadowsEnabled()){
 				final ShadowInfo shadowInfo = activeLight.getShadowInfo();
 				
 				int shadowMapIndex = 0;
@@ -329,7 +329,7 @@ public class RenderingEngine{
 					
 					renderingState = SHADOW_STATE;
 					
-					if(NeonEngine.areParticlesEnabled() == 1){
+					if(NeonEngine.areParticlesEnabled()){
 						particleCamera = lightCamera;
 						particleShader = particleShadowMappingShader;
 						particleFlipFaces = shadowInfo.shouldFlipFaces();
@@ -337,7 +337,7 @@ public class RenderingEngine{
 					
 					object.renderAll(shadowMappingShader, lightCamera);
 					
-					if(NeonEngine.areParticlesEnabled() == 1){
+					if(NeonEngine.areParticlesEnabled()){
 						batchRenderer.render(particleShader, lightCamera);
 					}
 					
@@ -369,7 +369,7 @@ public class RenderingEngine{
 			
 			renderingState = LIGHTING_STATE;
 			
-			if(NeonEngine.areParticlesEnabled() == 1){
+			if(NeonEngine.areParticlesEnabled()){
 				particleCamera = mainCamera;
 				particleShader = forwardParticleShader;
 				particleFlipFaces = false;
@@ -377,7 +377,7 @@ public class RenderingEngine{
 			
 			object.renderAll(activeLight.getShader(), mainCamera);
 			
-			if(NeonEngine.areParticlesEnabled() == 1){
+			if(NeonEngine.areParticlesEnabled()){
 				batchRenderer.render(particleShader, mainCamera);
 			}
 			
@@ -390,7 +390,7 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
-		if(NeonEngine.isBloomEnabled() == 1){
+		if(NeonEngine.isBloomEnabled()){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
 			blurBloomMap(4f);
@@ -408,14 +408,14 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer.stopInvocation();
 			
 			windowSyncProfileTimer.startInvocation();
 		}
 		
 		if(filters.isEmpty()){
-			if(NeonEngine.isFXAAEnabled() == 1){
+			if(NeonEngine.isFXAAEnabled()){
 				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 				
 				applyFilter(fxaaFilter, getTexture("displayTexture"), null);
@@ -423,7 +423,7 @@ public class RenderingEngine{
 				applyFilter(nullFilter, getTexture("displayTexture"), null);
 			}
 		}else{
-			if(NeonEngine.isFXAAEnabled() == 1){
+			if(NeonEngine.isFXAAEnabled()){
 				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 				
 				applyFilter(fxaaFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
@@ -468,7 +468,7 @@ public class RenderingEngine{
 			}
 		}
 		
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			windowSyncProfileTimer.stopInvocation();
 		}
 	}
@@ -517,10 +517,10 @@ public class RenderingEngine{
 	}
 	
 	public static void render(Entity2D object){
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer2D.startInvocation();
 		}
-		if(NeonEngine.is2DEnabled() == 1){
+		if(NeonEngine.is2DEnabled()){
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			
@@ -533,7 +533,7 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 		}
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer2D.stopInvocation();
 		}
 	}
@@ -563,7 +563,7 @@ public class RenderingEngine{
 	}
 	
 	public static void renderParticle(Transform trans, ParticleMaterial material, Vector2f minUV, Vector2f maxUV){
-		if(NeonEngine.areParticlesEnabled() == 1){
+		if(NeonEngine.areParticlesEnabled()){
 			batchRenderer.addMesh(particleShader, particleCamera, particleFlipFaces, trans, material, minUV, maxUV);
 		}
 	}

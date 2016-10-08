@@ -25,6 +25,7 @@
 - Custom meshes and textures are now getting cleaned up after closing the engine
 - Added the enable profiling option
 - You now have to change the options through methods
+- Most options are now booleans
 
 ## Features needed for 1.0.0:
 

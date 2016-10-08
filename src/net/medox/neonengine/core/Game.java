@@ -10,7 +10,7 @@ public abstract class Game{
 	private ProfileTimer inputTimer;
 	
 	public void init(){
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			updateTimer = new ProfileTimer();
 			inputTimer = new ProfileTimer();
 		}
@@ -32,23 +32,23 @@ public abstract class Game{
 	}
 	
 	public void input(float delta){
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			inputTimer.startInvocation();
 		}
 		root.inputAll(delta);
 		root2D.inputAll(delta);
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			inputTimer.stopInvocation();
 		}
 	}
 	
 	public void update(float delta){
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			updateTimer.startInvocation();
 		}
 		root.updateAll(delta);
 		root2D.updateAll(delta);
-		if(NeonEngine.isProfilingEnabled() == 1){
+		if(NeonEngine.isProfilingEnabled()){
 			updateTimer.stopInvocation();
 		}
 	}
