@@ -38,10 +38,10 @@ public class PointLight extends BaseLight{
 		
 		setShader(new Shader("forwardPoint"));
 		
-		if(NeonEngine.OPTION_SHADOW_QUALITY >= 1 && shadowMapSizeAsPowerOf2 != 0){
+		if(NeonEngine.getShadowQuality() >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;
 			
-			if(NeonEngine.OPTION_SHADOW_QUALITY >= 2){
+			if(NeonEngine.getShadowQuality() >= 2){
 				shadowMapSizeAsPowerOf2 -= 1;
 			}
 			

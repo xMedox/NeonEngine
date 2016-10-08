@@ -23,7 +23,7 @@ public class Shader{
 		this.fileName = fileName;
 		
 		String actualFileName = fileName;
-		if(NeonEngine.PROFILING_DISABLE_SHADING != 0){
+		if(NeonEngine.isMeshShadingDisabled() == 1){
 			actualFileName = "nullShader";
 		}
 		

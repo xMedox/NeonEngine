@@ -104,7 +104,7 @@ public class MeshData extends ReferenceCounter{
 //		if(RenderingEngine.meshBound != vertexArrayObject){
 			GL30.glBindVertexArray(vertexArrayObject);
 			
-			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
+			if(NeonEngine.isMeshDrawingDisabled() == 0){
 				GL11.glDrawElements(GL11.GL_TRIANGLES, drawCount, GL11.GL_UNSIGNED_INT, 0);
 			}
 			

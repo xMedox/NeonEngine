@@ -23,7 +23,8 @@
 - Added the licenses of the libraries used
 - The glfw window and the fps variables are now private
 - Custom meshes and textures are now getting cleaned up after closing the engine
-- Added the OPTION_ENABLE_PROFILING option
+- Added the enable profiling option
+- You now have to change the options through methods
 
 ## Features needed for 1.0.0:
 

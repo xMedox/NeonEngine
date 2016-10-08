@@ -42,15 +42,15 @@ import net.medox.neonengine.rendering.Window;
 
 public class TestGame extends Game{
 	public static void main(String[] args){
-		NeonEngine.OPTION_ENABLE_PROFILING = 1;
-		NeonEngine.OPTION_ENABLE_VSYNC = 1;
-		NeonEngine.OPTION_ENABLE_FXAA = 1;
-		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
-		NeonEngine.OPTION_ENABLE_2D = 1;
-		NeonEngine.OPTION_ENABLE_PARTICLES = 1;
-		NeonEngine.OPTION_ENABLE_BLOOM = 1;
-		NeonEngine.OPTION_TEXTURE_QUALITY = 0;
-		NeonEngine.OPTION_SHADOW_QUALITY = 0;
+		NeonEngine.enableProfiling(1);
+		NeonEngine.enableVSync(1);
+		NeonEngine.enableFXAA(1);
+		NeonEngine.enableShadows(1);
+		NeonEngine.enable2D(1);
+		NeonEngine.enableParticles(1);
+		NeonEngine.enableBloom(1);
+		NeonEngine.setTextureQuality(0);
+		NeonEngine.setShadowQuality(0);
 		
 		NeonEngine.init(new TestGame(), /*600*/60);
 		

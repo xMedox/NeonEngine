@@ -144,7 +144,7 @@ public class Texture{
 			}
 //		}
 		
-		if(NeonEngine.OPTION_TEXTURE_QUALITY >= 1){
+		if(NeonEngine.getTextureQuality() >= 1){
 			BufferedImage before = image;
 			int w = before.getWidth();
 			int h = before.getHeight();
@@ -156,7 +156,7 @@ public class Texture{
 			
 			image = after;
 			
-			if(NeonEngine.OPTION_TEXTURE_QUALITY >= 2){
+			if(NeonEngine.getTextureQuality() >= 2){
 				before = image;
 				w = before.getWidth();
 				h = before.getHeight();

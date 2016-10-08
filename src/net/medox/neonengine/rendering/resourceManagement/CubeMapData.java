@@ -30,7 +30,7 @@ public class CubeMapData extends ReferenceCounter{
 	public CubeMapData(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp, int attachments){		
 		this.textureTarget = textureTarget;
 		
-		if(NeonEngine.PROFILING_SET_2x2_TEXTURE == 0){
+		if(NeonEngine.is2x2TextureEnabled() == 0){
 			this.width = width;
 			this.height = height;
 		}else{
@@ -60,7 +60,7 @@ public class CubeMapData extends ReferenceCounter{
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
 		ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_COLOR_ATTACHMENT0, GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, textureID, 0);
 		
-		if(NeonEngine.PROFILING_SET_1x1_VIEWPORT == 0){
+		if(NeonEngine.is1x1ViewportEnabled() == 0){
 			GL11.glViewport(0, 0, width[face], height[face]);
 		}else{
 			GL11.glViewport(0, 0, 1, 1);
