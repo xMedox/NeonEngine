@@ -11,14 +11,15 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0b Build 16";
+	private static final String VERSION = "1.0.0b Build 17";
 	
-	private static final ProfileTimer sleepTimer = new ProfileTimer();
-	private static final ProfileTimer swapBufferTimer = new ProfileTimer();
-	private static final ProfileTimer windowUpdateTimer = new ProfileTimer();
-	private static final ProfileTimer engineInputTimer = new ProfileTimer();
-	private static final ProfileTimer enginePhysicTimer = new ProfileTimer();
+	private static ProfileTimer sleepTimer;
+	private static ProfileTimer swapBufferTimer;
+	private static ProfileTimer windowUpdateTimer;
+	private static ProfileTimer engineInputTimer;
+	private static ProfileTimer enginePhysicTimer;
 	
+	public static int OPTION_ENABLE_PROFILING = 0; //0 = false 1 = true
 	public static int OPTION_ENABLE_VSYNC = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_FXAA = 1; //0 = false 1 = true
 	public static int OPTION_ENABLE_SHADOWS = 1; //0 = false 1 = true
@@ -39,7 +40,15 @@ public class NeonEngine{
 	private static int fps;
 	
 	public static void init(Game game, int framerate){
-		System.out.println("Starting up");
+		if(OPTION_ENABLE_PROFILING == 1){
+			System.out.println("Starting up");
+		
+			sleepTimer = new ProfileTimer();
+			swapBufferTimer = new ProfileTimer();
+			windowUpdateTimer = new ProfileTimer();
+			engineInputTimer = new ProfileTimer();
+			enginePhysicTimer = new ProfileTimer();
+		}
 		
 		Util.init();
 		
@@ -118,23 +127,25 @@ public class NeonEngine{
 			
 			if(frameCounter >= 1.0){
 				if(Window.gotCreated()){
-					totalTime = (1000.0 * frameCounter)/((double)frames);
-					totalMeasuredTime = 0.0;
-					
-					totalMeasuredTime += game.displayInputTime((double)frames);
-					totalMeasuredTime += game.displayUpdateTime((double)frames);
-					totalMeasuredTime += RenderingEngine.displayRenderTime((double)frames);
-					totalMeasuredTime += RenderingEngine.display2DRenderTime((double)frames);
-					totalMeasuredTime += enginePhysicTimer.displayAndReset("Physics Time: ", (double)frames);
-					totalMeasuredTime += sleepTimer.displayAndReset("Sleep Time: ", (double)frames);
-					totalMeasuredTime += windowUpdateTimer.displayAndReset("Window Update Time: ", (double)frames);
-					totalMeasuredTime += swapBufferTimer.displayAndReset("Buffer Swap Time: ", (double)frames);
-					totalMeasuredTime += engineInputTimer.displayAndReset("Engine Input Time: ", (double)frames);
-					totalMeasuredTime += RenderingEngine.displayWindowSyncTime((double)frames);
-					
-					System.out.println("Other Time:                             " + (totalTime - totalMeasuredTime) + " ms");
-					System.out.println("Total Time:                             " + totalTime + " ms (" + frames + "fps)");
-					System.out.println("");
+					if(OPTION_ENABLE_PROFILING == 1){
+						totalTime = (1000.0 * frameCounter)/((double)frames);
+						totalMeasuredTime = 0.0;
+						
+						totalMeasuredTime += game.displayInputTime((double)frames);
+						totalMeasuredTime += game.displayUpdateTime((double)frames);
+						totalMeasuredTime += RenderingEngine.displayRenderTime((double)frames);
+						totalMeasuredTime += RenderingEngine.display2DRenderTime((double)frames);
+						totalMeasuredTime += enginePhysicTimer.displayAndReset("Physics Time: ", (double)frames);
+						totalMeasuredTime += sleepTimer.displayAndReset("Sleep Time: ", (double)frames);
+						totalMeasuredTime += windowUpdateTimer.displayAndReset("Window Update Time: ", (double)frames);
+						totalMeasuredTime += swapBufferTimer.displayAndReset("Buffer Swap Time: ", (double)frames);
+						totalMeasuredTime += engineInputTimer.displayAndReset("Engine Input Time: ", (double)frames);
+						totalMeasuredTime += RenderingEngine.displayWindowSyncTime((double)frames);
+						
+						System.out.println("Other Time:                             " + (totalTime - totalMeasuredTime) + " ms");
+						System.out.println("Total Time:                             " + totalTime + " ms (" + frames + "fps)");
+						System.out.println("");
+					}
 					
 //					Runtime runtime = Runtime.getRuntime();
 //					
@@ -160,25 +171,37 @@ public class NeonEngine{
 					Window.updateInput();
 				}
 				
-				windowUpdateTimer.startInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					windowUpdateTimer.startInvocation();
+				}
 				if(Window.gotCreated() && Window.isCloseRequested()){
 					stop();
 				}
-				windowUpdateTimer.stopInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					windowUpdateTimer.stopInvocation();
+				}
 				
 				game.input((float)frameTime);
 				
-				enginePhysicTimer.startInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					enginePhysicTimer.startInvocation();
+				}
 				PhysicsEngine.update((float)frameTime);
-				enginePhysicTimer.stopInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					enginePhysicTimer.stopInvocation();
+				}
 								
 				game.update((float)frameTime);
 				
-				engineInputTimer.startInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					engineInputTimer.startInvocation();
+				}
 				if(Window.gotCreated()){
 					Input.update();
 				}
-				engineInputTimer.stopInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					engineInputTimer.stopInvocation();
+				}
 				
 				if(Window.gotCreated()){
 					render = true;
@@ -194,23 +217,33 @@ public class NeonEngine{
 				
 				game.render();
 				
-				swapBufferTimer.startInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					swapBufferTimer.startInvocation();
+				}
 				Window.render();
-				swapBufferTimer.stopInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					swapBufferTimer.stopInvocation();
+				}
 				frames++;
 			}else{
-				sleepTimer.startInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					sleepTimer.startInvocation();
+				}
 				try{
 					Thread.sleep(1);
 				}catch(InterruptedException e){
 					e.printStackTrace();
 				}
-				sleepTimer.stopInvocation();
+				if(OPTION_ENABLE_PROFILING == 1){
+					sleepTimer.stopInvocation();
+				}
 			}
 		}
 		
-		System.out.println("--------------------------------------------------------------");
-		System.out.println("Shutting down");
+		if(OPTION_ENABLE_PROFILING == 1){
+			System.out.println("--------------------------------------------------------------");
+			System.out.println("Shutting down");
+		}
 		
 		cleanUp();
 		

@@ -29,6 +29,7 @@ import net.medox.neonengine.rendering.Window;
 
 public class TestGame extends Game{
 	public static void main(String[] args){
+//		NeonEngine.OPTION_ENABLE_PROFILING = 1;
 //		NeonEngine.OPTION_ENABLE_VSYNC = 0;
 //		NeonEngine.OPTION_ENABLE_FXAA = 0;
 //		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
@@ -40,6 +41,7 @@ public class TestGame extends Game{
 //		
 //		NeonEngine.init(new TestGame(), /*60*/1000);
 		
+		NeonEngine.OPTION_ENABLE_PROFILING = 1;
 		NeonEngine.OPTION_ENABLE_VSYNC = 1;
 		NeonEngine.OPTION_ENABLE_FXAA = 0;
 		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
@@ -66,6 +68,7 @@ public class TestGame extends Game{
 	
 	@Override
 	public void init(){
+		super.init();
 //		RenderingEngine.addFilter(new Shader("filterInvert"));
 //		RenderingEngine.addFilter(new Shader("filterBits"));
 //		RenderingEngine.addFilter(new Shader("filterGrey"));

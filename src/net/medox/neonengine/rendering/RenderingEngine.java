@@ -42,9 +42,9 @@ public class RenderingEngine{
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
 	
-	private static final ProfileTimer renderProfileTimer = new ProfileTimer();
-	private static final ProfileTimer renderProfileTimer2D = new ProfileTimer();
-	private static final ProfileTimer windowSyncProfileTimer = new ProfileTimer();
+	private static ProfileTimer renderProfileTimer;
+	private static ProfileTimer renderProfileTimer2D ;
+	private static ProfileTimer windowSyncProfileTimer;
 	
 //	public static int meshBound;
 //	public static int textureBound;
@@ -105,18 +105,23 @@ public class RenderingEngine{
 	private static boolean wireframeMode;
 	
 	public static void init(){
-		//TODO remove this
-		System.out.println("--------------------------------------------------------------");
-		System.out.println("Engine version:   " + NeonEngine.getVersion());
-		System.out.println("OS name:          " + System.getProperty("os.name"));
-		System.out.println("OS version:       " + System.getProperty("os.version"));
-		System.out.println("OS arch:          " + System.getProperty("os.arch"));
-		System.out.println("Arch data model:  " + System.getProperty("sun.arch.data.model"));
-		System.out.println("Java version:     " + System.getProperty("java.version"));
-		System.out.println("OpenGL version:   " + GL11.glGetString(GL11.GL_VERSION));
-		System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
-//		System.out.println("LWJGL version:    " + Version.getVersion());
-		System.out.println("--------------------------------------------------------------");
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			System.out.println("--------------------------------------------------------------");
+			System.out.println("Engine version:   " + NeonEngine.getVersion());
+			System.out.println("OS name:          " + System.getProperty("os.name"));
+			System.out.println("OS version:       " + System.getProperty("os.version"));
+			System.out.println("OS arch:          " + System.getProperty("os.arch"));
+			System.out.println("Arch data model:  " + System.getProperty("sun.arch.data.model"));
+			System.out.println("Java version:     " + System.getProperty("java.version"));
+			System.out.println("OpenGL version:   " + GL11.glGetString(GL11.GL_VERSION));
+			System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
+	//		System.out.println("LWJGL version:    " + Version.getVersion());
+			System.out.println("--------------------------------------------------------------");
+			
+			renderProfileTimer = new ProfileTimer();
+			renderProfileTimer2D = new ProfileTimer();
+			windowSyncProfileTimer = new ProfileTimer();
+		}
 		
 		batchRenderer = new BatchRenderer();
 		
@@ -248,7 +253,9 @@ public class RenderingEngine{
 	}
 	
 	public static void render(Entity object){
-		renderProfileTimer.startInvocation();
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			renderProfileTimer.startInvocation();
+		}
 		
 		mainCamera.updateFrustum();
 		
@@ -401,9 +408,13 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
-		renderProfileTimer.stopInvocation();
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			renderProfileTimer.stopInvocation();
+		}
 		
-		windowSyncProfileTimer.startInvocation();
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			windowSyncProfileTimer.startInvocation();
+		}
 		
 		if(filters.isEmpty()){
 			if(NeonEngine.OPTION_ENABLE_FXAA == 1){
@@ -459,7 +470,9 @@ public class RenderingEngine{
 			}
 		}
 		
-		windowSyncProfileTimer.stopInvocation();
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			windowSyncProfileTimer.stopInvocation();
+		}
 	}
 	
 	private static void renderSkybox(){
@@ -506,7 +519,9 @@ public class RenderingEngine{
 	}
 	
 	public static void render(Entity2D object){
-		renderProfileTimer2D.startInvocation();
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			renderProfileTimer2D.startInvocation();
+		}
 		if(NeonEngine.OPTION_ENABLE_2D == 1){
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -520,7 +535,9 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 		}
-		renderProfileTimer2D.stopInvocation();
+		if(NeonEngine.OPTION_ENABLE_PROFILING == 1){
+			renderProfileTimer2D.stopInvocation();
+		}
 	}
 	
 	public static boolean particleInFrustum(Transform transform, Camera camera){

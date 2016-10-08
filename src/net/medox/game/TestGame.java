@@ -42,6 +42,16 @@ import net.medox.neonengine.rendering.Window;
 
 public class TestGame extends Game{
 	public static void main(String[] args){
+		NeonEngine.OPTION_ENABLE_PROFILING = 1;
+		NeonEngine.OPTION_ENABLE_VSYNC = 1;
+		NeonEngine.OPTION_ENABLE_FXAA = 1;
+		NeonEngine.OPTION_ENABLE_SHADOWS = 1;
+		NeonEngine.OPTION_ENABLE_2D = 1;
+		NeonEngine.OPTION_ENABLE_PARTICLES = 1;
+		NeonEngine.OPTION_ENABLE_BLOOM = 1;
+		NeonEngine.OPTION_TEXTURE_QUALITY = 0;
+		NeonEngine.OPTION_SHADOW_QUALITY = 0;
+		
 		NeonEngine.init(new TestGame(), /*600*/60);
 		
 		Window.setStartTitle("Project Knight");
@@ -84,6 +94,7 @@ public class TestGame extends Game{
 	
 	@Override
 	public void init(){
+		super.init();
 //		RenderingEngine.addFilter(new Shader("filterInvert"));
 //		RenderingEngine.addFilter(new Shader("filterBits"));
 //		RenderingEngine.addFilter(new Shader("filterGrey"));
