@@ -321,6 +321,9 @@ public class Window{
 	public static void render(){
 		gotResized = false;
 		GLFW.glfwSwapBuffers(window);
+	}
+	
+	public static void updateInput(){
 		GLFW.glfwPollEvents();
 	}
 	

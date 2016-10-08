@@ -156,6 +156,10 @@ public class NeonEngine{
 			}
 			
 			while(unprocssedTime > frameTime){
+				if(Window.gotCreated()){
+					Window.updateInput();
+				}
+				
 				windowUpdateTimer.startInvocation();
 				if(Window.gotCreated() && Window.isCloseRequested()){
 					stop();
