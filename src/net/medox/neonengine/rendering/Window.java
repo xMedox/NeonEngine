@@ -22,10 +22,10 @@ import org.lwjgl.system.MemoryUtil;
 public class Window{
 	public static final int DONT_CARE = GLFW.GLFW_DONT_CARE;
 	
+	private static String title = "NeonEngine";
+	
 	private static long window;
 	private static long cursor;
-	
-	private static String title = "NeonEngine";
 	
 	private static int oldXPos;
 	private static int oldYPos;
@@ -140,7 +140,7 @@ public class Window{
 		GLFW.glfwSetMouseButtonCallback(window, (window, button, action, mods) -> Input.mouseButton(button, action, mods));
 		GLFW.glfwSetCursorPosCallback(window, (window, xPos, yPos) -> Input.mousePos(xPos, yPos));
 		GLFW.glfwSetScrollCallback(window, (window, xOffset, yOffset) -> Input.scroll(yOffset));
-		GLFW.glfwSetWindowPosCallback(window, (window, xPos, yPos) -> setPos(xPos, yPos));
+		GLFW.glfwSetWindowPosCallback(window, (window, xPos, yPos) -> setLocalPos(xPos, yPos));
 		GLFW.glfwSetFramebufferSizeCallback(window, (window, width, height) -> setFramebufferSize(width, height));
 		GLFW.glfwSetCharCallback(window, (window, codepoint) -> Input.chars(codepoint));
 		
@@ -164,7 +164,7 @@ public class Window{
 		GL.createCapabilities();
 	}
 	
-	private static void setPos(int xPos, int yPos){
+	private static void setLocalPos(int xPos, int yPos){
 		Window.xPos = xPos;
 		Window.yPos = yPos;
 	}
@@ -454,9 +454,17 @@ public class Window{
 		return new Vector2f(centerPositionX, centerPositionY);
 	}
 	
+	public static void setPos(int xPos, int yPos){
+		GLFW.glfwSetWindowPos(window, xPos, yPos);
+	}
 	
-	public static void setCursorPos(int xpos, int ypos){
-		GLFW.glfwSetCursorPos(window, (double)xpos, (double)ypos);
+	public static void setSize(int width, int height){
+		GLFW.glfwSetWindowSize(window, width, height);
+	}
+	
+	
+	public static void setCursorPos(int xPos, int yPos){
+		GLFW.glfwSetCursorPos(window, (double)xPos, (double)yPos);
 	}
 	
 	public static void setInputMode(int mode, int value){

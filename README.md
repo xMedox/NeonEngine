@@ -26,6 +26,7 @@
 - Added the enable profiling option
 - You now have to change the options through methods
 - Most options are now booleans
+- Added the setPos and setSize methods in the Window class
 
 ## Features needed for 1.0.0:
 

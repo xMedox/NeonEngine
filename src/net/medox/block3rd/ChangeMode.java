@@ -6,6 +6,7 @@ import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Shader;
+import net.medox.neonengine.rendering.Window;
 
 public class ChangeMode extends EntityComponent{
 	private InputKey wireframeKey;
@@ -50,6 +51,12 @@ public class ChangeMode extends EntityComponent{
 				
 				filterEnabled = !filterEnabled;
 			}
+		}
+		if(Input.getKey(Input.KEY_F5)){
+			Window.setPos(Window.getX()+(int)(60*delta), Window.getY()+(int)(60*delta));
+		}
+		if(Input.getKey(Input.KEY_F6)){
+			Window.setSize(Window.getWidth()+(int)(60*delta), Window.getHeight()+(int)(60*delta));
 		}
 	}
 }
