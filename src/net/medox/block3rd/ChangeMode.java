@@ -52,11 +52,11 @@ public class ChangeMode extends EntityComponent{
 				filterEnabled = !filterEnabled;
 			}
 		}
-		if(Input.getKey(Input.KEY_F5)){
-			Window.setPos(Window.getX()+(int)(60*delta), Window.getY()+(int)(60*delta));
+		if(Input.getKeyDown(Input.KEY_F5)){
+			Window.setPos(Window.getX()+10, Window.getY()+10);
 		}
-		if(Input.getKey(Input.KEY_F6)){
-			Window.setSize(Window.getWidth()+(int)(60*delta), Window.getHeight()+(int)(60*delta));
+		if(Input.getKeyDown(Input.KEY_F6)){
+			Window.setSize(Window.getWidth()+10, Window.getHeight()+10);
 		}
 	}
 }
