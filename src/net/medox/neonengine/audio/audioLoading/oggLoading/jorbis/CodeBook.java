@@ -31,13 +31,13 @@ class CodeBook{
   int entries; // codebook entries
   StaticCodeBook c=new StaticCodeBook();
 
-  float[] valuelist; // list of dim*entries actual entry values
-  int[] codelist; // list of bitstream codewords for each entry
+  float[] valueList; // list of dim*entries actual entry values
+  int[] codeList; // list of bitstream codewords for each entry
   DecodeAux decode_tree;
 
   // returns the number of bits
   int encode(int a, Buffer b){
-    b.write(codelist[a], c.lengthlist[a]);
+    b.write(codeList[a], c.lengthlist[a]);
     return (c.lengthlist[a]);
   }
 
@@ -59,7 +59,7 @@ class CodeBook{
   int errorv(float[] a){
     int best=best(a, 1);
     for(int k=0; k<dim; k++){
-      a[k]=valuelist[best*dim+k];
+      a[k]= valueList[best*dim+k];
     }
     return (best);
   }
@@ -67,7 +67,7 @@ class CodeBook{
   // returns the number of bits and *modifies a* to the quantization value
   int encodev(int best, float[] a, Buffer b){
     for(int k=0; k<dim; k++){
-      a[k]=valuelist[best*dim+k];
+      a[k]= valueList[best*dim+k];
     }
     return (encode(best, b));
   }
@@ -98,7 +98,7 @@ class CodeBook{
     }
     for(i=0, o=0; i<dim; i++, o+=step){
       for(j=0; j<step; j++){
-        a[offset+o+j]+=valuelist[t[j]+i];
+        a[offset+o+j]+= valueList[t[j]+i];
       }
     }
 
@@ -116,7 +116,7 @@ class CodeBook{
           return (-1);
         t=entry*dim;
         for(j=0; j<dim;){
-          a[offset+(i++)]+=valuelist[t+(j++)];
+          a[offset+(i++)]+= valueList[t+(j++)];
         }
       }
     }
@@ -129,21 +129,21 @@ class CodeBook{
         j=0;
         switch(dim){
           case 8:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 7:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 6:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 5:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 4:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 3:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 2:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 1:
-            a[offset+(i++)]+=valuelist[t+(j++)];
+            a[offset+(i++)]+= valueList[t+(j++)];
           case 0:
             break;
         }
@@ -162,7 +162,7 @@ class CodeBook{
         return (-1);
       t=entry*dim;
       for(j=0; j<dim;){
-        a[offset+i++]=valuelist[t+(j++)];
+        a[offset+i++]= valueList[t+(j++)];
       }
     }
     return (0);
@@ -179,7 +179,7 @@ class CodeBook{
 
       int t=entry*dim;
       for(j=0; j<dim; j++){
-        a[chptr++][i]+=valuelist[t+j];
+        a[chptr++][i]+= valueList[t+j];
         if(chptr==ch){
           chptr=0;
           i++;
@@ -196,12 +196,12 @@ class CodeBook{
   // We may need to support interleave.  We don't really, but it's
   // convenient to do it here rather than rebuild the vector later.
   //
-  // Cascades may be additive or multiplicitive; this is not inherent in
+  // Cascades may be additive or multiplicative; this is not inherent in
   // the codebook, but set in the code using the codebook.  Like
   // interleaving, it's easiest to do it here.  
   // stage==0 -> declarative (set the value)
   // stage==1 -> additive
-  // stage==2 -> multiplicitive
+  // stage==2 -> multiplicative
 
   // returns the entry number or -1 on eof
   int decode(Buffer b){
@@ -241,15 +241,15 @@ class CodeBook{
     switch(addmul){
       case -1:
         for(int i=0, o=0; i<dim; i++, o+=step)
-          a[index+o]=valuelist[entry*dim+i];
+          a[index+o]= valueList[entry*dim+i];
         break;
       case 0:
         for(int i=0, o=0; i<dim; i++, o+=step)
-          a[index+o]+=valuelist[entry*dim+i];
+          a[index+o]+= valueList[entry*dim+i];
         break;
       case 1:
         for(int i=0, o=0; i<dim; i++, o+=step)
-          a[index+o]*=valuelist[entry*dim+i];
+          a[index+o]*= valueList[entry*dim+i];
         break;
       default:
         //System.err.println("CodeBook.decodeves: addmul="+addmul); 
@@ -265,7 +265,7 @@ class CodeBook{
       int e=0;
       for(int i=0; i<entries; i++){
         if(c.lengthlist[i]>0){
-          float _this=dist(dim, valuelist, e, a, step);
+          float _this=dist(dim, valueList, e, a, step);
           if(besti==-1||_this<best){
             best=_this;
             besti=i;
@@ -283,11 +283,11 @@ class CodeBook{
     switch(addmul){
       case 0:
         for(int i=0, o=0; i<dim; i++, o+=step)
-          a[o]-=valuelist[best*dim+i];
+          a[o]-= valueList[best*dim+i];
         break;
       case 1:
         for(int i=0, o=0; i<dim; i++, o+=step){
-          float val=valuelist[best*dim+i];
+          float val= valueList[best*dim+i];
           if(val==0){
             a[o]=0;
           }
@@ -316,7 +316,7 @@ class CodeBook{
     c=s;
     entries=s.entries;
     dim=s.dim;
-    valuelist=s.unquantize();
+    valueList =s.unquantize();
 
     decode_tree=make_decode_tree();
     if(decode_tree==null){
@@ -403,9 +403,9 @@ class CodeBook{
     DecodeAux t=new DecodeAux();
     int[] ptr0=t.ptr0=new int[entries*2];
     int[] ptr1=t.ptr1=new int[entries*2];
-    int[] codelist=make_words(c.lengthlist, c.entries);
+    int[] codeList=make_words(c.lengthlist, c.entries);
 
-    if(codelist==null)
+    if(codeList==null)
       return (null);
     t.aux=entries*2;
 
@@ -414,7 +414,7 @@ class CodeBook{
         int ptr=0;
         int j;
         for(j=0; j<c.lengthlist[i]-1; j++){
-          int bit=(codelist[i]>>>j)&1;
+          int bit=(codeList[i]>>>j)&1;
           if(bit==0){
             if(ptr0[ptr]==0){
               ptr0[ptr]=++top;
@@ -429,7 +429,7 @@ class CodeBook{
           }
         }
 
-        if(((codelist[i]>>>j)&1)==0){
+        if(((codeList[i]>>>j)&1)==0){
           ptr0[ptr]=-i;
         }
         else{
