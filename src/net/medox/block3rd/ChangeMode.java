@@ -15,9 +15,7 @@ public class ChangeMode extends EntityComponent{
 	private boolean filterEnabled;
 	
 	public ChangeMode(){
-		this.wireframeKey = new InputKey(Input.KEYBOARD, Input.KEY_F2);
-		
-		filter = new Shader("filterGrey");
+		this(new InputKey(Input.KEYBOARD, Input.KEY_F2));
 	}
 	
 	public ChangeMode(InputKey screenshotKey){
@@ -44,13 +42,10 @@ public class ChangeMode extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_F4)){
 			if(!filterEnabled){
 				RenderingEngine.addFilter(filter);
-				
-				filterEnabled = !filterEnabled;
 			}else{
 				RenderingEngine.removeFilter(filter);
-				
-				filterEnabled = !filterEnabled;
 			}
+			filterEnabled = !filterEnabled;
 		}
 		if(Input.getKeyDown(Input.KEY_F5)){
 			Window.setPos(Window.getX()+10, Window.getY()+10);
