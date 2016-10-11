@@ -33,7 +33,7 @@ public class BatchRenderer{
 	
 	private final List<Vector3f> vertices;
 	private final List<Vector2f> uvs;
-	private final List<Integer> texturesids;
+	private final List<Integer> texturesIds;
 	private final List<TextureSlot> textures;
 	private final List<Vector3f> colors;
 	
@@ -45,7 +45,7 @@ public class BatchRenderer{
 	public BatchRenderer(){
 		vertices = new ArrayList<Vector3f>();
 		uvs = new ArrayList<Vector2f>();
-		texturesids = new ArrayList<Integer>();
+		texturesIds = new ArrayList<Integer>();
 		textures = new ArrayList<TextureSlot>();
 		colors = new ArrayList<Vector3f>();
 		
@@ -114,11 +114,11 @@ public class BatchRenderer{
 	}
 	
 	public void add2DMesh(Shader shader, Camera camera, Transform2D trans, int textureID, Vector3f color){
-		if(texturesids.size() == RENDERER_MAX_SPRITES){
+		if(texturesIds.size() == RENDERER_MAX_SPRITES){
 			render(shader, camera);
 		}
 		
-		texturesids.add(textureID);
+		texturesIds.add(textureID);
 		
 		vertices.add(new Vector3f((int)trans.getTransformedPos().getX() + (int)trans.getScale().getX(), (int)trans.getTransformedPos().getY() + (int)trans.getScale().getY(), 0.5f));
 		vertices.add(new Vector3f((int)trans.getTransformedPos().getX(), (int)trans.getTransformedPos().getY() + (int)trans.getScale().getY(), 0.5f));
@@ -136,7 +136,7 @@ public class BatchRenderer{
 	}
 	
 	public void add2DMesh(Shader shader, Camera camera, Transform2D trans, Texture texture, Vector3f color, Vector2f minUV, Vector2f maxUV){
-		if(texturesids.size() == RENDERER_MAX_SPRITES){
+		if(texturesIds.size() == RENDERER_MAX_SPRITES){
 			render(shader, camera);
 		}
 		
@@ -146,7 +146,7 @@ public class BatchRenderer{
 			if(textures.get(i).texture.getID() == texture.getID()){
 				id = textures.get(i).id;
 				
-				texturesids.add(id);
+				texturesIds.add(id);
 			}
 		}
 		
@@ -154,13 +154,13 @@ public class BatchRenderer{
 			id = textures.size();
 			
 			if(id < RENDERER_MAX_TEXTURES){
-				texturesids.add(id);
+				texturesIds.add(id);
 				
 				textures.add(new TextureSlot(texture, id));
 			}else{
 				render(shader, camera);
 				
-				texturesids.add(0);
+				texturesIds.add(0);
 				
 				textures.add(new TextureSlot(texture, 0));
 			}
@@ -187,7 +187,7 @@ public class BatchRenderer{
 //		float specularPower = material.getFloat("specularPower");
 //		float emissive = material.getFloat("emissive");
 		
-		if(texturesids.size() == RENDERER_MAX_SPRITES){
+		if(texturesIds.size() == RENDERER_MAX_SPRITES){
 			render(shader, camera);
 		}
 		
@@ -197,7 +197,7 @@ public class BatchRenderer{
 			if(textures.get(i).texture.getID() == texture.getID()){
 				id = textures.get(i).id;
 				
-				texturesids.add(id);
+				texturesIds.add(id);
 			}
 		}
 		
@@ -205,13 +205,13 @@ public class BatchRenderer{
 			id = textures.size();
 			
 			if(id < RENDERER_MAX_TEXTURES){
-				texturesids.add(id);
+				texturesIds.add(id);
 				
 				textures.add(new TextureSlot(texture, id));
 			}else{
 				render(shader, camera);
 				
-				texturesids.add(0);
+				texturesIds.add(0);
 				
 				textures.add(new TextureSlot(texture, 0));
 			}
@@ -268,8 +268,8 @@ public class BatchRenderer{
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(TID_INDEX));
 		
-		final Integer[] vertexData3 = new Integer[texturesids.size()];
-		texturesids.toArray(vertexData3);
+		final Integer[] vertexData3 = new Integer[texturesIds.size()];
+		texturesIds.toArray(vertexData3);
 		
 		
 		for(int i = 0; i < textures.size(); i++){
@@ -307,7 +307,7 @@ public class BatchRenderer{
 		vertices.clear();
 		uvs.clear();
 		textures.clear();
-		texturesids.clear();
+		texturesIds.clear();
 		colors.clear();
 		
 		indexCount = 0;

@@ -15,7 +15,7 @@ import net.medox.neonengine.physics.BoxCollider;
 public class CollisionAdder extends EntityComponent{
 	public static int worldWidth = 16;
 	public static int worldHeight = 16;
-	public static int worldLenght = 16;
+	public static int worldLength = 16;
 	
 	public CollisionAdder(String file, Entity e, Vector3f pos){
 		load(file, e, pos);
@@ -53,11 +53,11 @@ public class CollisionAdder extends EntityComponent{
           	    	if(y == worldHeight){
         	    		y = 0;
         	    		
-              	    	if(x < worldLenght){
+              	    	if(x < worldLength){
             	    		x ++;
             	    	}
 
-              	    	if(x == worldLenght){
+              	    	if(x == worldLength){
             	    		x = 0;
             	    	}
         	    	}

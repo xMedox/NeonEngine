@@ -28,7 +28,7 @@ package net.medox.neonengine.audio.audioLoading.oggLoading.jorbis;
 
 class Lpc{
   // en/decode lookups
-  Drft fft=new Drft();;
+  Drft fft=new Drft();
 
   int ln;
   int m;

@@ -160,7 +160,7 @@ public class Font{
 				if(i < 256){
 					charArray[i] = charInfo;
 				}else{
-					customChars.put(new Character(ch), charInfo);
+					customChars.put(ch, charInfo);
 				}
 				
 				fontImage = null;
@@ -200,7 +200,7 @@ public class Font{
 			if(currentChar < 256){
 				charInfo = charArray[currentChar];
 			}else{
-				charInfo = (CharInfo)customChars.get(new Character((char)currentChar));
+				charInfo = (CharInfo)customChars.get((char) currentChar);
 			}
 			
 			if(charInfo != null){
@@ -256,7 +256,7 @@ public class Font{
 					if(charCurrent < 256){
 						charInfo = charArray[charCurrent];
 					}else{
-						charInfo = (CharInfo)customChars.get(new Character((char) charCurrent));
+						charInfo = (CharInfo)customChars.get((char) charCurrent);
 					}
 					
 					totalwidth += charInfo.width-8;
@@ -276,7 +276,7 @@ public class Font{
 			if(charCurrent < 256){
 				charInfo = charArray[charCurrent];
 			}else{
-				charInfo = (CharInfo)customChars.get(new Character((char)charCurrent));
+				charInfo = (CharInfo)customChars.get((char) charCurrent);
 			} 
 			
 			if(charInfo != null){
@@ -298,7 +298,7 @@ public class Font{
 							if(charCurrent < 256){
 								charInfo = charArray[charCurrent];
 							}else{
-								charInfo = (CharInfo)customChars.get(new Character((char)charCurrent));
+								charInfo = (CharInfo)customChars.get((char) charCurrent);
 							}
 							
 							totalwidth += charInfo.width-8;
