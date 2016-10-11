@@ -89,8 +89,8 @@ public class Sound{
 	private Sound loadSound(String fileName){
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
-
-		switch (ext) {
+		
+		switch(ext){
 			case "wav":
 				resource = new SoundData(new WAVSound("./res/sounds/" + fileName).toIndexedSound());
 				break;

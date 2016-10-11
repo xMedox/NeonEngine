@@ -140,8 +140,8 @@ public class Shader{
 					}
 				}else if(uniformName.charAt(1) == '_'){
 					final String unprefixedUniformName = uniformName.substring(2);
-
-					switch (unprefixedUniformName) {
+					
+					switch(unprefixedUniformName){
 						case "MVP":
 							setUniformMatrix4f(uniformName, MVPMatrix);
 							break;
