@@ -77,7 +77,7 @@ public class TestGame extends Game{
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
 		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
 		
-//		String es = Util.encrypt("Hallo mein name ist günther");
+//		String es = Util.encrypt("Just a test");
 //		System.out.println(es);
 //		es = Util.decrypt(es);
 //		System.out.println(es);

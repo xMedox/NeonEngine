@@ -141,15 +141,12 @@ public class Shader{
 				}else if(uniformName.charAt(1) == '_'){
 					final String unprefixedUniformName = uniformName.substring(2);
 					
-					switch(unprefixedUniformName){
-						case "MVP":
-							setUniformMatrix4f(uniformName, MVPMatrix);
-							break;
-						case "model":
-							setUniformMatrix4f(uniformName, worldMatrix);
-							break;
-						default:
-							throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
+					if(unprefixedUniformName.equals("MVP")){
+						setUniformMatrix4f(uniformName, MVPMatrix);
+					}else if(unprefixedUniformName.equals("model")){
+						setUniformMatrix4f(uniformName, worldMatrix);
+					}else{
+						throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
 					}
 				}
 			}else if(uniformName.charAt(0) == 'R'){
