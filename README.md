@@ -28,3 +28,4 @@
 - You now have to change the options through methods
 - Most options are now booleans
 - Added the setPos and setSize methods in the Window class
+- The window now gets destroyed before cleaning everything up

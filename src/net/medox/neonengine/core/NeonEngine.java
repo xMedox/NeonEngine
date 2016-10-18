@@ -248,6 +248,8 @@ public class NeonEngine{
 			System.out.println("Shutting down");
 		}
 		
+		Window.dispose();
+		
 		game.cleanUp();
 		game.dispose();
 		
@@ -353,6 +355,5 @@ public class NeonEngine{
 		RenderingEngine.dispose();
 		SoundEngine.dispose();
 		PhysicsEngine.dispose();
-		Window.dispose();
 	}
 }
