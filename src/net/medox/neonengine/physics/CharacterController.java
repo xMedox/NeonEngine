@@ -1,5 +1,8 @@
 package net.medox.neonengine.physics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
@@ -8,7 +11,9 @@ import com.badlogic.gdx.physics.bullet.collision.btConvexShape;
 import com.badlogic.gdx.physics.bullet.collision.btPairCachingGhostObject;
 import com.badlogic.gdx.physics.bullet.dynamics.btKinematicCharacterController;
 
-public class CharacterController{	
+public class CharacterController{
+	private static final List<CharacterController> characterControllers = new ArrayList<CharacterController>();
+	
 	private final btPairCachingGhostObject ghostObject;
 	private final btKinematicCharacterController characterController;
 	private final Collider collider;
@@ -32,6 +37,8 @@ public class CharacterController{
 		characterController.setGravity(-PhysicsEngine.getGravity());
 		
 //		physics.getWorld().addCollisionObject(ghostObject, BroadphaseProxy.CharacterFilter, btBroadphaseProxy.StaticFilter | BroadphaseProxy.DefaultFilter);
+		
+		characterControllers.add(this);
 	}
 	
 //	public void setFlags(int flags){
@@ -142,5 +149,24 @@ public class CharacterController{
 		trans.set(trans.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), trans.getScale(new Vector3()));
 		
 		ghostObject.setWorldTransform(trans);
+	}
+	
+	@Override
+	protected void finalize() throws Throwable{
+		cleanUp();
+		characterControllers.remove(this);
+		
+		super.finalize();
+	}
+	
+	public void cleanUp(){
+		ghostObject.dispose();
+		characterController.dispose();
+	}
+	
+	public static void dispose(){
+		for(final CharacterController data : characterControllers){
+			data.cleanUp();
+		}
 	}
 }

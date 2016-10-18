@@ -11,6 +11,7 @@
 - Renamed the collider classes to have the Collider prefix
 - Fixed the StaticPlaneCollider class
 - Fixed the setUpAxis method in the CharacterController class
+- Physics objects are now getting cleaned up
 
 **Other:**
 - Renamed the setOrientation method in the SoundEngine class to setRotation

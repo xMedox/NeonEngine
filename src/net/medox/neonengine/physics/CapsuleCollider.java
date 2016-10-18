@@ -63,4 +63,10 @@ public class CapsuleCollider extends Collider{
 	public btCollisionShape getCollisionShape(){
 		return shape;
 	}
+	
+	@Override
+	public void cleanUp(){
+		shape.dispose();
+		super.cleanUp();
+	}
 }

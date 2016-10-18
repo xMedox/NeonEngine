@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 public class Collider{
 	public static final Matrix4 DEFAULT_TRANSFORM = new Matrix4().set(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 1), new Vector3(1, 1, 1));
 	
+	private static final List<Collider> colliders = new ArrayList<Collider>();
+	
 	private final List<Collider> hitList;
 	
 	private btRigidBody body;
@@ -22,6 +24,8 @@ public class Collider{
 	
 	public Collider(){
 		hitList = new ArrayList<Collider>();
+		
+		colliders.add(this);
 	}
 	
 	public int getGroup(){
@@ -216,5 +220,23 @@ public class Collider{
 		trans.set(trans.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), trans.getScale(new Vector3()));
 		
 		body.setWorldTransform(trans);
+	}
+	
+	@Override
+	protected void finalize() throws Throwable{
+		cleanUp();
+		colliders.remove(this);
+		
+		super.finalize();
+	}
+	
+	public void cleanUp(){
+		body.dispose();
+	}
+	
+	public static void dispose(){
+		for(final Collider data : colliders){
+			data.cleanUp();
+		}
 	}
 }

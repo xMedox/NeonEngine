@@ -32,6 +32,8 @@ public class Ray{
 		}else{
 			hitCollider = new Collider();
 		}
+		
+		callback.dispose();
 	}
 	
 	public Collider getHitCollider(){

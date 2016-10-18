@@ -25,6 +25,7 @@ public class PhysicsEngine{
 	private static btDiscreteDynamicsWorld dynamicsWorld;
 	
 	private static ArrayList<Collider> colliders;
+	private static ArrayList<Constraint> constraints;
 	private static Map<Integer, Collider> colliderIds;
 	private static int nextId;
 	
@@ -49,6 +50,7 @@ public class PhysicsEngine{
 		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
 		
 		colliders = new ArrayList<Collider>();
+		constraints = new ArrayList<Constraint>();
 		colliderIds = new ConcurrentHashMap<Integer, Collider>();
 	}
 	
@@ -82,10 +84,12 @@ public class PhysicsEngine{
 	
 	public static void addConstraint(Constraint constraint){
 		dynamicsWorld.addConstraint(constraint.getConstraint());
+		constraints.add(constraint);
 	}
 	
 	public static void removeConstraint(Constraint constraint){
 		dynamicsWorld.removeConstraint(constraint.getConstraint());
+		constraints.remove(constraint);
 	}
 	
 	public static void addController(CharacterController controller){
@@ -129,6 +133,10 @@ public class PhysicsEngine{
 	
 	public static void rayTest(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld, RayResultCallback resultCallback){
 		dynamicsWorld.rayTest(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()), resultCallback);
+	}
+	
+	public static void dispose(){
+		dynamicsWorld.dispose();
 	}
 }
 

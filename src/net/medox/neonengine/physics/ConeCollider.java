@@ -14,7 +14,7 @@ public class ConeCollider extends Collider{
 		super();
 		
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
-
+		
 		shape = new btConeShape(radius, height);
 		
 		final Vector3 inertia = new Vector3(0, 0, 0);
@@ -62,5 +62,11 @@ public class ConeCollider extends Collider{
 	@Override
 	public btCollisionShape getCollisionShape(){
 		return shape;
+	}
+	
+	@Override
+	public void cleanUp(){
+		shape.dispose();
+		super.cleanUp();
 	}
 }

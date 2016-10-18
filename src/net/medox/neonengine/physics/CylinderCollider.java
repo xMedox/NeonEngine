@@ -12,7 +12,7 @@ public class CylinderCollider extends Collider{
 	
 	public CylinderCollider(net.medox.neonengine.math.Vector3f halfExtents){
 		super();
-				
+		
 //		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
 		
 		shape = new btCylinderShape(new Vector3(halfExtents.getX(), halfExtents.getY(), halfExtents.getZ()));
@@ -62,5 +62,11 @@ public class CylinderCollider extends Collider{
 	@Override
 	public btCollisionShape getCollisionShape(){
 		return shape;
+	}
+	
+	@Override
+	public void cleanUp(){
+		shape.dispose();
+		super.cleanUp();
 	}
 }

@@ -2,6 +2,9 @@ package net.medox.neonengine.core;
 
 import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.audio.SoundEngine;
+import net.medox.neonengine.physics.CharacterController;
+import net.medox.neonengine.physics.Collider;
+import net.medox.neonengine.physics.Constraint;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.rendering.CubeMap;
 import net.medox.neonengine.rendering.Mesh;
@@ -245,10 +248,10 @@ public class NeonEngine{
 			System.out.println("Shutting down");
 		}
 		
-		cleanUp();
-		
 		game.cleanUp();
 		game.dispose();
+		
+		cleanUp();
 		
 		System.exit(0);
 	}
@@ -343,8 +346,13 @@ public class NeonEngine{
 		
 		Sound.dispose();
 		
+		Collider.dispose();
+		Constraint.dispose();
+		CharacterController.dispose();
+		
 		RenderingEngine.dispose();
 		SoundEngine.dispose();
+		PhysicsEngine.dispose();
 		Window.dispose();
 	}
 }
