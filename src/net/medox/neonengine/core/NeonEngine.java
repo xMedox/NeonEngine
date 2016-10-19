@@ -14,7 +14,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0b Build 20";
+	private static final String VERSION = "1.0.0b Build 21";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -45,7 +45,7 @@ public class NeonEngine{
 	public static void init(Game game, int framerate){
 		if(optionEnableProfiling){
 			System.out.println("Starting up");
-		
+			
 			sleepTimer = new ProfileTimer();
 			swapBufferTimer = new ProfileTimer();
 			windowUpdateTimer = new ProfileTimer();
@@ -193,7 +193,7 @@ public class NeonEngine{
 				if(optionEnableProfiling){
 					enginePhysicTimer.stopInvocation();
 				}
-								
+				
 				game.update((float)frameTime);
 				
 				if(optionEnableProfiling){
