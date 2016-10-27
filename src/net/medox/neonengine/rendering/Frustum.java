@@ -53,8 +53,8 @@ public class Frustum{
 			final float height = camera.getTop() - camera.getBottom();
 			final float width = camera.getRight() - camera.getLeft();
 			
-			final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((camera.getNear() - camera.getFar())*2)); //add offset to remove clipping bug
-			final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((camera.getFar() - camera.getNear())*2)); //add offset to remove clipping bug
+			final Vector3f nearClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((camera.getNear() - camera.getFar())*2)); //multiply by 2 to remove clipping bug
+			final Vector3f farClipping = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul((camera.getFar() - camera.getNear())*2)); //multiply by 2 to remove clipping bug
 			
 			
 			final Vector3f near1 = camera.getTransform().getTransformedRot().getUp().mul(height);
@@ -63,8 +63,8 @@ public class Frustum{
 			final Vector3f far1 = camera.getTransform().getTransformedRot().getUp().mul(height);
 			final Vector3f far2 = camera.getTransform().getTransformedRot().getRight().mul(width);
 			
-//			final Vector3f nearClipping = position.add(z.mul((near - far)*2)); //add offset to remove clipping bug
-//			final Vector3f farClipping = position.add(z.mul((far - near)*2)); //add offset to remove clipping bug
+//			final Vector3f nearClipping = position.add(z.mul((near - far)*2)); //multiply by 2 to remove clipping bug
+//			final Vector3f farClipping = position.add(z.mul((far - near)*2)); //multiply by 2 to remove clipping bug
 //			
 //			
 //			final Vector3f near1 = y.mul(height);
