@@ -26,11 +26,11 @@ public class Ray{
 		
 		hitNormal = new net.medox.neonengine.math.Vector3f(hitNormalWorld.x, hitNormalWorld.y, hitNormalWorld.z);
 		
-		if(callback.hasHit()){
+		if(hasHit){
 //			hitCollider = ((Collider)callback.getCollisionObject().getUserPointer());
 			hitCollider = PhysicsEngine.getById(callback.getCollisionObject().getUserValue());
 		}else{
-			hitCollider = new Collider();
+			hitCollider = null;
 		}
 		
 		callback.dispose();
