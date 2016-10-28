@@ -6,13 +6,16 @@ import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Transform;
+import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
 import net.medox.neonengine.physics.ConeCollider;
 import net.medox.neonengine.physics.CylinderCollider;
+import net.medox.neonengine.physics.Ray;
 import net.medox.neonengine.physics.SphereCollider;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
+import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Texture;
 
 public class AddComponent extends EntityComponent{
@@ -56,6 +59,15 @@ public class AddComponent extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
+		if(Input.getMouseDown(Input.BUTTON_RIGHT)){
+			Ray ray = new Ray(RenderingEngine.getMainCamera().getTransform().getTransformedPos(), RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(Util.mouseToRay().mul(100)));
+			
+			if(ray.hasHit()){
+				ray.getHitCollider().activate(true);
+				ray.getHitCollider().setLinearVelocity(new Vector3f(0, 10, 0));
+			}
+		}
+		
 		if(Input.getKeyDown(Input.KEY_N)){
 			Entity entity = new Entity();
 			
