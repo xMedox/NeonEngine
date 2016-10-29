@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.physics.bullet.dynamics.btTypedConstraint;
 
-public class Constraint{
+public abstract class Constraint{
 	private static final List<Constraint> constraints = new ArrayList<Constraint>();
 	
 	private btTypedConstraint constraint;

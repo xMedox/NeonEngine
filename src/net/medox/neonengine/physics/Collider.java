@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionObject.CollisionFlag
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 
-public class Collider{
+public abstract class Collider{
 	public static final Matrix4 DEFAULT_TRANSFORM = new Matrix4().set(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 1), new Vector3(1, 1, 1));
 	
 	private static final List<Collider> colliders = new ArrayList<Collider>();
