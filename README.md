@@ -12,6 +12,7 @@
 - Fixed the StaticPlaneCollider class
 - Fixed the setUpAxis method in the CharacterController class
 - Physics objects are now getting cleaned up
+- The Collider and the Constraint class are now abstract classes
 
 **Other:**
 - Renamed the setOrientation method in the SoundEngine class to setRotation
