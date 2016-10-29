@@ -59,7 +59,7 @@ public class AddComponent extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
-		if(Input.getMouseDown(Input.BUTTON_RIGHT)/* && !Input.isGrabbed()*/){
+		if(Input.getMouseDown(Input.BUTTON_RIGHT)){
 			Ray ray = new Ray(RenderingEngine.getMainCamera().getTransform().getTransformedPos(), RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(Util.mouseToRay().mul(100)));
 			
 			if(ray.hasHit()){
