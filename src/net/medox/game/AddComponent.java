@@ -19,6 +19,9 @@ import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Texture;
 
 public class AddComponent extends EntityComponent{
+//	private Entity selected;
+//	private Collider selectedCollider;
+	
 	private Transform boxTransform;
 	private Transform sphereTransform;
 	private Transform cylinderTransform;
@@ -64,9 +67,38 @@ public class AddComponent extends EntityComponent{
 			
 			if(ray.hasHit()){
 				ray.getHitCollider().activate(true);
-				ray.getHitCollider().setLinearVelocity(new Vector3f(0, 10, 0));
+				ray.getHitCollider().applyCentralImpulse(new Vector3f(0, 20, 0));
+//				ray.getHitCollider().setLinearVelocity(new Vector3f(0, 10, 0));
+				
+//				if(ray.getHitCollider().getGroup() == 1){
+//					if(selected != (Entity)(ray.getHitCollider().getObject())){
+//						if(selected != null){
+//							selected.getTransform().setScale(selected.getTransform().getScale().sub(0.1f));
+//						}
+//						
+//						selected = (Entity)(ray.getHitCollider().getObject());
+//						
+//						selected.getTransform().setScale(selected.getTransform().getScale().add(0.1f));
+//						
+//						selectedCollider = ray.getHitCollider();
+//					}else{
+//						selected.getTransform().setScale(selected.getTransform().getScale().sub(0.1f));
+//						
+//						selected = null;
+//						
+//						selectedCollider = null;
+//					}
+//				}
 			}
 		}
+		
+//		if(Input.getKey(Input.KEY_F)){
+//			if(selected != null){
+//				selectedCollider.activate(true);
+//				selectedCollider.applyCentralImpulse(RenderingEngine.getMainCamera().getTransform().getTransformedPos().sub(selected.getTransform().getTransformedPos()).normalized().mul(4));
+////				selectedCollider.setLinearVelocity(RenderingEngine.getMainCamera().getTransform().getTransformedPos().sub(selected.getTransform().getTransformedPos()).normalized().mul(2));
+//			}
+//		}
 		
 		if(Input.getKeyDown(Input.KEY_N)){
 			Entity entity = new Entity();
@@ -75,6 +107,9 @@ public class AddComponent extends EntityComponent{
 			box.setMassProps(4);
 			
 			box.setTransform(boxTransform);
+			
+//			box.setGroup(1);
+//			box.setObject(entity);
 			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(box)).addComponent(new MeshRenderer(crateM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
@@ -86,6 +121,9 @@ public class AddComponent extends EntityComponent{
 			sphere.setMassProps(4);
 			
 			sphere.setTransform(sphereTransform);
+			
+//			sphere.setGroup(1);
+//			sphere.setObject(entity);
 			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(sphere)).addComponent(new MeshRenderer(sphereM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
@@ -100,6 +138,9 @@ public class AddComponent extends EntityComponent{
 			
 			cylinder.setTransform(cylinderTransform);
 			
+//			cylinder.setGroup(1);
+//			cylinder.setObject(entity);
+			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(cylinder)).addComponent(new MeshRenderer(cylinderM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
 		
@@ -110,6 +151,9 @@ public class AddComponent extends EntityComponent{
 			cone.setMassProps(4);
 			
 			cone.setTransform(coneTransform);
+			
+//			cone.setGroup(1);
+//			cone.setObject(entity);
 			
 			getParent().addChild(entity.addComponent(new PhysicsComponent(cone)).addComponent(new MeshRenderer(coneM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
