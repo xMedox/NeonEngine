@@ -1,4 +1,4 @@
-package net.medox.neonengine.components;
+package net.medox.neonengine.components2D;
 
 import net.medox.neonengine.core.Entity2DComponent;
 import net.medox.neonengine.core.Transform2D;

@@ -31,3 +31,4 @@
 - Added the setPos and setSize methods in the Window class
 - The window now gets destroyed before cleaning everything up
 - Added the mouseToRay method in the Util class
+- Moved the 2d components to the new components2D package

@@ -1,7 +1,7 @@
 package net.medox.game;
 
 import net.medox.neonengine.audio.SoundEngine;
-import net.medox.neonengine.components.Slider;
+import net.medox.neonengine.components2D.Slider;
 import net.medox.neonengine.core.EntityComponent;
 
 public class VolumeSetter extends EntityComponent{
