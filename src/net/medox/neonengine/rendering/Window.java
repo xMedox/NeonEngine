@@ -181,14 +181,6 @@ public class Window{
 	public static void dispose(){
 		Callbacks.glfwFreeCallbacks(window);
 		
-//		GLFW.glfwSetKeyCallback(null).free();
-//		GLFW.glfwSetMouseButtonCallback(null).free();
-//		GLFW.glfwSetCursorPosCallback(null).free();
-//		GLFW.glfwSetScrollCallback(null).free();
-//		GLFW.glfwSetWindowPosCallback(null).free();
-//		GLFW.glfwSetFramebufferSizeCallback(null).free();
-//		GLFW.glfwSetCharCallback(null).free();
-		
 		if(cursor != MemoryUtil.NULL){
 			GLFW.glfwDestroyCursor(cursor);
 		}
