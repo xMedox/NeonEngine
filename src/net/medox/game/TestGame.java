@@ -514,9 +514,9 @@ public class TestGame extends Game{
 		
 		box1.setPos(stair1.getTransform().getTransformedPos());
 		
-		box1.setMassProps(0, new Vector3f(0, 0, 0));
+		box1.setMassProps(0);
 		
-		PhysicsComponent phy1 = new PhysicsComponent(box1);
+		StaticPhysicsComponent phy1 = new StaticPhysicsComponent(box1);
 		
 		stair1.addComponent(phy1);
 		stair1.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
@@ -533,9 +533,9 @@ public class TestGame extends Game{
 		
 		box2.setPos(stair2.getTransform().getTransformedPos());
 		
-		box2.setMassProps(0, new Vector3f(0, 0, 0));
+		box2.setMassProps(0);
 		
-		PhysicsComponent phy2 = new PhysicsComponent(box2);
+		StaticPhysicsComponent phy2 = new StaticPhysicsComponent(box2);
 		
 		stair2.addComponent(phy2);
 		stair2.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
@@ -552,9 +552,9 @@ public class TestGame extends Game{
 		
 		box3.setPos(stair3.getTransform().getTransformedPos());
 		
-		box3.setMassProps(0, new Vector3f(0, 0, 0));
+		box3.setMassProps(0);
 		
-		PhysicsComponent phy3 = new PhysicsComponent(box3);
+		StaticPhysicsComponent phy3 = new StaticPhysicsComponent(box3);
 		
 		stair3.addComponent(phy3);
 		stair3.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
@@ -571,9 +571,9 @@ public class TestGame extends Game{
 		
 		box4.setPos(stair4.getTransform().getTransformedPos());
 		
-		box4.setMassProps(0, new Vector3f(0, 0, 0));
+		box4.setMassProps(0);
 		
-		PhysicsComponent phy4 = new PhysicsComponent(box4);
+		StaticPhysicsComponent phy4 = new StaticPhysicsComponent(box4);
 		
 		stair4.addComponent(phy4);
 		stair4.addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));

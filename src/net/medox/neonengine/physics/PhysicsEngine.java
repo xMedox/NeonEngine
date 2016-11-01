@@ -70,10 +70,10 @@ public class PhysicsEngine{
 //	public static void addCollider(Collider collider, int group, int mask){
 //		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
 //		colliders.add(collider);
-//		collidersSave.put(nextValue, collider);
-//		collider.getBody().setUserValue(nextValue);
+//		colliderIds.put(nextId, collider);
+//		collider.getBody().setUserValue(nextId);
 //		
-//		nextValue += 1;
+//		nextId += 1;
 //	}
 	
 	public static void removeCollider(Collider collider){
@@ -106,6 +106,10 @@ public class PhysicsEngine{
 //		dynamicsWorld.addAction(controller.getController());
 //		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)group, (short)mask);
 //		colliders.add(controller.getCollider());
+//		colliderIds.put(nextId, controller.getCollider());
+//		controller.getGhost().setUserValue(nextId);
+//		
+//		nextId += 1;
 //	}
 	
 	public static void removeController(CharacterController controller){
