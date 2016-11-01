@@ -11,7 +11,6 @@
 - Renamed the collider classes to have the Collider prefix
 - Fixed the StaticPlaneCollider class
 - Fixed the setUpAxis method in the CharacterController class
-- Physics objects are now getting cleaned up
 - The Collider and the Constraint class are now abstract classes
 
 **Other:**

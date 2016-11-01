@@ -65,6 +65,8 @@ public class PhysicsEngine{
 		collider.getBody().setUserValue(nextId);
 		
 		nextId += 1;
+		
+		//TODO: just call the addCollider method with the group set to 1 and the mask set to -1
 	}
 	
 //	public static void addCollider(Collider collider, int group, int mask){
@@ -100,6 +102,8 @@ public class PhysicsEngine{
 		controller.getGhost().setUserValue(nextId);
 		
 		nextId += 1;
+		
+		//TODO: just call the addController method with the group set to 1 and the mask set to -1
 	}
 	
 //	public static void addController(CharacterController controller, int group, int mask){

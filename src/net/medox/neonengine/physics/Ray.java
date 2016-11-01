@@ -27,14 +27,44 @@ public class Ray{
 		hitNormal = new net.medox.neonengine.math.Vector3f(hitNormalWorld.x, hitNormalWorld.y, hitNormalWorld.z);
 		
 		if(hasHit){
-//			hitCollider = ((Collider)callback.getCollisionObject().getUserPointer());
 			hitCollider = PhysicsEngine.getById(callback.getCollisionObject().getUserValue());
 		}else{
 			hitCollider = null;
 		}
 		
 		callback.dispose();
+		
+		//TODO: just call super method and use 1 as the group and -1 as the mask
 	}
+	
+//	public Ray(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld, int group, int mask){
+//		final ClosestRayResultCallback callback = new ClosestRayResultCallback(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()));
+//				
+//		callback.setCollisionFilterGroup((short)group);
+//		callback.setCollisionFilterMask((short)mask);
+//		
+//		PhysicsEngine.rayTest(rayFromWorld, rayToWorld, callback);
+//		
+//		hasHit = callback.hasHit();
+//		
+//		Vector3 hitPointWorld = new Vector3(0, 0, 0);
+//		callback.getHitPointWorld(hitPointWorld);
+//		
+//		hitPoint = new net.medox.neonengine.math.Vector3f(hitPointWorld.x, hitPointWorld.y, hitPointWorld.z);
+//		
+//		Vector3 hitNormalWorld = new Vector3(0, 0, 0);
+//		callback.getHitNormalWorld(hitNormalWorld);
+//		
+//		hitNormal = new net.medox.neonengine.math.Vector3f(hitNormalWorld.x, hitNormalWorld.y, hitNormalWorld.z);
+//		
+//		if(hasHit){
+//			hitCollider = PhysicsEngine.getById(callback.getCollisionObject().getUserValue());
+//		}else{
+//			hitCollider = null;
+//		}
+//		
+//		callback.dispose();
+//	}
 	
 	public Collider getHitCollider(){
 		return hitCollider;
