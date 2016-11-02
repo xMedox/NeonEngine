@@ -33,11 +33,7 @@ public class ChangeMode extends EntityComponent{
 //			RenderingEngine.setScanMode(!RenderingEngine.getScanMode());
 //		}
 		if(Input.getKeyDown(Input.KEY_F3)){
-			if(NeonEngine.is2DEnabled()){
-				NeonEngine.enable2D(false);
-			}else{
-				NeonEngine.enable2D(true);
-			}
+			NeonEngine.enable2D(!NeonEngine.is2DEnabled());
 		}
 		if(Input.getKeyDown(Input.KEY_F4)){
 			if(!filterEnabled){

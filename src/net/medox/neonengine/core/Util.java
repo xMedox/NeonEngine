@@ -178,17 +178,12 @@ public class Util{
 			final Vector3f up = camera.getTransform().getTransformedRot().getUp().mul(vLength);
 			final Vector3f right = camera.getTransform().getTransformedRot().getRight().mul(hLength);
 			
-			float mouseX = Input.getMousePosition().getX() - ((float)Window.getWidth() / 2);
-			float mouseY = Input.getMousePosition().getY() - ((float)Window.getHeight() / 2);
-			
-			mouseX /= ((float)Window.getWidth() / 2);
-			mouseY /= ((float)Window.getHeight() / 2);
+			float mouseX = (Input.getMousePosition().getX() - ((float)Window.getWidth() / 2)) / ((float)Window.getWidth() / 2);
+			float mouseY = (Input.getMousePosition().getY() - ((float)Window.getHeight() / 2)) / ((float)Window.getHeight() / 2);
 			
 			final Vector3f pos = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(camera.getZNear())).add(right.mul(mouseX)).add(up.mul(mouseY));
 			
-			result = pos.sub(camera.getTransform().getTransformedPos());
-			
-			result = result.normalized();
+			result = (pos.sub(camera.getTransform().getTransformedPos())).normalized();
 		}
 		
 		return result;
