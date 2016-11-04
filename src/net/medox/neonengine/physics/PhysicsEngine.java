@@ -1,6 +1,7 @@
 package net.medox.neonengine.physics;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,8 +25,8 @@ import com.badlogic.gdx.physics.bullet.dynamics.btSequentialImpulseConstraintSol
 public class PhysicsEngine{
 	private static btDiscreteDynamicsWorld dynamicsWorld;
 	
-	private static ArrayList<Collider> colliders;
-	private static ArrayList<Constraint> constraints;
+	private static List<Collider> colliders;
+	private static List<Constraint> constraints;
 	private static Map<Integer, Collider> colliderIds;
 	private static int nextId;
 	
@@ -39,8 +40,7 @@ public class PhysicsEngine{
 		final btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 		
-//		dynamicsWorld.setGravity(new Vector3(0, -9.80665f, 0));
-		dynamicsWorld.setGravity(new Vector3(0, -9.81f, 0));
+		dynamicsWorld.setGravity(new Vector3(0, -9.81f/*-9.80665f*/, 0));
 		
 		dynamicsWorld.getDispatchInfo().setAllowedCcdPenetration(0.001f);
 		
@@ -59,24 +59,17 @@ public class PhysicsEngine{
 	}
 	
 	public static void addCollider(Collider collider){
-		dynamicsWorld.addRigidBody(collider.getBody());
+		addCollider(collider, CollisionFilterGroups.DefaultFilter, CollisionFilterGroups.AllFilter);
+	}
+	
+	public static void addCollider(Collider collider, int group, int mask){
+		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
 		colliders.add(collider);
 		colliderIds.put(nextId, collider);
 		collider.getBody().setUserValue(nextId);
 		
 		nextId += 1;
-		
-		//TODO: just call the addCollider method with the group set to 1 and the mask set to -1
 	}
-	
-//	public static void addCollider(Collider collider, int group, int mask){
-//		dynamicsWorld.addRigidBody(collider.getBody(), (short)group, (short)mask);
-//		colliders.add(collider);
-//		colliderIds.put(nextId, collider);
-//		collider.getBody().setUserValue(nextId);
-//		
-//		nextId += 1;
-//	}
 	
 	public static void removeCollider(Collider collider){
 		colliderIds.remove(collider.getBody().getUserValue());
@@ -95,26 +88,18 @@ public class PhysicsEngine{
 	}
 	
 	public static void addController(CharacterController controller){
+		addController(controller, CollisionFilterGroups.CharacterFilter, (CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter));
+	}
+	
+	public static void addController(CharacterController controller, int group, int mask){
 		dynamicsWorld.addAction(controller.getController());
-		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)CollisionFilterGroups.CharacterFilter, (short)(CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter));
+		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)group, (short)mask);
 		colliders.add(controller.getCollider());
 		colliderIds.put(nextId, controller.getCollider());
 		controller.getGhost().setUserValue(nextId);
 		
 		nextId += 1;
-		
-		//TODO: just call the addController method with the group set to 1 and the mask set to -1
 	}
-	
-//	public static void addController(CharacterController controller, int group, int mask){
-//		dynamicsWorld.addAction(controller.getController());
-//		dynamicsWorld.addCollisionObject(controller.getGhost(), (short)group, (short)mask);
-//		colliders.add(controller.getCollider());
-//		colliderIds.put(nextId, controller.getCollider());
-//		controller.getGhost().setUserValue(nextId);
-//		
-//		nextId += 1;
-//	}
 	
 	public static void removeController(CharacterController controller){
 		colliderIds.remove(controller.getGhost().getUserValue());
