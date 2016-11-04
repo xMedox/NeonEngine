@@ -87,7 +87,7 @@ public class PhysicsEngine{
 	}
 	
 	public static void addController(CharacterController controller){
-		addController(controller, CollisionFilterGroups.CharacterFilter, (CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter));
+		addController(controller, CollisionFilterGroups.CharacterFilter, CollisionFilterGroups.StaticFilter | CollisionFilterGroups.DefaultFilter);
 	}
 	
 	public static void addController(CharacterController controller, int group, int mask){

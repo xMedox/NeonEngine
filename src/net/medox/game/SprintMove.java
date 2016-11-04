@@ -34,8 +34,6 @@ public class SprintMove extends FreeMove{
 	
 	@Override
 	public void input(float delta){
-		super.input(delta);
-		
 		if(enableSprint){
 			if(Input.inputKey(sprintKey)){
 				setSpeed(sprintSpeed);
@@ -45,6 +43,8 @@ public class SprintMove extends FreeMove{
 		}else{
 			setSpeed(normalSpeed);
 		}
+		
+		super.input(delta);
 	}
 
 	public float getSprintSpeed(){

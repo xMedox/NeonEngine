@@ -183,7 +183,7 @@ public class Util{
 			
 			final Vector3f pos = camera.getTransform().getTransformedPos().add(camera.getTransform().getTransformedRot().getForward().mul(camera.getZNear())).add(right.mul(mouseX)).add(up.mul(mouseY));
 			
-			result = (pos.sub(camera.getTransform().getTransformedPos())).normalized();
+			result = pos.sub(camera.getTransform().getTransformedPos()).normalized();
 		}
 		
 		return result;
