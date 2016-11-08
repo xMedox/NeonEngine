@@ -188,4 +188,76 @@ public class Util{
 		
 		return result;
 	}
+	
+	private static float interpolate(float x0, float x1, float alpha){
+		return x0 * (1 - alpha) + alpha * x1;
+	}
+	
+	public static float[][] generateWhiteNoise(int width, int height){
+		float[][] noise = new float[width][height];
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
+				noise[x][y] = randomFloat();
+			}
+		}
+		return noise;
+	}
+	
+	public static float[][] generateSmoothNoise(int width, int height, int octave){
+		float[][] baseNoise = generateWhiteNoise(width, height);
+		
+		float[][] smoothNoise = new float[width][height];
+		
+		int samplePeriod = 1 << octave;
+		float sampleFrequency = 1.0f / samplePeriod;
+		for(int i = 0; i < width; i++){
+			int sampleI0 = (i / samplePeriod) * samplePeriod;
+			int sampleI1 = (sampleI0 + samplePeriod) % width;
+			float horizontalBlend = (i - sampleI0) * sampleFrequency;
+			
+			for(int j = 0; j < height; j++){
+				int sampleJ0 = (j / samplePeriod) * samplePeriod;
+				int sampleJ1 = (sampleJ0 + samplePeriod) % height;
+				float verticalBlend = (j - sampleJ0) * sampleFrequency;
+				float top = interpolate(baseNoise[sampleI0][sampleJ0], baseNoise[sampleI1][sampleJ0], horizontalBlend);
+				float bottom = interpolate(baseNoise[sampleI0][sampleJ1], baseNoise[sampleI1][sampleJ1], horizontalBlend);
+				smoothNoise[i][j] = interpolate(top, bottom, verticalBlend);
+			}
+		}
+		
+		return smoothNoise;
+	}
+	
+	public static float[][] generatePerlinNoise(int width, int height, int octaveCount){
+		float[][][] smoothNoise = new float[octaveCount][][];
+		float persistance = 0.7f;
+		
+		for(int i = 0; i < octaveCount; i++){
+			smoothNoise[i] = generateSmoothNoise(width, height, i);
+		}
+		
+		float[][] perlinNoise = new float[width][height];
+		
+		float amplitude = 1.0f;
+		float totalAmplitude = 0.0f;
+		
+		for(int octave = octaveCount - 1; octave >= 0; octave--){
+			amplitude *= persistance;
+			totalAmplitude += amplitude;
+			
+			for(int i = 0; i < width; i++){
+				for(int j = 0; j < height; j++){
+					perlinNoise[i][j] += smoothNoise[octave][i][j] * amplitude;
+				}
+			}
+		}
+		
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				perlinNoise[i][j] /= totalAmplitude;
+			}
+		}
+		
+		return perlinNoise;
+	}
 }

@@ -32,3 +32,4 @@
 - The window now gets destroyed before cleaning everything up
 - Added the mouseToRay method in the Util class
 - Moved the 2d components to the new components2D package
+- Added some noise creation methods to the Util class

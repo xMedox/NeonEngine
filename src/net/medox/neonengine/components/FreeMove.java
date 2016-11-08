@@ -16,7 +16,7 @@ public class FreeMove extends EntityComponent{
 	public FreeMove(float speed){
 		this(speed, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D));
 	}
-
+	
 	public FreeMove(float speed, InputKey forwardKey, InputKey backKey, InputKey leftKey, InputKey rightKey){
 		this.speed = speed;
 		this.forwardKey = forwardKey;
@@ -46,11 +46,11 @@ public class FreeMove extends EntityComponent{
 	public void move(Vector3f dir, float amt){
 		getTransform().move(dir.mul(amt));
 	}
-
+	
 	public float getSpeed(){
 		return speed;
 	}
-
+	
 	public void setSpeed(float speed){
 		this.speed = speed;
 	}
