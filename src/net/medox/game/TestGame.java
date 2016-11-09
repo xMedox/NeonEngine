@@ -31,6 +31,7 @@ import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
 import net.medox.neonengine.physics.StaticPlaneCollider;
 import net.medox.neonengine.rendering.Camera;
+import net.medox.neonengine.rendering.Cursor;
 import net.medox.neonengine.rendering.Font;
 import net.medox.neonengine.rendering.Material;
 import net.medox.neonengine.rendering.Mesh;
@@ -59,7 +60,7 @@ public class TestGame extends Game{
 		Window.setStartFullscreen(false);
 		Window.setStartResizable(true);
 		Window.setStartIcon("icon_16.png", "icon_32.png");
-		Window.setStartCursor("cursor test 2.png", 0, 0);
+		Window.setStartCursor(new Cursor("cursor test 2.png", 0, 0));
 		
 //		Window.setStartTitle("Project Guns");
 //		Window.setStartFullscreen(true);

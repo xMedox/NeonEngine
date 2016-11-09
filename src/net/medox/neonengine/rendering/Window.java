@@ -25,7 +25,7 @@ public class Window{
 	private static String title = "NeonEngine";
 	
 	private static long window;
-	private static long cursor;
+	private static Cursor currentCursor;
 	
 	private static int oldXPos;
 	private static int oldYPos;
@@ -50,10 +50,7 @@ public class Window{
 	private static String startIcon16 = "";
 	private static String startIcon32 = "";
 	
-	private static String startCursor = "";
-	
-	private static int startCursorX;
-	private static int startCursorY;
+	private static Cursor startCursor;
 	
 	private static int centerPositionX;
 	private static int centerPositionY;
@@ -122,8 +119,10 @@ public class Window{
 			setIcon(startIcon16, startIcon32);
 		}
 		
-		if(!startCursor.equals("")){
-			setCursor(startCursor, startCursorX, startCursorY);
+		if(startCursor != null){
+			startCursor.create();
+			
+			setCursor(startCursor);
 		}
 		
 		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
@@ -181,9 +180,7 @@ public class Window{
 	public static void dispose(){
 		Callbacks.glfwFreeCallbacks(window);
 		
-		if(cursor != MemoryUtil.NULL){
-			GLFW.glfwDestroyCursor(cursor);
-		}
+		Cursor.dispose();
 		
 		GLFW.glfwDestroyWindow(window);
         
@@ -227,10 +224,8 @@ public class Window{
 		startIcon32 = icon32;
 	}
 	
-	public static void setStartCursor(String fileName, int xPos, int yPos){
-		startCursor = fileName;
-		startCursorX = xPos;
-		startCursorY = yPos;
+	public static void setStartCursor(Cursor cursor){
+		startCursor = cursor;
 	}
 	
 	public static void setStartMinSizeLimit(int width, int height){
@@ -282,31 +277,13 @@ public class Window{
 		icons.free();
 	}
 	
-	public static void setCursor(String fileName, int xPos, int yPos){
-		if(fileName.equals("")){
-			if(cursor != MemoryUtil.NULL){
-				GLFW.glfwSetCursor(window, MemoryUtil.NULL);
-				
-				GLFW.glfwDestroyCursor(cursor);
-				
-				cursor = MemoryUtil.NULL;
-			}
+	public static void setCursor(Cursor cursor){
+		if(cursor == null){
+			GLFW.glfwSetCursor(window, MemoryUtil.NULL);
 		}else{
-			if(cursor != MemoryUtil.NULL){
-				GLFW.glfwDestroyCursor(cursor);
-			}
+			currentCursor = cursor;
 			
-			final ImageData pixels = ImageUtil.imageToByteBuffer("./res/" + fileName);
-			final GLFWImage image = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
-			
-			cursor = GLFW.glfwCreateCursor(image, -xPos, yPos);
-			image.free();
-			
-			if(cursor == MemoryUtil.NULL){
-				throw new RuntimeException("Failed to create the GLFW cursor");
-			}
-			
-			GLFW.glfwSetCursor(window, cursor);
+			GLFW.glfwSetCursor(window, cursor.getId());
 		}
 	}
 	
@@ -465,5 +442,9 @@ public class Window{
 	
 	public static int getInputMode(int mode){
 		return GLFW.glfwGetInputMode(window, mode);
+	}
+	
+	public static Cursor getCurrentCursor(){
+		return currentCursor;
 	}
 }

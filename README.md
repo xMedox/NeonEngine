@@ -33,3 +33,4 @@
 - Added the mouseToRay method in the Util class
 - Moved the 2d components to the new components2D package
 - Added some noise creation methods and the lerp method to the Util class
+- Added the new Cursor class that gets used by the Window
