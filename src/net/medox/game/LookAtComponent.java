@@ -14,7 +14,7 @@ public class LookAtComponent extends EntityComponent{
 			Quaternion newRot = getTransform().getLookAtRotation(RenderingEngine.getMainCamera().getTransform().getTransformedPos(),
 					new Vector3f(0, 1, 0));
 					//getTransform().getRot().getUp());
-
+			
 			getTransform().setRot(getTransform().getRot().nlerp(newRot, delta * 5.0f, true));
 //			getTransform().setRot(getTransform().getRot().slerp(newRot, delta * 5.0f, true));
 			
