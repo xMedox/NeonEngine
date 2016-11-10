@@ -39,10 +39,14 @@ public class Mesh{
 		this.fileName = meshName;
 		
 		if(fileName.equals("")){
+			model.calcRadius();
+			
 			resource = new MeshData(model/*, createShape*/);
 			customModels.add(resource);
 		}else{
 			if(loadedModels.get(fileName) == null){
+				model.calcRadius();
+				
 				resource = new MeshData(model/*, createShape*/);
 				loadedModels.put(fileName, resource);
 			}else{

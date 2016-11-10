@@ -36,6 +36,16 @@ public class IndexedModel{
 		this.radius = radius;
 	}
 	
+	public void calcRadius(){
+		float radius = -Float.MAX_VALUE;
+		
+		for(int i = 0; i < positions.size(); i++){
+			radius = Math.max(radius, positions.get(i).length());
+		}
+		
+		this.radius = radius;
+	}
+	
 //	public MeshShape createShape(){
 //		return new MeshShape(positions);
 //	}
