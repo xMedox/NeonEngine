@@ -46,16 +46,20 @@ public class CubeMapData extends ReferenceCounter{
 	}
 	
 	public void bind(int samplerSlot){
-//		if(RenderingEngine.textureBound != textureID){
-			assert(samplerSlot >= 0 && samplerSlot <= 31);
+		assert(samplerSlot >= 0 && samplerSlot <= 31);
+//		if(RenderingEngine.textureBound.get(samplerSlot) != textureID){
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
-//			
-//			RenderingEngine.textureBound = textureID;
+			
+//			RenderingEngine.textureBound.put(samplerSlot, textureID);
 //		}
 	}
 	
 	public void bindAsRenderTarget(int face){
+//		for(int i = 0; i < 32; i++){
+//			RenderingEngine.textureBound.put(i, -1);
+//		}
+		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
 		ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_COLOR_ATTACHMENT0, GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, textureID, 0);
@@ -110,8 +114,10 @@ public class CubeMapData extends ReferenceCounter{
 //			}
 //		}
 		textureID = GL11.glGenTextures();
-//		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
+		
+//		RenderingEngine.textureBound.put(0, textureID);
 		
 		for(int i = 0; i < 6; i++){
 			GL11.glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, width[i], height[i], 0, format, type, data[i]);

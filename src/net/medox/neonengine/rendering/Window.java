@@ -374,6 +374,10 @@ public class Window{
 	}
 	
 	public static void bindAsRenderTarget(){
+//		for(int i = 0; i < 32; i++){
+//			RenderingEngine.textureBound.put(i, -1);
+//		}
+		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
 		if(!NeonEngine.is1x1ViewportEnabled()){

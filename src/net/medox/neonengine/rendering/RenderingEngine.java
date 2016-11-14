@@ -47,8 +47,8 @@ public class RenderingEngine{
 	private static ProfileTimer windowSyncProfileTimer;
 	
 //	public static int meshBound;
-//	public static int textureBound;
 //	public static int shaderBound;
+//	public static Map<Integer, Integer> textureBound;
 	
 	private static int renderingState;
 	
@@ -122,6 +122,14 @@ public class RenderingEngine{
 			renderProfileTimer2D = new ProfileTimer();
 			windowSyncProfileTimer = new ProfileTimer();
 		}
+		
+//		meshBound = -1;
+//		shaderBound = -1;
+//		textureBound = new HashMap<Integer, Integer>();
+//		
+//		for(int i = 0; i < 32; i++){
+//			textureBound.put(i, -1);
+//		}
 		
 		batchRenderer = new BatchRenderer();
 		

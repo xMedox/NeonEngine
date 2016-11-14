@@ -56,6 +56,7 @@ public class MeshData extends ReferenceCounter{
 		
 		vertexArrayObject = GL30.glGenVertexArrays();
 		GL30.glBindVertexArray(vertexArrayObject);
+//		RenderingEngine.meshBound = vertexArrayObject;
 				
 		GL15.glGenBuffers(vertexArrayBuffers);
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(POSITION_VB));
@@ -98,6 +99,7 @@ public class MeshData extends ReferenceCounter{
 		drawCount = model.getIndices().size();
 		
 		GL30.glBindVertexArray(0);
+//		RenderingEngine.meshBound = -1;
 	}
 	
 	public void draw(){
@@ -110,7 +112,7 @@ public class MeshData extends ReferenceCounter{
 			
 //			RenderingEngine.meshBound = vertexArrayObject;
 //		}else{
-//			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
+//			if(!NeonEngine.isMeshDrawingDisabled()){
 //				GL11.glDrawElements(GL11.GL_TRIANGLES, drawCount, GL11.GL_UNSIGNED_INT, 0);
 //			}
 //		}

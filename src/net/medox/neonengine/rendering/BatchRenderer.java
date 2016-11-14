@@ -299,7 +299,7 @@ public class BatchRenderer{
 			
 //			RenderingEngine.meshBound = vertexArrayObject;
 //		}else{
-//			if(NeonEngine.PROFILING_DISABLE_MESH_DRAWING == 0){
+//			if(!NeonEngine.isMeshDrawingDisabled()){
 //				GL11.glDrawElements(GL11.GL_TRIANGLES, indexCount, GL11.GL_UNSIGNED_INT, 0);
 //			}
 //		}

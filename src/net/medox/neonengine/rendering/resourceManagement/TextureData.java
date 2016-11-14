@@ -48,26 +48,30 @@ public class TextureData extends ReferenceCounter{
 	}
 	
 	public void bind(int samplerSlot){
-//		if(RenderingEngine.textureBound != textureID[0]){
-			assert(samplerSlot >= 0 && samplerSlot <= 31);
+		assert(samplerSlot >= 0 && samplerSlot <= 31);
+//		if(RenderingEngine.textureBound.get(samplerSlot) != textureID[0]){
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(textureTarget, textureID[0]);
-//			
-//			RenderingEngine.textureBound = textureID[0];
+			
+//			RenderingEngine.textureBound.put(samplerSlot, textureID[0]);
 //		}
 	}
 	
 	public void bind(int samplerSlot, int id){
-//		if(RenderingEngine.textureBound != textureID[id]){
-			assert(samplerSlot >= 0 && samplerSlot <= 31);
+		assert(samplerSlot >= 0 && samplerSlot <= 31);
+//		if(RenderingEngine.textureBound.get(samplerSlot) != textureID[id]){
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(textureTarget, textureID[id]);
-//			
-//			RenderingEngine.textureBound = textureID[id];
+			
+//			RenderingEngine.textureBound.put(samplerSlot, textureID[id]);
 //		}
 	}
 	
     public void bindAsRenderTarget(){
+//		for(int i = 0; i < 32; i++){
+//			RenderingEngine.textureBound.put(i, -1);
+//		}
+		
     	GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
     	ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
     	
@@ -91,6 +95,7 @@ public class TextureData extends ReferenceCounter{
 			textureID[i] = GL11.glGenTextures();
 			
 			GL11.glBindTexture(textureTarget, textureID[i]);
+//			RenderingEngine.textureBound.put(0, textureID[i]);
 			
 			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MIN_FILTER, filters[i]);
 			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MAG_FILTER, filters[i]);
