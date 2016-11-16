@@ -161,6 +161,8 @@ public class Input{
 	
 	private static int mouseWheel;
 	
+	private static boolean mouseInsideWindow;
+	
 	private static String charList;
 	
 	public static void update(){
@@ -203,6 +205,10 @@ public class Input{
 //		if(textInputMode == true){
 			charList += Character.toString((char)codepoint);
 //		}
+	}
+	
+	public static void enter(boolean entered){
+		mouseInsideWindow = entered;
 	}
 	
 //	public static void setTextInputMode(boolean value){
@@ -277,6 +283,10 @@ public class Input{
 	
 	public static boolean isMouseWheelDirection(int wheelDirection){
 		return mouseWheel < 0 ? wheelDirection == WHEEL_DOWN : mouseWheel > 0 ? wheelDirection == WHEEL_UP : wheelDirection == 0;
+	}
+	
+	public static boolean isMouseInsideWindow(){
+		return mouseInsideWindow;
 	}
 	
 	public static int getMouseWheelValue(){

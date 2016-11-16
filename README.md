@@ -35,3 +35,4 @@
 - Added some noise creation methods and the lerp method to the Util class
 - Added the new Cursor class that gets used by the Window
 - Self made models now calculate their radius
+- Added the isMouseInsideWindow method in the Input class

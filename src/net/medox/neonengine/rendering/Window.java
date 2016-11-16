@@ -142,6 +142,7 @@ public class Window{
 		GLFW.glfwSetWindowPosCallback(window, (window, xPos, yPos) -> setLocalPos(xPos, yPos));
 		GLFW.glfwSetFramebufferSizeCallback(window, (window, width, height) -> setFramebufferSize(width, height));
 		GLFW.glfwSetCharCallback(window, (window, codepoint) -> Input.chars(codepoint));
+		GLFW.glfwSetCursorEnterCallback(window, (window, entered) -> Input.enter(entered));
 		
 		GLFW.glfwShowWindow(window);
 		
