@@ -607,7 +607,7 @@ public class RenderingEngine{
 	}
 	
 	public static void drawString(float xPos, float yPos, String text, Vector3f color, float scaleX, float scaleY){
-		drawString(xPos, yPos, text, color, scaleX, scaleY);
+		drawString(xPos, yPos, text, color, scaleX, scaleY, Font.ALIGN_LEFT);
 	}
 	
 	public static void drawString(float xPos, float yPos, String text, Vector3f color, float scaleX, float scaleY, int format){
