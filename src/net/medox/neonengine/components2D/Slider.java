@@ -38,7 +38,7 @@ public class Slider extends Entity2DComponent{
 	
 	@Override
 	public void input(float delta){
-		if(!Input.isGrabbed() && Input.getMouseDown(1)){
+		if(!Input.isGrabbed() && Input.getMouseDown(Input.BUTTON_RIGHT)){
 			if(!grabbed){
 				if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
 					grabbed = true;
@@ -59,7 +59,7 @@ public class Slider extends Entity2DComponent{
 			}
 		}
 
-		if(!Input.isGrabbed() && Input.getMouse(1)){
+		if(!Input.isGrabbed() && Input.getMouse(Input.BUTTON_RIGHT)){
 			if(grabbed){
 				if(!oldPos.equals(Input.getMousePosition())){
 					oldPos = Input.getMousePosition();
