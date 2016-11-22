@@ -2,6 +2,7 @@ package net.medox.neonengine.components2D;
 
 import net.medox.neonengine.core.Entity2DComponent;
 import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.core.Transform2D;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
@@ -9,18 +10,24 @@ import net.medox.neonengine.rendering.RenderingEngine;
 
 public class Button extends Entity2DComponent{
 	private final Vector3f color;
+	private final InputKey key;
 	
 	public Button(){
 		this(new Vector3f(1, 1, 1));
 	}
 	
 	public Button(Vector3f color){
+		this(color, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+	}
+	
+	public Button(Vector3f color, InputKey key){
 		this.color = color;
+		this.key = key;
 	}
 	
 	@Override
 	public void input(float delta){
-		if(!Input.isGrabbed() && Input.getMouseDown(Input.BUTTON_RIGHT)){
+		if(!Input.isGrabbed() && Input.inputKeyDown(key)){
 			if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
 				pressed();
 			}

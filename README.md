@@ -36,3 +36,4 @@
 - Added the new Cursor class that gets used by the Window
 - Self made models now calculate their radius
 - Added the isMouseInsideWindow method in the Input class
+- You can now change the inputKey of the ui elements

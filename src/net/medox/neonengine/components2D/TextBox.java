@@ -2,6 +2,7 @@ package net.medox.neonengine.components2D;
 
 import net.medox.neonengine.core.Entity2DComponent;
 import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.core.Transform2D;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
@@ -11,6 +12,7 @@ public class TextBox extends Entity2DComponent{
 	private final int max;
 	private final Vector3f color;
 	private final Vector3f colorText;
+	private final InputKey key;
 	
 	private String text;
 	private boolean pressed;
@@ -28,15 +30,20 @@ public class TextBox extends Entity2DComponent{
 	}
 	
 	public TextBox(int max, String text, Vector3f color, Vector3f colorText){
+		this(max, text, color, colorText, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+	}
+	
+	public TextBox(int max, String text, Vector3f color, Vector3f colorText, InputKey key){
 		this.max = max;
 		this.text = text;
 		this.color = color;
 		this.colorText = colorText;
+		this.key = key;
 	}
 	
 	@Override
 	public void input(float delta){
-		if(!Input.isGrabbed() && Input.getMouseDown(Input.BUTTON_RIGHT)){
+		if(!Input.isGrabbed() && Input.inputKeyDown(key)){
 			if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
 				pressed = true;
 				
