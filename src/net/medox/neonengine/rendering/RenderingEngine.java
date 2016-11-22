@@ -69,6 +69,7 @@ public class RenderingEngine{
 	private static Camera lightCamera;
 	private static Matrix4f lightMatrix;
 	
+	private static Vector3f clearColor;
 	private static Skybox skybox;
 	private static Font font;
 	
@@ -153,6 +154,8 @@ public class RenderingEngine{
 		samplerMap.put("shadowMap", 4);
 		
 		lights = new ArrayList<BaseLight>();
+		
+		clearColor = new Vector3f(0.0f, 0.0f, 0.0f);
 		
 		setVector3f("ambient", new Vector3f(0.15f, 0.15f, 0.15f));
 		
@@ -273,7 +276,7 @@ public class RenderingEngine{
 		
 		getTexture("displayTexture").bindAsRenderTarget();
 		
-		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GL11.glClearColor(clearColor.getX(), clearColor.getY(), clearColor.getZ(), 0.0f);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		
 		renderSkybox();
@@ -737,6 +740,14 @@ public class RenderingEngine{
 	
 	public static Vector3f getAmbiet(){
 		return getVector3f("ambient");
+	}
+	
+	public static void setClearColor(Vector3f clearColor){
+		RenderingEngine.clearColor = clearColor;
+	}
+	
+	public static Vector3f getClearColor(){
+		return clearColor;
 	}
 	
 	public static void setWireframeMode(boolean wire){

@@ -102,7 +102,8 @@ public class TestGame extends Game{
 //		RenderingEngine.addFilter(new Shader("filterFlip"));
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
+		RenderingEngine.setClearColor(new Vector3f(1, 0, 0));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
