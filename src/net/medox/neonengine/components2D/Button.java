@@ -12,6 +12,8 @@ public class Button extends Entity2DComponent{
 	private final Vector3f color;
 	private final InputKey key;
 	
+	private boolean selected;
+	
 	public Button(){
 		this(new Vector3f(1, 1, 1));
 	}
@@ -29,7 +31,16 @@ public class Button extends Entity2DComponent{
 	public void input(float delta){
 		if(!Input.isGrabbed() && Input.inputKeyDown(key)){
 			if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
-				pressed();
+				selected = true;
+			}
+		}
+		
+		if(Input.inputKeyUp(key) && selected){
+			selected = false;
+			if(!Input.isGrabbed()){
+				if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
+					pressed();
+				}
 			}
 		}
 	}
