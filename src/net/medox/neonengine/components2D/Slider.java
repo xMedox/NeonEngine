@@ -13,6 +13,7 @@ public class Slider extends Entity2DComponent{
 	private final int orientation;
 	private final Vector3f color;
 	private final Vector3f colorSlider;
+	
 	private final InputKey key;
 	
 	private float progress;
@@ -66,7 +67,7 @@ public class Slider extends Entity2DComponent{
 			}
 		}
 
-		if(!Input.isGrabbed() && Input.inputKeyDown(key)){
+		if(!Input.isGrabbed() && Input.inputKey(key)){
 			if(grabbed){
 				if(!oldPos.equals(Input.getMousePosition())){
 					oldPos = Input.getMousePosition();
