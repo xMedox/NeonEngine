@@ -14,9 +14,9 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.system.MemoryUtil;
 
 public class Window{
@@ -380,7 +380,7 @@ public class Window{
 //		}
 		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
+		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
 		if(!NeonEngine.is1x1ViewportEnabled()){
 			GL11.glViewport(0, 0, width, height);
 		}else{

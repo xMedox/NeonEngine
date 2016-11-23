@@ -3,7 +3,6 @@ package net.medox.neonengine.rendering.resourceManagement;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -61,8 +60,8 @@ public class CubeMapData extends ReferenceCounter{
 //		}
 		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
-		ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_COLOR_ATTACHMENT0, GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, textureID, 0);
+		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, frameBuffer);
+		GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, textureID, 0);
 		
 		if(!NeonEngine.is1x1ViewportEnabled()){
 			GL11.glViewport(0, 0, width[face], height[face]);
@@ -151,7 +150,7 @@ public class CubeMapData extends ReferenceCounter{
 		
 		boolean hasDepth = false;
 		for(int i = 0; i < 1; i++){
-			if(attachments == ARBFramebufferObject.GL_DEPTH_ATTACHMENT){
+			if(attachments == GL30.GL_DEPTH_ATTACHMENT){
 				drawBuffers.put(i, GL11.GL_NONE);
 				hasDepth = true;
 			}else{
@@ -163,12 +162,12 @@ public class CubeMapData extends ReferenceCounter{
 			}
 			
 			if(frameBuffer == 0){
-				frameBuffer = ARBFramebufferObject.glGenFramebuffers();
+				frameBuffer = GL30.glGenFramebuffers();
 //				glGenFramebuffers(1, frameBuffer);
-				ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, frameBuffer);
+				GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, frameBuffer);
 			}
 			
-			ARBFramebufferObject.glFramebufferTexture2D(ARBFramebufferObject.GL_FRAMEBUFFER, attachments, textureTarget, textureID, 0);
+			GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, attachments, textureTarget, textureID, 0);
 		}
 		
 		if(frameBuffer == 0){
@@ -176,11 +175,11 @@ public class CubeMapData extends ReferenceCounter{
 		}
 		
 		if(!hasDepth){
-			renderBuffer = ARBFramebufferObject.glGenRenderbuffers();
+			renderBuffer = GL30.glGenRenderbuffers();
 //			glGenRenderbuffers(1, renderBuffer);
-			ARBFramebufferObject.glBindRenderbuffer(ARBFramebufferObject.GL_RENDERBUFFER, renderBuffer);
-			ARBFramebufferObject.glRenderbufferStorage(ARBFramebufferObject.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width[0], height[0]);
-			ARBFramebufferObject.glFramebufferRenderbuffer(ARBFramebufferObject.GL_FRAMEBUFFER, ARBFramebufferObject.GL_DEPTH_ATTACHMENT, ARBFramebufferObject.GL_RENDERBUFFER, renderBuffer);
+			GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, renderBuffer);
+			GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width[0], height[0]);
+			GL30.glFramebufferRenderbuffer(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL30.GL_RENDERBUFFER, renderBuffer);
 		}
 		
 		GL20.glDrawBuffers(/*numTextures, */drawBuffers);
@@ -193,12 +192,12 @@ public class CubeMapData extends ReferenceCounter{
 //			assert(false);
 //		}
 		
-		if(ARBFramebufferObject.glCheckFramebufferStatus(ARBFramebufferObject.GL_FRAMEBUFFER) != ARBFramebufferObject.GL_FRAMEBUFFER_COMPLETE){
+		if(GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE){
 //			System.out.println("not completed...");
 			assert(false);
 		}
 		
-		ARBFramebufferObject.glBindFramebuffer(ARBFramebufferObject.GL_FRAMEBUFFER, 0);
+		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
 	}
 	
 	public void dispose(){
