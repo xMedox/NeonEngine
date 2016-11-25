@@ -4,6 +4,7 @@
 
 **Rendering:**
 - Added the ability to add filters
+- Fixed shadow mapping on some machines
 
 **Physics:**
 - The engine now uses the LibGDX Bullet wrapper(results in better simulation quality and performance)

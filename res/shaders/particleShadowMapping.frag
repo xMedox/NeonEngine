@@ -2,6 +2,7 @@
 
 in vec2 texCoord0;
 flat in int tid0;
+in vec4 vPosition;
 
 uniform sampler2D T0_texture;
 uniform sampler2D T1_texture;
@@ -110,7 +111,8 @@ void main(){
 	}
 	
 	if(diffuse.a >= 0.5){
-		float depth = gl_FragCoord.z;
+		float depth = vPosition.z / vPosition.w;
+		depth = depth * 0.5 + 0.5;
 		
 		float dx = dFdx(depth);
 		float dy = dFdy(depth);
