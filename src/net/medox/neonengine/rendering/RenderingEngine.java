@@ -230,8 +230,8 @@ public class RenderingEngine{
 			shadowMaps[i] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RG32F, GL30.GL_RG, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 			shadowMapTempTargets[i] = new Texture(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RG32F, GL30.GL_RG, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 			
-//			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, GL30.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
-//			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, GL30.GL_RG32F, GL_RGBA, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
+//			shadowCubeMaps[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, GL30.GL_RG32F, GL30.GL_RG, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
+//			shadowCubeMapTempTargets[i] = new CubeMap(shadowMapSize, shadowMapSize, (ByteBuffer)null, GL_TEXTURE_2D, GL_LINEAR, GL30.GL_RG32F, GL30.GL_RG, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 		}
 	}
 	
@@ -266,14 +266,14 @@ public class RenderingEngine{
 		
 		mainCamera.updateFrustum();
 		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-		}
-		
 		getTexture("displayTexture").bindAsRenderTarget();
 		
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		}
 		
 		renderSkybox();
 		
@@ -286,6 +286,15 @@ public class RenderingEngine{
 		}
 		
 		object.renderAll(forwardAmbientShader, mainCamera);
+		
+//		Transform t = new Transform();
+//		t.setPos(0, 1, 4);
+//		t.setScale(4);
+//		
+//		ParticleMaterial mat = new ParticleMaterial();
+//		mat.setDiffuseMap(shadowMaps[9]);
+//		
+//		renderParticle(t, mat);
 		
 		if(NeonEngine.areParticlesEnabled()){
 			batchRenderer.render(particleShader, mainCamera);
@@ -355,7 +364,6 @@ public class RenderingEngine{
 					}
 					
 					final float shadowSoftness = shadowInfo.getShadowSoftness();
-					
 					if(shadowSoftness != 0){
 						blurShadowMap(shadowMapIndex, shadowSoftness);
 					}

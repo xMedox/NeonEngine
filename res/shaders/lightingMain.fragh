@@ -29,7 +29,9 @@ void main(){
 	//vec4 diffuse = texture(diffuseMap, texCoord0);
 	//vec4 lighting = CalcLightingEffect(normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
 	
-    outputFS = texture(diffuseMap, texCoord0) * CalcLightingEffect(normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1.0)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
+	float shadow = CalcShadowAmount(R_shadowMap, shadowMapCoords0);
+	
+    outputFS = texture(diffuseMap, texCoord0) * CalcLightingEffect(normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1.0)), worldPos0, texture(specMap, texCoord0).x) * vec4(shadow, shadow, shadow, shadow);
 	
 	//float brightness = dot(lighting.rgb, vec3(0.25, 0.25, 0.25));
 	

@@ -145,8 +145,7 @@ public class CubeMapData extends ReferenceCounter{
 		}
 		
 		final IntBuffer drawBuffers = DataUtil.createIntBuffer(32);
-//		IntBuffer.allocate(32);      //32 is the max number of bound textures in OpenGL
-		assert(1 <= 32);            //Assert to be sure no buffer overrun should occur
+		assert(1 <= 32);
 		
 		boolean hasDepth = false;
 		for(int i = 0; i < 1; i++){
@@ -163,7 +162,6 @@ public class CubeMapData extends ReferenceCounter{
 			
 			if(frameBuffer == 0){
 				frameBuffer = GL30.glGenFramebuffers();
-//				glGenFramebuffers(1, frameBuffer);
 				GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, frameBuffer);
 			}
 			
@@ -176,21 +174,15 @@ public class CubeMapData extends ReferenceCounter{
 		
 		if(!hasDepth){
 			renderBuffer = GL30.glGenRenderbuffers();
-//			glGenRenderbuffers(1, renderBuffer);
 			GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, renderBuffer);
 			GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width[0], height[0]);
 			GL30.glFramebufferRenderbuffer(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL30.GL_RENDERBUFFER, renderBuffer);
 		}
 		
-		GL20.glDrawBuffers(/*numTextures, */drawBuffers);
+		GL20.glDrawBuffers(drawBuffers);
 		
 //		glDrawBuffer(GL_NONE);
 //		glReadBuffer(GL_NONE);
-		
-//		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-//			std::cerr << "Framebuffer creation failed!" << std::endl;
-//			assert(false);
-//		}
 		
 		if(GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE){
 //			System.out.println("not completed...");
