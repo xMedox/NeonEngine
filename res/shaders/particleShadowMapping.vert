@@ -10,7 +10,7 @@ out vec2 texCoord0;
 flat out int tid0;
 
 void main(){
-	gl_Position = T_MVP * vec4(position, 1.0f);
+	gl_Position = T_MVP * vec4(position, 1.0);
 	texCoord0 = texCoord;
 	
 	tid0 = tid;

@@ -119,9 +119,9 @@ void main(){
 		}
 	}
 	
-	if(diffuse.a >= 0.5f){
-		outputFS = diffuse * clamp((vec4(R_ambient, 1) + color0.z), 0, 1);
-		outputBloom = vec4(0, 0, 0, 0);
+	if(diffuse.a >= 0.5){
+		outputFS = diffuse * clamp((vec4(R_ambient, 1.0) + color0.z), 0.0, 1.0);
+		outputBloom = vec4(0.0, 0.0, 0.0, 0.0);
 	}else{
 		discard;
 	}
