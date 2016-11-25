@@ -13,7 +13,6 @@ public class Slider extends Entity2DComponent{
 	private final int orientation;
 	private final Vector3f color;
 	private final Vector3f colorSlider;
-	
 	private final InputKey key;
 	
 	private float progress;

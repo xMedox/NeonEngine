@@ -37,3 +37,4 @@
 - Self made models now calculate their radius
 - Added the isMouseInsideWindow method in the Input class
 - You can now change the inputKey of the ui elements
+- The button and checkbox now work like a normal button and checkbox
