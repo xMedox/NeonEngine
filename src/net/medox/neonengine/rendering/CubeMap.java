@@ -94,22 +94,18 @@ public class CubeMap{
 		return resource.getHeight();
 	}
 	
-	private ByteBuffer[] loadTexture(String[] fileNames/*, boolean flipped*/){
+	private ByteBuffer[] loadTexture(String[] fileNames){
 		ByteBuffer[] byteBuffer = new ByteBuffer[6];
 		
 		for(int i = 0; i < fileNames.length; i++){
 			BufferedImage image = null;
-				
-//			if(flipped){
-//				image = flipBufferedImageVertical(ImageIO.read(new File("./res/textures/" + fileName)));
-//			}else{
-				try{
-					image = ImageIO.read(new File("./res/textures/" + fileNames[i]));
-				}catch(Exception e){
-					e.printStackTrace();
-					System.exit(1);
-				}
-//			}
+			
+			try{
+				image = ImageIO.read(new File("./res/textures/" + fileNames[i]));
+			}catch(Exception e){
+				e.printStackTrace();
+				System.exit(1);
+			}
 			
 			if(NeonEngine.getTextureQuality() >= 1){
 				BufferedImage before = image;

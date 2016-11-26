@@ -130,19 +130,15 @@ public class Texture{
 		return resource.getHeight();
 	}
 	
-	private ByteBuffer loadTexture(String fileName/*, boolean flipped*/){
+	private ByteBuffer loadTexture(String fileName){
 		BufferedImage image = null;
 		
-//		if(flipped){
-//			image = flipBufferedImageVertical(ImageIO.read(new File("./res/textures/" + fileName)));
-//		}else{
-			try{
-				image = ImageIO.read(new File("./res/textures/" + fileName));
-			}catch(Exception e){
-				e.printStackTrace();
-				System.exit(1);
-			}
-//		}
+		try{
+			image = ImageIO.read(new File("./res/textures/" + fileName));
+		}catch(Exception e){
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
 		if(NeonEngine.getTextureQuality() >= 1){
 			BufferedImage before = image;
@@ -199,11 +195,7 @@ public class Texture{
 		return buffer;
 	}
 	
-	private ByteBuffer loadTexture(BufferedImage image/*, boolean flipped*/){
-//		if(flipped){
-//			image = flipBufferedImageVertical(image);
-//		}
-		
+	private ByteBuffer loadTexture(BufferedImage image){
 //		if(Option.TEXTURE_QUALITY >= 1){
 //			BufferedImage before = image;
 //			int w = before.getWidth();
