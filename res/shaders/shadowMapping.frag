@@ -9,8 +9,7 @@ layout(location = 0) out vec4 outputFS;
 
 void main(){
 	if(texture(diffuseMap, texCoord0).a >= 0.5){
-		float depth = vPosition.z / vPosition.w;
-		depth = depth * 0.5 + 0.5;
+		float depth = (vPosition.z / vPosition.w) * 0.5 + 0.5;
 		
 		float dx = dFdx(depth);
 		float dy = dFdy(depth);
