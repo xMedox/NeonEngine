@@ -287,15 +287,6 @@ public class RenderingEngine{
 		
 		object.renderAll(forwardAmbientShader, mainCamera);
 		
-//		Transform t = new Transform();
-//		t.setPos(0, 1, 4);
-//		t.setScale(4);
-//		
-//		ParticleMaterial mat = new ParticleMaterial();
-//		mat.setDiffuseMap(shadowMaps[9]);
-//		
-//		renderParticle(t, mat);
-		
 		if(NeonEngine.areParticlesEnabled()){
 			batchRenderer.render(particleShader, mainCamera);
 		}

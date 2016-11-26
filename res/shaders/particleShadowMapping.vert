@@ -13,7 +13,7 @@ out vec4 vPosition;
 void main(){
 	vec4 pos = T_MVP * vec4(position, 1.0);
 	
-	gl_Position = T_MVP * vec4(position, 1.0);
+	gl_Position = pos;
 	texCoord0 = texCoord;
 	
 	tid0 = tid;
