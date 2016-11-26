@@ -45,7 +45,12 @@ public class CubeMapData extends ReferenceCounter{
 	}
 	
 	public void bind(int samplerSlot){
-		assert(samplerSlot >= 0 && samplerSlot <= 31);
+		if(samplerSlot < 0 || samplerSlot > 31){
+			System.err.println("Error: The sampler slot is too high or too low.");
+			new Exception().printStackTrace();
+			System.exit(1);
+		}
+		
 //		if(RenderingEngine.textureBound.get(samplerSlot) != textureID){
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
@@ -144,8 +149,12 @@ public class CubeMapData extends ReferenceCounter{
 			return;
 		}
 		
-		final IntBuffer drawBuffers = DataUtil.createIntBuffer(32);
-		assert(1 <= 32);
+		final IntBuffer drawBuffers = DataUtil.createIntBuffer(/*32*/1);
+//		if(1 > 32){
+//			System.err.println("Error: Too many textures");
+//			new Exception().printStackTrace();
+//			System.exit(1);
+//		}
 		
 		boolean hasDepth = false;
 		for(int i = 0; i < 1; i++){
@@ -185,8 +194,9 @@ public class CubeMapData extends ReferenceCounter{
 //		glReadBuffer(GL_NONE);
 		
 		if(GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE){
-//			System.out.println("not completed...");
-			assert(false);
+			System.err.println("Error: Framebuffer creation failed.");
+			new Exception().printStackTrace();
+			System.exit(1);
 		}
 		
 		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);

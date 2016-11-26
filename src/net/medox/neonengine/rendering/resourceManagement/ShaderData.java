@@ -29,7 +29,8 @@ public class ShaderData extends ReferenceCounter{
 		this.program = GL20.glCreateProgram();
 		
 		if(program == 0){
-			System.err.println("Shader creation failed: Could not find valid memory location in constructor");
+			System.err.println("Error: Shader creation failed: Could not find valid memory location in constructor");
+			new Exception().printStackTrace();
 			System.exit(1);
 		}
 		
@@ -70,7 +71,8 @@ public class ShaderData extends ReferenceCounter{
 		final int shader = GL20.glCreateShader(type);
 		
 		if(shader == 0){
-			System.err.println("Shader creation failed: Could not find valid memory location when adding shader");
+			System.err.println("Error: Shader creation failed: Could not find valid memory location when adding shader");
+			new Exception().printStackTrace();
 			System.exit(1);
 		}
 		
@@ -80,7 +82,8 @@ public class ShaderData extends ReferenceCounter{
 		if(GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == 0){
 			System.out.println(fileName);
 			
-			System.err.println(GL20.glGetShaderInfoLog(shader, 1024));
+			System.err.println("Error: " + GL20.glGetShaderInfoLog(shader, 1024));
+			new Exception().printStackTrace();
 			System.exit(1);
 		}
 		
@@ -155,7 +158,7 @@ public class ShaderData extends ReferenceCounter{
 		
 		final int uniformLocation = GL20.glGetUniformLocation(program, uniformName);
 		
-		if(uniformLocation == /*0xFFFFFFFF*/-1){
+		if(uniformLocation == -1){
 			System.err.println("Error: Could not find uniform \"" + uniformName + "\" in " + fileName);
 			new Exception().printStackTrace();
 			System.exit(1);
@@ -201,7 +204,8 @@ public class ShaderData extends ReferenceCounter{
 				error = GL20.glGetShaderInfoLog(shader, 1024);
 			}
 			
-			System.err.println(errorMessage + ": " +error);
+			System.err.println("Error: " + errorMessage + ": " + error);
+			new Exception().printStackTrace();
 			System.exit(1);
 		}
 	}

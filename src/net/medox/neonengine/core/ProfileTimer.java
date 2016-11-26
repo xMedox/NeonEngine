@@ -11,8 +11,9 @@ public class ProfileTimer{
 	
 	public void stopInvocation(){
 		if(startTime == 0){
-			System.out.println("Error: StopInvocation called without matching start invocation");
-			assert(startTime != 0);
+			System.err.println("Error: StopInvocation called without matching start invocation");
+			new Exception().printStackTrace();
+			System.exit(1);
 		}
 		
 		numInvocations++;

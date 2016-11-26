@@ -62,7 +62,9 @@ public class WAVSound{
 			}else if(audioformat.getSampleSizeInBits() == 16){
 				channels = AL10.AL_FORMAT_MONO16;
 			}else{
-				assert false : "Illegal sample size";
+				System.err.println("Error: Illegal sample size");
+				new Exception().printStackTrace();
+				System.exit(1);
 			}
 		}else if(audioformat.getChannels() == 2){
 			if(audioformat.getSampleSizeInBits() == 8){

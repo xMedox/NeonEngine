@@ -168,8 +168,9 @@ public class Font{
 			
 			fontTexture = new Texture(imgTemp);
 		}catch(Exception e){
-			System.err.println("Failed to create font.");
-			e.printStackTrace();
+			System.err.println("Error: Failed to create font.");
+			new Exception().printStackTrace();
+			System.exit(1);
 		}
 	}
 	

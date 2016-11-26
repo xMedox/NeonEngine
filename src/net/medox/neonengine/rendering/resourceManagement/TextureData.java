@@ -47,7 +47,12 @@ public class TextureData extends ReferenceCounter{
 	}
 	
 	public void bind(int samplerSlot){
-		assert(samplerSlot >= 0 && samplerSlot <= 31);
+		if(samplerSlot < 0 || samplerSlot > 31){
+			System.err.println("Error: The sampler slot is too high or too low.");
+			new Exception().printStackTrace();
+			System.exit(1);
+		}
+		
 //		if(RenderingEngine.textureBound.get(samplerSlot) != textureID[0]){
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(textureTarget, textureID[0]);
@@ -57,7 +62,12 @@ public class TextureData extends ReferenceCounter{
 	}
 	
 	public void bind(int samplerSlot, int id){
-		assert(samplerSlot >= 0 && samplerSlot <= 31);
+		if(samplerSlot < 0 || samplerSlot > 31){
+			System.err.println("Error: The sampler slot is too high or too low.");
+			new Exception().printStackTrace();
+			System.exit(1);
+		}
+		
 //		if(RenderingEngine.textureBound.get(samplerSlot) != textureID[id]){
 			GL13.glActiveTexture(GL13.GL_TEXTURE0 + samplerSlot);
 			GL11.glBindTexture(textureTarget, textureID[id]);
@@ -122,7 +132,11 @@ public class TextureData extends ReferenceCounter{
 		}
 		
 		final IntBuffer drawBuffers = DataUtil.createIntBuffer(numTextures);
-		assert(numTextures <= 32);
+		if(numTextures > 32){
+			System.err.println("Error: Too many textures.");
+			new Exception().printStackTrace();
+			System.exit(1);
+		}
 		
 		boolean hasDepth = false;
 		for(int i = 0; i < numTextures; i++){
@@ -162,8 +176,9 @@ public class TextureData extends ReferenceCounter{
 //		glReadBuffer(GL_NONE);
 		
 		if(GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE){
-//			System.out.println("not completed...");
-			assert(false);
+			System.err.println("Error: Framebuffer creation failed.");
+			new Exception().printStackTrace();
+			System.exit(1);
 		}
 		
 		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);

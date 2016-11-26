@@ -50,7 +50,8 @@ public class Mesh{
 				resource = new MeshData(model/*, createShape*/);
 				loadedModels.put(fileName, resource);
 			}else{
-				System.err.println("Error adding mesh " + meshName + ": Mesh already exists by the same name!");
+				System.err.println("Error: the mesh name:" + meshName + "is already in use");
+				new Exception().printStackTrace();
 				System.exit(1);
 			}
 		}
