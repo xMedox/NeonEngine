@@ -6,27 +6,27 @@ vec2 CalcParallaxTexCoordsSte(sampler2D dispMap, mat3 tbnMatrix, vec3 directionT
 	//10.0 or 8.0
 	//float minLayers = 10.0;
 	//20.0 or 32.0
-    //float maxLayers = 20.0;
-    float numLayers = mix(5.0, 10.0, abs(dot(vec3(0.0, 0.0, 1.0), directionToEye)));
+	//float maxLayers = 20.0;
+	float numLayers = mix(5.0, 10.0, abs(dot(vec3(0.0, 0.0, 1.0), directionToEye)));
 	//float numLayers = 10.0;
-    float layerDepth = 1.0 / numLayers;
-    float currentLayerDepth = 0.0;
-    vec2 deltaTexCoords = (directionToEye * tbnMatrix).xy * scale / numLayers;
+	float layerDepth = 1.0 / numLayers;
+	float currentLayerDepth = 0.0;
+	vec2 deltaTexCoords = (directionToEye * tbnMatrix).xy * scale / numLayers;
 	
-    vec2 currentTexCoords = texCoords;
-    float currentDepthMapValue = texture(dispMap, currentTexCoords).r + bias;
-    
-    while(currentLayerDepth < currentDepthMapValue){
-        currentTexCoords += deltaTexCoords;
-        currentDepthMapValue = texture(dispMap, currentTexCoords).r + bias;
-        currentLayerDepth += layerDepth;
-    }
+	vec2 currentTexCoords = texCoords;
+	float currentDepthMapValue = texture(dispMap, currentTexCoords).r + bias;
 	
-    vec2 prevTexCoords = currentTexCoords - deltaTexCoords;
+	while(currentLayerDepth < currentDepthMapValue){
+		currentTexCoords += deltaTexCoords;
+		currentDepthMapValue = texture(dispMap, currentTexCoords).r + bias;
+		currentLayerDepth += layerDepth;
+	}
 	
-    float afterDepth = currentDepthMapValue - currentLayerDepth;
+	vec2 prevTexCoords = currentTexCoords - deltaTexCoords;
 	
-    float weight = afterDepth / (afterDepth - texture(dispMap, prevTexCoords).r + bias - currentLayerDepth + layerDepth);
+	float afterDepth = currentDepthMapValue - currentLayerDepth;
+	
+	float weight = afterDepth / (afterDepth - texture(dispMap, prevTexCoords).r + bias - currentLayerDepth + layerDepth);
 	return prevTexCoords * weight + currentTexCoords * (1.0 - weight);
 }
 
@@ -46,7 +46,7 @@ float SampleShadowMapPCF(sampler2D shadowMap, vec2 coords, float compare, vec2 t
 	const float NUM_SAMPLES = 3.0;
 	const float SAMPLES_START = (NUM_SAMPLES-1.0)/2.0;
 	const float NUM_SAMPLES_SQUARED = NUM_SAMPLES*NUM_SAMPLES;
-
+	
 	float result = 0.0;
 	for(float y = -SAMPLES_START; y <= SAMPLES_START; y += 1.0){
 		for(float x = -SAMPLES_START; x <= SAMPLES_START; x += 1.0){

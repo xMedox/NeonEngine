@@ -8,5 +8,5 @@ layout(location = 0) out vec4 outputFS;
 
 void main(){
 	vec4 color = texture(R_filterTexture, texCoord0);
-    outputFS = vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a);
+	outputFS = vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a);
 }

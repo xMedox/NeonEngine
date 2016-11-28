@@ -12,8 +12,8 @@ flat out int tid0;
 out vec3 color0;
 
 void main(){
-    gl_Position = T_MVP * vec4(position, 1.0);
-    texCoord0 = texCoord; 
+	gl_Position = T_MVP * vec4(position, 1.0);
+	texCoord0 = texCoord; 
 	
 	tid0 = tid;
 	color0 = color;

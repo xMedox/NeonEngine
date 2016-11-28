@@ -17,6 +17,6 @@ void main(){
 		//outputFS = texture(R0_displayTexture, texCoord0) + texture(R_filterTexture, texCoord0);
 		outputFS = texture(R_filterTexture, texCoord0);
 	//}else{
-	//	outputFS = texture(R0_displayTexture, texCoord0);
+		//outputFS = texture(R0_displayTexture, texCoord0);
 	//}
 }
