@@ -5,7 +5,7 @@
 **Rendering:**
 - Added the ability to add filters
 - Fixed shadow mapping on some machines
-- Fixed a lightning bug on some machines
+- Fixed a lighting bug on some machines
 
 **Physics:**
 - The engine now uses the LibGDX Bullet wrapper(results in better simulation quality and performance)

@@ -2,7 +2,7 @@
 
 in vec2 texCoord0;
 flat in int tid0;
-in vec4 vPosition;
+in vec4 position0;
 
 uniform sampler2D T0_texture;
 uniform sampler2D T1_texture;
@@ -111,7 +111,7 @@ void main(){
 	}
 	
 	if(diffuse.a >= 0.5){
-		float depth = (vPosition.z / vPosition.w) * 0.5 + 0.5;
+		float depth = (position0.z / position0.w) * 0.5 + 0.5;
 		
 		float dx = dFdx(depth);
 		float dy = dFdy(depth);
