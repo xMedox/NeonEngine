@@ -82,7 +82,7 @@ public class ShaderData extends ReferenceCounter{
 		if(GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == 0){
 			System.out.println(fileName);
 			
-			System.err.println("Error: " + GL20.glGetShaderInfoLog(shader, 1024));
+			System.err.println(GL20.glGetShaderInfoLog(shader, 1024));
 			new Exception().printStackTrace();
 			System.exit(1);
 		}
@@ -204,7 +204,7 @@ public class ShaderData extends ReferenceCounter{
 				error = GL20.glGetShaderInfoLog(shader, 1024);
 			}
 			
-			System.err.println("Error: " + errorMessage + ": " + error);
+			System.err.println(errorMessage + ": " + error);
 			new Exception().printStackTrace();
 			System.exit(1);
 		}
