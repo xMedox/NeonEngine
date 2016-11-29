@@ -44,8 +44,6 @@ public class ShaderData extends ReferenceCounter{
 		
 		addProgram(vetexShaderText, GL20.GL_VERTEX_SHADER);
 		addProgram(fragmentShaderText, GL20.GL_FRAGMENT_SHADER);
-//		addVertexShader(vetexShaderText);
-//		addFragmentShader(fragmentShaderText);
 		
 		addAllAttributes(vetexShaderText);
 		
@@ -54,18 +52,6 @@ public class ShaderData extends ReferenceCounter{
 		addShaderUniforms(vetexShaderText);
 		addShaderUniforms(fragmentShaderText);
 	}
-	
-//	private void addVertexShader(String text){
-//		addProgram(text, GL20.GL_VERTEX_SHADER);
-//	}
-//	
-//	private void addGeometryShader(String text){
-//		addProgram(text, GL32.GL_GEOMETRY_SHADER);
-//	}
-//	
-//	private void addFragmentShader(String text){
-//		addProgram(text, GL20.GL_FRAGMENT_SHADER);
-//	}
 	
 	private void addProgram(String text, int type){
 		final int shader = GL20.glCreateShader(type);
