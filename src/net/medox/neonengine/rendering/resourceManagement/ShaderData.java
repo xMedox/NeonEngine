@@ -172,19 +172,9 @@ public class ShaderData extends ReferenceCounter{
 		
 		checkShaderError(program, GL20.GL_LINK_STATUS, true, "Error linking shader program");
 		
-//		if(glGetProgrami(program, GL_LINK_STATUS) == 0){
-//			System.err.println(glGetShaderInfoLog(program, 1024));
-//			System.exit(1);
-//		}
-		
 		GL20.glValidateProgram(program);
 		
 		checkShaderError(program, GL20.GL_VALIDATE_STATUS, true, "Invalid shader program");
-		
-//		if(glGetProgrami(program, GL_VALIDATE_STATUS) == 0){
-//			System.err.println(glGetProgramInfoLog(program, 1024));
-//			System.exit(1);
-//		}
 	}
 	
 	private void checkShaderError(int shader, int flag, boolean isProgram, String errorMessage){
