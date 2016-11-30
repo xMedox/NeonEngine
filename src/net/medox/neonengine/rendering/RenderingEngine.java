@@ -38,6 +38,8 @@ public class RenderingEngine{
 	public static final int NONE					= GL11.GL_NONE;
 	public static final int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
 	
+	public static final int[] TEXTURE_ARRAY = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+	
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
 	

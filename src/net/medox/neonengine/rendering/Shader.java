@@ -60,91 +60,15 @@ public class Shader{
 			final String uniformType = resource.getUniformTypes().get(i);
 			
 			if(uniformName.charAt(0) == 'T'){
-				if(Character.isDigit(uniformName.charAt(1))){
-					final String unprefixedUniformName = uniformName.substring(1);
-					
-					if(unprefixedUniformName.charAt(1) == '_'){
-						if(unprefixedUniformName.charAt(0) == '0'){
-							setUniformi(uniformName, 0);
-						}else if(unprefixedUniformName.charAt(0) == '1'){
-							setUniformi(uniformName, 1);
-						}else if(unprefixedUniformName.charAt(0) == '2'){
-							setUniformi(uniformName, 2);
-						}else if(unprefixedUniformName.charAt(0) == '3'){
-							setUniformi(uniformName, 3);
-						}else if(unprefixedUniformName.charAt(0) == '4'){
-							setUniformi(uniformName, 4);
-						}else if(unprefixedUniformName.charAt(0) == '5'){
-							setUniformi(uniformName, 5);
-						}else if(unprefixedUniformName.charAt(0) == '6'){
-							setUniformi(uniformName, 6);
-						}else if(unprefixedUniformName.charAt(0) == '7'){
-							setUniformi(uniformName, 7);
-						}else if(unprefixedUniformName.charAt(0) == '8'){
-							setUniformi(uniformName, 8);
-						}else if(unprefixedUniformName.charAt(0) == '9'){
-							setUniformi(uniformName, 9);
-						}
-					}else if(unprefixedUniformName.charAt(2) == '_'){
-						if(unprefixedUniformName.charAt(0) == '1'){
-							if(unprefixedUniformName.charAt(1) == '0'){
-								setUniformi(uniformName, 10);
-							}else if(unprefixedUniformName.charAt(1) == '1'){
-								setUniformi(uniformName, 11);
-							}else if(unprefixedUniformName.charAt(1) == '2'){
-								setUniformi(uniformName, 12);
-							}else if(unprefixedUniformName.charAt(1) == '3'){
-								setUniformi(uniformName, 13);
-							}else if(unprefixedUniformName.charAt(1) == '4'){
-								setUniformi(uniformName, 14);
-							}else if(unprefixedUniformName.charAt(1) == '5'){
-								setUniformi(uniformName, 15);
-							}else if(unprefixedUniformName.charAt(1) == '6'){
-								setUniformi(uniformName, 16);
-							}else if(unprefixedUniformName.charAt(1) == '7'){
-								setUniformi(uniformName, 17);
-							}else if(unprefixedUniformName.charAt(1) == '8'){
-								setUniformi(uniformName, 18);
-							}else if(unprefixedUniformName.charAt(1) == '9'){
-								setUniformi(uniformName, 19);
-							}
-						}else if(unprefixedUniformName.charAt(0) == '2'){
-							if(unprefixedUniformName.charAt(1) == '0'){
-								setUniformi(uniformName, 20);
-							}else if(unprefixedUniformName.charAt(1) == '1'){
-								setUniformi(uniformName, 21);
-							}else if(unprefixedUniformName.charAt(1) == '2'){
-								setUniformi(uniformName, 22);
-							}else if(unprefixedUniformName.charAt(1) == '3'){
-								setUniformi(uniformName, 23);
-							}else if(unprefixedUniformName.charAt(1) == '4'){
-								setUniformi(uniformName, 24);
-							}else if(unprefixedUniformName.charAt(1) == '5'){
-								setUniformi(uniformName, 25);
-							}else if(unprefixedUniformName.charAt(1) == '6'){
-								setUniformi(uniformName, 26);
-							}else if(unprefixedUniformName.charAt(1) == '7'){
-								setUniformi(uniformName, 27);
-							}else if(unprefixedUniformName.charAt(1) == '8'){
-								setUniformi(uniformName, 28);
-							}else if(unprefixedUniformName.charAt(1) == '9'){
-								setUniformi(uniformName, 29);
-							}
-						}else if(unprefixedUniformName.charAt(0) == '3'){
-							if(unprefixedUniformName.charAt(1) == '0'){
-								setUniformi(uniformName, 30);
-							}else if(unprefixedUniformName.charAt(1) == '1'){
-								setUniformi(uniformName, 31);
-							}
-						}
-					}
-				}else if(uniformName.charAt(1) == '_'){
+				if(uniformName.charAt(1) == '_'){
 					final String unprefixedUniformName = uniformName.substring(2);
 					
 					if(unprefixedUniformName.equals("MVP")){
 						setUniformMatrix4f(uniformName, MVPMatrix);
 					}else if(unprefixedUniformName.equals("model")){
 						setUniformMatrix4f(uniformName, worldMatrix);
+					}else if(unprefixedUniformName.equals("textures")){
+						setUniformiVector(uniformName, RenderingEngine.TEXTURE_ARRAY);
 					}else{
 						throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
 					}
@@ -254,6 +178,10 @@ public class Shader{
 //	private void setUniformVector2f(String uniformName, Vector2f value){
 //		resource.setUniformVector2f(uniformName, value);
 //	}
+	
+	private void setUniformiVector(String uniformName, int[] value){
+		resource.setUniformiVector(uniformName, value);
+	}
 	
 	private void setUniformMatrix4f(String uniformName, Matrix4f value){
 		resource.setUniformMatrix4f(uniformName, value);

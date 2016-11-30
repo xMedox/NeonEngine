@@ -115,8 +115,14 @@ public class ShaderData extends ReferenceCounter{
 			final String uniformLine = shaderText.substring(begin, shaderText.indexOf(";", begin)).trim();
 			
 			final int whiteSpacePos = uniformLine.indexOf(' ');
-			final String uniformName = uniformLine.substring(whiteSpacePos + 1, uniformLine.length()).trim();
+			String uniformName = uniformLine.substring(whiteSpacePos + 1, uniformLine.length()).trim();
 			final String uniformType = uniformLine.substring(0, whiteSpacePos).trim();
+			
+			int bracket = uniformName.indexOf('[');
+			
+			if(bracket >= 0){
+				uniformName = uniformName.substring(0, bracket).trim();
+			}
 			
 			uniformNames.add(uniformName);
 			uniformTypes.add(uniformType);
@@ -320,6 +326,10 @@ public class ShaderData extends ReferenceCounter{
 //	public void setUniformVector2f(String uniformName, Vector2f value){
 //		GL20.glUniform2f(uniformMap.get(uniformName), value.getX(), value.getY());
 //	}
+	
+	public void setUniformiVector(String uniformName, int[] value){
+		GL20.glUniform1iv(uniformMap.get(uniformName), value);
+	}
 	
 	public void setUniformMatrix4f(String uniformName, Matrix4f value){
 		GL20.glUniformMatrix4fv(uniformMap.get(uniformName), true, DataUtil.createFlippedBuffer(value));
