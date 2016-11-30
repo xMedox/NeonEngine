@@ -13,6 +13,7 @@ import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.RenderingEngine;
 
 public class ShaderData extends ReferenceCounter{
 	private final int program;
@@ -229,6 +230,10 @@ public class ShaderData extends ReferenceCounter{
 				if(line.startsWith(INCLUDE_DIRECTIVE)){
 					shaderSource.append(loadShader(line.substring(INCLUDE_DIRECTIVE.length() + 2, line.length() - 1)));
 				}else{
+					if(line.contains("R_MAX_TEXTURE_IMAGE_UNITS")){
+						line = line.replace("R_MAX_TEXTURE_IMAGE_UNITS", Integer.toString(RenderingEngine.MAX_TEXTURE_IMAGE_UNITS));
+					}
+					
 					shaderSource.append(line).append("\n");
 				}
 			}

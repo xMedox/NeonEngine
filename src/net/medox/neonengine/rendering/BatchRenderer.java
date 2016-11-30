@@ -18,7 +18,7 @@ import net.medox.neonengine.math.Vector3f;
 
 public class BatchRenderer{
 	private static final int RENDERER_MAX_SPRITES = 1000;
-	private static final int RENDERER_MAX_TEXTURES = 32;
+	private static final int RENDERER_MAX_TEXTURES = RenderingEngine.MAX_TEXTURE_IMAGE_UNITS;
 	
 	private static final int VERTEX_INDEX = 0;
 	private static final int UV_INDEX = 1;

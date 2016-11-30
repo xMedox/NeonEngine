@@ -4,7 +4,7 @@ in vec2 texCoord0;
 flat in int tid0;
 in vec4 position0;
 
-uniform sampler2D T_textures[32];
+uniform sampler2D T_textures[R_MAX_TEXTURE_IMAGE_UNITS];
 
 layout(location = 0) out vec4 outputFS;
 

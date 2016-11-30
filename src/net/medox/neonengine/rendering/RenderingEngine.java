@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
 
@@ -37,11 +38,12 @@ public class RenderingEngine{
 	public static final int RGBA					= GL11.GL_RGBA;
 	public static final int NONE					= GL11.GL_NONE;
 	public static final int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
-	
-	public static final int[] TEXTURE_ARRAY = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
-	
+		
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
+	
+	public static int MAX_TEXTURE_IMAGE_UNITS;
+	public static int[] TEXTURE_ARRAY;
 	
 	private static ProfileTimer renderProfileTimer;
 	private static ProfileTimer renderProfileTimer2D ;
@@ -106,22 +108,35 @@ public class RenderingEngine{
 	private static boolean wireframeMode;
 	
 	public static void init(){
+		MAX_TEXTURE_IMAGE_UNITS = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
+		
 		if(NeonEngine.isProfilingEnabled()){
 			System.out.println("--------------------------------------------------------------");
-			System.out.println("Engine version:   " + NeonEngine.getVersion());
-			System.out.println("OS name:          " + System.getProperty("os.name"));
-			System.out.println("OS version:       " + System.getProperty("os.version"));
-			System.out.println("OS arch:          " + System.getProperty("os.arch"));
-			System.out.println("Arch data model:  " + System.getProperty("sun.arch.data.model"));
-			System.out.println("Java version:     " + System.getProperty("java.version"));
-			System.out.println("OpenGL version:   " + GL11.glGetString(GL11.GL_VERSION));
-			System.out.println("Max Texture size: " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
-	//		System.out.println("LWJGL version:    " + Version.getVersion());
+			System.out.println("Engine version:          " + NeonEngine.getVersion());
+			System.out.println("OS name:                 " + System.getProperty("os.name"));
+			System.out.println("OS version:              " + System.getProperty("os.version"));
+			System.out.println("OS arch:                 " + System.getProperty("os.arch"));
+			System.out.println("Arch data model:         " + System.getProperty("sun.arch.data.model"));
+			System.out.println("Java version:            " + System.getProperty("java.version"));
+			System.out.println("OpenGL version:          " + GL11.glGetString(GL11.GL_VERSION));
+			System.out.println("Max Texture size:        " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
+			System.out.println("Max Texture image units: " + MAX_TEXTURE_IMAGE_UNITS);
+	//		System.out.println("LWJGL version:           " + Version.getVersion());
 			System.out.println("--------------------------------------------------------------");
 			
 			renderProfileTimer = new ProfileTimer();
 			renderProfileTimer2D = new ProfileTimer();
 			windowSyncProfileTimer = new ProfileTimer();
+		}
+		
+		if(MAX_TEXTURE_IMAGE_UNITS > 32){
+			MAX_TEXTURE_IMAGE_UNITS = 32;
+		}
+		
+		TEXTURE_ARRAY = new int[MAX_TEXTURE_IMAGE_UNITS];
+		
+		for(int i = 0; i < MAX_TEXTURE_IMAGE_UNITS; i++){
+			TEXTURE_ARRAY[i] = i;
 		}
 		
 //		meshBound = -1;
