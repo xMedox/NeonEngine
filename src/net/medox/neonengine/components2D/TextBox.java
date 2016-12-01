@@ -106,6 +106,6 @@ public class TextBox extends Entity2DComponent{
 			RenderingEngine.render2DMesh(transform, -1, color);
 		}
 		
-		RenderingEngine.drawString(getTransform().getTransformedPos().getX(), getTransform().getTransformedPos().getY()+2, text, colorText);
+		RenderingEngine.drawString(getTransform().getTransformedPos().getX()+4, getTransform().getTransformedPos().getY()+getTransform().getScale().getY()/2-RenderingEngine.getMainFont().getHeight()/2, text, colorText);
 	}
 }

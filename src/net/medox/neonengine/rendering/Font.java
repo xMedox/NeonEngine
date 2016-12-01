@@ -60,15 +60,10 @@ public class Font{
 			System.exit(1);
 		}
 		
-		this.fontSize = font.getSize()+3;
+		this.fontSize = font.getSize();
 		this.antialiasing = antialiasing;
 		
 		createSet(additionalChars);
-		
-		fontHeight -= 1;
-		if(fontHeight <= 0){
-			fontHeight = 1;
-		}
 	}
 	
 	private BufferedImage getFontImage(char ch){
@@ -83,12 +78,12 @@ public class Font{
 		
 		final FontMetrics fontMetrics = g.getFontMetrics();
 		
-		int charwidth = fontMetrics.charWidth(ch) + 8;
+		int charwidth = fontMetrics.charWidth(ch);
 		if(charwidth <= 0){
-			charwidth = 7;
+			charwidth = 1;
 		}
 		
-		int charheight = fontMetrics.getHeight() + 3;
+		int charheight = fontMetrics.getHeight();
 		if(charheight <= 0){
 			charheight = fontSize;
 		}
@@ -102,8 +97,7 @@ public class Font{
 		
 		gt.setFont(font);
 		gt.setColor(Color.WHITE);
-		
-		gt.drawString(String.valueOf(ch), 3, 1 + fontMetrics.getAscent());
+		gt.drawString(String.valueOf(ch), 0, 0 + fontMetrics.getAscent());
 		
 		return fontImage;
 	}
@@ -117,7 +111,7 @@ public class Font{
 			final BufferedImage imgTemp = new BufferedImage(textureWidth, textureHeight, BufferedImage.TYPE_INT_ARGB);
 			final Graphics2D g = (Graphics2D)imgTemp.getGraphics();
 			
-			g.setColor(new Color(0, 0, 0, 1));
+			g.setColor(new Color(255, 255, 255, 1));
 			g.fillRect(0, 0, textureWidth, textureHeight);
 			
 			int rowHeight = 0;
@@ -226,21 +220,18 @@ public class Font{
 	public void drawString(float xPos, float yPos, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
 		CharInfo charInfo = null;
 		int charCurrent;
-		
 		int totalwidth = 0;
 		int i = startIndex;
 		int d;
-		int c;
 		float startY = 0;
 		
 		switch(format){
 			case ALIGN_RIGHT:{
 				d = -1;
-				c = 8;
 				
 				while(i < endIndex){
 					if(text.charAt(i) == '\n'){
-						startY -= fontHeight;
+						startY += fontHeight;
 					}
 					i++;
 				}
@@ -267,7 +258,6 @@ public class Font{
 			case ALIGN_LEFT:
 				default:{
 					d = 1;
-					c = 8;
 					break;
 	            }
 		}
@@ -282,11 +272,11 @@ public class Font{
 			
 			if(charInfo != null){
 				if(d < 0){
-					totalwidth += (charInfo.width-c) * d;
+					totalwidth += charInfo.width * d;
 				}
 				
 				if(charCurrent == '\n'){
-					startY -= fontHeight * d;
+					startY += fontHeight * d;
 					totalwidth = 0;
 					if(format == ALIGN_CENTER){
 						for(int l = i+1; l <= endIndex; l++){
@@ -302,7 +292,7 @@ public class Font{
 								charInfo = (CharInfo)customChars.get((char)charCurrent);
 							}
 							
-							totalwidth += charInfo.width-8;
+							totalwidth += charInfo.width;
 						}
 						totalwidth /= -2;
 					}
@@ -311,7 +301,7 @@ public class Font{
 					drawQuad((totalwidth + charInfo.width) * scaleX + xPos, startY * scaleY + yPos, totalwidth * scaleX + xPos, (startY + charInfo.height) * scaleY + yPos, charInfo.xPosition + charInfo.width, charInfo.yPosition + charInfo.height, charInfo.xPosition, charInfo.yPosition, color);
 					
 					if(d > 0){
-						totalwidth += (charInfo.width-c) * d;
+						totalwidth += charInfo.width * d;
 					}
 				}
 				i += d;

@@ -8,6 +8,7 @@
 - Fixed a lighting bug on some machines
 - The batchrenderer now uses sampler arrays
 - Fixed the batchrenderer on some machines
+- Fixed the font rendering
 
 **Physics:**
 - The engine now uses the LibGDX Bullet wrapper(results in better simulation quality and performance)

@@ -121,7 +121,6 @@ public class RenderingEngine{
 			System.out.println("OpenGL version:          " + GL11.glGetString(GL11.GL_VERSION));
 			System.out.println("Max Texture size:        " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
 			System.out.println("Max Texture image units: " + MAX_TEXTURE_IMAGE_UNITS);
-	//		System.out.println("LWJGL version:           " + Version.getVersion());
 			System.out.println("--------------------------------------------------------------");
 			
 			renderProfileTimer = new ProfileTimer();
