@@ -26,7 +26,7 @@ public class TextBox extends Entity2DComponent{
 	}
 	
 	public TextBox(int max, String text, Vector3f color){
-		this(max, text, color, new Vector3f(1, 1, 1));
+		this(max, text, color, new Vector3f(0, 0, 0));
 	}
 	
 	public TextBox(int max, String text, Vector3f color, Vector3f colorText){
