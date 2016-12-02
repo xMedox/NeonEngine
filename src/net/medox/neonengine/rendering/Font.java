@@ -176,11 +176,11 @@ public class Font{
 		final float renderWidth = (xCoord2 - xCoord) / textureWidth;
 		final float renderHeight = (yCoord2 - yCoord) / textureHeight;
 		
-		transform.setPos(new Vector2f(xPos + drawWidth, yPos));
-		transform.setScale(new Vector2f(-drawWidth, drawHeight));
+		transform.setPos(new Vector2f(xPos, yPos));
+		transform.setScale(new Vector2f(drawWidth, drawHeight));
 		
 		if(RenderingEngine.mesh2DInFrustum(transform)){
-			RenderingEngine.render2DMesh(transform, fontTexture, color, new Vector2f(textureXCoord + renderWidth, textureYCoord + renderHeight), new Vector2f(textureXCoord, textureYCoord));
+			RenderingEngine.render2DMesh(transform, fontTexture, color, new Vector2f(textureXCoord, textureYCoord), new Vector2f(textureXCoord + renderWidth, textureYCoord + renderHeight));
 		}
 	}
     
@@ -219,7 +219,7 @@ public class Font{
 	
 	public void drawString(float xPos, float yPos, String text, int startIndex, int endIndex, Vector3f color, float scaleX, float scaleY, int format){
 		CharInfo charInfo = null;
-		int charCurrent;
+		int currentChar;
 		int totalwidth = 0;
 		int i = startIndex;
 		int d;
@@ -239,19 +239,19 @@ public class Font{
 			}
 			case ALIGN_CENTER:{
 				for(int l = startIndex; l <= endIndex; l++){
-					charCurrent = text.charAt(l);
+					currentChar = text.charAt(l);
 					
-					if(charCurrent == '\n'){
+					if(currentChar == '\n'){
 						break;
 					}
 					
-					if(charCurrent < 256){
-						charInfo = charArray[charCurrent];
+					if(currentChar < 256){
+						charInfo = charArray[currentChar];
 					}else{
-						charInfo = (CharInfo)customChars.get((char)charCurrent);
+						charInfo = (CharInfo)customChars.get((char)currentChar);
 					}
 					
-					totalwidth += charInfo.width-8;
+					totalwidth += charInfo.width;
 				}
 				totalwidth /= -2;
 			}
@@ -263,11 +263,11 @@ public class Font{
 		}
 		
 		while(i >= startIndex && i <= endIndex){
-			charCurrent = text.charAt(i);
-			if(charCurrent < 256){
-				charInfo = charArray[charCurrent];
+			currentChar = text.charAt(i);
+			if(currentChar < 256){
+				charInfo = charArray[currentChar];
 			}else{
-				charInfo = (CharInfo)customChars.get((char)charCurrent);
+				charInfo = (CharInfo)customChars.get((char)currentChar);
 			} 
 			
 			if(charInfo != null){
@@ -275,21 +275,21 @@ public class Font{
 					totalwidth += charInfo.width * d;
 				}
 				
-				if(charCurrent == '\n'){
+				if(currentChar == '\n'){
 					startY += fontHeight * d;
 					totalwidth = 0;
 					if(format == ALIGN_CENTER){
 						for(int l = i+1; l <= endIndex; l++){
-							charCurrent = text.charAt(l);
+							currentChar = text.charAt(l);
 							
-							if(charCurrent == '\n'){
+							if(currentChar == '\n'){
 								break;
 							}
 							
-							if(charCurrent < 256){
-								charInfo = charArray[charCurrent];
+							if(currentChar < 256){
+								charInfo = charArray[currentChar];
 							}else{
-								charInfo = (CharInfo)customChars.get((char)charCurrent);
+								charInfo = (CharInfo)customChars.get((char)currentChar);
 							}
 							
 							totalwidth += charInfo.width;
@@ -298,7 +298,7 @@ public class Font{
 					}
 					
 				}else{
-					drawQuad((totalwidth + charInfo.width) * scaleX + xPos, startY * scaleY + yPos, totalwidth * scaleX + xPos, (startY + charInfo.height) * scaleY + yPos, charInfo.xPosition + charInfo.width, charInfo.yPosition + charInfo.height, charInfo.xPosition, charInfo.yPosition, color);
+					drawQuad(totalwidth * scaleX + xPos, startY * scaleY + yPos, (totalwidth + charInfo.width) * scaleX + xPos, (startY + charInfo.height) * scaleY + yPos, charInfo.xPosition, charInfo.yPosition, charInfo.xPosition + charInfo.width, charInfo.yPosition + charInfo.height, color);
 					
 					if(d > 0){
 						totalwidth += charInfo.width * d;
