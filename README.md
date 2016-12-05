@@ -46,3 +46,4 @@
 - Updated the error code
 - The standard font color of the text boxes is now black
 - You can now change the window resizability after creating the window
+- Renamed setStartDimensions to setStartSize in the Window class

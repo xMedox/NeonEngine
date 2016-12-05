@@ -56,7 +56,7 @@ public class TestGame extends Game{
 		NeonEngine.init(new TestGame(), /*600*/60);
 		
 		Window.setStartTitle("Project Knight");
-		Window.setStartDimensions(854, 480);
+		Window.setStartSize(854, 480);
 		Window.setStartFullscreen(false);
 		Window.setStartResizable(true);
 		Window.setStartIcon("icon_16.png", "icon_32.png");

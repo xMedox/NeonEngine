@@ -55,7 +55,7 @@ public class TestGame extends Game{
 		NeonEngine.init(new TestGame(), 60);
 		
 		Window.setStartTitle("Project Robot");
-		Window.setStartDimensions(854, 480);
+		Window.setStartSize(854, 480);
 		Window.setStartFullscreen(false);
 		Window.setStartResizable(true);
 		Window.setStartIcon("icon16.png", "icon32.png");

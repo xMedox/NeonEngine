@@ -206,7 +206,7 @@ public class Window{
 		}
 	}
 	
-	public static void setStartDimensions(int width, int height){
+	public static void setStartSize(int width, int height){
 		if(!gotCreated){
 			Window.width = width;
 			Window.height = height;
