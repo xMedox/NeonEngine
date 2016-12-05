@@ -75,13 +75,11 @@ public class Window{
 		
 		initContext();
         
-//		setResizable(startResizable);
 		if(startResizable){
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
 		}else{
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 		}
-		
         
 		if(isFullscreen){
 			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
