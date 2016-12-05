@@ -75,7 +75,13 @@ public class Window{
 		
 		initContext();
         
-		setResizable(startResizable);
+//		setResizable(startResizable);
+		if(startResizable){
+			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
+		}else{
+			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
+		}
+		
         
 		if(isFullscreen){
 			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
@@ -308,9 +314,9 @@ public class Window{
 	
 	public static void setResizable(boolean value){
 		if(value){
-			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
+			GLFW.glfwSetWindowAttrib(window, GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
 		}else{
-			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
+			GLFW.glfwSetWindowAttrib(window, GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 		}
 	}
 	

@@ -45,3 +45,4 @@
 - The button and checkbox now work like a normal button and checkbox
 - Updated the error code
 - The standard font color of the text boxes is now black
+- You can now change the window resizability after creating the window
