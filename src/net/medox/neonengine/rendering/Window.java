@@ -127,14 +127,6 @@ public class Window{
 		
 		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
 		
-		GLFW.glfwMakeContextCurrent(window);
-		
-		if(NeonEngine.isVSyncEnabled()){
-			GLFW.glfwSwapInterval(1);
-		}else{
-			GLFW.glfwSwapInterval(0);
-		}
-		
 		GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> Input.key(key, scancode, action, mods));
 		GLFW.glfwSetMouseButtonCallback(window, (window, button, action, mods) -> Input.mouseButton(button, action, mods));
 		GLFW.glfwSetCursorPosCallback(window, (window, xPos, yPos) -> Input.mousePos(xPos, yPos));
@@ -144,9 +136,16 @@ public class Window{
 		GLFW.glfwSetCharCallback(window, (window, codepoint) -> Input.chars(codepoint));
 		GLFW.glfwSetCursorEnterCallback(window, (window, entered) -> Input.enter(entered));
 		
-		GLFW.glfwShowWindow(window);
-		
+		GLFW.glfwMakeContextCurrent(window);
 		createContext();
+		
+		if(NeonEngine.isVSyncEnabled()){
+			GLFW.glfwSwapInterval(1);
+		}else{
+			GLFW.glfwSwapInterval(0);
+		}
+		
+		GLFW.glfwShowWindow(window);
 		
 		gotCreated = true;
 	}

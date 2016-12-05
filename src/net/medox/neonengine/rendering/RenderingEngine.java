@@ -42,8 +42,8 @@ public class RenderingEngine{
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
 	
-	public static int MAX_TEXTURE_IMAGE_UNITS;
-	public static int[] TEXTURE_ARRAY;
+	public static int maxTextureImageUnits;
+	public static int[] textureArray;
 	
 	private static ProfileTimer renderProfileTimer;
 	private static ProfileTimer renderProfileTimer2D ;
@@ -108,7 +108,7 @@ public class RenderingEngine{
 	private static boolean wireframeMode;
 	
 	public static void init(){
-		MAX_TEXTURE_IMAGE_UNITS = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
+		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
 		
 		if(NeonEngine.isProfilingEnabled()){
 			System.out.println("--------------------------------------------------------------");
@@ -120,7 +120,7 @@ public class RenderingEngine{
 			System.out.println("Java version:            " + System.getProperty("java.version"));
 			System.out.println("OpenGL version:          " + GL11.glGetString(GL11.GL_VERSION));
 			System.out.println("Max Texture size:        " + GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE));
-			System.out.println("Max Texture image units: " + MAX_TEXTURE_IMAGE_UNITS);
+			System.out.println("Max Texture image units: " + maxTextureImageUnits);
 			System.out.println("--------------------------------------------------------------");
 			
 			renderProfileTimer = new ProfileTimer();
@@ -128,14 +128,14 @@ public class RenderingEngine{
 			windowSyncProfileTimer = new ProfileTimer();
 		}
 		
-		if(MAX_TEXTURE_IMAGE_UNITS > 32){
-			MAX_TEXTURE_IMAGE_UNITS = 32;
+		if(maxTextureImageUnits > 32){
+			maxTextureImageUnits = 32;
 		}
 		
-		TEXTURE_ARRAY = new int[MAX_TEXTURE_IMAGE_UNITS];
+		textureArray = new int[maxTextureImageUnits];
 		
-		for(int i = 0; i < MAX_TEXTURE_IMAGE_UNITS; i++){
-			TEXTURE_ARRAY[i] = i;
+		for(int i = 0; i < maxTextureImageUnits; i++){
+			textureArray[i] = i;
 		}
 		
 //		meshBound = -1;

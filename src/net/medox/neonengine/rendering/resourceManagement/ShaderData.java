@@ -231,7 +231,7 @@ public class ShaderData extends ReferenceCounter{
 					shaderSource.append(loadShader(line.substring(INCLUDE_DIRECTIVE.length() + 2, line.length() - 1)));
 				}else{
 					if(line.contains("R_MAX_TEXTURE_IMAGE_UNITS")){
-						line = line.replace("R_MAX_TEXTURE_IMAGE_UNITS", Integer.toString(RenderingEngine.MAX_TEXTURE_IMAGE_UNITS));
+						line = line.replace("R_MAX_TEXTURE_IMAGE_UNITS", Integer.toString(RenderingEngine.maxTextureImageUnits));
 					}
 					
 					shaderSource.append(line).append("\n");

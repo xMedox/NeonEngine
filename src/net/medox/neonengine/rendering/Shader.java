@@ -68,7 +68,7 @@ public class Shader{
 					}else if(unprefixedUniformName.equals("model")){
 						setUniformMatrix4f(uniformName, worldMatrix);
 					}else if(unprefixedUniformName.equals("textures")){
-						setUniformiVector(uniformName, RenderingEngine.TEXTURE_ARRAY);
+						setUniformiVector(uniformName, RenderingEngine.textureArray);
 					}else{
 						throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
 					}
