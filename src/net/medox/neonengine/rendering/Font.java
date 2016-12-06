@@ -24,7 +24,7 @@ public class Font{
 	public static final int PLAIN = java.awt.Font.PLAIN;
 	public static final int BOLD = java.awt.Font.BOLD;
 	public static final int ITALIC = java.awt.Font.ITALIC;
-	public static final int BOLDITALIC = java.awt.Font.BOLD + java.awt.Font.ITALIC;
+	public static final int BOLD_ITALIC = java.awt.Font.BOLD + java.awt.Font.ITALIC;
 	
 	private static final Transform2D transform = new Transform2D();
 	
