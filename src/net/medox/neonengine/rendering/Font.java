@@ -19,6 +19,11 @@ import net.medox.neonengine.math.Vector3f;
 public class Font{
 	public static final int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
 	
+	public static final int PLAIN = java.awt.Font.PLAIN;
+	public static final int BOLD = java.awt.Font.BOLD;
+	public static final int ITALIC = java.awt.Font.ITALIC;
+	public static final int BOLDITALIC = java.awt.Font.BOLD + java.awt.Font.ITALIC;
+	
 	private static final Transform2D transform = new Transform2D();
 	
 	private final CharInfo[] charArray = new CharInfo[256];
@@ -34,10 +39,14 @@ public class Font{
 	private int fontHeight;
 	
 	public Font(String fileName, int size, boolean antialiasing){
-		this(fileName, size, antialiasing, null);
+		this(fileName, size, antialiasing, PLAIN);
 	}
 	
-	public Font(String fileName, int size, boolean antialiasing, char[] additionalChars){
+	public Font(String fileName, int size, boolean antialiasing, int style){
+		this(fileName, size, antialiasing, style, null);
+	}
+	
+	public Font(String fileName, int size, boolean antialiasing, int style, char[] additionalChars){
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
@@ -45,7 +54,7 @@ public class Font{
 			java.awt.Font customFont = null;
 			
 			try{
-				customFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)).deriveFont((float)size);
+				customFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)).deriveFont((float)size).deriveFont(style);
 				final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 				
 				ge.registerFont(java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)));
