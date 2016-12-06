@@ -17,7 +17,9 @@ import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 
 public class Font{
-	public static final int ALIGN_LEFT = 0, ALIGN_RIGHT = 1, ALIGN_CENTER = 2;
+	public static final int ALIGN_LEFT = 0;
+	public static final int ALIGN_RIGHT = 1;
+	public static final int ALIGN_CENTER = 2;
 	
 	public static final int PLAIN = java.awt.Font.PLAIN;
 	public static final int BOLD = java.awt.Font.BOLD;
