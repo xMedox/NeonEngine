@@ -762,6 +762,8 @@ public class RenderingEngine{
 	}
 	
 	public static void dispose(){
-		batchRenderer.dispose();
+		if(batchRenderer != null){
+			batchRenderer.dispose();
+		}
 	}
 }

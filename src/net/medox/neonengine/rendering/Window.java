@@ -55,9 +55,12 @@ public class Window{
 	private static int centerPositionX;
 	private static int centerPositionY;
 	
+	private static boolean startedCreating;
 	private static boolean gotCreated;
 	
 	public static void createWindow(){
+		startedCreating = true;
+		
 		GLFW.glfwSetErrorCallback((error, description) -> NeonEngine.throwErrorWindow("Error: " + GLFWErrorCallback.getDescription(description)));
 		
 		if(!GLFW.glfwInit()){
@@ -102,7 +105,7 @@ public class Window{
 		centerPositionY = (int)height/2;
 		
 		if(window == MemoryUtil.NULL){
-			GLFW.glfwTerminate();
+//			GLFW.glfwTerminate();
 			NeonEngine.throwError("Error: Failed to create the GLFW window");
 		}
 		
@@ -182,14 +185,19 @@ public class Window{
 	}
 	
 	public static void dispose(){
-		Callbacks.glfwFreeCallbacks(window);
-		
 		Cursor.dispose();
 		
-		GLFW.glfwDestroyWindow(window);
+		if(window != 0){
+			Callbacks.glfwFreeCallbacks(window);
+			
+			GLFW.glfwDestroyWindow(window);
+		}
         
 		GLFW.glfwTerminate();
-		GLFW.glfwSetErrorCallback(null).free();
+		
+		if(startedCreating){
+			GLFW.glfwSetErrorCallback(null).free();
+		}
 	}
 	
 	public static void takeScreenshot(){

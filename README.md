@@ -48,3 +48,5 @@
 - You can now change the window resizability after creating the window
 - Renamed setStartDimensions to setStartSize in the Window class
 - You can now change the font style
+- Added error logging
+- The engine gets cleaned up if an error occurs

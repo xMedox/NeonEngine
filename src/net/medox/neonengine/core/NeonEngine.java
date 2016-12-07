@@ -1,5 +1,7 @@
 package net.medox.neonengine.core;
 
+import java.util.Calendar;
+
 import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.audio.SoundEngine;
 import net.medox.neonengine.physics.CharacterController;
@@ -14,7 +16,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0 Build 41";
+	private static final String VERSION = "1.0.0 Build 42";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -42,6 +44,8 @@ public class NeonEngine{
 	private static double frameTime;
 	private static int fps;
 	
+	private static String windowError = "";
+	
 	public static void init(Game game, int framerate){
 		if(optionEnableProfiling){
 			System.out.println("Starting up");
@@ -65,15 +69,37 @@ public class NeonEngine{
 	}
 	
 	public static void throwError(String text){
+		String error = windowError + text + "\n";
+		
 		System.err.println(text);
-		new Exception().printStackTrace();
+		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+		for(int i = 2; i < stack.length; i++){
+			error += "\tat ";
+			error += stack[i].toString() + "\n";
+			
+			System.err.print("\tat ");
+			System.err.println(stack[i].toString());
+		}
+		
+	    final String YMD = Calendar.getInstance().get(Calendar.YEAR) + "-" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+	    final String HMS = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "." + Calendar.getInstance().get(Calendar.MINUTE) + "." + Calendar.getInstance().get(Calendar.SECOND);
+		
+		Util.saveToFile("crash " + (Window.getTitle() + " " + YMD + "_" + HMS) + ".txt", error);
+		
+		dispose();
+		
 		System.exit(1);
 	}
 	
 	public static void throwErrorWindow(String text){
-		System.err.println(text + "\njava.lang.Exception");
+		windowError += text/* + "\njava.lang.Exception"*/ + "\n";
+		
+		System.err.println(text/* + "\njava.lang.Exception"*/);
 		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		for(int i = 5; i < stack.length; i++){
+			windowError += "\tat ";
+			windowError += stack[i].toString() + "\n";
+			
 			System.err.print("\tat ");
 			System.err.println(stack[i].toString());
 		}
@@ -263,12 +289,7 @@ public class NeonEngine{
 			System.out.println("Shutting down");
 		}
 		
-		Window.dispose();
-		
-		game.cleanUp();
-		game.dispose();
-		
-		cleanUp();
+		dispose();
 		
 		System.exit(0);
 	}
@@ -353,6 +374,17 @@ public class NeonEngine{
 	}
 	public static boolean is2x2TextureEnabled(){
 		return profilingEnable2x2Texture;
+	}
+	
+	private static void dispose(){
+		Window.dispose();
+		
+		if(game != null){
+			game.cleanUp();
+			game.dispose();
+		}
+		
+		cleanUp();
 	}
 	
 	private static void cleanUp(){

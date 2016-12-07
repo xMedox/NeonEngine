@@ -128,7 +128,9 @@ public class PhysicsEngine{
 	}
 	
 	public static void dispose(){
-		dynamicsWorld.dispose();
+		if(dynamicsWorld != null){
+			dynamicsWorld.dispose();
+		}
 	}
 }
 
