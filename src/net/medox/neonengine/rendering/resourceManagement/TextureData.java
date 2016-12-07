@@ -48,9 +48,7 @@ public class TextureData extends ReferenceCounter{
 	
 	public void bind(int samplerSlot){
 		if(samplerSlot < 0 || samplerSlot > 31){
-			System.err.println("Error: The sampler slot is too high or too low.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: The sampler slot is too high or too low.");
 		}
 		
 //		if(RenderingEngine.textureBound.get(samplerSlot) != textureID[0]){
@@ -63,9 +61,7 @@ public class TextureData extends ReferenceCounter{
 	
 	public void bind(int samplerSlot, int id){
 		if(samplerSlot < 0 || samplerSlot > 31){
-			System.err.println("Error: The sampler slot is too high or too low.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: The sampler slot is too high or too low.");
 		}
 		
 //		if(RenderingEngine.textureBound.get(samplerSlot) != textureID[id]){
@@ -133,9 +129,7 @@ public class TextureData extends ReferenceCounter{
 		
 		final IntBuffer drawBuffers = DataUtil.createIntBuffer(numTextures);
 		if(numTextures > 32){
-			System.err.println("Error: Too many textures.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Too many textures.");
 		}
 		
 		boolean hasDepth = false;
@@ -176,9 +170,7 @@ public class TextureData extends ReferenceCounter{
 //		glReadBuffer(GL_NONE);
 		
 		if(GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER) != GL30.GL_FRAMEBUFFER_COMPLETE){
-			System.err.println("Error: Framebuffer creation failed.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Framebuffer creation failed.");
 		}
 		
 		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);

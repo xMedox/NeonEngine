@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 import net.medox.neonengine.rendering.meshLoading.OBJModel;
@@ -50,9 +51,7 @@ public class Mesh{
 				resource = new MeshData(model/*, createShape*/);
 				loadedModels.put(fileName, resource);
 			}else{
-				System.err.println("Error: the mesh name:" + meshName + "is already in use");
-				new Exception().printStackTrace();
-				System.exit(1);
+				NeonEngine.throwError("Error: the mesh name:" + meshName + "is already in use");
 			}
 		}
 	}
@@ -91,9 +90,7 @@ public class Mesh{
 		if(ext.equals("obj")){
 			resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
 		}else{
-			System.err.println("Error: '" + ext + "' file format not supported for mesh data.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: '" + ext + "' file format not supported for mesh data.");
 		}
 		
 		return this;

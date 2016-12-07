@@ -10,6 +10,7 @@ import java.util.Map;
 import org.lwjgl.opengl.GL20;
 
 import net.medox.neonengine.core.DataUtil;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
@@ -30,9 +31,7 @@ public class ShaderData extends ReferenceCounter{
 		this.program = GL20.glCreateProgram();
 		
 		if(program == 0){
-			System.err.println("Error: Shader creation failed: Could not find valid memory location in constructor");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Shader creation failed: Could not find valid memory location in constructor");
 		}
 		
 		shaders = new ArrayList<Integer>();
@@ -58,20 +57,14 @@ public class ShaderData extends ReferenceCounter{
 		final int shader = GL20.glCreateShader(type);
 		
 		if(shader == 0){
-			System.err.println("Error: Shader creation failed: Could not find valid memory location when adding shader");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Shader creation failed: Could not find valid memory location when adding shader");
 		}
 		
 		GL20.glShaderSource(shader, text);
 		GL20.glCompileShader(shader);
 		
 		if(GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == 0){
-			System.out.println(fileName);
-			
-			System.err.println(GL20.glGetShaderInfoLog(shader, 1024));
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError(fileName + ": \n" + GL20.glGetShaderInfoLog(shader, 1024));
 		}
 		
 		GL20.glAttachShader(program, shader);
@@ -152,9 +145,7 @@ public class ShaderData extends ReferenceCounter{
 		final int uniformLocation = GL20.glGetUniformLocation(program, uniformName);
 		
 		if(uniformLocation == -1){
-			System.err.println("Error: Could not find uniform \"" + uniformName + "\" in " + fileName);
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Could not find uniform \"" + uniformName + "\" in " + fileName);
 		}
 		
 		uniformMap.put(uniformName, uniformLocation);
@@ -187,9 +178,7 @@ public class ShaderData extends ReferenceCounter{
 				error = GL20.glGetShaderInfoLog(shader, 1024);
 			}
 			
-			System.err.println(errorMessage + ": " + error);
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError(errorMessage + ": " + error);
 		}
 	}
 	

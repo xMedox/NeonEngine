@@ -64,6 +64,12 @@ public class NeonEngine{
 		PhysicsEngine.init();
 	}
 	
+	public static void throwError(String text){
+		System.err.println(text);
+		new Exception().printStackTrace();
+		System.exit(1);
+	}
+	
 	public static String getVersion(){
 		return VERSION;
 	}

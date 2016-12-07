@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.awt.GraphicsEnvironment;
- 
+
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform2D;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
@@ -66,9 +67,7 @@ public class Font{
 			
 			font = customFont;
 		}else{
-			System.err.println("Error: '" + ext + "' file format not supported for font data.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: '" + ext + "' file format not supported for font data.");
 		}
 		
 		this.fontSize = font.getSize();
@@ -173,9 +172,7 @@ public class Font{
 			
 			fontTexture = new Texture(imgTemp);
 		}catch(Exception e){
-			System.err.println("Error: Failed to create font.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Failed to create font.");
 		}
 	}
 	

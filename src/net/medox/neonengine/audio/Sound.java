@@ -7,6 +7,7 @@ import net.medox.neonengine.audio.audioLoading.OGGSound;
 import net.medox.neonengine.audio.audioLoading.WAVSound;
 import net.medox.neonengine.audio.resourceManagement.SoundData;
 import net.medox.neonengine.audio.resourceManagement.SourceData;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Vector3f;
 
 public class Sound{
@@ -95,9 +96,7 @@ public class Sound{
 		}else if(ext.equals("ogg")){
 			resource = new SoundData(new OGGSound("./res/sounds/" + fileName).toIndexedSound());
 		}else{
-			System.err.println("Error: '" + ext + "' file format not supported for audio data.");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: '" + ext + "' file format not supported for audio data.");
 		}
 		
 		return this;

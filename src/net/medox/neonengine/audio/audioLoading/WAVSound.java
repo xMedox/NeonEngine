@@ -16,6 +16,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.lwjgl.openal.AL10;
 
+import net.medox.neonengine.core.NeonEngine;
+
 public class WAVSound{
 	private ByteBuffer data;
 	private int format;
@@ -62,9 +64,7 @@ public class WAVSound{
 			}else if(audioformat.getSampleSizeInBits() == 16){
 				channels = AL10.AL_FORMAT_MONO16;
 			}else{
-				System.err.println("Error: Illegal sample size");
-				new Exception().printStackTrace();
-				System.exit(1);
+				NeonEngine.throwError("Error: Illegal sample size");
 			}
 		}else if(audioformat.getChannels() == 2){
 			if(audioformat.getSampleSizeInBits() == 8){

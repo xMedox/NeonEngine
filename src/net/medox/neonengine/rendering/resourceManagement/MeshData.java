@@ -37,9 +37,7 @@ public class MeshData extends ReferenceCounter{
 	
 	public MeshData(IndexedModel model/*, boolean create*/){
 		if(!model.isValid()){
-			System.err.println("Error: Invalid mesh! Must have same number of positions, texCoords, normals, and tangents! (Maybe you forgot to Finalize() your IndexedModel?)");
-			new Exception().printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: Invalid mesh! Must have same number of positions, texCoords, normals, and tangents! (Maybe you forgot to Finalize() your IndexedModel?)");
 		}
 		
 //		if(create){
