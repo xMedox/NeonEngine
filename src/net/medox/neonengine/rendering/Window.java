@@ -58,7 +58,7 @@ public class Window{
 	private static boolean gotCreated;
 	
 	public static void createWindow(){
-		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
+		GLFW.glfwSetErrorCallback((error, description) -> NeonEngine.throwErrorWindow("Error: " + GLFWErrorCallback.getDescription(description)));
 		
 		if(!GLFW.glfwInit()){
 			throw new IllegalStateException("Unable to initialize GLFW");

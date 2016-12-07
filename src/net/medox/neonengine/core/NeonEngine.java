@@ -70,6 +70,15 @@ public class NeonEngine{
 		System.exit(1);
 	}
 	
+	public static void throwErrorWindow(String text){
+		System.err.println(text + "\njava.lang.Exception");
+		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+		for(int i = 5; i < stack.length; i++){
+			System.err.print("\tat ");
+			System.err.println(stack[i].toString());
+		}
+	}
+	
 	public static String getVersion(){
 		return VERSION;
 	}
