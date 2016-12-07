@@ -11,6 +11,7 @@ import java.nio.ByteBuffer;
 import org.lwjgl.openal.AL10;
 
 import net.medox.neonengine.audio.audioLoading.oggLoading.OggInputStream;
+import net.medox.neonengine.core.NeonEngine;
 
 public class OGGSound{
 	private ByteBuffer data;
@@ -46,7 +47,7 @@ public class OGGSound{
 	
 	public void create(InputStream input) throws IOException{
 		if(input == null){
-			throw new IOException("Failed to read OGG, source does not exist?");
+			NeonEngine.throwError("Error: Failed to read OGG, source does not exist?");
 		}
 		
 		final ByteArrayOutputStream dataout = new ByteArrayOutputStream();

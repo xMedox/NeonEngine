@@ -70,7 +70,7 @@ public class Shader{
 					}else if(unprefixedUniformName.equals("textures")){
 						setUniformiVector(uniformName, RenderingEngine.textureArray);
 					}else{
-						throw new IllegalArgumentException(uniformName + " is not a valid component of Transform");
+						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Transform");
 					}
 				}
 			}else if(uniformName.charAt(0) == 'R'){
@@ -138,7 +138,7 @@ public class Shader{
 					if(unprefixedUniformName.equals("eyePos")){
 						setUniformVector3f(uniformName, camera.getTransform().getTransformedPos());
 					}else{
-						throw new IllegalArgumentException(uniformName + " is not a valid component of Camera");
+						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Camera");
 					}
 				}/*else{
 					if(uniformName.equals("C0_eyePos")){
@@ -158,7 +158,7 @@ public class Shader{
 			}else if(uniformType.equals("float")){
 				setUniformf(uniformName, material.getFloat(uniformName));
 			}else{
-				throw new IllegalArgumentException(uniformType + " is not a supported type in Material");
+				NeonEngine.throwError("Error: " + uniformType + " is not a supported type in Material");
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import net.medox.neonengine.core.DataUtil;
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
 
@@ -25,12 +26,12 @@ public class SoundEngine{
 	public static void init(){
 		device = ALC10.alcOpenDevice((ByteBuffer)null);
 		if(device == MemoryUtil.NULL){
-			throw new IllegalStateException("Failed to open the default OpenAL device.");
+			NeonEngine.throwError("Error: Failed to open the default OpenAL device.");
 		}
 				
 		context = ALC10.alcCreateContext(device, (IntBuffer)null);
 		if(context == MemoryUtil.NULL){
-			throw new IllegalStateException("Failed to create an OpenAL context.");
+			NeonEngine.throwError("Error: Failed to create an OpenAL context.");
 		}
 		
 		ALC10.alcMakeContextCurrent(context);
@@ -39,7 +40,7 @@ public class SoundEngine{
 //		ALCCapabilities capabilities = device.getCapabilities();
 //		
 //		if(!capabilities.OpenALC10){
-//		    throw new RuntimeException("OpenAL Context Creation failed");
+//		   NeonEngine.throwError("Error: OpenAL Context Creation failed");
 //		}
 //		
 //		System.out.println("OpenALC10: " + capabilities.OpenALC10);

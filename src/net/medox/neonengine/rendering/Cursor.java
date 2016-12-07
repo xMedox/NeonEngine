@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.system.MemoryUtil;
 
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.ImageUtil.ImageData;
 import net.medox.neonengine.rendering.resourceManagement.CursorData;
 
@@ -44,7 +45,7 @@ public class Cursor{
 			image.free();
 			
 			if(cursor == MemoryUtil.NULL){
-				throw new RuntimeException("Failed to create the GLFW cursor");
+				NeonEngine.throwError("Error: Failed to create the GLFW cursor");
 			}
 			
 			resource = new CursorData(cursor);

@@ -72,10 +72,10 @@ public class WAVSound{
 			}else if(audioformat.getSampleSizeInBits() == 16){
 				channels = AL10.AL_FORMAT_STEREO16;
 			}else{
-				throw new RuntimeException("Illegal sample size: " + audioformat.getSampleSizeInBits());
+				NeonEngine.throwError("Error: Illegal sample size: " + audioformat.getSampleSizeInBits());
 			}
 		}else{
-			throw new IllegalStateException("Only mono or stereo is supported");
+			NeonEngine.throwError("Error: Only mono or stereo is supported");
 		}
 		
 		ByteBuffer buffer = null;
