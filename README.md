@@ -52,3 +52,4 @@
 - The engine gets cleaned up if an error occurs
 - The unused rendering textures are getting cleaned up now
 - Added the cleanUp method in all OpenGL objects
+- Added the meshInFrustum method in the RenderingEngine

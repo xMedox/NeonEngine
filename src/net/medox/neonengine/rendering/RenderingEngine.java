@@ -580,6 +580,10 @@ public class RenderingEngine{
 		return (int)transform.getTransformedPos().getX() + (int)transform.getScale().getX() >= 0 && (int)transform.getTransformedPos().getX() <= Window.getWidth() && (int)transform.getTransformedPos().getY() + (int)transform.getScale().getY() >= 0 && (int)transform.getTransformedPos().getY() <= Window.getHeight();
 	}
 	
+	public static boolean meshInFrustum(Transform transform, Mesh mesh, Camera camera){
+		return mesh.inFrustum(transform, camera);
+	}
+	
 	public static void renderParticle(Transform trans, ParticleMaterial material){
 		renderParticle(trans, material, new Vector2f(0, 0), new Vector2f(1, 1));
 	}
