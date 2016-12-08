@@ -7,7 +7,6 @@ import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
@@ -198,10 +197,10 @@ public class CubeMapData extends ReferenceCounter{
 	
 	public void dispose(){
 //		if(textureID != null){
-//			GL11.glDeleteTextures(textureID);
-			for(int i = 0; i < 6; i++){
-				GL15.glDeleteBuffers(textureID);
-			}
+			GL11.glDeleteTextures(textureID);
+//			for(int i = 0; i < 6; i++){
+//				GL15.glDeleteBuffers(textureID);
+//			}
 //		}
 //		if(frameBuffer != null){
 //			GL30.glDeleteFramebuffers(frameBuffer);

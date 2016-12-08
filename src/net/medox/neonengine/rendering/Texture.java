@@ -91,8 +91,7 @@ public class Texture{
 		customTextures.add(resource);
 	}
 	
-	@Override
-	protected void finalize() throws Throwable{
+	public void cleanUp(){
 		if(fileName.equals("")){
 			resource.dispose();
 			loadedTextures.remove(resource);
@@ -102,6 +101,11 @@ public class Texture{
 				loadedTextures.remove(fileName);
 			}
 		}
+	}
+	
+	@Override
+	protected void finalize() throws Throwable{
+		cleanUp();
 		
 		super.finalize();
 	}

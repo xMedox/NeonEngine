@@ -64,8 +64,7 @@ public class Mesh{
 //		return resource.getMeshShape();
 //	}
 	
-	@Override
-	protected void finalize() throws Throwable{
+	public void cleanUp(){
 		if(fileName.equals("")){
 			resource.dispose();
 			customModels.remove(resource);
@@ -75,6 +74,11 @@ public class Mesh{
 				loadedModels.remove(fileName);
 			}
 		}
+	}
+	
+	@Override
+	protected void finalize() throws Throwable{
+		cleanUp();
 		
 		super.finalize();
 	}

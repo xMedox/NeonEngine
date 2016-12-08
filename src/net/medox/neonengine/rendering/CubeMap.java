@@ -68,12 +68,16 @@ public class CubeMap{
 //		resource = new CubeMapData(textureTarget, new int[]{width, width, width, width, width, width}, new int[]{height, height, height, height, height, height}, new ByteBuffer[]{data, data, data, data, data, data}, filter, internalFormat, format, type, clamp, attachment);
 //	}
 	
-	@Override
-	protected void finalize() throws Throwable{
+	public void cleanUp(){
 		if(resource.removeReference() && !fileNames[0].equals("") && !fileNames[1].equals("") && !fileNames[2].equals("") && !fileNames[3].equals("") && !fileNames[4].equals("") && !fileNames[5].equals("")){
 			resource.dispose();
 			loadedCubeMaps.remove(fileNames);
 		}
+	}
+	
+	@Override
+	protected void finalize() throws Throwable{
+		cleanUp();
 		
 		super.finalize();
 	}

@@ -50,3 +50,5 @@
 - You can now change the font style
 - Added error logging
 - The engine gets cleaned up if an error occurs
+- The unused rendering textures are getting cleaned up now
+- Added the cleanUp method in all OpenGL objects

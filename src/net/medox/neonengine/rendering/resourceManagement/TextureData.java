@@ -7,7 +7,6 @@ import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
@@ -182,10 +181,10 @@ public class TextureData extends ReferenceCounter{
 	
 	public void dispose(){
 //		if(textureID != null){
-//			GL11.glDeleteTextures(textureID);
-			for(int i = 0; i < numTextures; i++){
-				GL15.glDeleteBuffers(textureID[i]);
-			}
+			GL11.glDeleteTextures(textureID);
+//			for(int i = 0; i < numTextures; i++){
+//				GL15.glDeleteBuffers(textureID[i]);
+//			}
 //		}
 //		if(frameBuffer != null){
 			GL30.glDeleteFramebuffers(frameBuffer);
