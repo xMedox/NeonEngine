@@ -10,6 +10,7 @@
 - Fixed the batchrenderer on some machines
 - Fixed the font rendering
 - The lights only renders objects that are affected by it
+- The skybox now gets rendered last
 
 **Physics:**
 - The engine now uses the LibGDX Bullet wrapper(results in better simulation quality and performance)

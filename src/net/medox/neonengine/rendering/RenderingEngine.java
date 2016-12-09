@@ -291,8 +291,6 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 		}
 		
-		renderSkybox();
-		
 		renderingState = DIFFUSE_STATE;
 		
 		if(NeonEngine.areParticlesEnabled()){
@@ -407,6 +405,8 @@ public class RenderingEngine{
 			GL11.glDepthFunc(GL11.GL_LESS);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
+		
+		renderSkybox();
 		
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
