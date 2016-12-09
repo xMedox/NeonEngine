@@ -561,7 +561,17 @@ public class RenderingEngine{
 	}
 	
 	public static boolean particleInFrustum(Transform transform, Camera camera){
-		return camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
+		final boolean inCameraFrustum = camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
+		
+		if(renderingState == LIGHTING_STATE){
+			if(lightCamera.getMode() == 0){
+				return inCameraFrustum && lightCamera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
+			}else{
+				return inCameraFrustum;
+			}
+		}else{
+			return inCameraFrustum;
+		}
 	}
 	
 	public static boolean mesh2DInFrustum(Transform2D transform){
@@ -581,7 +591,17 @@ public class RenderingEngine{
 	}
 	
 	public static boolean meshInFrustum(Transform transform, Mesh mesh, Camera camera){
-		return mesh.inFrustum(transform, camera);
+		final boolean inCameraFrustum = mesh.inFrustum(transform, camera);
+		
+		if(renderingState == LIGHTING_STATE){
+			if(lightCamera.getMode() == 0){
+				return inCameraFrustum && mesh.inFrustum(transform, lightCamera);
+			}else{
+				return inCameraFrustum;
+			}
+		}else{
+			return inCameraFrustum;
+		}
 	}
 	
 	public static void renderParticle(Transform trans, ParticleMaterial material){
