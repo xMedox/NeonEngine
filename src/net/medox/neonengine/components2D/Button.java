@@ -19,7 +19,7 @@ public class Button extends Entity2DComponent{
 	}
 	
 	public Button(Vector3f color){
-		this(color, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+		this(color, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
 	public Button(Vector3f color, InputKey key){

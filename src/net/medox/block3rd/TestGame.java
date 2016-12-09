@@ -12,6 +12,8 @@ import net.medox.neonengine.components2D.Slider;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.Entity2D;
 import net.medox.neonengine.core.Game;
+import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.lighting.DirectionalLight;
@@ -88,7 +90,6 @@ public class TestGame extends Game{
 		Entity2D life = new Entity2D();
 //		Lock2D lifeLock = new Lock2D(4, -80-27, new Vector2f(0, 1));
 		Lock2D lifeLock = new Lock2D(4, -80-27+8, new Vector2f(0, 1));
-//		life.addComponent(new Progressbar(1, new Vector3f(1, 0, 0)));
 		life.addComponent(lifeLock);
 		life.getTransform().setScale(new Vector2f(202, 27));
 		addEntity2D(life);
@@ -103,7 +104,7 @@ public class TestGame extends Game{
 		Entity2D button = new Entity2D();
 		Lock2D buttonLock = new Lock2D(4, -134-27+8, new Vector2f(0, 1));
 		button.addComponent(buttonLock);
-		button.addComponent(new Slider(0, new Vector3f(0.5f, 0.5f, 0.5f), new Vector3f(1, 1, 1)));
+		button.addComponent(new Slider(0, new Vector3f(0.5f, 0.5f, 0.5f), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT)));
 		button.getTransform().setScale(new Vector2f(202, 27));
 		addEntity2D(button);
 		

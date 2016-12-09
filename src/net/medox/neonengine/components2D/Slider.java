@@ -32,7 +32,7 @@ public class Slider extends Entity2DComponent{
 	}
 	
 	public Slider(float progress, Vector3f color, Vector3f colorSlider, int orientation){
-		this(progress, color, colorSlider, orientation, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+		this(progress, color, colorSlider, orientation, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
 	public Slider(float progress, Vector3f color, Vector3f colorSlider, int orientation, InputKey key){

@@ -30,7 +30,7 @@ public class TextBox extends Entity2DComponent{
 	}
 	
 	public TextBox(int max, String text, Vector3f color, Vector3f colorText){
-		this(max, text, color, colorText, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+		this(max, text, color, colorText, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
 	public TextBox(int max, String text, Vector3f color, Vector3f colorText, InputKey key){

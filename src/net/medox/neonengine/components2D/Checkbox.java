@@ -21,7 +21,7 @@ public class Checkbox extends Entity2DComponent{
 	}
 	
 	public Checkbox(boolean pressed, Vector3f color, Vector3f colorChecked){
-		this(pressed, color, colorChecked, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+		this(pressed, color, colorChecked, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
 	public Checkbox(boolean pressed, Vector3f color, Vector3f colorChecked, InputKey key){

@@ -16,6 +16,8 @@ import net.medox.neonengine.components2D.TextBox;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.Entity2D;
 import net.medox.neonengine.core.Game;
+import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.lighting.Attenuation;
@@ -568,14 +570,11 @@ public class TestGame extends Game{
 		Lock2D l2 = new Lock2D(-256, -40, new Vector2f(1f, 1f));
 //		e2.addComponent(c2);
 		e2.addComponent(l2);
-//		e2.addComponent(new Button());
-//		e2.addComponent(new Checkbox(false));
-//		e2.addComponent(new Progressbar(0));
 		
 		e2.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40));
 		e2.getTransform().setScale(new Vector2f(256, 40));
 		
-		Slider slider = new Slider(1f);
+		Slider slider = new Slider(1, new Vector3f(1, 0, 0), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
 		
 		e2.addComponent(slider);
 		
@@ -591,10 +590,7 @@ public class TestGame extends Game{
 //		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
 		Lock2D l22 = new Lock2D(-256, -40-29, new Vector2f(1f, 1f));
 //		e2.addComponent(c2);
-		e22.addComponent(l22).addComponent(new TextBox(10));
-//		e2.addComponent(new Button());
-//		e2.addComponent(new Checkbox(false));
-//		e22.addComponent(new Progressbar(0));
+		e22.addComponent(l22).addComponent(new TextBox(10, "", new Vector3f(1, 1, 1), new Vector3f(0, 0, 0), new InputKey(Input.MOUSE, Input.BUTTON_RIGHT)));
 		
 		e22.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40-29));
 		e22.getTransform().setScale(new Vector2f(256, 29));
@@ -618,9 +614,9 @@ public class TestGame extends Game{
 		addEntity2D(e3);
 		
 		
-		Slider s1 = new Slider(1);
-		Slider s2 = new Slider(1);
-		Slider s3 = new Slider(1);
+		Slider s1 = new Slider(1, new Vector3f(1, 0, 0), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+		Slider s2 = new Slider(1, new Vector3f(1, 0, 0), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
+		Slider s3 = new Slider(1, new Vector3f(1, 0, 0), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
 		
 		
 		Entity2D e10 = new Entity2D();
@@ -629,8 +625,6 @@ public class TestGame extends Game{
 		Lock2D l10 = new Lock2D(0, -40, new Vector2f(0f, 1f));
 //		e2.addComponent(c2);
 		e10.addComponent(l10).addComponent(s1);
-//		e2.addComponent(new Button());
-//		e2.addComponent(new Checkbox(false));
 		
 		e10.getTransform().setPos(new Vector2f(0, Window.getHeight()-40));
 		e10.getTransform().setScale(new Vector2f(256, 40));
@@ -646,8 +640,6 @@ public class TestGame extends Game{
 		Lock2D l11 = new Lock2D(0, -80, new Vector2f(0f, 1f));
 //		e2.addComponent(c2);
 		e11.addComponent(l11).addComponent(s2);
-//		e2.addComponent(new Button());
-//		e2.addComponent(new Checkbox(false));
 		
 		e11.getTransform().setPos(new Vector2f(0, Window.getHeight()-80));
 		e11.getTransform().setScale(new Vector2f(256, 40));
@@ -663,8 +655,6 @@ public class TestGame extends Game{
 		Lock2D l12 = new Lock2D(0, -120, new Vector2f(0f, 1f));
 //		e2.addComponent(c2);
 		e12.addComponent(l12).addComponent(s3);
-//		e2.addComponent(new Button());
-//		e2.addComponent(new Checkbox(false));
 		
 		e12.getTransform().setPos(new Vector2f(0, Window.getHeight()-120));
 		e12.getTransform().setScale(new Vector2f(256, 40));
