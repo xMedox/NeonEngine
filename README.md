@@ -32,7 +32,7 @@
 - Added the licenses of the libraries used
 - The glfw window and the fps variables are now private
 - Custom meshes and textures are now getting cleaned up after closing the engine
-- Added the enable profiling option
+- Added the EnableProfiling option
 - You now have to change the options through methods
 - Most options are now booleans
 - Added the setPos and setSize methods in the Window class
@@ -56,3 +56,4 @@
 - Added the cleanUp method in all OpenGL objects
 - Added the meshInFrustum method in the RenderingEngine
 - Addded 'Max Texture image units' and 'OpenGL renderer' to the profiling output
+- Added the RenderQuality option

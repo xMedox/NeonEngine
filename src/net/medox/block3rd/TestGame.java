@@ -41,6 +41,7 @@ public class TestGame extends Game{
 //		NeonEngine.enableBloom(true);
 //		NeonEngine.setTextureQuality(0);
 //		NeonEngine.setShadowQuality(0);
+//		NeonEngine.setRenderQuality(1);
 //		
 //		NeonEngine.init(new TestGame(), /*60*/1000);
 		
@@ -53,6 +54,7 @@ public class TestGame extends Game{
 		NeonEngine.enableBloom(true);
 		NeonEngine.setTextureQuality(0);
 		NeonEngine.setShadowQuality(0);
+		NeonEngine.setRenderQuality(1);
 		
 		NeonEngine.init(new TestGame(), 60);
 		

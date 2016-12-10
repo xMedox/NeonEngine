@@ -16,7 +16,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0 Build 49";
+	private static final String VERSION = "1.0.0 Build 50";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -33,6 +33,7 @@ public class NeonEngine{
 	private static boolean optionEnableBloom = true;
 	private static int optionTextureQuality = 0; //0 = best 1 = medium 2 = lowest
 	private static int optionShadowQuality = 0; //0 = best 1 = medium 2 = lowest
+	private static float optionRenderQuality = 1; //1 = normal 2 = half
 	
 	private static boolean profilingDisableMeshDrawing = false;
 	private static boolean profilingDisableShading = false;
@@ -321,6 +322,9 @@ public class NeonEngine{
 	public static void setShadowQuality(int value){
 		optionShadowQuality = value;
 	}
+	public static void setRenderQuality(float value){
+		optionRenderQuality = value;
+	}
 	
 	public static boolean isProfilingEnabled(){
 		return optionEnableProfiling;
@@ -348,6 +352,9 @@ public class NeonEngine{
 	}
 	public static int getShadowQuality(){
 		return optionShadowQuality;
+	}
+	public static float getRenderQuality(){
+		return optionRenderQuality;
 	}
 	
 	public static void disableMeshDrawing(boolean value){
