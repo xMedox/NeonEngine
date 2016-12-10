@@ -21,7 +21,7 @@ public class DirectionalLight extends BaseLight{
 		super(color, intensity);
 		
 		setShader(new Shader("forwardDirectional"));
-
+		
 		halfShadowArea = shadowArea/2.0f;
 		
 		if(NeonEngine.getShadowQuality() >= 1 && shadowMapSizeAsPowerOf2 != 0){

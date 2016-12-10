@@ -8,6 +8,6 @@ out vec3 texCoord0;
 
 void main(){
 	gl_Position = T_MVP * vec4(position, 1.0);
-	gl_Position.z = gl_Position.w -0.00001;
+	gl_Position.z = gl_Position.w - 0.00001;
 	texCoord0 = position;
 }
