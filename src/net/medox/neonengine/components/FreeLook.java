@@ -21,11 +21,11 @@ public class FreeLook extends EntityComponent{
 	private float y;
 	
 	public FreeLook(float sensitivity){
-		this(sensitivity, false, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE), new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
+		this(sensitivity, false);
 	}
 	
 	public FreeLook(float sensitivity, boolean invertY){
-		this(sensitivity, invertY, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE), new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
+		this(sensitivity, invertY, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE));
 	}
 	
 	public FreeLook(float sensitivity, boolean invertY, InputKey unlockMouseKey){
