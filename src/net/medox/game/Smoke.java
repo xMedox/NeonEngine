@@ -6,12 +6,14 @@ import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
 
 public class Smoke extends EntityComponent{
-	private float timer = 8*Time.getSecond();
+	private float timer;
 	
 	private Vector3f move;
 	
 	public Smoke(){
-		move = new Vector3f(Util.randomFloat()*0.35f-0.2f, 1f, Util.randomFloat()*0.35f-0.2f);
+		timer = 8*Time.getSecond();
+		
+		move = new Vector3f(Util.randomFloat()*0.4f-0.2f, 1f, Util.randomFloat()*0.4f-0.2f);
 	}
 	
 	@Override
