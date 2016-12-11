@@ -15,9 +15,9 @@
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-macos.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal-natives-windows.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/lwjgl-openal.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-1.9.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-bullet-1.9.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-bullet-platform-1.9.4-natives-desktop.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-platform-1.9.4-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-1.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-bullet-platform-1.9.5-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-platform-1.9.5-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Desktop/Ordner/NeonEngine/NeonEngine/jars/gdx-bullet-1.9.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

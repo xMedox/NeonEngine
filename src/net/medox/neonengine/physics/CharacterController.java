@@ -22,7 +22,17 @@ public class CharacterController{
 		this.collider = collider;
 		
 		ghostObject = new btPairCachingGhostObject();
-		ghostObject.setWorldTransform(collider.getBody().getWorldTransform());
+		
+//		Matrix4 t = collider.getBody().getWorldTransform();
+//		t.rotate(Vector3.X, 90);
+//		t.setrota
+		
+		final net.medox.neonengine.math.Quaternion rotation = new net.medox.neonengine.math.Quaternion(new net.medox.neonengine.math.Vector3f(1, 0, 0), (float)Math.toRadians(90));
+		
+		final Matrix4 trans = collider.getBody().getWorldTransform();
+		trans.set(trans.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), trans.getScale(new Vector3()));
+		
+		ghostObject.setWorldTransform(trans);
 		
 		ghostObject.setCollisionShape(collider.getCollisionShape());
 		ghostObject.setCollisionFlags(CollisionFlags.CF_CHARACTER_OBJECT);
@@ -32,9 +42,9 @@ public class CharacterController{
 //		ghostObject.forceActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
 //		characterController = new btKinematicCharacterController(ghostObject, (ConvexShape)collider.getCollisionShape(), stepHeight);
-		characterController = new btKinematicCharacterController(ghostObject, (btConvexShape)collider.getCollisionShape(), stepHeight);
+		characterController = new btKinematicCharacterController(ghostObject, (btConvexShape)collider.getCollisionShape(), stepHeight/*, new Vector3(0, 1, 0)*/);
 		
-		characterController.setGravity(-PhysicsEngine.getGravity());
+		characterController.setGravity(new Vector3(0, PhysicsEngine.getGravity(), 0));
 		
 //		physics.getWorld().addCollisionObject(ghostObject, BroadphaseProxy.CharacterFilter, btBroadphaseProxy.StaticFilter | BroadphaseProxy.DefaultFilter);
 		
@@ -73,12 +83,12 @@ public class CharacterController{
 //		kinematicCharacterController.setFallSpeed(fallSpeed);
 //	}
 	
-	public void setUpAxis(int axis){
-		characterController.setUpAxis(axis);
+	public void setUpAxis(net.medox.neonengine.math.Vector3f axis){
+		characterController.setUp(new Vector3(axis.getX(), axis.getY(), axis.getZ()));
 	}
 	
 	public void setGravity(float gravity){
-		characterController.setGravity(-gravity);
+		characterController.setGravity(new Vector3(0, gravity, 0));
 	}
 	
 	public net.medox.neonengine.math.Vector3f getPos(){
@@ -106,7 +116,7 @@ public class CharacterController{
 	}
 	
 	public float getGravity(){
-		return -characterController.getGravity();
+		return characterController.getGravity().y;
 	}
 	
 	public float getMaxSlope(){
