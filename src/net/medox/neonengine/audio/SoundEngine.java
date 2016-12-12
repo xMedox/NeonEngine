@@ -13,6 +13,7 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALC10;
+import org.lwjgl.openal.EXTThreadLocalContext;
 import org.lwjgl.system.MemoryUtil;
 
 public class SoundEngine{
@@ -34,7 +35,8 @@ public class SoundEngine{
 			NeonEngine.throwError("Error: Failed to create an OpenAL context.");
 		}
 		
-		ALC10.alcMakeContextCurrent(context);
+//		ALC10.alcMakeContextCurrent(context);
+		EXTThreadLocalContext.alcSetThreadContext(context);
 		AL.createCapabilities(ALC.createCapabilities(device));
 		
 //		ALCCapabilities capabilities = device.getCapabilities();
