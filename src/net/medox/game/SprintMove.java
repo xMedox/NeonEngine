@@ -1,10 +1,10 @@
 package net.medox.game;
 
-import net.medox.neonengine.components.FreeMove;
+import net.medox.neonengine.components.MoveComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.InputKey;
 
-public class SprintMove extends FreeMove{
+public class SprintMove extends MoveComponent{
 	private InputKey sprintKey;
 	private float normalSpeed;
 	private float sprintSpeed;

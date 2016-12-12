@@ -1,6 +1,6 @@
 package net.medox.block3rd;
 
-import net.medox.neonengine.components.FreeLook;
+import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
@@ -8,7 +8,7 @@ import net.medox.neonengine.math.Vector3f;
 public class DelayLook extends EntityComponent{
 	private static Quaternion quaternion = new Quaternion(new Vector3f(0, 0, 0), 0);
 	
-	private FreeLook lock;
+	private LookComponent lock;
 	
 	public static final Vector3f yAxis = new Vector3f(0, 1, 0);
 	
@@ -26,19 +26,19 @@ public class DelayLook extends EntityComponent{
 	
 	private boolean invert;
 	
-	public DelayLook(FreeLook lock){
+	public DelayLook(LookComponent lock){
 		this(lock, 40);
 	}
 	
-	public DelayLook(FreeLook lock, float div){
+	public DelayLook(LookComponent lock, float div){
 		this(lock, div, false);
 	}
 	
-	public DelayLook(FreeLook lock, boolean invert){
+	public DelayLook(LookComponent lock, boolean invert){
 		this(lock, 40, invert);
 	}
 	
-	public DelayLook(FreeLook lock, float div, boolean invert){
+	public DelayLook(LookComponent lock, float div, boolean invert){
 		this.lock = lock;
 		this.div = div;
 		this.invert = invert;

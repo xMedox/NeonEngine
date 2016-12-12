@@ -8,7 +8,7 @@ import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.Window;
 
-public class FreeLook extends EntityComponent{
+public class LookComponent extends EntityComponent{
 	public static final Vector3f Y_AXIS = new Vector3f(0, 1, 0);
 	
 	private final InputKey unlockMouseKey;
@@ -20,19 +20,19 @@ public class FreeLook extends EntityComponent{
 	private float x;
 	private float y;
 	
-	public FreeLook(float sensitivity){
+	public LookComponent(float sensitivity){
 		this(sensitivity, false);
 	}
 	
-	public FreeLook(float sensitivity, boolean invertY){
+	public LookComponent(float sensitivity, boolean invertY){
 		this(sensitivity, invertY, new InputKey(Input.KEYBOARD, Input.KEY_ESCAPE));
 	}
 	
-	public FreeLook(float sensitivity, boolean invertY, InputKey unlockMouseKey){
+	public LookComponent(float sensitivity, boolean invertY, InputKey unlockMouseKey){
 		this(sensitivity, invertY, unlockMouseKey, new InputKey(Input.MOUSE, Input.BUTTON_LEFT));
 	}
 	
-	public FreeLook(float sensitivity, boolean invertY, InputKey unlockMouseKey, InputKey setMouse){
+	public LookComponent(float sensitivity, boolean invertY, InputKey unlockMouseKey, InputKey setMouse){
 		this.sensitivity = sensitivity;
 		this.invertY = invertY;
 		this.unlockMouseKey = unlockMouseKey;

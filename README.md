@@ -57,3 +57,4 @@
 - Added the meshInFrustum method in the RenderingEngine
 - Addded 'Max Texture image units' and 'OpenGL renderer' to the profiling output
 - Added the RenderQuality option
+- Renamed FreeMove to MoveComponent and FreeLook to LookComponent

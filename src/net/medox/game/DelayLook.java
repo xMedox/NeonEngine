@@ -2,7 +2,7 @@ package net.medox.game;
 
 import java.util.ArrayList;
 
-import net.medox.neonengine.components.FreeLook;
+import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
@@ -10,7 +10,7 @@ import net.medox.neonengine.math.Vector3f;
 public class DelayLook extends EntityComponent{
 	private static Quaternion quaternion = new Quaternion(new Vector3f(0, 0, 0), 0);
 	
-	private FreeLook look;
+	private LookComponent look;
 	private ArrayList<Quaternion> quaternions;
 	
 	public static final Vector3f yAxis = new Vector3f(0, 1, 0);
@@ -29,27 +29,27 @@ public class DelayLook extends EntityComponent{
 	
 	private boolean invert;
 	
-	public DelayLook(FreeLook look){
+	public DelayLook(LookComponent look){
 		this(look, null);
 	}
 	
-	public DelayLook(FreeLook look, float div){
+	public DelayLook(LookComponent look, float div){
 		this(look, null, div);
 	}
 	
-	public DelayLook(FreeLook look, ArrayList<Quaternion> quaternions){
+	public DelayLook(LookComponent look, ArrayList<Quaternion> quaternions){
 		this(look, quaternions, 40);
 	}
 	
-	public DelayLook(FreeLook look, ArrayList<Quaternion> quaternions, float div){
+	public DelayLook(LookComponent look, ArrayList<Quaternion> quaternions, float div){
 		this(look, quaternions, div, false);
 	}
 	
-	public DelayLook(FreeLook look, ArrayList<Quaternion> quaternions, boolean invert){
+	public DelayLook(LookComponent look, ArrayList<Quaternion> quaternions, boolean invert){
 		this(look, quaternions, 40, invert);
 	}
 	
-	public DelayLook(FreeLook look, ArrayList<Quaternion> quaternions, float div, boolean invert){
+	public DelayLook(LookComponent look, ArrayList<Quaternion> quaternions, float div, boolean invert){
 		this.look = look;
 		this.quaternions = quaternions;
 		this.div = div;

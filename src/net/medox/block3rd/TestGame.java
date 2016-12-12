@@ -1,7 +1,7 @@
 package net.medox.block3rd;
 
 import net.medox.neonengine.audio.Listener;
-import net.medox.neonengine.components.FreeLook;
+import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.ScreenshotTaker;
@@ -117,7 +117,7 @@ public class TestGame extends Game{
 		playerHead.getTransform().setPos(0.3f, /*0.75f*//*0.0125f*//*0.7375f*/0, -4);
 		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
 		playerHead.addComponent(cam);
-		FreeLook look = new FreeLook(0.15f);
+		LookComponent look = new LookComponent(0.15f);
 		playerLook.addComponent(look);
 		PlayerComponent p = new PlayerComponent(playerLook);
 //		p.getCapsule().setTransform(player.getTransform());

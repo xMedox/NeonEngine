@@ -1,7 +1,7 @@
 package net.medox.game;
 
 import net.medox.neonengine.audio.Listener;
-import net.medox.neonengine.components.FreeLook;
+import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.ParticleRenderer;
@@ -110,7 +110,7 @@ public class TestGame extends Game{
 		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
 		
 		playerHead.addComponent(cam);
-		playerHead.addComponent(new FreeLook(0.15f));
+		playerHead.addComponent(new LookComponent(0.15f));
 		
 		SphereCollider sphere2 = new SphereCollider(1);
 		sphere2.setMassProps(1f);
