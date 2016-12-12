@@ -30,9 +30,10 @@ public class PlayerComponent extends EntityComponent{
 		
 		controller = new CharacterController(capsule, 0.3f);
 		
-		controller.setJumpSpeed(4);
+		controller.setMaxJumpHeight(4);
+//		controller.setJumpSpeed(4);
 //		controller.setJumpSpeed(100);
-//		controller.setMaxJumpHeight(1);
+//		controller.setMaxJumpHeight(4f);
 		
 		controller.setMaxSlope((float)Math.toRadians(55));
 		

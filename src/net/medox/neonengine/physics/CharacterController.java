@@ -18,14 +18,13 @@ public class CharacterController{
 	private final btKinematicCharacterController characterController;
 	private final Collider collider;
 	
+//	private float jumpSpeed;
+	private float jumpHeight;
+	
 	public CharacterController(Collider collider, float stepHeight){
 		this.collider = collider;
 		
 		ghostObject = new btPairCachingGhostObject();
-		
-//		Matrix4 t = collider.getBody().getWorldTransform();
-//		t.rotate(Vector3.X, 90);
-//		t.setrota
 		
 		final net.medox.neonengine.math.Quaternion rotation = new net.medox.neonengine.math.Quaternion(new net.medox.neonengine.math.Vector3f(1, 0, 0), (float)Math.toRadians(90));
 		
@@ -42,7 +41,7 @@ public class CharacterController{
 //		ghostObject.forceActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
 //		characterController = new btKinematicCharacterController(ghostObject, (ConvexShape)collider.getCollisionShape(), stepHeight);
-		characterController = new btKinematicCharacterController(ghostObject, (btConvexShape)collider.getCollisionShape(), stepHeight/*, new Vector3(0, 1, 0)*/);
+		characterController = new btKinematicCharacterController(ghostObject, (btConvexShape)collider.getCollisionShape(), stepHeight, new Vector3(0, 1, 0));
 		
 		characterController.setGravity(new Vector3(0, PhysicsEngine.getGravity(), 0));
 		
@@ -60,19 +59,22 @@ public class CharacterController{
 	}
 	
 	public void jump(){
-		characterController.jump();
+		if(characterController.canJump()){
+			characterController.jump(new Vector3(0, jumpHeight, 0));
+//			characterController.setJumpSpeed(jumpSpeed);
+		}
 	}
 	
-	public void setJumpSpeed(float jumpSpeed){
-		characterController.setJumpSpeed(jumpSpeed);
-	}
-	
-	public void setFallSpeed(float fallSpeed){
-		characterController.setFallSpeed(fallSpeed);
-	}
+//	public void setJumpSpeed(float jumpSpeed){
+//		this.jumpSpeed = jumpSpeed;
+//	}
+//	
+//	public void setFallSpeed(float fallSpeed){
+//		characterController.setFallSpeed(fallSpeed);
+//	}
 	
 	public void setMaxJumpHeight(float maxJumpHeight){
-		characterController.setMaxJumpHeight(maxJumpHeight);
+		jumpHeight = maxJumpHeight;
 	}
 	
 	public void setMaxSlope(float slopeRadians){
@@ -159,6 +161,18 @@ public class CharacterController{
 		trans.set(trans.getTranslation(new Vector3()), new Quaternion(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()), trans.getScale(new Vector3()));
 		
 		ghostObject.setWorldTransform(trans);
+	}
+	
+//	public float getJumpSpeed(){
+//		return jumpSpeed;
+//	}
+//	
+//	public float getFallSpeed(){
+//		return characterController.getFallSpeed();
+//	}
+	
+	public float getMaxJumpHeight(){
+		return jumpHeight;
 	}
 	
 	@Override

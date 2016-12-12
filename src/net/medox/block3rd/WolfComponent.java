@@ -56,9 +56,10 @@ public class WolfComponent extends EntityComponent{
 		
 		controller = new CharacterController(box, 0.05f);
 		
-		controller.setJumpSpeed(4.6f);
+		controller.setMaxJumpHeight(4.6f);
+//		controller.setJumpSpeed(4.6f);
 //		controller.setFallSpeed(100f);
-		controller.setMaxJumpHeight(1f);
+//		controller.setMaxJumpHeight(4.6f);
 //		controller.setJumpSpeed(100);
 		
 		controller.setMaxSlope((float)Math.toRadians(55));

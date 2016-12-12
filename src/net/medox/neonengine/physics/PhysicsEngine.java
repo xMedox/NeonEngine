@@ -32,10 +32,10 @@ public class PhysicsEngine{
 	public static void init(){
 		Bullet.init();
 		
-//		final btBroadphaseInterface broadphase = new btDbvtBroadphase();
-		final btBroadphaseInterface broadphase = new btAxisSweep3(new Vector3(-10000, -10000, -10000), new Vector3(10000, 10000, 10000));
 		final btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
 		final btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
+//		final btBroadphaseInterface broadphase = new btDbvtBroadphase();
+		final btBroadphaseInterface broadphase = new btAxisSweep3(new Vector3(-10000, -10000, -10000), new Vector3(10000, 10000, 10000));
 		final btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
 		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 		
