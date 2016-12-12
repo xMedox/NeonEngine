@@ -55,6 +55,6 @@
 - The unused rendering textures are getting cleaned up now
 - Added the cleanUp method in all OpenGL objects
 - Added the meshInFrustum method in the RenderingEngine
-- Addded 'Max Texture image units' and 'OpenGL renderer' to the profiling output
+- Addded 'Max Texture image units' and 'Renderer' to the profiling output
 - Added the RenderQuality option
 - Renamed FreeMove to MoveComponent and FreeLook to LookComponent
