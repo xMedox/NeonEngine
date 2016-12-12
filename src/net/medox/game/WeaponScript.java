@@ -88,7 +88,7 @@ public class WeaponScript extends EntityComponent{
 		noScale = player.getCamera().getFov();
 		scale = noScale;
 		
-		noSense = player.getFreeLook().getSensitivity();
+		noSense = player.getLookComponent().getSensitivity();
 		sense = noSense;
 		
 		plusPos = (noPos.sub(yesPos)).div(time);
@@ -314,7 +314,7 @@ public class WeaponScript extends EntityComponent{
 //		getTransform().setPos(pos.add(movingPos));
 		getTransform().setPos(pos);
 		player.getCamera().setFov(scale);
-		player.getFreeLook().setSensitivity(sense);
+		player.getLookComponent().setSensitivity(sense);
 	}
 	
 	public void change(int id, Weapon weapon, Inventory inventory){

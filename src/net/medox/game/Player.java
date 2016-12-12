@@ -6,16 +6,16 @@ import net.medox.neonengine.rendering.Camera;
 
 public class Player extends Entity{
 	private Camera camera;
-	private LookComponent freeLook;
+	private LookComponent lookComponent;
 	private SprintMove sprintMove;
 	
-	public Player(Camera camera, LookComponent freeLook, SprintMove sprintMove){
+	public Player(Camera camera, LookComponent lookComponent, SprintMove sprintMove){
 		this.camera = camera;
-		this.freeLook = freeLook;
+		this.lookComponent = lookComponent;
 		this.sprintMove = sprintMove;
 		
 		addComponent(camera);
-		addComponent(freeLook);
+		addComponent(lookComponent);
 		addComponent(sprintMove);
 	}
 
@@ -23,8 +23,8 @@ public class Player extends Entity{
 		return camera;
 	}
 
-	public LookComponent getFreeLook(){
-		return freeLook;
+	public LookComponent getLookComponent(){
+		return lookComponent;
 	}
 
 	public SprintMove getSprintMove(){

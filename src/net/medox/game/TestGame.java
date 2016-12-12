@@ -88,17 +88,17 @@ public class TestGame extends Game{
 ////		Camera mainCamera = new Camera((float)Math.toRadians(70.0f), 0.01f, 1000.0f);
 //		Camera mainCamera = new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f);
 ////		Camera mainCamera = new Camera((float)Math.toRadians(70.0f), (float)(Window.getWidth() / 4) / (float)(Window.getHeight() / 4), 0.01f, 1000.0f, false);
-////		Entity cameraObject = new Entity().addComponent(new FreeMove(10f*0.016666668f)).addComponent(mainCamera);
-////		Entity cameraObject = new Entity().addComponent(new FreeMove(15f*0.016666668f)).addComponent(mainCamera);
+////		Entity cameraObject = new Entity().addComponent(new MoveComponent(10f*0.016666668f)).addComponent(mainCamera);
+////		Entity cameraObject = new Entity().addComponent(new MoveComponent(15f*0.016666668f)).addComponent(mainCamera);
 //		Entity cameraObject = new Entity().addComponent(new SprintMove(15f*0.016666668f, 15f*0.016666668f*2)).addComponent(mainCamera);
 //		
-//		FreeLook freelook = new FreeLook(0.25f);
+//		LookComponent lookComponent = new LookComponent(0.25f);
 //		
-//		cameraObject.addComponent(freelook);
+//		cameraObject.addComponent(lookComponent);
 //		
 //		addObject(cameraObject);
 		
-//		Player player = new Player(new Camera((float)Math.toRadians(65.0f), 0.01f, 500.0f), new FreeLook(0.15f), new SprintMove(15f, 15f*2));
+//		Player player = new Player(new Camera((float)Math.toRadians(65.0f), 0.01f, 500.0f), new LookComponent(0.15f), new SprintMove(15f, 15f*2));
 		
 		
 		Entity player = new Entity();
@@ -127,7 +127,7 @@ public class TestGame extends Game{
 		
 		player.addChild(playerHead);
 		
-//		player.addComponent(new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f)).addComponent(new FreeLook(0.15f)).addComponent(new SprintMove(15f, 15f*2));
+//		player.addComponent(new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f)).addComponent(new LookComponent(0.15f)).addComponent(new SprintMove(15f, 15f*2));
 		
 		addEntity(player);
 				

@@ -190,8 +190,8 @@ public class TestGame extends Game{
 		
 //		Entity camera = new Entity();
 //		camera.addComponent(new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f));
-//		camera.addComponent(new FreeLook(0.15f));
-//		camera.addComponent(new FreeMove(10.0f));
+//		camera.addComponent(new LookComponent(0.15f));
+//		camera.addComponent(new MoveComponent(10.0f));
 //		addEntity(camera);
 		
 		Entity wolf = new Entity();
