@@ -9,6 +9,8 @@ import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
+import net.medox.neonengine.physics.Collider;
+import net.medox.neonengine.physics.CollisionBase;
 import net.medox.neonengine.physics.ConeCollider;
 import net.medox.neonengine.physics.CylinderCollider;
 import net.medox.neonengine.physics.Ray;
@@ -65,22 +67,22 @@ public class AddComponent extends EntityComponent{
 		if(Input.getMouseDown(Input.BUTTON_RIGHT)){
 			Ray ray = new Ray(RenderingEngine.getMainCamera().getTransform().getTransformedPos(), RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(Util.mouseToRay().mul(100)));
 			
-			if(ray.hasHit()){
-				ray.getHitCollider().activate(true);
-				ray.getHitCollider().applyCentralImpulse(new Vector3f(0, 20, 0));
-//				ray.getHitCollider().setLinearVelocity(new Vector3f(0, 10, 0));
+			if(ray.hasHit() && ray.getHitCollider().getType() == CollisionBase.COLLIDER){
+				((Collider)ray.getHitCollider()).activate(true);
+				((Collider)ray.getHitCollider()).applyCentralImpulse(new Vector3f(0, 20, 0));
+//				((Collider)ray.getHitCollider()).setLinearVelocity(new Vector3f(0, 10, 0));
 				
-//				if(ray.getHitCollider().getGroup() == 1){
-//					if(selected != (Entity)(ray.getHitCollider().getObject())){
+//				if(((Collider)ray.getHitCollider()).getGroup() == 1){
+//					if(selected != (Entity)((Collider)ray.getHitCollider()).getObject())){
 //						if(selected != null){
 //							selected.getTransform().setScale(selected.getTransform().getScale().sub(0.1f));
 //						}
 //						
-//						selected = (Entity)(ray.getHitCollider().getObject());
+//						selected = (Entity)(((Collider)ray.getHitCollider()).getObject());
 //						
 //						selected.getTransform().setScale(selected.getTransform().getScale().add(0.1f));
 //						
-//						selectedCollider = ray.getHitCollider();
+//						selectedCollider = ((Collider)ray.getHitCollider());
 //					}else{
 //						selected.getTransform().setScale(selected.getTransform().getScale().sub(0.1f));
 //						

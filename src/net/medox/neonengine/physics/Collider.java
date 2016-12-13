@@ -10,54 +10,21 @@ import com.badlogic.gdx.physics.bullet.collision.btCollisionObject.CollisionFlag
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 
-public abstract class Collider{
+public abstract class Collider extends CollisionBase{
 	public static final Matrix4 DEFAULT_TRANSFORM = new Matrix4().set(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 1), new Vector3(1, 1, 1));
 	
 	private static final List<Collider> colliders = new ArrayList<Collider>();
 	
-	private final List<Collider> hitList;
-	
 	private btRigidBody body;
 	
-	private int group;
-	private Object object;
-	
 	public Collider(){
-		hitList = new ArrayList<Collider>();
+		super(COLLIDER);
 		
 		colliders.add(this);
 	}
 	
-	public int getGroup(){
-		return group;
-	}
-	
-	public void setGroup(int group){
-		this.group = group;
-	}
-	
-	public Object getObject(){
-		return object;
-	}
-	
-	public void setObject(Object object){
-		this.object = object;
-	}
-	
 	public btRigidBody getBody(){
 		return body;
-	}
-	
-	public void add(Collider c){
-		hitList.add(c);
-	}
-	
-	public void clearList(){
-		hitList.clear();
-	}
-	
-	public boolean collidesWith(Collider c){
-		return hitList.contains(c);
 	}
 	
 	public void setBody(btRigidBody body){

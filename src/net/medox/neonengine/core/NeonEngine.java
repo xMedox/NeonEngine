@@ -9,6 +9,7 @@ import net.medox.neonengine.physics.Collider;
 import net.medox.neonengine.physics.Constraint;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.rendering.CubeMap;
+import net.medox.neonengine.rendering.DynamicMesh;
 import net.medox.neonengine.rendering.Mesh;
 import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Shader;
@@ -398,6 +399,7 @@ public class NeonEngine{
 		Texture.dispose();
 		CubeMap.dispose();
 		Mesh.dispose();
+		DynamicMesh.dispose();
 		Shader.dispose();
 		
 		Sound.dispose();

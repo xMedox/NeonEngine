@@ -637,6 +637,12 @@ public class RenderingEngine{
 		mesh.draw();
 	}
 	
+	public static void renderDynamicMesh(Shader shader, Transform trans, DynamicMesh mesh, Material material, Camera camera){
+		shader.bind();
+		shader.updateUniforms(trans, material, camera);
+		mesh.draw();
+	}
+	
 	public static void drawString(float xPos, float yPos, String text, Vector3f color){
 		drawString(xPos, yPos, text, color, 1, 1);
 	}

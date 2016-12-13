@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btBroadphaseProxy.CollisionFilterGroups;
 
 public class Ray{
-	private final Collider hitCollider;
+	private final CollisionBase hitCollider;
 	private final net.medox.neonengine.math.Vector3f hitPoint;
 	private final net.medox.neonengine.math.Vector3f hitNormal;
 	private final boolean hasHit;
@@ -43,7 +43,7 @@ public class Ray{
 		callback.dispose();
 	}
 	
-	public Collider getHitCollider(){
+	public CollisionBase getHitCollider(){
 		return hitCollider;
 	}
 	

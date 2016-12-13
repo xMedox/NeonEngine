@@ -15,29 +15,33 @@ import com.badlogic.gdx.physics.bullet.collision.btBroadphaseProxy.CollisionFilt
 import com.badlogic.gdx.physics.bullet.collision.btCollisionConfiguration;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
-import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
 import com.badlogic.gdx.physics.bullet.collision.btGhostPairCallback;
 import com.badlogic.gdx.physics.bullet.dynamics.btConstraintSolver;
-import com.badlogic.gdx.physics.bullet.dynamics.btDiscreteDynamicsWorld;
 import com.badlogic.gdx.physics.bullet.dynamics.btSequentialImpulseConstraintSolver;
+import com.badlogic.gdx.physics.bullet.softbody.btDefaultSoftBodySolver;
+import com.badlogic.gdx.physics.bullet.softbody.btSoftBodyRigidBodyCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.softbody.btSoftBodySolver;
+import com.badlogic.gdx.physics.bullet.softbody.btSoftBodyWorldInfo;
+import com.badlogic.gdx.physics.bullet.softbody.btSoftRigidDynamicsWorld;
 
 public class PhysicsEngine{
-	private static btDiscreteDynamicsWorld dynamicsWorld;
+	private static btSoftRigidDynamicsWorld dynamicsWorld;
 	
-	private static List<Collider> colliders;
+	private static List<CollisionBase> colliders;
 	private static List<Constraint> constraints;
-	private static Map<Integer, Collider> colliderIds;
+	private static Map<Integer, CollisionBase> colliderIds;
 	private static int nextId;
 	
 	public static void init(){
 		Bullet.init();
 		
-		final btCollisionConfiguration collisionConfiguration = new btDefaultCollisionConfiguration();
+		final btCollisionConfiguration collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 		final btCollisionDispatcher dispatcher = new btCollisionDispatcher(collisionConfiguration);
 //		final btBroadphaseInterface broadphase = new btDbvtBroadphase();
 		final btBroadphaseInterface broadphase = new btAxisSweep3(new Vector3(-10000, -10000, -10000), new Vector3(10000, 10000, 10000));
 		final btConstraintSolver solver = new btSequentialImpulseConstraintSolver();
-		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+		final btSoftBodySolver softBodySolver = new btDefaultSoftBodySolver();
+		dynamicsWorld = new btSoftRigidDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration, softBodySolver);
 		
 		dynamicsWorld.setGravity(new Vector3(0, -9.81f/*-9.80665f*/, 0));
 		
@@ -48,12 +52,12 @@ public class PhysicsEngine{
 		new Callback();
 		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
 		
-		colliders = new ArrayList<Collider>();
+		colliders = new ArrayList<CollisionBase>();
 		constraints = new ArrayList<Constraint>();
-		colliderIds = new ConcurrentHashMap<Integer, Collider>();
+		colliderIds = new ConcurrentHashMap<Integer, CollisionBase>();
 	}
 	
-	public static Collider getById(int index){
+	public static CollisionBase getById(int index){
 		return colliderIds.get(index);
 	}
 	
@@ -74,6 +78,25 @@ public class PhysicsEngine{
 		colliderIds.remove(collider.getBody().getUserValue());
 		dynamicsWorld.removeRigidBody(collider.getBody());
 		colliders.remove(collider);
+	}
+	
+	public static void addSoftBody(SoftBody softBody){
+		addSoftBody(softBody, CollisionFilterGroups.DefaultFilter, CollisionFilterGroups.AllFilter);
+	}
+	
+	public static void addSoftBody(SoftBody softBody, int group, int mask){
+		dynamicsWorld.addSoftBody(softBody.getBody(), (short)group, (short)mask);
+		colliders.add(softBody);
+		colliderIds.put(nextId, softBody);
+		softBody.getBody().setUserValue(nextId);
+		
+		nextId += 1;
+	}
+	
+	public static void removeSoftBody(SoftBody softBody){
+		colliderIds.remove(softBody.getBody().getUserValue());
+		dynamicsWorld.removeSoftBody(softBody.getBody());
+		colliders.remove(softBody);
 	}
 	
 	public static void addConstraint(Constraint constraint){
@@ -125,6 +148,10 @@ public class PhysicsEngine{
 	
 	public static void rayTest(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld, RayResultCallback resultCallback){
 		dynamicsWorld.rayTest(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()), resultCallback);
+	}
+	
+	public static btSoftBodyWorldInfo getWorldInfo(){
+		return dynamicsWorld.getWorldInfo();
 	}
 	
 	public static void dispose(){
