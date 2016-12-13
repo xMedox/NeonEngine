@@ -28,6 +28,14 @@ public class IndexedModel{
 //		maxVertex = new Vector3f(-Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE);
 	}
 	
+	public IndexedModel(List<Integer> indices, List<Vector3f> positions, List<Vector2f> texCoords, List<Vector3f> normals, List<Vector3f> tangents){
+		this.positions = positions;
+		this.texCoords = texCoords;
+		this.normals = normals;
+		this.tangents = tangents;
+		this.indices = indices;
+	}
+	
 	public float getRadius(){
 		return radius;
 	}
