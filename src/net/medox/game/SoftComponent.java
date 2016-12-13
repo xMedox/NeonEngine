@@ -24,11 +24,13 @@ public class SoftComponent extends EntityComponent{
 	
 	@Override
 	public void render(Shader shader, Camera camera){
-//		if(mesh.inFrustum(getTransform(), camera)){
+		if(RenderingEngine.getRenderingState() == RenderingEngine.DIFFUSE_STATE){
 			dy.updatePositions(body.getVertices());
-			
+		}
+		
+		if(RenderingEngine.dynamicMeshInFrustum(getTransform(), dy, camera)){
 			RenderingEngine.renderDynamicMesh(shader, getTransform(), dy, material, camera);
-//		}
+		}
 		
 //		body.render();
 	}

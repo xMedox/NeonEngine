@@ -601,6 +601,20 @@ public class RenderingEngine{
 		}
 	}
 	
+	public static boolean dynamicMeshInFrustum(Transform transform, DynamicMesh mesh, Camera camera){
+		final boolean inCameraFrustum = mesh.inFrustum(transform, camera);
+		
+		if(renderingState == LIGHTING_STATE){
+			if(lightCamera.getMode() == 0){
+				return inCameraFrustum && mesh.inFrustum(transform, lightCamera);
+			}else{
+				return inCameraFrustum;
+			}
+		}else{
+			return inCameraFrustum;
+		}
+	}
+	
 	public static void renderParticle(Transform trans, ParticleMaterial material){
 		renderParticle(trans, material, new Vector2f(0, 0), new Vector2f(1, 1));
 	}

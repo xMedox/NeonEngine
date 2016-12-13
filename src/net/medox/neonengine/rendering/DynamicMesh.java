@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.resourceManagement.DynamicMeshData;
 
@@ -22,6 +23,10 @@ public class DynamicMesh{
 		
 		loadedModels.put(id, resource);
 		nextId += 1;
+	}
+	
+	public boolean inFrustum(Transform transform, Camera camera){
+		return resource.inFrustum(transform, camera);
 	}
 	
 	public void cleanUp(){
