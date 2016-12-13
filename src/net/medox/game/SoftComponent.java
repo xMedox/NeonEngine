@@ -31,8 +31,6 @@ public class SoftComponent extends EntityComponent{
 		if(RenderingEngine.dynamicMeshInFrustum(getTransform(), dy, camera)){
 			RenderingEngine.renderDynamicMesh(shader, getTransform(), dy, material, camera);
 		}
-		
-//		body.render();
 	}
 	
 	@Override
