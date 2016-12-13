@@ -180,9 +180,9 @@ public class RenderingEngine{
 //		GL11.glScissor(0, 0, Window.getWidth(), Window.getHeight());
 		GL11.glViewport(0, 0, Window.getWidth(), Window.getHeight());
 		
-		GL11.glFrontFace(GL11.GL_CW);
-		GL11.glCullFace(GL11.GL_BACK);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+//		GL11.glFrontFace(GL11.GL_CW);
+//		GL11.glCullFace(GL11.GL_BACK);
+//		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		
 		camera2D = new Camera(0, Window.getWidth(), 0, Window.getHeight(), -1, 1);

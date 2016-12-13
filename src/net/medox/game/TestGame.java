@@ -5,7 +5,6 @@ import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.ParticleRenderer;
-import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.components.PlayerComponent;
 import net.medox.neonengine.components.ScreenshotTaker;
 import net.medox.neonengine.components.StaticPhysicsComponent;
@@ -19,7 +18,6 @@ import net.medox.neonengine.core.Game;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.InputKey;
 import net.medox.neonengine.core.NeonEngine;
-import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.lighting.Attenuation;
 import net.medox.neonengine.lighting.DirectionalLight;
 import net.medox.neonengine.lighting.PointLight;
@@ -28,8 +26,6 @@ import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
-import net.medox.neonengine.physics.PhysicsEngine;
-import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
 import net.medox.neonengine.physics.StaticPlaneCollider;
 import net.medox.neonengine.rendering.Camera;
@@ -83,6 +79,8 @@ public class TestGame extends Game{
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
+		gameObject.addComponent(new SoftComponent());
+		
 		addEntity(gameObject);
 		
 ////		Camera mainCamera = new Camera((float)Math.toRadians(70.0f), 0.01f, 1000.0f);
@@ -114,7 +112,7 @@ public class TestGame extends Game{
 		
 		SphereCollider sphere2 = new SphereCollider(1);
 		sphere2.setMassProps(1f);
-		PhysicsComponent testphys = new PhysicsComponent(sphere2);
+//		PhysicsComponent testphys = new PhysicsComponent(sphere2);
 //		testphys.getSphere().setMassProps(0);
 		
 		PlayerComponent p = new PlayerComponent(cam);
@@ -436,41 +434,41 @@ public class TestGame extends Game{
 //			addEntity(entity.addComponent(new PhysicsComponent(physicsEngineComponent.getPhysicsEngine().getObject(i))).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)));
 //		}
 		
-		Entity entity = new Entity();
-		
-		addEntity(entity.addComponent(testphys).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
-		
-		SphereCollider sphere = new SphereCollider(1);
-		sphere.setMassProps(1f);
-		PhysicsComponent testphys2 = new PhysicsComponent(sphere);
-		
-		Entity entity5 = new Entity();
-		
-		addEntity(entity5.addComponent(testphys2).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
-		
-		
-		Transform tk = new Transform();
-		tk.setPos(new Vector3f(3, 15, 0));
-		
-		sphere.setTransform(tk);
-//		testphys2.getSphere().setMassProps(0);
-		
-		tk.setPos(new Vector3f(5, 15, 0));
-		
-		sphere2.setTransform(tk);
-//		testphys2.getSphere().setMassProps(0);
-		
-		
-		Transform tkA = new Transform();
-		tkA.setPos(new Vector3f(1, 0, 0));
-		
-		Transform tkB = new Transform();
-		tkB.setPos(new Vector3f(-1, 0, 0));
-		
-		PointConstraint constraint = new PointConstraint(sphere2, sphere, new Vector3f(-1, 0, 0), new Vector3f(1, 0, 0));
-//		SliderConstraint constraint = new SliderConstraint(testphys.getSphere(), testphys2.getSphere(), tkA, tkB, false);
-		
-		PhysicsEngine.addConstraint(constraint);
+//		Entity entity = new Entity();
+//		
+//		addEntity(entity.addComponent(testphys).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
+//		
+//		SphereCollider sphere = new SphereCollider(1);
+//		sphere.setMassProps(1f);
+//		PhysicsComponent testphys2 = new PhysicsComponent(sphere);
+//		
+//		Entity entity5 = new Entity();
+//		
+//		addEntity(entity5.addComponent(testphys2).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
+//		
+//		
+//		Transform tk = new Transform();
+//		tk.setPos(new Vector3f(3, 15, 0));
+//		
+//		sphere.setTransform(tk);
+////		testphys2.getSphere().setMassProps(0);
+//		
+//		tk.setPos(new Vector3f(5, 15, 0));
+//		
+//		sphere2.setTransform(tk);
+////		testphys2.getSphere().setMassProps(0);
+//		
+//		
+//		Transform tkA = new Transform();
+//		tkA.setPos(new Vector3f(1, 0, 0));
+//		
+//		Transform tkB = new Transform();
+//		tkB.setPos(new Vector3f(-1, 0, 0));
+//		
+//		PointConstraint constraint = new PointConstraint(sphere2, sphere, new Vector3f(-1, 0, 0), new Vector3f(1, 0, 0));
+////		SliderConstraint constraint = new SliderConstraint(testphys.getSphere(), testphys2.getSphere(), tkA, tkB, false);
+//		
+//		PhysicsEngine.addConstraint(constraint);
 		
 //		testphys.getSphere().setMassProps(4);
 //		testphys2.getSphere().setMassProps(4);

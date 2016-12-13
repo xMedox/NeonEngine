@@ -38,6 +38,8 @@ public class DynamicMeshData extends ReferenceCounter{
 	public DynamicMeshData(int vertices, int textureCoords, int normals, int tangents, int indicies){
 		radius = 100000000;
 		
+		System.out.println(vertices);
+		
 		vertexArrayBuffers = DataUtil.createIntBuffer(NUM_BUFFERS);
 		
 		vertexArrayObject = GL30.glGenVertexArrays();
@@ -91,13 +93,13 @@ public class DynamicMeshData extends ReferenceCounter{
 			indices.add(offset + 3);
 			indices.add(offset + 2);
 			
-			System.out.println(offset + 1);
-			System.out.println(offset + 0);
-			System.out.println(offset + 2);
-			
-			System.out.println(offset + 3);
-			System.out.println(offset + 1);
-			System.out.println(offset + 2);
+//			System.out.println(offset + 1);
+//			System.out.println(offset + 0);
+//			System.out.println(offset + 2);
+//			
+//			System.out.println(offset + 3);
+//			System.out.println(offset + 1);
+//			System.out.println(offset + 2);
 			
 			offset += 4;
 			
@@ -110,7 +112,7 @@ public class DynamicMeshData extends ReferenceCounter{
 		
 		GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, DataUtil.createFlippedBuffer(vertexData), GL15.GL_STATIC_DRAW);
 		
-		drawCount = indicies;
+		drawCount = indices.size();
 		
 		GL30.glBindVertexArray(0);
 	}
