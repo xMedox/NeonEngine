@@ -28,6 +28,7 @@ import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
+import net.medox.neonengine.physics.CapsuleCollider;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
@@ -117,7 +118,20 @@ public class TestGame extends Game{
 		PhysicsComponent testphys = new PhysicsComponent(sphere2);
 //		testphys.getSphere().setMassProps(0);
 		
-		PlayerComponent p = new PlayerComponent(cam);
+		CapsuleCollider capsule = new CapsuleCollider(0.5f, 1f);
+		
+//		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
+		capsule.setMassProps(2.5f);
+//		capsule.setRestitution(0f);
+//		capsule.setAngularFactor(1f);
+		capsule.setAngularFactor(0);
+//		capsule.setFriction(0.5f);
+		capsule.setSleepingThresholds(0, 0);
+//		controlBall.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
+		
+//		PhysicsEngine.addObject(cylinder);
+		
+		PlayerComponent p = new PlayerComponent(capsule, cam);
 		
 		player.addComponent(p);
 		

@@ -3,32 +3,18 @@ package net.medox.neonengine.components;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.math.Vector3f;
-import net.medox.neonengine.physics.CapsuleCollider;
 import net.medox.neonengine.physics.CharacterController;
+import net.medox.neonengine.physics.Collider;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.rendering.Camera;
 
 public class PlayerComponent extends EntityComponent{
 	private Camera camera;
-	private CapsuleCollider capsule;
 	
 	private CharacterController controller;
 	
-	public PlayerComponent(Camera camera){
-		capsule = new CapsuleCollider(0.5f, 1f);
-		
-//		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
-		capsule.setMassProps(2.5f);
-//		capsule.setRestitution(0f);
-//		capsule.setAngularFactor(1f);
-		capsule.setAngularFactor(0);
-//		capsule.setFriction(0.5f);
-		capsule.setSleepingThresholds(0, 0);
-//		controlBall.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
-		
-//		PhysicsEngine.addObject(cylinder);
-		
-		controller = new CharacterController(capsule, 0.3f);
+	public PlayerComponent(Collider collider, Camera camera){
+		controller = new CharacterController(collider, 0.3f);
 		
 		controller.setMaxJumpHeight(4);
 //		controller.setJumpSpeed(4);
@@ -36,15 +22,6 @@ public class PlayerComponent extends EntityComponent{
 //		controller.setMaxJumpHeight(4f);
 		
 		controller.setMaxSlope((float)Math.toRadians(55));
-		
-//		controller.setFallSpeed(9.80665f);
-//		controller.setGravity(9.80665f);
-		
-//		controller.setFallSpeed(9.81f);
-//		controller.setGravity(PhysicsEngine.getGravity());
-		
-//		System.out.println(capsule.getGravity());
-//		System.out.println(controller.getGravity());
 		
 		this.camera = camera;
 	}

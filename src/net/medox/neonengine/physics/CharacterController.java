@@ -77,6 +77,10 @@ public class CharacterController{
 		jumpHeight = maxJumpHeight;
 	}
 	
+	public void setStepHeight(float stepHeight){
+		characterController.setStepHeight(stepHeight);
+	}
+	
 	public void setMaxSlope(float slopeRadians){
 		characterController.setMaxSlope(slopeRadians);
 	}
