@@ -157,9 +157,11 @@ public class TestGame extends Game{
 		
 //		Mesh mesh = new Mesh(vertices, indices, true);
 //		Mesh mesh = new Mesh("backdrop(2.59).obj");
-		Mesh mesh = new Mesh(/*"planeScale.obj"*//*"Level test.obj"*//*"castle.obj"*/"banjo.obj", true);
+		Mesh mesh = new Mesh(/*"Level test.obj"*//*"castle.obj"*/"banjo.obj", true);
+//		Mesh mesh = new Mesh("planeScale.obj"));
 		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-		material.setDiffuseMap(new Texture(/*"bricks2.jpg"*//*"Level test.png"*//*"princess peaches castle (outside)_grp.png"*/"62491365.png"));
+		material.setDiffuseMap(new Texture(/*"Level test.png"*//*"princess peaches castle (outside)_grp.png"*/"banjo.png"));
+//		material.setDiffuseMap(new Texture("bricks2.jpg"));
 //		material.setNormalMap(new Texture("bricks2_normal.jpg"));
 //		material.setSpecularMap(new Texture("bricks2_spec.jpg"));
 //		material.setSpecularIntensity(0.5f + 0.15f/2);
