@@ -13,6 +13,7 @@ import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.physics.StaticMeshCollider;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
@@ -33,16 +34,12 @@ public class MeshData extends ReferenceCounter{
 //	private Vector3f minVertex;
 //	private Vector3f maxVertex;
 	private final float radius;
-//	private MeshShape shape;
+	private StaticMeshCollider collider;
 	
-	public MeshData(IndexedModel model/*, boolean create*/){
+	public MeshData(IndexedModel model, boolean createShape){
 		if(!model.isValid()){
 			NeonEngine.throwError("Error: Invalid mesh! Must have same number of positions, texCoords, normals, and tangents! (Maybe you forgot to Finalize() your IndexedModel?)");
 		}
-		
-//		if(create){
-//			shape = model.createShape();
-//		}
 		
 		radius = model.getRadius();
 		
@@ -50,6 +47,10 @@ public class MeshData extends ReferenceCounter{
 //		
 //		minVertex = model.getMinVertex();
 //		maxVertex = model.getMaxVertex();
+		
+		if(createShape){
+			collider = new StaticMeshCollider(model.getIndices(), model.getPositions());
+		}
 		
 		vertexArrayBuffers = DataUtil.createIntBuffer(NUM_BUFFERS);
 		
@@ -99,6 +100,10 @@ public class MeshData extends ReferenceCounter{
 		
 		GL30.glBindVertexArray(0);
 //		RenderingEngine.meshBound = -1;
+	}
+	
+	public StaticMeshCollider getCollider(){
+		return collider;
 	}
 	
 	public void draw(){

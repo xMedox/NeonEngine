@@ -1,54 +1,43 @@
 package net.medox.neonengine.physics;
 
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.btBvhTriangleMeshShape;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
-import com.badlogic.gdx.physics.bullet.collision.btConvexHullShape;
+import com.badlogic.gdx.physics.bullet.collision.btTriangleMesh;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
 import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody.btRigidBodyConstructionInfo;
 import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
-import net.medox.neonengine.core.DataUtil;
-
-public class MeshCollider extends Collider{
-	private final btCollisionShape shape;
+public class StaticMeshCollider extends Collider{
+	private final btBvhTriangleMeshShape shape;
+	private final btTriangleMesh meshInterface;
 	
-	public MeshCollider(ArrayList<net.medox.neonengine.math.Vector3f> positions){
+	public StaticMeshCollider(List<Integer> indicies, List<net.medox.neonengine.math.Vector3f> positions){
 		super();
 		
-//		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
+		meshInterface = new btTriangleMesh();
 		
-//		final FloatBuffer points = DataUtil.createFloatBuffer((positions.size()-1) * 3);
-		
-//		TriangleMeshShape tetraMesh;
-//		tetraMesh.
-//		tetraMesh.addTriangle(btVector3(-1, 0, -1), btVector3(-1, 0, 1), btVector3( 1, 0, -1), false);
-//		tetraMesh.addTriangle(btVector3( 1, 0, -1), btVector3(-1, 0, 1), btVector3( 1, 0,  1), false);
-//		tetraMesh.addTriangle(btVector3(-1, 0, -1), btVector3(0, 1, 0), btVector3(-1, 0, 1), false);
-//		tetraMesh.addTriangle(btVector3(-1, 0, -1), btVector3(0, 1, 0), btVector3( 1, 0,-1), false);
-//		tetraMesh.addTriangle(btVector3( 1, 0, -1), btVector3(0, 1, 0), btVector3( 1, 0, 1), false);
-//		tetraMesh.addTriangle(btVector3( 1, 0,  1), btVector3(0, 1, 0), btVector3(-1, 0, 1), false);
-//		tetraShape = new BvhTriangleMeshShape(&tetraMesh, false);
-		
-//		for(int i = 0; i < positions.size(); i++){
-//			final net.medox.neonengine.math.Vector3f save = positions.get(i);
-//			
-//			points.add(new Vector3(save.getX(), save.getY(), save.getZ()));
-//		}
-		
-		final FloatBuffer buffer = DataUtil.createFloatBuffer(positions.size() * 3);
-		
-		for(int i = 0; i < positions.size(); i++){
-			buffer.put(positions.get(i).getX());
-			buffer.put(positions.get(i).getY());
-			buffer.put(positions.get(i).getZ());
+		for(int i = 0; i < indicies.size(); i+=3){
+			final net.medox.neonengine.math.Vector3f pos1 = positions.get(indicies.get(i));
+			final net.medox.neonengine.math.Vector3f pos2 = positions.get(indicies.get(i+1));
+			final net.medox.neonengine.math.Vector3f pos3 = positions.get(indicies.get(i+2));
+			
+			meshInterface.addTriangle(new Vector3(pos1.getX(), pos1.getY(), pos1.getZ()), new Vector3(pos2.getX(), pos2.getY(), pos2.getZ()), new Vector3(pos3.getX(), pos3.getY(), pos3.getZ()), true);
 		}
 		
-		buffer.flip();
+		shape = new btBvhTriangleMeshShape(meshInterface, true);
 		
-		shape = new btConvexHullShape(buffer);
+//		final btConvexHullShape s = new btConvexHullShape();
+//		
+//		for(int i = 0; i < positions.size(); i++){
+//			final net.medox.neonengine.math.Vector3f pos1 = positions.get(i);
+//			
+//			s.addPoint(new Vector3(pos1.getX(), pos1.getY(), pos1.getZ()));
+//		}
+//		
+//		shape = s;
 		
 		final Vector3 inertia = new Vector3(0, 0, 0);
 		shape.calculateLocalInertia(1f, inertia);
@@ -86,6 +75,13 @@ public class MeshCollider extends Collider{
 	}
 	
 	@Override
+	public void setScale(float scale){
+		shape.setLocalScaling(new Vector3(scale, scale, scale));
+		
+		getBody().setCollisionShape(shape);
+	}
+	
+	@Override
 	public btCollisionShape getCollisionShape(){
 		return shape;
 	}
@@ -93,6 +89,7 @@ public class MeshCollider extends Collider{
 	@Override
 	public void cleanUp(){
 		shape.dispose();
+		meshInterface.dispose();
 		super.cleanUp();
 	}
 }
