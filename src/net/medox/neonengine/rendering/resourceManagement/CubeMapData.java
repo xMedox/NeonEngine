@@ -26,6 +26,8 @@ public class CubeMapData extends ReferenceCounter{
 	private int height[];
 	
 	public CubeMapData(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp, int attachments){		
+		super();
+		
 		this.textureTarget = textureTarget;
 		
 		if(!NeonEngine.is2x2TextureEnabled()){

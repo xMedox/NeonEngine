@@ -26,6 +26,8 @@ public class TextureData extends ReferenceCounter{
 	private int height;
 	
 	public TextureData(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
+		super();
+		
 		textureID = new int[numTextures];
 		this.textureTarget = textureTarget;
 		this.numTextures = numTextures;

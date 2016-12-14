@@ -37,6 +37,8 @@ public class MeshData extends ReferenceCounter{
 	private StaticMeshCollider collider;
 	
 	public MeshData(IndexedModel model, boolean createShape){
+		super();
+		
 		if(!model.isValid()){
 			NeonEngine.throwError("Error: Invalid mesh! Must have same number of positions, texCoords, normals, and tangents! (Maybe you forgot to Finalize() your IndexedModel?)");
 		}

@@ -26,6 +26,8 @@ public class ShaderData extends ReferenceCounter{
 	private final String fileName;
 	
 	public ShaderData(String fileName){
+		super();
+		
 		this.fileName = fileName;
 		
 		this.program = GL20.glCreateProgram();

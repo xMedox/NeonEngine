@@ -8,6 +8,8 @@ public class CursorData extends ReferenceCounter{
 	private final long id;
 	
 	public CursorData(long id){
+		super();
+		
 		this.id = id;
 	}
 	
