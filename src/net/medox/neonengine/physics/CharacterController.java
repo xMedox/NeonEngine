@@ -47,6 +47,8 @@ public class CharacterController{
 		
 //		physics.getWorld().addCollisionObject(ghostObject, BroadphaseProxy.CharacterFilter, btBroadphaseProxy.StaticFilter | BroadphaseProxy.DefaultFilter);
 		
+		characterController.setMaxPenetrationDepth(0.001f);
+		
 		characterControllers.add(this);
 	}
 	
