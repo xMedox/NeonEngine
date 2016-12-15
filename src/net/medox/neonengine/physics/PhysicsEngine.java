@@ -41,7 +41,7 @@ public class PhysicsEngine{
 		
 		dynamicsWorld.setGravity(new Vector3(0, -9.81f/*-9.80665f*/, 0));
 		
-		dynamicsWorld.getDispatchInfo().setAllowedCcdPenetration(0.001f);
+		dynamicsWorld.getDispatchInfo().setAllowedCcdPenetration(0.00001f);
 		
 		dynamicsWorld.getSolverInfo().setNumIterations(60);
 		
