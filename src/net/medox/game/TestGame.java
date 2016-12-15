@@ -2,6 +2,7 @@ package net.medox.game;
 
 import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.LookComponent;
+import net.medox.neonengine.components.DynamicPlayerComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.ParticleRenderer;
@@ -121,7 +122,7 @@ public class TestGame extends Game{
 		CapsuleCollider capsule = new CapsuleCollider(0.5f, 1f);
 		
 //		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
-		capsule.setMassProps(2.5f);
+		capsule.setMassProps(70.8f);
 //		capsule.setRestitution(0f);
 //		capsule.setAngularFactor(1f);
 		capsule.setAngularFactor(0);
@@ -131,7 +132,7 @@ public class TestGame extends Game{
 		
 //		PhysicsEngine.addObject(cylinder);
 		
-		PlayerComponent p = new PlayerComponent(capsule, cam);
+		DynamicPlayerComponent p = new DynamicPlayerComponent(capsule, cam);
 		
 		player.addComponent(p);
 		
