@@ -132,28 +132,37 @@ public class PlayerComponent extends EntityComponent{
 		}
 		
 		Vector3f dir = new Vector3f(0, 0, 0);
+		boolean changed = false;
 		
 		if(Input.getKey(Input.KEY_W) && !Input.getKey(Input.KEY_S)){
 			dir = dir.add(entity.getTransform().getRot().getForward().mul(new Vector3f(1, 0, 1)).normalized());
+			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_A) && !Input.getKey(Input.KEY_D)){
 			dir = dir.add(entity.getTransform().getRot().getLeft().mul(new Vector3f(1, 0, 1)).normalized());
+			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_S) && !Input.getKey(Input.KEY_W)){
 			dir = dir.add(entity.getTransform().getRot().getBack().mul(new Vector3f(1, 0, 1)).normalized());
+			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_D) && !Input.getKey(Input.KEY_A)){
 			dir = dir.add(entity.getTransform().getRot().getRight().mul(new Vector3f(1, 0, 1)).normalized());
+			changed = true;
 		}
 		
 		if(Input.getKeyDown(Input.KEY_SPACE)){
 			controller.jump();
 		}
 		
-		move(dir.mul(speed));
+		if(changed){
+			move(dir.normalized().mul(speed));
+		}else{
+			move(dir);
+		}
 	}
 	
 	public void move(Vector3f vel){
