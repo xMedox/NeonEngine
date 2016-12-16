@@ -19,6 +19,7 @@ public class Cursor{
 	private final int yPos;
 	
 	private CursorData resource;
+	private boolean cleanedUp;
 	
 	public Cursor(String fileName){
 		this(fileName, 0, 0);
@@ -59,12 +60,20 @@ public class Cursor{
 		return resource.getId();
 	}
 	
+	public void cleanUp(){
+		if(!cleanedUp){
+			if(resource.removeReference() && !fileName.equals("")){
+				resource.dispose();
+				loadedCursors.remove(fileName);
+			}
+			
+			cleanedUp = true;
+		}
+	}
+	
 	@Override
 	protected void finalize() throws Throwable{
-		if(resource.removeReference() && !fileName.equals("")){
-			resource.dispose();
-			loadedCursors.remove(fileName);
-		}
+		cleanUp();
 		
 		super.finalize();
 	}

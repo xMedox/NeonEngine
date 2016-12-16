@@ -23,10 +23,11 @@ public class Texture{
 	
 	private final String fileName;
 	
-	private TextureData resource;
-	
 	private int width;
 	private int height;
+	
+	private TextureData resource;
+	private boolean cleanedUp;
 	
 	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		this.fileName = fileName;
@@ -92,14 +93,18 @@ public class Texture{
 	}
 	
 	public void cleanUp(){
-		if(fileName.equals("")){
-			resource.dispose();
-			loadedTextures.remove(resource);
-		}else{
-			if(resource.removeReference()){
+		if(!cleanedUp){
+			if(fileName.equals("")){
 				resource.dispose();
-				loadedTextures.remove(fileName);
+				loadedTextures.remove(resource);
+			}else{
+				if(resource.removeReference()){
+					resource.dispose();
+					loadedTextures.remove(fileName);
+				}
 			}
+			
+			cleanedUp = true;
 		}
 	}
 	

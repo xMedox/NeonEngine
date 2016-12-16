@@ -19,10 +19,11 @@ public class CubeMap{
 	
 	private final String fileNames[];
 	
-	private CubeMapData resource;
-	
 	private int width[] = new int[6];
 	private int height[] = new int[6];
+	
+	private CubeMapData resource;
+	private boolean cleanedUp;
 	
 	public CubeMap(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		this.fileNames = fileNames;
@@ -69,9 +70,13 @@ public class CubeMap{
 //	}
 	
 	public void cleanUp(){
-		if(resource.removeReference() && !fileNames[0].equals("") && !fileNames[1].equals("") && !fileNames[2].equals("") && !fileNames[3].equals("") && !fileNames[4].equals("") && !fileNames[5].equals("")){
-			resource.dispose();
-			loadedCubeMaps.remove(fileNames);
+		if(!cleanedUp){
+			if(resource.removeReference() && !fileNames[0].equals("") && !fileNames[1].equals("") && !fileNames[2].equals("") && !fileNames[3].equals("") && !fileNames[4].equals("") && !fileNames[5].equals("")){
+				resource.dispose();
+				loadedCubeMaps.remove(fileNames);
+			}
+			
+			cleanedUp = true;
 		}
 	}
 	

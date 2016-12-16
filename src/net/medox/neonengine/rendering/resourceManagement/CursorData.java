@@ -7,8 +7,6 @@ import net.medox.neonengine.core.ReferenceCounter;
 public class CursorData extends ReferenceCounter{
 	private final long id;
 	
-	private boolean cleanedUp;
-	
 	public CursorData(long id){
 		super();
 		
@@ -20,14 +18,10 @@ public class CursorData extends ReferenceCounter{
 	}
 	
 	public void dispose(){
-		if(!cleanedUp){
-//			if(id != 0){
-				GLFW.glfwDestroyCursor(id);
-				
-//				id = 0;
-//			}
+//		if(id != 0){
+			GLFW.glfwDestroyCursor(id);
 			
-			cleanedUp = true;
-		}
+//			id = 0;
+//		}
 	}
 }

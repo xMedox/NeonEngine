@@ -20,6 +20,7 @@ public class Mesh{
 	private final String fileName;
 	
 	private MeshData resource;
+	private boolean cleanedUp;
 	
 	public Mesh(String fileName){
 		this.fileName = fileName;
@@ -58,14 +59,18 @@ public class Mesh{
 	}
 	
 	public void cleanUp(){
-		if(fileName.equals("")){
-			resource.dispose();
-			customModels.remove(resource);
-		}else{
-			if(resource.removeReference()){
+		if(!cleanedUp){
+			if(fileName.equals("")){
 				resource.dispose();
-				loadedModels.remove(fileName);
+				customModels.remove(resource);
+			}else{
+				if(resource.removeReference()){
+					resource.dispose();
+					loadedModels.remove(fileName);
+				}
 			}
+			
+			cleanedUp = true;
 		}
 	}
 	

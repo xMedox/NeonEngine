@@ -25,8 +25,6 @@ public class CubeMapData extends ReferenceCounter{
 	private int width[];
 	private int height[];
 	
-	private boolean cleanedUp;
-	
 	public CubeMapData(int textureTarget, int[] width, int[] height, ByteBuffer[] data, int filters, int internalFormat, int format, int type, boolean clamp, int attachments){		
 		super();
 		
@@ -200,24 +198,20 @@ public class CubeMapData extends ReferenceCounter{
 	}
 	
 	public void dispose(){
-		if(!cleanedUp){
-//			if(textureID != 0){
-				GL11.glDeleteTextures(textureID);
-				
-//				textureID = 0;
-//			}
-//			if(frameBuffer != 0){
-//				GL30.glDeleteFramebuffers(frameBuffer);
-//				
-//				frameBuffer = 0;
-//			}
-//			if(renderBuffer != 0){
-//				GL30.glDeleteRenderbuffers(renderBuffer);
-//				
-//				renderBuffer = 0;
-//			}
+//		if(textureID != 0){
+			GL11.glDeleteTextures(textureID);
 			
-			cleanedUp = true;
-		}
+//			textureID = 0;
+//		}
+//		if(frameBuffer != 0){
+//			GL30.glDeleteFramebuffers(frameBuffer);
+//			
+//			frameBuffer = 0;
+//		}
+//		if(renderBuffer != 0){
+//			GL30.glDeleteRenderbuffers(renderBuffer);
+//			
+//			renderBuffer = 0;
+//		}
 	}
 }

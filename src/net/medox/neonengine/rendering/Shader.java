@@ -18,6 +18,7 @@ public class Shader{
 	private final String fileName;
 	
 	private ShaderData resource;
+	private boolean cleanedUp;
 	
 	public Shader(String fileName){
 		this.fileName = fileName;
@@ -38,9 +39,13 @@ public class Shader{
 	}
 	
 	public void cleanUp(){
-		if(resource.removeReference() && !fileName.equals("")){
-			resource.dispose();
-			loadedShaders.remove(fileName);
+		if(!cleanedUp){
+			if(resource.removeReference() && !fileName.equals("")){
+				resource.dispose();
+				loadedShaders.remove(fileName);
+			}
+			
+			cleanedUp = true;
 		}
 	}
 	

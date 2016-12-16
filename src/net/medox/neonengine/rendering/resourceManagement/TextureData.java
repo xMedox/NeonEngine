@@ -25,8 +25,6 @@ public class TextureData extends ReferenceCounter{
 	private int width;
 	private int height;
 	
-	private boolean cleanedUp;
-	
 	public TextureData(int textureTarget, int width, int height, int numTextures, ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
 		super();
 		
@@ -184,24 +182,20 @@ public class TextureData extends ReferenceCounter{
 	}
 	
 	public void dispose(){
-		if(!cleanedUp){
-//			if(textureID != null){
-				GL11.glDeleteTextures(textureID);
-				
-//				textureID = null;
-//			}
-//			if(frameBuffer != 0){
-				GL30.glDeleteFramebuffers(frameBuffer);
-				
-//				frameBuffer = 0;
-//			}
-//			if(renderBuffer != 0){
-				GL30.glDeleteRenderbuffers(renderBuffer);
-				
-//				renderBuffer = 0;
-//			}
+//		if(textureID != null){
+			GL11.glDeleteTextures(textureID);
 			
-			cleanedUp = true;
-		}
+//			textureID = null;
+//		}
+//		if(frameBuffer != 0){
+			GL30.glDeleteFramebuffers(frameBuffer);
+			
+//			frameBuffer = 0;
+//		}
+//		if(renderBuffer != 0){
+			GL30.glDeleteRenderbuffers(renderBuffer);
+			
+//			renderBuffer = 0;
+//		}
 	}
 }

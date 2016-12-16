@@ -39,8 +39,6 @@ public class MeshData extends ReferenceCounter{
 	private final List<Vector3f> positions;
 	private final List<Integer> indices;
 	
-	private boolean cleanedUp;
-	
 	public MeshData(IndexedModel model){
 		super();
 		
@@ -133,19 +131,15 @@ public class MeshData extends ReferenceCounter{
 	}
 	
 	public void dispose(){
-		if(!cleanedUp){
-//			if(vertexArrayBuffers != null){
-				GL15.glDeleteBuffers(vertexArrayBuffers);
-				
-//				vertexArrayBuffers = null;
-//			}
-//			if(vertexArrayObject != 0){
-				GL30.glDeleteVertexArrays(vertexArrayObject);
-				
-//				vertexArrayObject = 0;
-//			}
+//		if(vertexArrayBuffers != null){
+			GL15.glDeleteBuffers(vertexArrayBuffers);
 			
-			cleanedUp = true;
-		}
+//			vertexArrayBuffers = null;
+//		}
+//		if(vertexArrayObject != 0){
+			GL30.glDeleteVertexArrays(vertexArrayObject);
+			
+//			vertexArrayObject = 0;
+//		}
 	}
 }
