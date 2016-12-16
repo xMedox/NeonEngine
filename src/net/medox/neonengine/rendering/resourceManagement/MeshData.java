@@ -36,6 +36,8 @@ public class MeshData extends ReferenceCounter{
 	private final float radius;
 	private StaticMeshCollider collider;
 	
+	private boolean cleanedUp;
+	
 	public MeshData(IndexedModel model, boolean createShape){
 		super();
 		
@@ -133,7 +135,19 @@ public class MeshData extends ReferenceCounter{
 //	}
 	
 	public void dispose(){
-		GL15.glDeleteBuffers(vertexArrayBuffers);
-		GL30.glDeleteVertexArrays(vertexArrayObject);
+		if(!cleanedUp){
+//			if(vertexArrayBuffers != null){
+				GL15.glDeleteBuffers(vertexArrayBuffers);
+				
+//				vertexArrayBuffers = null;
+//			}
+//			if(vertexArrayObject != 0){
+				GL30.glDeleteVertexArrays(vertexArrayObject);
+				
+//				vertexArrayObject = 0;
+//			}
+			
+			cleanedUp = true;
+		}
 	}
 }

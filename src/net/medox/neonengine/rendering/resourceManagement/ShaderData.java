@@ -25,6 +25,8 @@ public class ShaderData extends ReferenceCounter{
 	
 	private final String fileName;
 	
+	private boolean cleanedUp;
+	
 	public ShaderData(String fileName){
 		super();
 		
@@ -332,12 +334,23 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void dispose(){
-		for(final Integer it : shaders){
-			GL20.glDetachShader(program, it);
-			GL20.glDeleteShader(it);
+		if(!cleanedUp){
+//			if(shaders != null){
+				for(final Integer it : shaders){
+					GL20.glDetachShader(program, it);
+					GL20.glDeleteShader(it);
+				}
+				
+//				shaders = null;
+//			}
+//			if(program != 0){
+				GL20.glDeleteProgram(program);
+				
+//				program = 0;
+//			}
+			
+			cleanedUp = true;
 		}
-		
-		GL20.glDeleteProgram(program);
 	}
 	
 	private class GLSLStruct{
