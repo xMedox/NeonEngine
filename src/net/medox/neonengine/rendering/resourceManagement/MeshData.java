@@ -41,7 +41,7 @@ public class MeshData extends ReferenceCounter{
 	
 	private boolean cleanedUp;
 	
-	public MeshData(IndexedModel model/*, boolean createShape*/){
+	public MeshData(IndexedModel model){
 		super();
 		
 		if(!model.isValid()){
@@ -108,10 +108,6 @@ public class MeshData extends ReferenceCounter{
 //		RenderingEngine.meshBound = -1;
 	}
 	
-	public StaticMeshCollider generateCollider(){
-		return new StaticMeshCollider(indices, positions);
-	}
-	
 	public void draw(){
 //		if(RenderingEngine.meshBound != vertexArrayObject){
 			GL30.glBindVertexArray(vertexArrayObject);
@@ -128,13 +124,13 @@ public class MeshData extends ReferenceCounter{
 //		}
 	}
 	
+	public StaticMeshCollider generateCollider(){
+		return new StaticMeshCollider(indices, positions);
+	}
+	
 	public boolean inFrustum(Transform transform, Camera camera){
 		return camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max() * /*mesh.getRadius()*/ radius);
 	}
-	
-//	public MeshShape getMeshShape(){
-//		return shape;
-//	}
 	
 	public void dispose(){
 		if(!cleanedUp){
