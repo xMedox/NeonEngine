@@ -1,6 +1,7 @@
 package net.medox.neonengine.rendering.resourceManagement;
 
 import java.nio.IntBuffer;
+import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -34,11 +35,13 @@ public class MeshData extends ReferenceCounter{
 //	private Vector3f minVertex;
 //	private Vector3f maxVertex;
 	private final float radius;
-	private StaticMeshCollider collider;
+	
+	private final List<Vector3f> positions;
+	private final List<Integer> indices;
 	
 	private boolean cleanedUp;
 	
-	public MeshData(IndexedModel model, boolean createShape){
+	public MeshData(IndexedModel model/*, boolean createShape*/){
 		super();
 		
 		if(!model.isValid()){
@@ -52,9 +55,8 @@ public class MeshData extends ReferenceCounter{
 //		minVertex = model.getMinVertex();
 //		maxVertex = model.getMaxVertex();
 		
-		if(createShape){
-			collider = new StaticMeshCollider(model.getIndices(), model.getPositions());
-		}
+		positions = model.getPositions();
+		indices = model.getIndices();
 		
 		vertexArrayBuffers = DataUtil.createIntBuffer(NUM_BUFFERS);
 		
@@ -106,8 +108,8 @@ public class MeshData extends ReferenceCounter{
 //		RenderingEngine.meshBound = -1;
 	}
 	
-	public StaticMeshCollider getCollider(){
-		return collider;
+	public StaticMeshCollider generateCollider(){
+		return new StaticMeshCollider(indices, positions);
 	}
 	
 	public void draw(){

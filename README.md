@@ -21,7 +21,7 @@
 - The Collider and the Constraint class are now abstract classes
 - Added collision filtering
 - Added the setStepHeight method in the CharacterController class
-- Added the StaticMeshCollider class
+- Added the StaticMeshCollider class you can generate one by calling the generateCollider method in the Mesh class
 - Fixed the PlayerComponent movement
 
 **Other:**

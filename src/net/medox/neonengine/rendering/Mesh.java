@@ -21,16 +21,16 @@ public class Mesh{
 	
 	private MeshData resource;
 	
-	public Mesh(String fileName){
-		this(fileName, false);
-	}
+//	public Mesh(String fileName){
+//		this(fileName, false);
+//	}
 	
-	public Mesh(String fileName, boolean createShape){
+	public Mesh(String fileName/*, boolean createShape*/){
 		this.fileName = fileName;
 		resource = loadedModels.get(fileName);
 		
 		if(resource == null){
-			loadMesh(fileName, createShape);
+			loadMesh(fileName/*, createShape*/);
 			loadedModels.put(fileName, resource);
 		}else{
 			resource.addReference();
@@ -41,23 +41,19 @@ public class Mesh{
 //		this(meshName, model, false);
 //	}
 	
-	public Mesh(String meshName, IndexedModel model){
-		this(meshName, model, false);
-	}
-	
-	public Mesh(String meshName, IndexedModel model, boolean createShape){
+	public Mesh(String meshName, IndexedModel model/*, boolean createShape*/){
 		this.fileName = meshName;
 		
 		if(fileName.equals("")){
 			model.calcRadius();
 			
-			resource = new MeshData(model, createShape);
+			resource = new MeshData(model/*, createShape*/);
 			customModels.add(resource);
 		}else{
 			if(loadedModels.get(fileName) == null){
 				model.calcRadius();
 				
-				resource = new MeshData(model, createShape);
+				resource = new MeshData(model/*, createShape*/);
 				loadedModels.put(fileName, resource);
 			}else{
 				NeonEngine.throwError("Error: the mesh name:" + meshName + "is already in use");
@@ -96,16 +92,16 @@ public class Mesh{
 		resource.draw();
 	}
 	
-	public StaticMeshCollider getCollider(){
-		return resource.getCollider();
+	public StaticMeshCollider generateCollider(){
+		return resource.generateCollider();
 	}
 	
-	private Mesh loadMesh(String fileName, boolean createShape){
+	private Mesh loadMesh(String fileName/*, boolean createShape*/){
 		final String[] splitArray = fileName.split("\\.");
 		final String ext = splitArray[splitArray.length - 1];
 		
 		if(ext.equals("obj")){
-			resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel(), createShape);
+			resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel()/*, createShape*/);
 		}else{
 			NeonEngine.throwError("Error: '" + ext + "' file format not supported for mesh data.");
 		}

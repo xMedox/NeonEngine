@@ -157,7 +157,7 @@ public class TestGame extends Game{
 		
 //		Mesh mesh = new Mesh(vertices, indices, true);
 //		Mesh mesh = new Mesh("backdrop(2.59).obj");
-		Mesh mesh = new Mesh(/*"Level test.obj"*//*"castle.obj"*/"banjo.obj", true);
+		Mesh mesh = new Mesh(/*"Level test.obj"*//*"castle.obj"*/"banjo.obj");
 //		Mesh mesh = new Mesh("planeScale.obj"));
 		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
 		material.setDiffuseMap(new Texture(/*"Level test.png"*//*"princess peaches castle (outside)_grp.png"*/"banjo.png"));
@@ -177,7 +177,7 @@ public class TestGame extends Game{
 //		planeObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180));
 		planeObject.addComponent(meshRenderer);
 		
-		StaticMeshCollider coll = mesh.getCollider();
+		StaticMeshCollider coll = mesh.generateCollider();
 		
 		coll.setPos(planeObject.getTransform().getTransformedPos());
 		coll.setScale(/*2*/10);
