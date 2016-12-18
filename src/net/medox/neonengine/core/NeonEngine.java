@@ -31,6 +31,7 @@ public class NeonEngine{
 	private static boolean optionEnable2D = true;
 	private static boolean optionEnableParticles = true;
 	private static boolean optionEnableBloom = true;
+	private static boolean optionEnableHRTF = true;
 	private static int optionTextureQuality = 0; //0 = best 1 = medium 2 = lowest
 	private static int optionShadowQuality = 0; //0 = best 1 = medium 2 = lowest
 	private static float optionRenderQuality = 1; //1 = normal 2 = half
@@ -316,6 +317,9 @@ public class NeonEngine{
 	public static void enableBloom(boolean value){
 		optionEnableBloom = value;
 	}
+	public static void enableHRTF(boolean value){
+		optionEnableHRTF = value;
+	}
 	public static void setTextureQuality(int value){
 		optionTextureQuality = value;
 	}
@@ -346,6 +350,9 @@ public class NeonEngine{
 	}
 	public static boolean isBloomEnabled(){
 		return optionEnableBloom;
+	}
+	public static boolean isHRTFEnabled(){
+		return optionEnableHRTF;
 	}
 	public static int getTextureQuality(){
 		return optionTextureQuality;
