@@ -261,7 +261,7 @@ public class RenderingEngine{
 	}
 	
 	public static void updateUniformStruct(Transform transform, Material material, Shader shader, String uniformName, String uniformType){
-		NeonEngine.throwError("Error: " + uniformType + " is not a supported type in Rendering Engine");
+		NeonEngine.throwError("Error: " + uniformType + " is not a supported type in Rendering Engine.");
 	}
 	
 	public static int getRenderingState(){

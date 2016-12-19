@@ -47,7 +47,7 @@ public class OGGSound{
 	
 	public void create(InputStream input) throws IOException{
 		if(input == null){
-			NeonEngine.throwError("Error: Failed to read OGG, source does not exist?");
+			NeonEngine.throwError("Error: Failed to read OGG.");
 		}
 		
 		final ByteArrayOutputStream dataout = new ByteArrayOutputStream();

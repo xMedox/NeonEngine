@@ -49,7 +49,7 @@ public class Mesh{
 				resource = new MeshData(model);
 				loadedModels.put(fileName, resource);
 			}else{
-				NeonEngine.throwError("Error: the mesh name:" + meshName + "is already in use");
+				NeonEngine.throwError("Error: the mesh name:" + meshName + "is already in use.");
 			}
 		}
 	}

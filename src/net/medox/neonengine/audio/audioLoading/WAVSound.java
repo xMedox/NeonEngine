@@ -64,7 +64,7 @@ public class WAVSound{
 			}else if(audioformat.getSampleSizeInBits() == 16){
 				channels = AL10.AL_FORMAT_MONO16;
 			}else{
-				NeonEngine.throwError("Error: Illegal sample size");
+				NeonEngine.throwError("Error: Illegal sample size.");
 			}
 		}else if(audioformat.getChannels() == 2){
 			if(audioformat.getSampleSizeInBits() == 8){
@@ -72,10 +72,10 @@ public class WAVSound{
 			}else if(audioformat.getSampleSizeInBits() == 16){
 				channels = AL10.AL_FORMAT_STEREO16;
 			}else{
-				NeonEngine.throwError("Error: Illegal sample size: " + audioformat.getSampleSizeInBits());
+				NeonEngine.throwError("Error: Illegal sample size: " + audioformat.getSampleSizeInBits() + ".");
 			}
 		}else{
-			NeonEngine.throwError("Error: Only mono or stereo is supported");
+			NeonEngine.throwError("Error: Only mono or stereo is supported.");
 		}
 		
 		ByteBuffer buffer = null;

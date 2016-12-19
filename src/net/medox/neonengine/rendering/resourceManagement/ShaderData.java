@@ -33,7 +33,7 @@ public class ShaderData extends ReferenceCounter{
 		this.program = GL20.glCreateProgram();
 		
 		if(program == 0){
-			NeonEngine.throwError("Error: Shader creation failed: Could not find valid memory location in constructor");
+			NeonEngine.throwError("Error: Shader creation failed: Could not find valid memory location in constructor.");
 		}
 		
 		shaders = new ArrayList<Integer>();
@@ -59,14 +59,14 @@ public class ShaderData extends ReferenceCounter{
 		final int shader = GL20.glCreateShader(type);
 		
 		if(shader == 0){
-			NeonEngine.throwError("Error: Shader creation failed: Could not find valid memory location when adding shader");
+			NeonEngine.throwError("Error: Shader creation failed: Could not find valid memory location when adding shader.");
 		}
 		
 		GL20.glShaderSource(shader, text);
 		GL20.glCompileShader(shader);
 		
 		if(GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == 0){
-			NeonEngine.throwError(fileName + ": \n" + GL20.glGetShaderInfoLog(shader, 1024));
+			NeonEngine.throwError(fileName + ": \n" + GL20.glGetShaderInfoLog(shader, 1024) + ".");
 		}
 		
 		GL20.glAttachShader(program, shader);
@@ -147,7 +147,7 @@ public class ShaderData extends ReferenceCounter{
 		final int uniformLocation = GL20.glGetUniformLocation(program, uniformName);
 		
 		if(uniformLocation == -1){
-			NeonEngine.throwError("Error: Could not find uniform \"" + uniformName + "\" in " + fileName);
+			NeonEngine.throwError("Error: Could not find uniform \"" + uniformName + "\" in " + fileName + ".");
 		}
 		
 		uniformMap.put(uniformName, uniformLocation);
@@ -180,7 +180,7 @@ public class ShaderData extends ReferenceCounter{
 				error = GL20.glGetShaderInfoLog(shader, 1024);
 			}
 			
-			NeonEngine.throwError(errorMessage + ": " + error);
+			NeonEngine.throwError(errorMessage + ": " + error + ".");
 		}
 	}
 	

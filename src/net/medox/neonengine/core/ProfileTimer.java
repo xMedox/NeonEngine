@@ -11,7 +11,7 @@ public class ProfileTimer{
 	
 	public void stopInvocation(){
 		if(startTime == 0){
-			NeonEngine.throwError("Error: StopInvocation called without matching start invocation");
+			NeonEngine.throwError("Error: StopInvocation called without calling startInvocation.");
 		}
 		
 		numInvocations++;

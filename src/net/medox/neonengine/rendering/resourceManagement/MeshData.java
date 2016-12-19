@@ -43,7 +43,7 @@ public class MeshData extends ReferenceCounter{
 		super();
 		
 		if(!model.isValid()){
-			NeonEngine.throwError("Error: Invalid mesh! Must have same number of positions, texCoords, normals, and tangents! (Maybe you forgot to Finalize() your IndexedModel?)");
+			NeonEngine.throwError("Error: Invalid mesh! Must have same number of positions, texCoords, normals, and tangents.");
 		}
 		
 		radius = model.getRadius();

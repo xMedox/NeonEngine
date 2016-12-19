@@ -64,7 +64,7 @@ public class Window{
 		GLFW.glfwSetErrorCallback((error, description) -> NeonEngine.throwErrorWindow("Error: " + GLFWErrorCallback.getDescription(description)));
 		
 		if(!GLFW.glfwInit()){
-			NeonEngine.throwError("Error: Unable to initialize GLFW");
+			NeonEngine.throwError("Error: Unable to initialize GLFW.");
 		}
 		
 		GLFW.glfwDefaultWindowHints();
@@ -106,7 +106,7 @@ public class Window{
 		
 		if(window == MemoryUtil.NULL){
 //			GLFW.glfwTerminate();
-			NeonEngine.throwError("Error: Failed to create the GLFW window");
+			NeonEngine.throwError("Error: Failed to create the GLFW window.");
 		}
 		
 		if(!isFullscreen){

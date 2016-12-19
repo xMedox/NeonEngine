@@ -46,7 +46,7 @@ public class Cursor{
 			image.free();
 			
 			if(cursor == MemoryUtil.NULL){
-				NeonEngine.throwError("Error: Failed to create the GLFW cursor");
+				NeonEngine.throwError("Error: Failed to create the cursor.");
 			}
 			
 			resource = new CursorData(cursor);
