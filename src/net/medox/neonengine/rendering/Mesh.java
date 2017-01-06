@@ -14,7 +14,6 @@ import net.medox.neonengine.rendering.resourceManagement.MeshData;
 
 public class Mesh{
 	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
-	
 	private static final List<MeshData> customModels = new ArrayList<MeshData>();
 	
 	private final String fileName;

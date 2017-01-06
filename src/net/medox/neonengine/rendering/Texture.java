@@ -18,7 +18,6 @@ import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
 public class Texture{
 	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
-	
 	private static final List<TextureData> customTextures = new ArrayList<TextureData>();
 	
 	private final String fileName;
