@@ -433,6 +433,24 @@ public class RenderingEngine{
 			windowSyncProfileTimer.startInvocation();
 		}
 		
+		renderFilters();
+		
+		if(NeonEngine.isProfilingEnabled()){
+			windowSyncProfileTimer.stopInvocation();
+		}
+	}
+	
+	private static void renderSkybox(){
+		if(skybox != null){
+			GL11.glDepthMask(false);
+			
+			skybox.render(skyboxShader, mainCamera);
+			
+			GL11.glDepthMask(true);
+		}
+	}
+	
+	private static void renderFilters(){
 		if(filters.isEmpty()){
 			if(NeonEngine.isFXAAEnabled()){
 				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
@@ -486,20 +504,6 @@ public class RenderingEngine{
 				}
 			}
 		}
-		
-		if(NeonEngine.isProfilingEnabled()){
-			windowSyncProfileTimer.stopInvocation();
-		}
-	}
-	
-	private static void renderSkybox(){
-		if(skybox != null){
-			GL11.glDepthMask(false);
-			
-			skybox.render(skyboxShader, mainCamera);
-			
-			GL11.glDepthMask(true);
-		}
 	}
 	
 	private static void applyFilter(Shader filter, Texture source, Texture dest){
@@ -535,7 +539,7 @@ public class RenderingEngine{
 		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 	}
 	
-	public static void render(Entity2D object){
+	public static void render2D(Entity2D object){
 		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer2D.startInvocation();
 		}

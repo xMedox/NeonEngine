@@ -55,7 +55,7 @@ public abstract class Game{
 
 	public void render(){
 		RenderingEngine.render(root);
-		RenderingEngine.render(root2D);
+		RenderingEngine.render2D(root2D);
 	}
 	
 	public void addEntity(Entity object){
