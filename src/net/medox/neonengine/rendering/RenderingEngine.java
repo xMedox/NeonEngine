@@ -38,7 +38,7 @@ public class RenderingEngine{
 	public static final int RGBA					= GL11.GL_RGBA;
 	public static final int NONE					= GL11.GL_NONE;
 	public static final int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
-		
+	
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
 	
@@ -46,7 +46,7 @@ public class RenderingEngine{
 	public static int[] textureArray;
 	
 	private static ProfileTimer renderProfileTimer;
-	private static ProfileTimer renderProfileTimer2D ;
+	private static ProfileTimer renderProfileTimer2D;
 	private static ProfileTimer windowSyncProfileTimer;
 	
 //	public static int meshBound;
@@ -465,7 +465,7 @@ public class RenderingEngine{
 				
 				applyFilter(fxaaFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
 				
-				boolean evenNumber = true; 
+				boolean evenNumber = true;
 				for(int i = 0; i < filters.size(); i++){
 					if(evenNumber){
 						if(filters.size()-1 == i){
@@ -484,7 +484,7 @@ public class RenderingEngine{
 					evenNumber = !evenNumber;
 				}
 			}else{
-				boolean evenNumber = true; 
+				boolean evenNumber = true;
 				for(int i = 0; i < filters.size(); i++){
 					if(evenNumber){
 						if(filters.size()-1 == i){
