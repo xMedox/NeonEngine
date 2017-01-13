@@ -187,7 +187,7 @@ public class Window{
 	public static void dispose(){
 		Cursor.dispose();
 		
-		if(window != 0){
+		if(window != MemoryUtil.NULL){
 			Callbacks.glfwFreeCallbacks(window);
 			GLFW.glfwDestroyWindow(window);
 		}

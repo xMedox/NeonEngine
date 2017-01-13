@@ -340,10 +340,10 @@ public class ShaderData extends ReferenceCounter{
 			
 //			shaders = null;
 //		}
-//		if(program != 0){
+//		if(program != MemoryUtil.NULL){
 			GL20.glDeleteProgram(program);
 			
-//			program = 0;
+//			program = MemoryUtil.NULL;
 //		}
 	}
 	

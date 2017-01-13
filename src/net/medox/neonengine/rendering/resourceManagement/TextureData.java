@@ -187,15 +187,15 @@ public class TextureData extends ReferenceCounter{
 			
 //			textureID = null;
 //		}
-//		if(frameBuffer != 0){
+//		if(frameBuffer != MemoryUtil.NULL){
 			GL30.glDeleteFramebuffers(frameBuffer);
 			
-//			frameBuffer = 0;
+//			frameBuffer = MemoryUtil.NULL;
 //		}
-//		if(renderBuffer != 0){
+//		if(renderBuffer != MemoryUtil.NULL){
 			GL30.glDeleteRenderbuffers(renderBuffer);
 			
-//			renderBuffer = 0;
+//			renderBuffer = MemoryUtil.NULL;
 //		}
 	}
 }

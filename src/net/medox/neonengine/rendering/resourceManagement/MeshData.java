@@ -136,10 +136,10 @@ public class MeshData extends ReferenceCounter{
 			
 //			vertexArrayBuffers = null;
 //		}
-//		if(vertexArrayObject != 0){
+//		if(vertexArrayObject != MemoryUtil.NULL){
 			GL30.glDeleteVertexArrays(vertexArrayObject);
 			
-//			vertexArrayObject = 0;
+//			vertexArrayObject = MemoryUtil.NULL;
 //		}
 	}
 }

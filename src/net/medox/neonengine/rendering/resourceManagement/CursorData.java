@@ -18,10 +18,10 @@ public class CursorData extends ReferenceCounter{
 	}
 	
 	public void dispose(){
-//		if(id != 0){
+//		if(id != MemoryUtil.NULL){
 			GLFW.glfwDestroyCursor(id);
 			
-//			id = 0;
+//			id = MemoryUtil.NULL;
 //		}
 	}
 }

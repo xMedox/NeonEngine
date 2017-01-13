@@ -116,12 +116,12 @@ public class SoundEngine{
 	}
 	
 	public static void dispose(){
-		if(context != 0){
+		if(context != MemoryUtil.NULL){
 			EXTThreadLocalContext.alcSetThreadContext(MemoryUtil.NULL);
 			ALC10.alcDestroyContext(context);
 		}
 		
-		if(device != 0){
+		if(device != MemoryUtil.NULL){
 			ALC10.alcCloseDevice(device);
 		}
 	}
