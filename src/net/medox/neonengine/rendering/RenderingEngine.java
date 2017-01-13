@@ -79,8 +79,6 @@ public class RenderingEngine{
 	
 	private static Shader forwardAmbientShader;
 	private static Shader forwardParticleAmbientShader;
-	private static Shader bloomCombineShader;
-	private static Shader bloomSwitchShader;
 	private static Shader forwardParticleShader;
 	private static Shader shadowMappingShader;
 	private static Shader particleShadowMappingShader;
@@ -89,6 +87,8 @@ public class RenderingEngine{
 	private static Shader fxaaFilter;
 	private static Shader shader2D;
 	private static Shader skyboxShader;
+	private static Shader bloomCombineShader;
+	private static Shader bloomSwitchShader;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -128,10 +128,6 @@ public class RenderingEngine{
 			renderProfileTimer2D = new ProfileTimer();
 			windowSyncProfileTimer = new ProfileTimer();
 		}
-		
-//		if(maxTextureImageUnits > 32){
-//			maxTextureImageUnits = 32;
-//		}
 		
 		textureArray = new int[maxTextureImageUnits];
 		
@@ -192,8 +188,6 @@ public class RenderingEngine{
 		
 		forwardAmbientShader = new Shader("forwardAmbient");
 		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
-		bloomCombineShader = new Shader("bloomCombine");
-		bloomSwitchShader = new Shader("bloomSwitch");
 		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMappingShader =  new Shader("shadowMapping");
 		particleShadowMappingShader = new Shader("particleShadowMapping");
@@ -202,6 +196,8 @@ public class RenderingEngine{
 		fxaaFilter = new Shader("filterFxaa");
 		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
+		bloomCombineShader = new Shader("bloomCombine");
+		bloomSwitchShader = new Shader("bloomSwitch");
 		
 		filters = new ArrayList<Shader>();
 		
