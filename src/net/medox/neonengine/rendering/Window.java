@@ -189,7 +189,6 @@ public class Window{
 		
 		if(window != 0){
 			Callbacks.glfwFreeCallbacks(window);
-			
 			GLFW.glfwDestroyWindow(window);
 		}
         

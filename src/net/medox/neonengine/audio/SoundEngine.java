@@ -117,6 +117,7 @@ public class SoundEngine{
 	
 	public static void dispose(){
 		if(context != 0){
+			EXTThreadLocalContext.alcSetThreadContext(MemoryUtil.NULL);
 			ALC10.alcDestroyContext(context);
 		}
 		
