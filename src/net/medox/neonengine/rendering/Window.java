@@ -118,8 +118,6 @@ public class Window{
 			GLFW.glfwSetWindowPos(window, xPos, yPos);
 		}
 		
-		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_TRUE);
-		
 		if(startIcon16.equals("") || startIcon32.equals("")){
 			setIcon(ImageUtil.getDefaultIcon16(), ImageUtil.getDefaultIcon32());
 		}else{
@@ -151,6 +149,8 @@ public class Window{
 		}else{
 			GLFW.glfwSwapInterval(0);
 		}
+		
+		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_TRUE);
 		
 		GLFW.glfwShowWindow(window);
 		
