@@ -36,13 +36,17 @@ public class Sound{
 		source.setBuffer(resource);
 	}
 	
-	@Override
-	protected void finalize() throws Throwable{
+	public void cleanUp(){
 		source.dispose();
 		if(resource.removeReference() && !fileName.equals("")){
 			resource.dispose();
 			loadedSounds.remove(fileName);
 		}
+	}
+	
+	@Override
+	protected void finalize() throws Throwable{
+		cleanUp();
 		
 		super.finalize();
 	}

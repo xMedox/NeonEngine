@@ -8,7 +8,7 @@ public class SoundComponent extends EntityComponent{
 	private Sound audio;
 	
 	public SoundComponent(){
-		audio = new Sound("hit1.ogg");
+		audio = new Sound("hit.ogg");
 		
 //		audio.setPitch(1.0f);
 //		audio.setGain(1.0f);
