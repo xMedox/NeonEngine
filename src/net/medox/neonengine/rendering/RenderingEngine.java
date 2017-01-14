@@ -82,13 +82,13 @@ public class RenderingEngine{
 	private static Shader forwardParticleShader;
 	private static Shader shadowMappingShader;
 	private static Shader particleShadowMappingShader;
-	private static Shader nullFilter;
-	private static Shader gausBlurFilter;
-	private static Shader fxaaFilter;
-	private static Shader shader2D;
 	private static Shader skyboxShader;
 	private static Shader bloomCombineShader;
 	private static Shader bloomSwitchShader;
+	private static Shader shader2D;
+	private static Shader gausBlurFilter;
+	private static Shader nullFilter;
+	private static Shader fxaaFilter;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -191,13 +191,13 @@ public class RenderingEngine{
 		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMappingShader =  new Shader("shadowMapping");
 		particleShadowMappingShader = new Shader("particleShadowMapping");
-		nullFilter = new Shader("filterNull");
-		gausBlurFilter = new Shader("filterGausBlur");
-		fxaaFilter = new Shader("filterFxaa");
-		shader2D = new Shader("shader2D");
 		skyboxShader = new Shader("skyboxShader");
 		bloomCombineShader = new Shader("bloomCombine");
 		bloomSwitchShader = new Shader("bloomSwitch");
+		shader2D = new Shader("shader2D");
+		gausBlurFilter = new Shader("filterGausBlur");
+		nullFilter = new Shader("filterNull");
+		fxaaFilter = new Shader("filterFxaa");
 		
 		filters = new ArrayList<Shader>();
 		
