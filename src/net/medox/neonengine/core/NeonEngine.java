@@ -8,6 +8,7 @@ import net.medox.neonengine.physics.CharacterController;
 import net.medox.neonengine.physics.Collider;
 import net.medox.neonengine.physics.Constraint;
 import net.medox.neonengine.physics.PhysicsEngine;
+import net.medox.neonengine.rendering.AnimatedTexture;
 import net.medox.neonengine.rendering.CubeMap;
 import net.medox.neonengine.rendering.Mesh;
 import net.medox.neonengine.rendering.RenderingEngine;
@@ -214,6 +215,8 @@ public class NeonEngine{
 			while(unprocssedTime >= frameTime){
 				if(Window.gotCreated()){
 					Window.updateInput();
+					
+					AnimatedTexture.updateAll();
 				}
 				
 				if(optionEnableProfiling){

@@ -17,16 +17,20 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
 public class Texture{
-	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
+	protected static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
 	private static final List<TextureData> customTextures = new ArrayList<TextureData>();
 	
 	private final String fileName;
 	
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 	
-	private TextureData resource;
-	private boolean cleanedUp;
+	protected TextureData resource;
+	protected boolean cleanedUp;
+	
+	protected Texture(){
+		this.fileName = "";
+	}
 	
 	public Texture(String fileName, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		this.fileName = fileName;
@@ -138,7 +142,7 @@ public class Texture{
 		return resource.getHeight();
 	}
 	
-	private ByteBuffer loadTexture(String fileName){
+	protected ByteBuffer loadTexture(String fileName){
 		BufferedImage image = null;
 		
 		try{
