@@ -18,6 +18,7 @@ public class Sound{
 	private final String fileName;
 	
 	private SoundData resource;
+	private boolean cleanedUp;
 	
 	public Sound(String fileName){
 		this.fileName = fileName;
@@ -37,10 +38,14 @@ public class Sound{
 	}
 	
 	public void cleanUp(){
-		source.dispose();
-		if(resource.removeReference() && !fileName.equals("")){
-			resource.dispose();
-			loadedSounds.remove(fileName);
+		if(!cleanedUp){
+			source.dispose();
+			if(resource.removeReference() && !fileName.equals("")){
+				resource.dispose();
+				loadedSounds.remove(fileName);
+			}
+			
+			cleanedUp = true;
 		}
 	}
 	
