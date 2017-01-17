@@ -33,6 +33,7 @@ import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
 import net.medox.neonengine.physics.StaticMeshCollider;
+import net.medox.neonengine.rendering.AnimatedTexture;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Cursor;
 import net.medox.neonengine.rendering.Font;
@@ -740,7 +741,7 @@ public class TestGame extends Game{
 				Entity particle4 = new Entity();
 				
 				ParticleMaterial pMat2 = new ParticleMaterial();
-				pMat2.setDiffuseMap(new Texture("rock2222.jpg"));
+				pMat2.setDiffuseMap(new AnimatedTexture(new String[]{"Test0.png", "Test0.png", "Test1.png", "Test2.png", "Test3.png", "Test4.png", "Test5.png", "Test6.png", "Test6.png", "Test6.png", "Test6.png", "Test7.png", "Test8.png", "Test9.png", "Test10.png", "Test0.png", "Test0.png"}));
 				pMat2.setEmissive(1);
 				
 				particle4.addComponent(new ParticleRenderer(pMat2));
