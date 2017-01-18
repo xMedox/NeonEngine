@@ -147,7 +147,7 @@ public class TestGame extends Game{
 			teamRenderer = new MeshRenderer2D(new Texture("RED.png", true));
 			
 			dragonM.setDiffuseMap(new Texture("redSword.png", true));
-			dragonM.setEmissiveMap(new Texture("block60_glow.png", true));
+			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
 		}else{
 			Window.setCursor(new Cursor("cursor test blue.png", 0, 0));
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(0, 0, 1))));
@@ -156,11 +156,11 @@ public class TestGame extends Game{
 			teamRenderer = new MeshRenderer2D(new Texture("BLUE.png", true));
 			
 			dragonM.setDiffuseMap(new Texture("blueSword.png", true));
-			dragonM.setEmissiveMap(new Texture("block60_glow.png", true));
+			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
 		}
 		
 		Entity dragon = new Entity();
-		dragon.addComponent(new MeshRenderer(new Mesh("Dragon.obj"), dragonM));
+		dragon.addComponent(new MeshRenderer(new Mesh("dragonBlock.obj"), dragonM));
 		dragon.addComponent(new Look3rdPerson(playerLook));
 		dragon.getTransform().setScale(0.25f);
 //		dragon.getTransform().setPos(3.5f, 1, 3.5f);
@@ -197,7 +197,7 @@ public class TestGame extends Game{
 		Entity wolf = new Entity();
 		Material wolfM = new Material();
 		wolfM.setDiffuseMap(new Texture("wolf.png", true));
-		MeshRendererWolf wolfR = new MeshRendererWolf(new Mesh("Wolf.obj"), wolfM);
+		MeshRendererWolf wolfR = new MeshRendererWolf(new Mesh("wolf.obj"), wolfM);
 		wolf.addComponent(wolfR);
 		wolf.getTransform().setScale(1.5f);
 //		wolf.getTransform().setPos(5, 1, 2.5f);
@@ -215,7 +215,7 @@ public class TestGame extends Game{
 		
 		Material material = new Material();
 		material.setDiffuseMap(new Texture("blocks.png", true));
-		material.setEmissiveMap(new Texture("blocks_glow.png", true));
+		material.setEmissiveMap(new Texture("blocksEmissive.png", true));
 		
 		Mesh mesh = new Mesh("blocks.obj");
 		
@@ -247,7 +247,7 @@ public class TestGame extends Game{
 		addEntity(add);
 		
 		Entity2D e = new Entity2D();
-		MeshRenderer2D c = new MeshRenderer2D(new Texture("testeroonie2.png", true));
+		MeshRenderer2D c = new MeshRenderer2D(new Texture("crosshair.png", true));
 		Lock2D l = new Lock2D(-16/2, -16/2, new Vector2f(0.5f, 0.5f));
 		e.addComponent(c);
 		e.addComponent(l);

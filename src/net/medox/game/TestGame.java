@@ -161,9 +161,9 @@ public class TestGame extends Game{
 //		Mesh mesh = new Mesh("planeScale.obj"));
 		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
 		material.setDiffuseMap(new Texture(/*"Level test.png"*//*"princess peaches castle (outside)_grp.png"*/"banjo.png"));
-//		material.setDiffuseMap(new Texture("bricks2.jpg"));
-//		material.setNormalMap(new Texture("bricks2_normal.jpg"));
-//		material.setSpecularMap(new Texture("bricks2_spec.jpg"));
+//		material.setDiffuseMap(new Texture("bricks.jpg"));
+//		material.setNormalMap(new Texture("bricksMormal.jpg"));
+//		material.setSpecularMap(new Texture("bricksSpecular.jpg"));
 //		material.setSpecularIntensity(0.5f + 0.15f/2);
 //		material.setSpecularPower(4f + 1f/2);
 		
@@ -211,9 +211,9 @@ public class TestGame extends Game{
 //		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 1), (float)Math.toRadians(45));
 		planeObjectx.addComponent(meshRendererx);
 		
-		Mesh meshDrake = new Mesh("Dragon 3.obj");
+		Mesh meshDrake = new Mesh("dragon.obj");
 		Material materialDrake = new Material();
-		materialDrake.setDiffuseMap(new Texture("Dragon 3.png"));
+		materialDrake.setDiffuseMap(new Texture("dragon.png"));
 		materialDrake.setEmissiveMap(new Texture("white.png"));
 		materialDrake.setSpecularIntensity(0.25f);
 		materialDrake.setSpecularPower(2);
@@ -225,10 +225,10 @@ public class TestGame extends Game{
 		planeObjectDrake.getTransform().getPos().set(14, -1, 15);
 		planeObjectDrake.getTransform().setScale(new Vector3f(4, 4, 4));
 		
-		Mesh meshRock = new Mesh("rock 7.obj");
+		Mesh meshRock = new Mesh("rock.obj");
 		Material materialRock = new Material();
-		materialRock.setDiffuseMap(new Texture("rock232.jpg"));
-		materialRock.setNormalMap(new Texture("rock2_normal322.png"));
+		materialRock.setDiffuseMap(new Texture("rock.jpg"));
+		materialRock.setNormalMap(new Texture("rockNormal.png"));
 		materialRock.setSpecularIntensity(0.25f);
 		materialRock.setSpecularPower(2);
 		
@@ -403,7 +403,7 @@ public class TestGame extends Game{
 //		Mesh m = new Mesh("Human.obj", true);
 //		PhysicsComponent physc = new PhysicsComponent(m.getMeshShape());
 		
-		Mesh humanmesh = new Mesh("Human.obj");
+		Mesh humanmesh = new Mesh("human.obj");
 		Material humanmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		humanmaterial.setDiffuseMap(new Texture("white.png"));
 		humanmaterial.setSpecularIntensity(0);
@@ -441,12 +441,11 @@ public class TestGame extends Game{
 //		PhysicsComponent physicsEngineComponent = new PhysicsComponent();
 		
 		Material bricks = new Material();
-		bricks.setDiffuseMap(new Texture("Lava22.png"));
-		bricks.setNormalMap(new Texture("Lava_normal22.jpg"));
-		bricks.setEmissiveMap(new Texture("Lava_glow22.png"));
+		bricks.setDiffuseMap(new Texture("lava.png"));
+		bricks.setNormalMap(new Texture("lavaNormal.jpg"));
+		bricks.setEmissiveMap(new Texture("lavaEmissive.png"));
 		bricks.setSpecularIntensity(0.25f);
 		bricks.setSpecularPower(2);
-
 		
 //		for(int i = 0; i < physicsEngineComponent.getPhysicsEngine().getNumObjects(); i++){
 //			Entity entity = new Entity();
@@ -711,7 +710,7 @@ public class TestGame extends Game{
 				Entity particle4 = new Entity();
 				
 				ParticleMaterial pMat2 = new ParticleMaterial();
-				pMat2.setDiffuseMap(new Texture("rock2222.jpg"));
+				pMat2.setDiffuseMap(new Texture("rockLava.jpg"));
 				pMat2.setEmissive(1);
 				
 				particle4.addComponent(new ParticleRenderer(pMat2));

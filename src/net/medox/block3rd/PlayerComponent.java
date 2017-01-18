@@ -58,7 +58,7 @@ public class PlayerComponent extends EntityComponent{
 		t2 = new Texture("redSword.png", true);
 		t3 = new Texture("blueSword.png", true);
 		
-		g = new Texture("block60_glow.png", true);
+		g = new Texture("block60Emissive.png", true);
 	}
 	
 	public BoxCollider getBox(){
