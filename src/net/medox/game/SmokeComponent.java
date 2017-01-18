@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.Texture;
 
 public class SmokeComponent extends EntityComponent{
 	private static Texture texture1 = new Texture("base.png");
-	private static Texture texture2 = new Texture("base 2.png");
+	private static Texture texture2 = new Texture("base2.png");
 	
 	private float timer = 0;
 	

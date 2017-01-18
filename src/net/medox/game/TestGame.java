@@ -192,7 +192,7 @@ public class TestGame extends Game{
 		planeObject.addComponent(physic);
 		
 		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-		materialx.setDiffuseMap(new Texture("wood2.png"));
+		materialx.setDiffuseMap(new Texture("wood.png"));
 		materialx.setSpecularIntensity(0.5f + 0.15f/2);
 		materialx.setSpecularPower(4f + 1f/2);
 		
@@ -345,21 +345,21 @@ public class TestGame extends Game{
 		kpObject.addComponent(kpRenderer);
 		
 //		Mesh swordmesh = new Mesh("sword.obj");
-		Mesh swordmesh = new Mesh("Sword R.obj");
+		Mesh swordmesh = new Mesh("sword.obj");
 		Material swordmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-		swordmaterial.setDiffuseMap(new Texture("Sword R.png"));
+		swordmaterial.setDiffuseMap(new Texture("sword.png"));
 		swordmaterial.setSpecularIntensity(2f);
 		swordmaterial.setSpecularPower(8f);
 		
-		Mesh swordmesh2 = new Mesh("Shield R.obj");
+		Mesh swordmesh2 = new Mesh("shield.obj");
 		Material sword4material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-		sword4material.setDiffuseMap(new Texture("Shield R.png"));
+		sword4material.setDiffuseMap(new Texture("shield.png"));
 		sword4material.setSpecularIntensity(2f);
 		sword4material.setSpecularPower(8f);
 		
-		Mesh swordmesh3 = new Mesh("Round Shield R.obj");
+		Mesh swordmesh3 = new Mesh("roundShield.obj");
 		Material sword5material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-		sword5material.setDiffuseMap(new Texture("Round Shield R.png"));
+		sword5material.setDiffuseMap(new Texture("roundShield.png"));
 		sword5material.setSpecularIntensity(2f);
 		sword5material.setSpecularPower(8f);
 		
@@ -622,7 +622,7 @@ public class TestGame extends Game{
 		Entity2D e3 = new Entity2D();
 //		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("test_tl2.png"));
 //		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("test_tl2.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
-		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("Medox 5.png", true));
+		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("medox.png", true));
 		Lock2D l3 = new Lock2D(0, 0, new Vector2f(0f, 0f));
 		e3.addComponent(c3).addComponent(l3);
 		
