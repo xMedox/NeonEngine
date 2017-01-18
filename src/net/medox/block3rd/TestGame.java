@@ -144,7 +144,7 @@ public class TestGame extends Game{
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(1, 0, 0))));
 			life.addComponent(new Progressbar(1, new Vector3f(1, 0, 0)));
 			sprint.addComponent(new Progressbar(1, new Vector3f(0.09803921568f, 0.09803921568f, 0.09803921568f)));
-			teamRenderer = new MeshRenderer2D(new Texture("RED.png", true));
+			teamRenderer = new MeshRenderer2D(new Texture("redLogo.png", true));
 			
 			dragonM.setDiffuseMap(new Texture("redSword.png", true));
 			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
@@ -153,7 +153,7 @@ public class TestGame extends Game{
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(0, 0, 1))));
 			life.addComponent(new Progressbar(1, new Vector3f(0, 0, 1)));
 			sprint.addComponent(new Progressbar(1, new Vector3f(0.89803921568f, 0.89803921568f, 0.89803921568f)));
-			teamRenderer = new MeshRenderer2D(new Texture("BLUE.png", true));
+			teamRenderer = new MeshRenderer2D(new Texture("blueLogo.png", true));
 			
 			dragonM.setDiffuseMap(new Texture("blueSword.png", true));
 			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
