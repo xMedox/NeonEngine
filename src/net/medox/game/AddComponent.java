@@ -42,10 +42,10 @@ public class AddComponent extends EntityComponent{
 		bricks.setSpecularIntensity(0.25f);
 		bricks.setSpecularPower(2);
 		
-		crateM = new Mesh("crate 2 c.obj");
+		crateM = new Mesh("crate.obj");
 		sphereM = new Mesh("sphere.obj");
-		cylinderM = new Mesh("Cylinder.obj");
-		coneM = new Mesh("Cone.obj");
+		cylinderM = new Mesh("cylinder.obj");
+		coneM = new Mesh("cone.obj");
 		
 		boxTransform = new Transform();
 		boxTransform.setPos(new Vector3f(-5, 15, 0));

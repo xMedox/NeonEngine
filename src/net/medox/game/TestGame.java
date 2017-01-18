@@ -319,10 +319,10 @@ public class TestGame extends Game{
 		spotLightObject2.getTransform().getPos().set(10, 0, 0);
 		spotLightObject2.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f)));
 		
-		Mesh mesh2 = new Mesh("untitled.obj");
+		Mesh mesh2 = new Mesh("monkey.obj");
 		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
-		material2.setDiffuseMap(new Texture("untitled.png"));
-		material2.setEmissiveMap(new Texture("untitled_glow22.png"));
+		material2.setDiffuseMap(new Texture("monkey.png"));
+		material2.setEmissiveMap(new Texture("monkeyEmissive.png"));
 		material2.setSpecularIntensity(0.5f);
 		material2.setSpecularPower(1);
 		
@@ -513,7 +513,7 @@ public class TestGame extends Game{
 		
 		box1.setMassProps(0);
 				
-		stair1.addComponent(new StaticPhysicsComponent(box1)).addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		stair1.addComponent(new StaticPhysicsComponent(box1)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair1);
 		
@@ -529,7 +529,7 @@ public class TestGame extends Game{
 		
 		box2.setMassProps(0);
 		
-		stair2.addComponent(new StaticPhysicsComponent(box2)).addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		stair2.addComponent(new StaticPhysicsComponent(box2)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair2);
 		
@@ -545,7 +545,7 @@ public class TestGame extends Game{
 		
 		box3.setMassProps(0);
 				
-		stair3.addComponent(new StaticPhysicsComponent(box3)).addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		stair3.addComponent(new StaticPhysicsComponent(box3)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair3);
 		
@@ -561,7 +561,7 @@ public class TestGame extends Game{
 		
 		box4.setMassProps(0);
 				
-		stair4.addComponent(new StaticPhysicsComponent(box4)).addComponent(new MeshRenderer(new Mesh("crate 2 b.obj"), bricks));
+		stair4.addComponent(new StaticPhysicsComponent(box4)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair4);
 		
@@ -573,8 +573,7 @@ public class TestGame extends Game{
 //		Move2D m = new Move2D();
 //		e.addComponent(m);
 		
-//		MeshRenderer2D c = new MeshRenderer2D(new Texture("testeroonie2.jpg"));
-		MeshRenderer2D c = new MeshRenderer2D(new Texture("testeroonie2.png", true));
+		MeshRenderer2D c = new MeshRenderer2D(new Texture("crosshair.png", true));
 		Lock2D l = new Lock2D(-16/2, -16/2, new Vector2f(0.5f, 0.5f));
 		e.addComponent(c).addComponent(l);
 		
@@ -585,11 +584,7 @@ public class TestGame extends Game{
 		addEntity2D(e);
 		
 		Entity2D e2 = new Entity2D();
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
-		Lock2D l2 = new Lock2D(-256, -40, new Vector2f(1f, 1f));
-//		e2.addComponent(c2);
-		e2.addComponent(l2);
+		Lock2D l2 = new Lock2D(-256, -40, new Vector2f(1f, 1f));		e2.addComponent(l2);
 		
 		e2.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40));
 		e2.getTransform().setScale(new Vector2f(256, 40));
@@ -606,31 +601,22 @@ public class TestGame extends Game{
 		addEntity2D(e2);
 		
 		Entity2D e22 = new Entity2D();
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
 		Lock2D l22 = new Lock2D(-256, -40-29, new Vector2f(1f, 1f));
-//		e2.addComponent(c2);
 		e22.addComponent(l22).addComponent(new TextBox(10, "", new Vector3f(1, 1, 1), new Vector3f(0, 0, 0), new InputKey(Input.MOUSE, Input.BUTTON_RIGHT)));
 		
 		e22.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40-29));
 		e22.getTransform().setScale(new Vector2f(256, 29));
-//		e2.getTransform().
 		
-//		e.addChild(e2);
 		addEntity2D(e22);
 		
 		Entity2D e3 = new Entity2D();
-//		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("test_tl2.png"));
-//		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("test_tl2.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
-		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("medox.png", true));
+		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("medox.png"));
 		Lock2D l3 = new Lock2D(0, 0, new Vector2f(0f, 0f));
 		e3.addComponent(c3).addComponent(l3);
 		
 		e3.getTransform().setPos(new Vector2f(0, 0));
 		e3.getTransform().setScale(new Vector2f(256, 256));
-//		e2.getTransform().
 		
-//		e2.addChild(e3);
 		addEntity2D(e3);
 		
 		
@@ -640,47 +626,32 @@ public class TestGame extends Game{
 		
 		
 		Entity2D e10 = new Entity2D();
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
 		Lock2D l10 = new Lock2D(0, -40, new Vector2f(0f, 1f));
-//		e2.addComponent(c2);
 		e10.addComponent(l10).addComponent(s1);
 		
 		e10.getTransform().setPos(new Vector2f(0, Window.getHeight()-40));
 		e10.getTransform().setScale(new Vector2f(256, 40));
-//		e2.getTransform().
 		
-//		e.addChild(e2);
 		addEntity2D(e10);
 		
 		
 		Entity2D e11 = new Entity2D();
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
 		Lock2D l11 = new Lock2D(0, -80, new Vector2f(0f, 1f));
-//		e2.addComponent(c2);
 		e11.addComponent(l11).addComponent(s2);
 		
 		e11.getTransform().setPos(new Vector2f(0, Window.getHeight()-80));
 		e11.getTransform().setScale(new Vector2f(256, 40));
-//		e2.getTransform().
 		
-//		e.addChild(e2);
 		addEntity2D(e11);
 		
 		
 		Entity2D e12 = new Entity2D();
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png"));
-//		MeshRenderer2D c2 = new MeshRenderer2D(new Texture("Medox 5.png", GL11.GL_TEXTURE_2D, GL11.GL_NEAREST));
 		Lock2D l12 = new Lock2D(0, -120, new Vector2f(0f, 1f));
-//		e2.addComponent(c2);
 		e12.addComponent(l12).addComponent(s3);
 		
 		e12.getTransform().setPos(new Vector2f(0, Window.getHeight()-120));
 		e12.getTransform().setScale(new Vector2f(256, 40));
-//		e2.getTransform().
 		
-//		e.addChild(e2);
 		addEntity2D(e12);
 		
 		
