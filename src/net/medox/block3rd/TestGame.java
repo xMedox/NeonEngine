@@ -140,7 +140,7 @@ public class TestGame extends Game{
 		Entity2D team = new Entity2D();
 		MeshRenderer2D teamRenderer = null;
 		if(Util.randomInt(0, 1) == 0){
-			Window.setCursor(new Cursor("cursor test red.png", 0, 0));
+			Window.setCursor(new Cursor("cursorRed.png", 0, 0));
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(1, 0, 0))));
 			life.addComponent(new Progressbar(1, new Vector3f(1, 0, 0)));
 			sprint.addComponent(new Progressbar(1, new Vector3f(0.09803921568f, 0.09803921568f, 0.09803921568f)));
@@ -149,7 +149,7 @@ public class TestGame extends Game{
 			dragonM.setDiffuseMap(new Texture("redSword.png", true));
 			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
 		}else{
-			Window.setCursor(new Cursor("cursor test blue.png", 0, 0));
+			Window.setCursor(new Cursor("cursorBlue.png", 0, 0));
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(0, 0, 1))));
 			life.addComponent(new Progressbar(1, new Vector3f(0, 0, 1)));
 			sprint.addComponent(new Progressbar(1, new Vector3f(0.89803921568f, 0.89803921568f, 0.89803921568f)));

@@ -63,8 +63,8 @@ public class TestGame extends Game{
 		Window.setStartSize(854, 480);
 		Window.setStartFullscreen(false);
 		Window.setStartResizable(true);
-		Window.setStartIcon("icon_16.png", "icon_32.png");
-		Window.setStartCursor(new Cursor("cursor test 2.png", 0, 0));
+		Window.setStartIcon("iconAk16.png", "iconAk32.png");
+		Window.setStartCursor(new Cursor("cursor.png", 0, 0));
 		
 		NeonEngine.createWindow();
 		
