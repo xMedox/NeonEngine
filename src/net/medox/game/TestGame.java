@@ -207,6 +207,20 @@ public class TestGame extends Game{
 //		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 1), (float)Math.toRadians(45));
 		planeObjectx.addComponent(meshRendererx);
 		
+		Material neonMaterial = new Material();
+		neonMaterial.setDiffuseMap(new Texture("diffuse.png"));
+		neonMaterial.setEmissiveMap(new Texture("emissive.png"));
+		neonMaterial.setSpecularIntensity(0.5f + 0.15f/2);
+		neonMaterial.setSpecularPower(4f + 1f/2);
+		
+		MeshRenderer neonRenderer = new MeshRenderer(meshx, neonMaterial);
+		
+		Entity neonObject = new Entity();
+		neonObject.getTransform().getPos().set(0, 4, -10);
+		neonObject.getTransform().setScale(2);
+		neonObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90)));
+		neonObject.addComponent(neonRenderer);
+		
 		Mesh meshDrake = new Mesh("dragon.obj");
 		Material materialDrake = new Material();
 		materialDrake.setDiffuseMap(new Texture("dragon.png"));
@@ -252,9 +266,9 @@ public class TestGame extends Game{
 		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
 		
 		Entity pointLightObject = new Entity();
-//		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 3f, new Vector3f(0, 0, 1));
-//		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 1f, new Attenuation(0, 0, 1));
-		PointLight pointLight = new PointLight(new Vector3f(0, 1, 0), 4f, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+//		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 3f, new Vector3f(0, 0, 1));
+//		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 1f, new Attenuation(0, 0, 1));
+		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 4f, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		pointLightObject.addComponent(pointLight);
 		
 //		Entity pointLightObjectw = new Entity();
@@ -463,6 +477,7 @@ public class TestGame extends Game{
 		
 		addEntity(planeObject);
 		addEntity(planeObjectx);
+		addEntity(neonObject);
 		addEntity(directionalLightObject);
 		addEntity(pointLightObject);
 		addEntity(spotLightObject);
