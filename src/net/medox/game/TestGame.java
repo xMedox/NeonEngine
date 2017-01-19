@@ -32,7 +32,7 @@ import net.medox.neonengine.physics.CapsuleCollider;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
-import net.medox.neonengine.physics.StaticMeshCollider;
+import net.medox.neonengine.physics.StaticPlaneCollider;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Cursor;
 import net.medox.neonengine.rendering.Font;
@@ -156,36 +156,32 @@ public class TestGame extends Game{
 //		int[] indices = new int[]{0, 1, 2, 2, 1, 3};
 		
 //		Mesh mesh = new Mesh(vertices, indices, true);
-//		Mesh mesh = new Mesh("backdrop(2.59).obj");
-		Mesh mesh = new Mesh(/*"Level test.obj"*//*"castle.obj"*/"banjo.obj");
-//		Mesh mesh = new Mesh("planeScale.obj"));
-		Material material = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
-		material.setDiffuseMap(new Texture(/*"Level test.png"*//*"princess peaches castle (outside)_grp.png"*/"banjo.png"));
-//		material.setDiffuseMap(new Texture("bricks.jpg"));
-//		material.setNormalMap(new Texture("bricksMormal.jpg"));
-//		material.setSpecularMap(new Texture("bricksSpecular.jpg"));
-//		material.setSpecularIntensity(0.5f + 0.15f/2);
-//		material.setSpecularPower(4f + 1f/2);
+		Mesh mesh = new Mesh("planeScale.obj");
+		Material material = new Material();
+		material.setDiffuseMap(new Texture("bricks.jpg"));
+		material.setNormalMap(new Texture("bricksNormal.jpg"));
+		material.setSpecularMap(new Texture("bricksSpecular.jpg"));
+		material.setSpecularIntensity(0.5f + 0.15f/2);
+		material.setSpecularPower(4f + 1f/2);
 		
 		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 		
 		Entity planeObject = new Entity();
-		planeObject.getTransform().getPos().set(0, /*-1*/-32.5f, /*0*//*10*/100);
-//		planeObject.getTransform().setScale(new Vector3f(25f, 25f, 25f));
-//		planeObject.getTransform().setScale(20);
-		planeObject.getTransform().setScale(/*2*/10);
-//		planeObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(180));
+//		planeObject.getTransform().getPos().set(0, /*-1*/-32.5f, /*0*//*10*/100);
+		planeObject.getTransform().getPos().set(0, -1, 0);
+//		planeObject.getTransform().setScale(/*2*/10);
+		planeObject.getTransform().setScale(20);
 		planeObject.addComponent(meshRenderer);
 		
-		StaticMeshCollider coll = mesh.generateCollider();
+//		StaticMeshCollider coll = mesh.generateCollider();
+//		
+//		coll.setPos(planeObject.getTransform().getTransformedPos());
+//		coll.setScale(/*2*/10);
+//		
+//		coll.setMassProps(0);
 		
-		coll.setPos(planeObject.getTransform().getTransformedPos());
-		coll.setScale(/*2*/10);
-		
-		coll.setMassProps(0);
-		
-//		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlaneCollider(new Vector3f(0, 1, 0), -1));
-		StaticPhysicsComponent physic = new StaticPhysicsComponent(coll);
+//		StaticPhysicsComponent physic = new StaticPhysicsComponent(coll);
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlaneCollider(new Vector3f(0, 1, 0), -1));
 		
 		physic.getCollider().setMassProps(0);
 		
