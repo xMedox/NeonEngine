@@ -327,18 +327,54 @@ public class TestGame extends Game{
 		Entity monkeyObject = new Entity().addComponent(new LookAtComponent()).addComponent(meshRenderer2);
 		monkeyObject.getTransform().getPos().set(0, 0, 5);
 		
-		Mesh kpmesh = new Mesh("kp.obj");
-		Material kpmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-		kpmaterial.setDiffuseMap(new Texture("kp.png"));
-		kpmaterial.setSpecularIntensity(2);
-		kpmaterial.setSpecularPower(16);
+		Mesh pbrMesh = new Mesh("pbr.obj");
+		Material pbrMaterial = new Material();
+		pbrMaterial.setDiffuseMap(new Texture("R.png"));
+		pbrMaterial.setSpecularIntensity(1);
+		pbrMaterial.setSpecularPower(8);
 		
-		MeshRenderer kpRenderer = new MeshRenderer(kpmesh, kpmaterial);
+		MeshRenderer pbrRenderer = new MeshRenderer(pbrMesh, pbrMaterial);
 		
-		Entity kpObject = new Entity();
-		kpObject.getTransform().getPos().set(-15, 0f, 15);
+		Entity pbrObject = new Entity();
+		pbrObject.getTransform().getPos().set(-11, -1f, 15);
 		
-		kpObject.addComponent(kpRenderer);
+		pbrObject.addComponent(pbrRenderer);
+		
+		Material pbrMaterial2 = new Material();
+		pbrMaterial2.setDiffuseMap(new Texture("gold.png"));
+		pbrMaterial2.setSpecularIntensity(1);
+		pbrMaterial2.setSpecularPower(8);
+		
+		MeshRenderer pbrRenderer2 = new MeshRenderer(pbrMesh, pbrMaterial2);
+		
+		Entity pbrObject2 = new Entity();
+		pbrObject2.getTransform().getPos().set(-15, -1f, 15);
+		
+		pbrObject2.addComponent(pbrRenderer2);
+		
+		Material pbrMaterial3 = new Material();
+		pbrMaterial3.setDiffuseMap(new Texture("R.png"));
+		pbrMaterial3.setSpecularIntensity(2);
+		pbrMaterial3.setSpecularPower(16);
+		
+		MeshRenderer pbrRenderer3 = new MeshRenderer(pbrMesh, pbrMaterial3);
+		
+		Entity pbrObject3 = new Entity();
+		pbrObject3.getTransform().getPos().set(-11, -1f, 11);
+		
+		pbrObject3.addComponent(pbrRenderer3);
+		
+		Material pbrMaterial4 = new Material();
+		pbrMaterial4.setDiffuseMap(new Texture("gold.png"));
+		pbrMaterial4.setSpecularIntensity(2);
+		pbrMaterial4.setSpecularPower(16);
+		
+		MeshRenderer pbrRenderer4 = new MeshRenderer(pbrMesh, pbrMaterial4);
+		
+		Entity pbrObject4 = new Entity();
+		pbrObject4.getTransform().getPos().set(-15, -1f, 11);
+		
+		pbrObject4.addComponent(pbrRenderer4);
 		
 //		Mesh swordmesh = new Mesh("sword.obj");
 		Mesh swordmesh = new Mesh("sword.obj");
@@ -419,7 +455,10 @@ public class TestGame extends Game{
 //		addObject(ar_15Object);
 //		addObject(us_assaultObject);
 //		addObject(sword2Object);
-		addEntity(kpObject);
+		addEntity(pbrObject);
+		addEntity(pbrObject2);
+		addEntity(pbrObject3);
+		addEntity(pbrObject4);
 		addEntity(swordObject2);
 		
 		addEntity(planeObject);
@@ -507,7 +546,7 @@ public class TestGame extends Game{
 		box1.setPos(stair1.getTransform().getTransformedPos());
 		
 		box1.setMassProps(0);
-				
+		
 		stair1.addComponent(new StaticPhysicsComponent(box1)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair1);
@@ -539,7 +578,7 @@ public class TestGame extends Game{
 		box3.setPos(stair3.getTransform().getTransformedPos());
 		
 		box3.setMassProps(0);
-				
+		
 		stair3.addComponent(new StaticPhysicsComponent(box3)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair3);
@@ -555,7 +594,7 @@ public class TestGame extends Game{
 		box4.setPos(stair4.getTransform().getTransformedPos());
 		
 		box4.setMassProps(0);
-				
+		
 		stair4.addComponent(new StaticPhysicsComponent(box4)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair4);
