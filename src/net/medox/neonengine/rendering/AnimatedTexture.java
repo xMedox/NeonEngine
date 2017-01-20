@@ -12,11 +12,15 @@ public class AnimatedTexture extends Texture{
 	private List<TextureData> resources;
 	private final List<String> fileNames;
 	
+	private boolean autoUpdate;
+	
 	private int id;
 	
 	public AnimatedTexture(String[] fileNames, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
 		resources = new ArrayList<TextureData>();
 		this.fileNames = new ArrayList<String>();
+		
+		autoUpdate = true;
 		
 		id = 0;
 		
@@ -64,8 +68,18 @@ public class AnimatedTexture extends Texture{
 	
 	public static void updateAll(){
 		for(AnimatedTexture data : animatedTextures){
-			data.update();
+			if(data.getAutoUpdate()){
+				data.update();
+			}
 		}
+	}
+	
+	public void setAutoUpdate(boolean autoUpdate){
+		this.autoUpdate = autoUpdate;
+	}
+	
+	public boolean getAutoUpdate(){
+		return autoUpdate;
 	}
 	
 	public void update(){
