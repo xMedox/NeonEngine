@@ -741,7 +741,12 @@ public class TestGame extends Game{
 				Entity particle4 = new Entity();
 				
 				ParticleMaterial pMat2 = new ParticleMaterial();
-				pMat2.setDiffuseMap(new AnimatedTexture(new String[]{"Test0.png", "Test0.png", "Test1.png", "Test2.png", "Test3.png", "Test4.png", "Test5.png", "Test6.png", "Test6.png", "Test6.png", "Test6.png", "Test7.png", "Test8.png", "Test9.png", "Test10.png", "Test0.png", "Test0.png"}));
+				
+				AnimatedTexture text = new AnimatedTexture(new String[]{"Test0.png", "Test0.png", "Test1.png", "Test2.png", "Test3.png", "Test4.png", "Test5.png", "Test6.png", "Test6.png", "Test6.png", "Test6.png", "Test7.png", "Test8.png", "Test9.png", "Test10.png", "Test0.png", "Test0.png"});
+				text.changeToImage(2);
+				text.setAutoUpdate(false);
+				
+				pMat2.setDiffuseMap(text);
 				pMat2.setEmissive(1);
 				
 				particle4.addComponent(new ParticleRenderer(pMat2));

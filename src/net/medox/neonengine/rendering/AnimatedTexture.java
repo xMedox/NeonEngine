@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
 public class AnimatedTexture extends Texture{
@@ -80,6 +81,16 @@ public class AnimatedTexture extends Texture{
 	
 	public boolean getAutoUpdate(){
 		return autoUpdate;
+	}
+	
+	public void changeToImage(int id){
+		if(id >= 0 && id < resources.size()){
+			this.id = id;
+			
+			super.resource = resources.get(id);
+		}else{
+			NeonEngine.throwError("Error: The id is to high or to low.");
+		}
 	}
 	
 	public void update(){
