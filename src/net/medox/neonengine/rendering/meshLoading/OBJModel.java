@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.math.Vector2f;
 import net.medox.neonengine.math.Vector3f;
@@ -63,8 +64,7 @@ public class OBJModel{
 			
 			meshReader.close();
 		}catch(IOException e){
-			e.printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 	}
 	

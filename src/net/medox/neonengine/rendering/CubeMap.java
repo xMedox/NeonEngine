@@ -112,8 +112,7 @@ public class CubeMap{
 			try{
 				image = ImageIO.read(new File("./res/textures/" + fileNames[i]));
 			}catch(Exception e){
-				e.printStackTrace();
-				System.exit(1);
+				NeonEngine.throwError("Error: unable to read " + fileNames[i]);
 			}
 			
 			if(NeonEngine.getTextureQuality() >= 1){

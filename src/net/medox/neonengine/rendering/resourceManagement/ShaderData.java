@@ -231,8 +231,7 @@ public class ShaderData extends ReferenceCounter{
 			
 			shaderReader.close();
 		}catch(Exception e){
-			e.printStackTrace();
-//			System.exit(1);
+			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 		
 		return shaderSource.toString();

@@ -144,8 +144,7 @@ public class Texture{
 		try{
 			image = ImageIO.read(new File("./res/textures/" + fileName));
 		}catch(Exception e){
-			e.printStackTrace();
-			System.exit(1);
+			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 		
 		if(NeonEngine.getTextureQuality() >= 1){
