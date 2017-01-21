@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import net.medox.neonengine.core.DataUtil;
+import net.medox.neonengine.core.NeonEngine;
 
 public class ImageUtil{
 	public static BufferedImage createImage(int[][] red, int[][] green, int[][] blue, int width, int height){
@@ -291,7 +292,7 @@ public class ImageUtil{
 		try{
 			image = ImageIO.read(new File(file));
 		}catch(IOException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: unable to read " + file);
 		}
 		
 		final int width = image.getWidth();

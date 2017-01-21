@@ -39,7 +39,7 @@ public class Util{
 		try{
 			cipher = Cipher.getInstance("AES");
 		}catch(NoSuchAlgorithmException | NoSuchPaddingException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: failed to create the cipher.");
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class Util{
 			return Base64.getEncoder().encodeToString(cipher.doFinal(text.getBytes()));
 //			return new String(cipher.doFinal(text.getBytes()));
 		}catch(InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: failed to encrypt the string.");
 		}
 		
 		return null;
@@ -63,7 +63,7 @@ public class Util{
 			return new String(cipher.doFinal(Base64.getDecoder().decode(text.getBytes())));
 //			return new String(cipher.doFinal(text.getBytes()));
 		}catch(InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: failed to decrypt the string.");
 		}
 		
 		return null;
@@ -113,7 +113,7 @@ public class Util{
 			
 	    	out.close();
 		}catch(IOException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: unable to save " + filePath);
 		}
 	}
 	
@@ -134,7 +134,7 @@ public class Util{
 			
 			br.close();
 		}catch(IOException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: unable to read " + filePath);
 		}
 		
 		return output;

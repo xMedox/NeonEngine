@@ -23,13 +23,13 @@ public class OGGSound{
 		try{
 			fin = new FileInputStream(fileName);
 		}catch(FileNotFoundException ex){
-			ex.printStackTrace();
+			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 		
 		try{
 			create(new BufferedInputStream(fin));
 		}catch(IOException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 	}
 	

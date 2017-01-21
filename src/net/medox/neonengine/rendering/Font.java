@@ -62,7 +62,7 @@ public class Font{
 				
 				ge.registerFont(java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new File("./res/" + fileName)));
 			}catch(IOException | FontFormatException e){
-	            e.printStackTrace();
+				NeonEngine.throwError("Error: unable to load " + fileName);
 	        }
 			
 			font = customFont;

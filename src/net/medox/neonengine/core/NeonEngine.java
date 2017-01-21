@@ -277,7 +277,7 @@ public class NeonEngine{
 				try{
 					Thread.sleep(1);
 				}catch(InterruptedException e){
-					e.printStackTrace();
+					NeonEngine.throwError("Error: failed to put the thread to sleep.");
 				}
 				if(optionEnableProfiling){
 					sleepTimer.stopInvocation();

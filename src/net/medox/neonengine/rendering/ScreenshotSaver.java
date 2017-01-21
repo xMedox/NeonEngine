@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 
+import net.medox.neonengine.core.NeonEngine;
+
 public class ScreenshotSaver extends Thread{
 	private final String destination;
 	private final ByteBuffer buffer;
@@ -40,7 +42,7 @@ public class ScreenshotSaver extends Thread{
 			try{
 				ImageIO.write(image, "PNG", new File(destination + (Window.getTitle() + " " + YMD + "_" + HMS) + ".png"));
 			}catch(IOException e){
-				e.printStackTrace();
+				NeonEngine.throwError("Error: couldn't save the screenshot.");
 			}
 		}
 	}

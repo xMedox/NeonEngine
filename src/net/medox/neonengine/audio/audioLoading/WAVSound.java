@@ -28,7 +28,7 @@ public class WAVSound{
 		try{
 			fin = new FileInputStream(fileName);
 		}catch(FileNotFoundException e){
-			e.printStackTrace();
+			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 		
 		create(new BufferedInputStream(fin));
@@ -50,7 +50,7 @@ public class WAVSound{
 		try{
 			create(AudioSystem.getAudioInputStream(is));
 		}catch(UnsupportedAudioFileException | IOException e){
-			org.lwjgl.system.APIUtil.apiLog("Unable to create from inputstream, " + e.getMessage());
+			NeonEngine.throwError("Error: unable to create from inputstream, " + e.getMessage());
 		}
 	}
 	
