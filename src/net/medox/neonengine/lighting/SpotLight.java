@@ -9,7 +9,7 @@ public class SpotLight extends PointLight{
 	private float cutoff;
 	
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle){
-		super(color, intensity);
+		super(color, intensity, SPOT_LIGHT);
 		
 		init(attenuation, viewAngle);
 		
@@ -19,7 +19,7 @@ public class SpotLight extends PointLight{
 	}
 	
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
-		super(color, intensity);
+		super(color, intensity, SPOT_LIGHT);
 		
 		init(attenuation, viewAngle);
 		

@@ -7,14 +7,21 @@ import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Shader;
 
 public class BaseLight extends EntityComponent{
+	public static final int DIRECTIONAL_LIGHT = 0;
+	public static final int POINT_LIGHT = 1;
+	public static final int SPOT_LIGHT = 2;
+	
+	private final int type;
+	
 	private Vector3f color;
 	private float intensity;
 	private Shader shader;
 	private ShadowInfo shadowInfo;
 	
-	public BaseLight(Vector3f color, float intensity){
+	public BaseLight(Vector3f color, float intensity, int type){
 		this.color = color;
 		this.intensity = intensity;
+		this.type = type;
 	}
 	
 	public void setShader(Shader shader){
@@ -51,6 +58,10 @@ public class BaseLight extends EntityComponent{
 	
 	public ShadowCameraTransform calcShadowCameraTransform(Vector3f mainCameraPos, Quaternion mainCameraRot){
 		return new ShadowCameraTransform(getTransform().getTransformedPos(), getTransform().getTransformedRot());
+	}
+	
+	public int getType(){
+		return type;
 	}
 	
 	@Override

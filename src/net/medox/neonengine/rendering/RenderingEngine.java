@@ -561,7 +561,7 @@ public class RenderingEngine{
 		final boolean inCameraFrustum = camera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
 		
 		if(renderingState == LIGHTING_STATE){
-			if(lightCamera.getMode() == 0){
+			if(activeLight.getType() == BaseLight.SPOT_LIGHT){
 				return inCameraFrustum && lightCamera.getFrustum().sphereInFrustum(transform.getTransformedPos(), transform.getScale().max());
 			}else{
 				return inCameraFrustum;
@@ -591,7 +591,7 @@ public class RenderingEngine{
 		final boolean inCameraFrustum = mesh.inFrustum(transform, camera);
 		
 		if(renderingState == LIGHTING_STATE){
-			if(lightCamera.getMode() == 0){
+			if(activeLight.getType() == BaseLight.SPOT_LIGHT){
 				return inCameraFrustum && mesh.inFrustum(transform, lightCamera);
 			}else{
 				return inCameraFrustum;
