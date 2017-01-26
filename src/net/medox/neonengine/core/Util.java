@@ -22,6 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.Camera;
+import net.medox.neonengine.rendering.CameraBase;
 import net.medox.neonengine.rendering.RenderingEngine;
 import net.medox.neonengine.rendering.Window;
 
@@ -171,7 +172,7 @@ public class Util{
 		
 		final Camera camera = RenderingEngine.getMainCamera();
 		
-		if(camera.getMode() == 0){
+		if(camera.getMode() == CameraBase.PERSPECTIVE_MODE){
 			final float vLength = (float)Math.tan(camera.getFov() / 2) * camera.getZNear();
 			final float hLength = vLength * ((float)Window.getWidth() / (float)Window.getHeight());
 			

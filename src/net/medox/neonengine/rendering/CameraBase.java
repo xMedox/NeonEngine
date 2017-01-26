@@ -3,6 +3,9 @@ package net.medox.neonengine.rendering;
 import net.medox.neonengine.math.Matrix4f;
 
 public class CameraBase{
+	public static final int PERSPECTIVE_MODE = 0;
+	public static final int ORTHOGRAPHIC_MODE = 1;
+	
 	private int mode;
 	private Matrix4f projection;
 	

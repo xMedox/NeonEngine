@@ -18,7 +18,7 @@ public class OrthographicBase extends CameraBase{
 		this.near = near;
 		this.far = far;
 		
-		setMode(1);
+		setMode(CameraBase.ORTHOGRAPHIC_MODE);
 		setProjection(new Matrix4f().initOrthographic(left, right, bottom, top, near, far));
 	}
 	

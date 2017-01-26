@@ -12,7 +12,7 @@ public class Frustum{
 //		final Vector3f y = camera.getTransform().getTransformedRot().getUp();
 //		final Vector3f z = camera.getTransform().getTransformedRot().getForward();
 		
-		if(camera.getMode() == 0){
+		if(camera.getMode() == CameraBase.PERSPECTIVE_MODE){
 			final float tang = (float)Math.tan(camera.getFov() * 0.5f);
 			
 			final float nearHeight = camera.getZNear() * tang;
@@ -49,7 +49,7 @@ public class Frustum{
 			final Vector3f fbr = farClipping.sub(far1).add(far2);
 			
 			planes = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
-		}else{
+		}else if(camera.getMode() == CameraBase.ORTHOGRAPHIC_MODE){
 			final float height = camera.getTop() - camera.getBottom();
 			final float width = camera.getRight() - camera.getLeft();
 			
@@ -84,6 +84,8 @@ public class Frustum{
 			final Vector3f fbr = farClipping.sub(far1).add(far2);
 			
 			planes = new Plane[]{new Plane(ntr, ntl, ftl), new Plane(nbl, nbr, fbr), new Plane(ntl, nbl, fbl), new Plane(nbr, ntr, fbr), new Plane(ntl, ntr, nbr), new Plane(ftr, ftl, fbl)};
+		}else{
+			planes = null;
 		}
 		
 //		pl[0] = new Plane(ntr, ntl, ftl);

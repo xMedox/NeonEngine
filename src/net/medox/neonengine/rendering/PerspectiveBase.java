@@ -14,7 +14,7 @@ public class PerspectiveBase extends CameraBase{
 		this.zNear = zNear;
 		this.zFar = zFar;
 		
-		setMode(0);
+		setMode(CameraBase.PERSPECTIVE_MODE);
 		setProjection(new Matrix4f().initPerspective(fov, aspectRatio, zNear, zFar));
 	}
 	
