@@ -41,6 +41,7 @@ public class RenderingEngine{
 	
 	private static final int NUM_SHADOW_MAPS = 10;
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
+	private static final Matrix4f NO_SHADOW_MATRIX = new Matrix4f().initScale(0, 0, 0);
 	
 	public static int maxTextureImageUnits;
 	public static int[] textureArray;
@@ -313,7 +314,7 @@ public class RenderingEngine{
 				setTexture("shadowMap", shadowMaps[shadowMapIndex]);
 				
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() == 0){
-					lightMatrix = new Matrix4f().initScale(0, 0, 0);
+					lightMatrix = NO_SHADOW_MATRIX;
 					setFloat("shadowVarianceMin", 0.00002f);
 					setFloat("shadowLightBleedingReduction", 0.0f);
 				}else{
@@ -370,7 +371,7 @@ public class RenderingEngine{
 				getTexture("displayTexture").bindAsRenderTarget();
 			}else{
 				setTexture("shadowMap", shadowMaps[0]);
-				lightMatrix = new Matrix4f().initScale(0, 0, 0);
+				lightMatrix = NO_SHADOW_MATRIX;
 				setFloat("shadowVarianceMin", 0.00002f);
 				setFloat("shadowLightBleedingReduction", 0.0f);
 			}
