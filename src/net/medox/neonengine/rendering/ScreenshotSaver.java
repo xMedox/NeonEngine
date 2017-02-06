@@ -34,8 +34,8 @@ public class ScreenshotSaver extends Thread{
 			
 			for(int x = 0; x < width; x++){
 				for(int y = 0; y < height; y++){
-					final int i = (x + (width * y)) * 4;
-					image.setRGB(x, height - (y + 1), (0xFF << 24) | ((buffer.get(i) & 0xFF) << 16) | ((buffer.get(i + 1) & 0xFF) << 8) | (buffer.get(i + 2) & 0xFF));
+					final int index = (x + (width * y)) * 4;
+					image.setRGB(x, height - (y + 1), (0xFF << 24) | ((buffer.get(index) & 0xFF) << 16) | ((buffer.get(index + 1) & 0xFF) << 8) | (buffer.get(index + 2) & 0xFF));
 				}
 			}
 			

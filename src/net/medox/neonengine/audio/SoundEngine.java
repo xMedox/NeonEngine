@@ -29,7 +29,7 @@ public class SoundEngine{
 		if(device == MemoryUtil.NULL){
 			NeonEngine.throwError("Error: Failed to open the default OpenAL device.");
 		}
-				
+		
 		context = ALC10.alcCreateContext(device, (IntBuffer)null);
 		if(context == MemoryUtil.NULL){
 			NeonEngine.throwError("Error: Failed to create an OpenAL context.");
@@ -54,19 +54,19 @@ public class SoundEngine{
 //		System.out.println("Default device: " + defaultDeviceSpecifier);
 //		
 //		IntBuffer attribs = DataUtil.createIntBuffer(16);
-//
+//		
 //		attribs.put(ALC10.ALC_FREQUENCY);
 //		attribs.put(44100);
-//
+//		
 //		attribs.put(ALC10.ALC_REFRESH);
 //		attribs.put(60);
-//
+//		
 //		attribs.put(ALC10.ALC_SYNC);
 //		attribs.put(ALC10.ALC_FALSE);
-//
+//		
 //		attribs.put(0);
 //		attribs.flip();
-//
+//		
 //		long contextHandle = ALC10.alcCreateContext(device.getPointer(), attribs);
 //		assert(contextHandle != 0L);
 //		

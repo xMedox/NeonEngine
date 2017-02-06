@@ -34,8 +34,8 @@ public class Font{
 	private final boolean antialiasing;
 	private final int fontSize;
 	
+	private final int textureHeight = 512;
 	private int textureWidth = 512;
-	private int textureHeight = 512;
 	
 	private java.awt.Font font;
 	private Texture fontTexture;
@@ -76,7 +76,7 @@ public class Font{
 		createSet(additionalChars);
 	}
 	
-	private BufferedImage getFontImage(char ch){
+	private BufferedImage getFontImage(char character){
 		final BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D g = (Graphics2D)tempfontImage.getGraphics();
 		
@@ -88,7 +88,7 @@ public class Font{
 		
 		final FontMetrics fontMetrics = g.getFontMetrics();
 		
-		int charwidth = fontMetrics.charWidth(ch);
+		int charwidth = fontMetrics.charWidth(character);
 		if(charwidth <= 0){
 			charwidth = 1;
 		}
@@ -107,7 +107,7 @@ public class Font{
 		
 		gt.setFont(font);
 		gt.setColor(Color.WHITE);
-		gt.drawString(String.valueOf(ch), 0, 0 + fontMetrics.getAscent());
+		gt.drawString(String.valueOf(character), 0, 0 + fontMetrics.getAscent());
 		
 		return fontImage;
 	}
@@ -131,9 +131,9 @@ public class Font{
 			final int customCharsLength = (customCharsArray == null) ? 0 : customCharsArray.length;
 			
 			for(int i = 0; i < 256 + customCharsLength; i++){
-				final char ch = i < 256 ? (char)i : customCharsArray[i-256];
+				final char character = i < 256 ? (char)i : customCharsArray[i-256];
 				
-				BufferedImage fontImage = getFontImage(ch);
+				BufferedImage fontImage = getFontImage(character);
 				
 				final CharInfo charInfo = new CharInfo();
 				
@@ -164,7 +164,7 @@ public class Font{
 				if(i < 256){
 					charArray[i] = charInfo;
 				}else{
-					customChars.put(ch, charInfo);
+					customChars.put(character, charInfo);
 				}
 				
 				fontImage = null;
@@ -229,7 +229,7 @@ public class Font{
 		CharInfo charInfo = null;
 		int currentChar;
 		int totalwidth = 0;
-		int i = startIndex;
+		int index = startIndex;
 		int d;
 		float startY = 0;
 		
@@ -237,11 +237,11 @@ public class Font{
 			case ALIGN_RIGHT:{
 				d = -1;
 				
-				while(i < endIndex){
-					if(text.charAt(i) == '\n'){
+				while(index < endIndex){
+					if(text.charAt(index) == '\n'){
 						startY += fontHeight;
 					}
-					i++;
+					index++;
 				}
 				break;
 			}
@@ -270,8 +270,8 @@ public class Font{
 	            }
 		}
 		
-		while(i >= startIndex && i <= endIndex){
-			currentChar = text.charAt(i);
+		while(index >= startIndex && index <= endIndex){
+			currentChar = text.charAt(index);
 			if(currentChar < 256){
 				charInfo = charArray[currentChar];
 			}else{
@@ -287,7 +287,7 @@ public class Font{
 					startY += fontHeight * d;
 					totalwidth = 0;
 					if(format == ALIGN_CENTER){
-						for(int l = i+1; l <= endIndex; l++){
+						for(int l = index+1; l <= endIndex; l++){
 							currentChar = text.charAt(l);
 							
 							if(currentChar == '\n'){
@@ -312,7 +312,7 @@ public class Font{
 						totalwidth += charInfo.width * d;
 					}
 				}
-				i += d;
+				index += d;
 			}
 		}
 	}

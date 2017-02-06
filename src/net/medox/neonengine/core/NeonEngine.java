@@ -73,7 +73,7 @@ public class NeonEngine{
 		String error = windowError + text + "\n";
 		
 		System.err.println(text);
-		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+		final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		for(int i = 2; i < stack.length; i++){
 			error += "\tat ";
 			error += stack[i].toString() + "\n";
@@ -96,7 +96,7 @@ public class NeonEngine{
 		windowError += text/* + "\njava.lang.Exception"*/ + "\n";
 		
 		System.err.println(text/* + "\njava.lang.Exception"*/);
-		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+		final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		for(int i = 5; i < stack.length; i++){
 			windowError += "\tat ";
 			windowError += stack[i].toString() + "\n";
