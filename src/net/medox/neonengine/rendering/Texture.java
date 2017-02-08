@@ -149,11 +149,19 @@ public class Texture{
 		
 		if(NeonEngine.getTextureQuality() >= 1){
 			BufferedImage before = image;
-			int w = before.getWidth();
-			int h = before.getHeight();
-			BufferedImage after = new BufferedImage(w/2, h/2, BufferedImage.TYPE_INT_ARGB);
+			int w = before.getWidth()/2;
+			int h = before.getHeight()/2;
+			
+			if(w <= 0){
+				w = 1;
+			}
+			if(h <= 0){
+				h = 1;
+			}
+			
+			BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 			AffineTransform at = new AffineTransform();
-			at.scale(0.5, 0.5);
+			at.scale((double)w/(double)image.getWidth(), (double)h/(double)image.getHeight());
 			AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 			after = scaleOp.filter(before, after);
 			
@@ -161,11 +169,19 @@ public class Texture{
 			
 			if(NeonEngine.getTextureQuality() >= 2){
 				before = image;
-				w = before.getWidth();
-				h = before.getHeight();
-				after = new BufferedImage(w/2, h/2, BufferedImage.TYPE_INT_ARGB);
+				w = before.getWidth()/2;
+				h = before.getHeight()/2;
+				
+				if(w <= 0){
+					w = 1;
+				}
+				if(h <= 0){
+					h = 1;
+				}
+				
+				after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 				at = new AffineTransform();
-				at.scale(0.5, 0.5);
+				at.scale((double)w/(double)image.getWidth(), (double)h/(double)image.getHeight());
 				scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 				after = scaleOp.filter(before, after);
 				

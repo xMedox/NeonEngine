@@ -12,3 +12,4 @@
 - Fixed a bug where pointLights weren't affecting objects
 - Added the DIRECTIONAL_LIGHT, POINT_LIGHT and SPOT_LIGHT values to the BaseLight
 - Added the PERSPECTIVE_MODE and ORTHOGRAPHIC_MODE values to the CameraBase
+- Fixed a bug that caused a crash when loading a low resolution Texture while the Texture Quality is lower
