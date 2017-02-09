@@ -227,33 +227,45 @@ public class Window{
 	}
 	
 	public static void setStartResizable(boolean value){
-		startResizable = value;
+		if(!gotCreated){
+			startResizable = value;
+		}
 	}
 	
 	public static void setStartIcon(String icon16, String icon32){
-		startIcon16 = icon16;
-		startIcon32 = icon32;
+		if(!gotCreated){
+			startIcon16 = icon16;
+			startIcon32 = icon32;
+		}
 	}
 	
 	public static void setStartCursor(Cursor cursor){
-		startCursor = cursor;
+		if(!gotCreated){
+			startCursor = cursor;
+		}
 	}
 	
 	public static void setStartMinSizeLimit(int width, int height){
-		minWidth = width;
-		minHeight = height;
+		if(!gotCreated){
+			minWidth = width;
+			minHeight = height;
+		}
 	}
 	
 	public static void setStartMaxSizeLimit(int width, int height){
-		maxWidth = width;
-		maxHeight = height;
+		if(!gotCreated){
+			maxWidth = width;
+			maxHeight = height;
+		}
 	}
 	
 	public static void setStartSizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight){
-		Window.minWidth = minWidth;
-		Window.minHeight = minHeight;
-		Window.maxWidth = maxWidth;
-		Window.maxHeight = maxHeight;
+		if(!gotCreated){
+			Window.minWidth = minWidth;
+			Window.minHeight = minHeight;
+			Window.maxWidth = maxWidth;
+			Window.maxHeight = maxHeight;
+		}
 	}
 	
 	public static void setIcon(String icon16, String icon32){
