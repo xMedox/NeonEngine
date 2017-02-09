@@ -25,7 +25,7 @@ public class Window{
 	private static String title = "NeonEngine";
 	
 	private static long window;
-	private static Cursor currentCursor;
+	private static Cursor cursor;
 	
 	private static int oldXPos;
 	private static int oldYPos;
@@ -49,8 +49,6 @@ public class Window{
 	
 	private static String startIcon16 = "";
 	private static String startIcon32 = "";
-	
-	private static Cursor startCursor;
 	
 	private static int centerPositionX;
 	private static int centerPositionY;
@@ -124,10 +122,10 @@ public class Window{
 			setIcon(startIcon16, startIcon32);
 		}
 		
-		if(startCursor != null){
-			startCursor.create();
+		if(cursor != null){
+			cursor.create();
 			
-			setCursor(startCursor);
+			setCursor(cursor);
 		}
 		
 		GLFW.glfwSetWindowSizeLimits(window, minWidth, minHeight, maxWidth, maxHeight);
@@ -241,7 +239,7 @@ public class Window{
 	
 	public static void setStartCursor(Cursor cursor){
 		if(!gotCreated){
-			startCursor = cursor;
+			Window.cursor = cursor;
 		}
 	}
 	
@@ -304,7 +302,7 @@ public class Window{
 		if(cursor == null){
 			GLFW.glfwSetCursor(window, MemoryUtil.NULL);
 		}else{
-			currentCursor = cursor;
+			Window.cursor = cursor;
 			
 			GLFW.glfwSetCursor(window, cursor.getId());
 		}
@@ -472,6 +470,6 @@ public class Window{
 	}
 	
 	public static Cursor getCurrentCursor(){
-		return currentCursor;
+		return cursor;
 	}
 }
