@@ -82,9 +82,7 @@ public class TextBox extends Entity2DComponent{
 		}
 	}
 	
-	public void pressed(){
-		
-	}
+	public void pressed(){}
 	
 	public String getText(){
 		return text;

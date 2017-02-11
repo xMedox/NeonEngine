@@ -26,11 +26,7 @@ public abstract class EntityComponent{
 		parent.removeComponent(this);
 	}
 	
-	public void addToEngine(){
-		
-	}
+	public void addToEngine(){}
 	
-	public void cleanUp(){
-		
-	}
+	public void cleanUp(){}
 }

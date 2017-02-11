@@ -45,9 +45,7 @@ public class Button extends Entity2DComponent{
 		}
 	}
 	
-	public void pressed(){
-		
-	}
+	public void pressed(){}
 	
 	@Override
 	public void render(){

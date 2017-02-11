@@ -131,13 +131,9 @@ public abstract class Collider{
 		return null;
 	}
 	
-	public void setScale(net.medox.neonengine.math.Vector3f scale){
-		
-	}
+	public void setScale(net.medox.neonengine.math.Vector3f scale){}
 	
-	public void setScale(float scale){
-		
-	}
+	public void setScale(float scale){}
 	
 	public net.medox.neonengine.core.Transform getTransform(){
 		final net.medox.neonengine.core.Transform result = new net.medox.neonengine.core.Transform();
@@ -182,9 +178,7 @@ public abstract class Collider{
 		body.setMassProps(mass, new Vector3(inertia.getX(), inertia.getY(), inertia.getZ()));
 	}
 	
-	public void setMassProps(float mass){
-		
-	}
+	public void setMassProps(float mass){}
 	
 	public void setRestitution(float restitution){
 		body.setRestitution(restitution);

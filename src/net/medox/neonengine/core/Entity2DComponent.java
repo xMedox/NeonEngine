@@ -23,11 +23,7 @@ public abstract class Entity2DComponent{
 		parent.removeComponent(this);
 	}
 	
-	public void addToEngine(){
-		
-	}
+	public void addToEngine(){}
 	
-	public void cleanUp(){
-		
-	}
+	public void cleanUp(){}
 }

@@ -61,9 +61,7 @@ public class Checkbox extends Entity2DComponent{
 		changed();
 	}
 	
-	public void changed(){
-		
-	}
+	public void changed(){}
 	
 	@Override
 	public void render(){

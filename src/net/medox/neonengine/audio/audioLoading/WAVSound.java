@@ -94,8 +94,8 @@ public class WAVSound{
 			}
 			
 			buffer = convertAudioBytes(buf, audioformat.getSampleSizeInBits() == 16);
-		}catch(IOException ioe){
-			
+		}catch(IOException e){
+			NeonEngine.throwError("Error: Failed to create the buffer.");
 		}
 		
 		data = buffer;
@@ -104,8 +104,8 @@ public class WAVSound{
 		
 		try{
 			ais.close();
-		}catch(IOException ioe){
-			
+		}catch(IOException e){
+			NeonEngine.throwError("Error: Failed to close the AudioInputStream.");
 		}
 	}
 	

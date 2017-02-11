@@ -22,14 +22,14 @@ public class OGGSound{
 		FileInputStream fin = null;
 		try{
 			fin = new FileInputStream(fileName);
-		}catch(FileNotFoundException ex){
+		}catch(FileNotFoundException e){
 			NeonEngine.throwError("Error: unable to read " + fileName);
 		}
 		
 		try{
 			create(new BufferedInputStream(fin));
 		}catch(IOException e){
-			NeonEngine.throwError("Error: unable to read " + fileName);
+			NeonEngine.throwError("Error: unable to convert " + fileName);
 		}
 	}
 	

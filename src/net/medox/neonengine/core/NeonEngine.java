@@ -192,18 +192,16 @@ public class NeonEngine{
 						System.out.println("");
 					}
 					
-//					Runtime runtime = Runtime.getRuntime();
+//					final NumberFormat format = NumberFormat.getInstance();
 //					
-//					NumberFormat format = NumberFormat.getInstance();
+//					final long maxMemory = Runtime.getRuntime().maxMemory();
+//					final long allocatedMemory = Runtime.getRuntime().totalMemory();
+//					final long freeMemory = Runtime.getRuntime().freeMemory();
 //					
-//					long maxMemory = runtime.maxMemory();
-//					long allocatedMemory = runtime.totalMemory();
-//					long freeMemory = runtime.freeMemory();
-//					
-//					System.out.println("free memory: " + format.format(freeMemory / 1024));
-//					System.out.println("allocated memory: " + format.format(allocatedMemory / 1024));
-//					System.out.println("max memory: " + format.format(maxMemory / 1024));
-//					System.out.println("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024));
+//					System.out.println("Free memory:                            " + format.format(freeMemory / 1024));
+//					System.out.println("Allocated memory:                       " + format.format(allocatedMemory / 1024));
+//					System.out.println("Max memory:                             " + format.format(maxMemory / 1024));
+//					System.out.println("Total free memory:                      " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024));
 					
 					fps = frames;
 				}
