@@ -154,15 +154,12 @@ public class Input{
 	private static final boolean[] lastKeys = new boolean[NUM_KEYCODES];
 	private static final boolean[] lastMouse = new boolean[NUM_MOUSEBUTTONS];
 	
-//	public static boolean textInputMode;
-	
 	private static int mouseXPosition;
 	private static int mouseYPosition;
-	
+	private static boolean mouseInsideWindow;
 	private static int mouseWheel;
 	
-	private static boolean mouseInsideWindow;
-	
+//	public static boolean textInputMode;
 	private static String charList;
 	
 	public static void update(){

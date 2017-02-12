@@ -42,7 +42,7 @@ public class Cursor{
 			final ImageData pixels = ImageUtil.imageToByteBuffer("./res/" + fileName);
 			final GLFWImage image = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
-			long cursor = GLFW.glfwCreateCursor(image, xPos, yPos);
+			final long cursor = GLFW.glfwCreateCursor(image, xPos, yPos);
 			image.free();
 			
 			if(cursor == MemoryUtil.NULL){

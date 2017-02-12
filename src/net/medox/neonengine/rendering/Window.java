@@ -456,6 +456,10 @@ public class Window{
 		GLFW.glfwSetWindowSize(window, width, height);
 	}
 	
+	public static Cursor getCurrentCursor(){
+		return cursor;
+	}
+	
 	
 	public static void setCursorPos(int xPos, int yPos){
 		GLFW.glfwSetCursorPos(window, (double)xPos, (double)yPos);
@@ -467,9 +471,5 @@ public class Window{
 	
 	public static int getInputMode(int mode){
 		return GLFW.glfwGetInputMode(window, mode);
-	}
-	
-	public static Cursor getCurrentCursor(){
-		return cursor;
 	}
 }

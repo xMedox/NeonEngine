@@ -114,7 +114,7 @@ public class ShaderData extends ReferenceCounter{
 			String uniformName = uniformLine.substring(whiteSpacePos + 1, uniformLine.length()).trim();
 			final String uniformType = uniformLine.substring(0, whiteSpacePos).trim();
 			
-			int bracket = uniformName.indexOf('[');
+			final int bracket = uniformName.indexOf('[');
 			
 			if(bracket >= 0){
 				uniformName = uniformName.substring(0, bracket).trim();
