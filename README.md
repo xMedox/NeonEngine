@@ -13,3 +13,4 @@
 - Added the DIRECTIONAL_LIGHT, POINT_LIGHT and SPOT_LIGHT values to the BaseLight
 - Added the PERSPECTIVE_MODE and ORTHOGRAPHIC_MODE values to the CameraBase
 - Fixed a bug that caused a crash when loading a low resolution Texture while the Texture Quality is lower
+- Added the getCurrentYear, getCurrentMonth, getCurrentDay, getCurrentHour, getCurrentMinute and getCurrentSecond methods to the Time class

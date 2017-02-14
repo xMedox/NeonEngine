@@ -1,7 +1,5 @@
 package net.medox.neonengine.core;
 
-import java.util.Calendar;
-
 import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.audio.SoundEngine;
 import net.medox.neonengine.physics.CharacterController;
@@ -16,7 +14,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0 Build 71";
+	private static final String VERSION = "1.0.0 Build 72";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -82,8 +80,8 @@ public class NeonEngine{
 			System.err.println(stack[i].toString());
 		}
 		
-		final String YMD = Calendar.getInstance().get(Calendar.YEAR) + "-" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-		final String HMS = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "." + Calendar.getInstance().get(Calendar.MINUTE) + "." + Calendar.getInstance().get(Calendar.SECOND);
+		final String YMD = Time.getCurrentYear() + "-" + Time.getCurrentMonth() + "-" + Time.getCurrentDay();
+		final String HMS = Time.getCurrentHour() + "." + Time.getCurrentMinute() + "." + Time.getCurrentSecond();
 		
 		Util.saveToFile("crash " + (Window.getTitle() + " " + YMD + "_" + HMS) + ".txt", error);
 		

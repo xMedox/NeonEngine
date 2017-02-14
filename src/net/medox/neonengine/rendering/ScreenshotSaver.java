@@ -4,11 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 
 import net.medox.neonengine.core.NeonEngine;
+import net.medox.neonengine.core.Time;
 
 public class ScreenshotSaver extends Thread{
 	private final String destination;
@@ -25,8 +25,8 @@ public class ScreenshotSaver extends Thread{
 	
 	public void run(){
 		if(width > 0 && height > 0){
-			final String YMD = Calendar.getInstance().get(Calendar.YEAR) + "-" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-			final String HMS = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "." + Calendar.getInstance().get(Calendar.MINUTE) + "." + Calendar.getInstance().get(Calendar.SECOND);
+			final String YMD = Time.getCurrentYear() + "-" + Time.getCurrentMonth() + "-" + Time.getCurrentDay();
+			final String HMS = Time.getCurrentHour() + "." + Time.getCurrentMinute() + "." + Time.getCurrentSecond();
 			
 			new File(destination).mkdir();
 			
