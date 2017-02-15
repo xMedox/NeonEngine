@@ -14,3 +14,4 @@
 - Added the PERSPECTIVE_MODE and ORTHOGRAPHIC_MODE values to the CameraBase
 - Fixed a bug that caused a crash when loading a low resolution Texture while the Texture Quality is lower
 - Added the getCurrentYear, getCurrentMonth, getCurrentDay, getCurrentHour, getCurrentMinute and getCurrentSecond methods to the Time class
+- The x-Axis rotation of the LookComponent is now properly limited
