@@ -33,7 +33,7 @@ public class MoveComponent extends EntityComponent{
 			move(getTransform().getRot().getForward(), moveAmt);
 		}
 		if(Input.inputKey(backKey)){
-			move(getTransform().getRot().getForward(), -moveAmt);
+			move(getTransform().getRot().getBack(), moveAmt);
 		}
 		if(Input.inputKey(leftKey)){
 			move(getTransform().getRot().getLeft(), moveAmt);
