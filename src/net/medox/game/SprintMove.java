@@ -35,7 +35,7 @@ public class SprintMove extends MoveComponent{
 	@Override
 	public void input(float delta){
 		if(enableSprint){
-			if(Input.inputKey(sprintKey)){
+			if(Input.getInputKey(sprintKey)){
 				setSpeed(sprintSpeed);
 			}else{
 				setSpeed(normalSpeed);

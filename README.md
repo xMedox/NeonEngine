@@ -15,3 +15,4 @@
 - Fixed a bug that caused a crash when loading a low resolution Texture while the Texture Quality is lower
 - Added the getCurrentYear, getCurrentMonth, getCurrentDay, getCurrentHour, getCurrentMinute and getCurrentSecond methods to the Time class
 - The x-Axis rotation of the LookComponent is now properly limited
+- Renamed the inputKey method to getInputKey, the inputKeyDown method to getInputKeyDown and the inputKeyUp method to getInputKeyUp

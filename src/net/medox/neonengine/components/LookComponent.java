@@ -50,9 +50,9 @@ public class LookComponent extends EntityComponent{
 		
 		getTransform().setRot(new Quaternion(0, 0, 0, 1));
 		
-		if(Input.inputKeyDown(unlockMouseKey) && Input.isGrabbed()){
+		if(Input.getInputKeyDown(unlockMouseKey) && Input.isGrabbed()){
 			Input.setGrabbed(false);
-		}else if(Input.inputKeyDown(setMouse) && !Input.isGrabbed()){
+		}else if(Input.getInputKeyDown(setMouse) && !Input.isGrabbed()){
 			Input.setMousePosition(centerPosition);
 			Input.setGrabbed(true);
 		}

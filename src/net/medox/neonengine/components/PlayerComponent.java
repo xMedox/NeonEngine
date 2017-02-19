@@ -56,31 +56,31 @@ public class PlayerComponent extends EntityComponent{
 	public void input(float delta){
 		float speed = 6;
 		
-		if(Input.inputKey(sprintKey)){
+		if(Input.getInputKey(sprintKey)){
 			speed = 10;
 		}
 		
 		Vector3f dir = new Vector3f(0, 0, 0);
 		boolean changed = false;
 		
-		if(Input.inputKey(forwardKey) && !Input.inputKey(backKey)){
+		if(Input.getInputKey(forwardKey) && !Input.getInputKey(backKey)){
 			dir = dir.add(camera.getTransform().getRot().getForward().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
-		if(Input.inputKey(leftKey) && !Input.inputKey(rightKey)){
+		if(Input.getInputKey(leftKey) && !Input.getInputKey(rightKey)){
 			dir = dir.add(camera.getTransform().getRot().getLeft().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
-		if(Input.inputKey(backKey) && !Input.inputKey(forwardKey)){
+		if(Input.getInputKey(backKey) && !Input.getInputKey(forwardKey)){
 			dir = dir.add(camera.getTransform().getRot().getBack().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
-		if(Input.inputKey(rightKey) && !Input.inputKey(leftKey)){
+		if(Input.getInputKey(rightKey) && !Input.getInputKey(leftKey)){
 			dir = dir.add(camera.getTransform().getRot().getRight().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
 		
-		if(Input.inputKeyDown(jumpKey)){
+		if(Input.getInputKeyDown(jumpKey)){
 			controller.jump();
 		}
 		

@@ -105,7 +105,7 @@ public class WeaponScript extends EntityComponent{
 	@Override
 	public void input(float delta){
 		if(!change){
-			if(Input.inputKeyDown(aimKey)){
+			if(Input.getInputKeyDown(aimKey)){
 				if(aimed == aim){
 					aim = !aim;
 				}

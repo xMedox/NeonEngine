@@ -18,7 +18,7 @@ public class ScreenshotTaker extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
-		if(Input.inputKeyDown(screenshotKey)){
+		if(Input.getInputKeyDown(screenshotKey)){
 			Window.takeScreenshot();
 		}
 	}

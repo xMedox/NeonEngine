@@ -18,7 +18,7 @@ public class FullscreenSetter extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
-		if(Input.inputKeyDown(fullscreenKey)){
+		if(Input.getInputKeyDown(fullscreenKey)){
 			Input.setGrabbed(false);
 			Window.setFullscreen(!Window.isFullscreen());
 		}

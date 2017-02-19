@@ -26,7 +26,7 @@ public class ChangeMode extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
-		if(Input.inputKeyDown(wireframeKey)){
+		if(Input.getInputKeyDown(wireframeKey)){
 			RenderingEngine.setWireframeMode(!RenderingEngine.isWireframeMode());
 		}
 //		if(Input.getKeyDown(Input.KEY_F3)){

@@ -29,16 +29,16 @@ public class MoveComponent extends EntityComponent{
 	public void input(float delta){
 		final float moveAmt = speed*delta;
 		
-		if(Input.inputKey(forwardKey)){
+		if(Input.getInputKey(forwardKey)){
 			move(getTransform().getRot().getForward(), moveAmt);
 		}
-		if(Input.inputKey(backKey)){
+		if(Input.getInputKey(backKey)){
 			move(getTransform().getRot().getBack(), moveAmt);
 		}
-		if(Input.inputKey(leftKey)){
+		if(Input.getInputKey(leftKey)){
 			move(getTransform().getRot().getLeft(), moveAmt);
 		}
-		if(Input.inputKey(rightKey)){
+		if(Input.getInputKey(rightKey)){
 			move(getTransform().getRot().getRight(), moveAmt);
 		}
 	}

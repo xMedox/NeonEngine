@@ -242,15 +242,15 @@ public class Input{
 		return result;
 	}
 	
-	public static boolean inputKey(InputKey key){
+	public static boolean getInputKey(InputKey key){
 		return key.getDevice() == MOUSE ? getMouse(key.getKeycode()) : key.getDevice() == KEYBOARD ? getKey(key.getKeycode()) : false;
 	}
 	
-	public static boolean inputKeyDown(InputKey key){
+	public static boolean getInputKeyDown(InputKey key){
 		return key.getDevice() == MOUSE ? getMouseDown(key.getKeycode()) : key.getDevice() == KEYBOARD ? getKeyDown(key.getKeycode()) : false;
 	}
 	
-	public static boolean inputKeyUp(InputKey key){
+	public static boolean getInputKeyUp(InputKey key){
 		return key.getDevice() == MOUSE ? getMouseUp(key.getKeycode()) : key.getDevice() == KEYBOARD ? getKeyUp(key.getKeycode()) : false;
 	}
 	

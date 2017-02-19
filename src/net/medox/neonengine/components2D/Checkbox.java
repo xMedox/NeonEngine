@@ -33,13 +33,13 @@ public class Checkbox extends Entity2DComponent{
 	
 	@Override
 	public void input(float delta){
-		if(!Input.isGrabbed() && Input.inputKeyDown(key)){
+		if(!Input.isGrabbed() && Input.getInputKeyDown(key)){
 			if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
 				selected = true;
 			}
 		}
 		
-		if(Input.inputKeyUp(key) && selected){
+		if(Input.getInputKeyUp(key) && selected){
 			selected = false;
 			if(!Input.isGrabbed()){
 				if(Input.getMousePosition().getX() >= getTransform().getTransformedPos().getX() && Input.getMousePosition().getY() >= getTransform().getTransformedPos().getY() && Input.getMousePosition().getX() < getTransform().getTransformedPos().getX() + getTransform().getScale().getX() && Input.getMousePosition().getY() < getTransform().getTransformedPos().getY() + getTransform().getScale().getY()){
