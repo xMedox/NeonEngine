@@ -17,14 +17,17 @@ public class PlayerComponent extends EntityComponent{
 	private final InputKey sprintKey;
 	private final InputKey jumpKey;
 	
-	private final Camera camera;
 	private final CharacterController controller;
+	private final Camera camera;
 	
-	public PlayerComponent(Collider collider, Camera camera){
-		this(collider, camera, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D), new InputKey(Input.KEYBOARD, Input.KEY_LEFT_SHIFT), new InputKey(Input.KEYBOARD, Input.KEY_SPACE));
+	private float speed;
+	private float sprintSpeed;
+	
+	public PlayerComponent(Collider collider, Camera camera, float speed, float sprintSpeed){
+		this(collider, camera, speed, sprintSpeed, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D), new InputKey(Input.KEYBOARD, Input.KEY_LEFT_SHIFT), new InputKey(Input.KEYBOARD, Input.KEY_SPACE));
 	}
 	
-	public PlayerComponent(Collider collider, Camera camera, InputKey forwardKey, InputKey backKey, InputKey leftKey, InputKey rightKey, InputKey sprintKey, InputKey jumpKey){
+	public PlayerComponent(Collider collider, Camera camera, float speed, float sprintSpeed, InputKey forwardKey, InputKey backKey, InputKey leftKey, InputKey rightKey, InputKey sprintKey, InputKey jumpKey){
 		controller = new CharacterController(collider, 0.3f);
 		
 		controller.setMaxJumpHeight(4);
@@ -35,6 +38,8 @@ public class PlayerComponent extends EntityComponent{
 		controller.setMaxSlope((float)Math.toRadians(55));
 		
 		this.camera = camera;
+		this.speed = speed;
+		this.sprintSpeed = sprintSpeed;
 		this.forwardKey = forwardKey;
 		this.backKey = backKey;
 		this.leftKey = leftKey;
@@ -43,21 +48,12 @@ public class PlayerComponent extends EntityComponent{
 		this.jumpKey = jumpKey;
 	}
 	
-	public CharacterController getController(){
-		return controller;
-	}
-	
-	@Override
-	public void update(float delta){
-		getTransform().setPos(controller.getPos());
-	}
-	
 	@Override
 	public void input(float delta){
-		float speed = 6;
+		float moveSpeed = speed;
 		
 		if(Input.getInputKey(sprintKey)){
-			speed = 10;
+			moveSpeed = sprintSpeed;
 		}
 		
 		Vector3f dir = new Vector3f(0, 0, 0);
@@ -85,14 +81,31 @@ public class PlayerComponent extends EntityComponent{
 		}
 		
 		if(changed){
-			move(dir.normalized().mul(speed));
+			move(dir.normalized().mul(moveSpeed));
 		}else{
 			move(dir);
 		}
 	}
 	
+	@Override
+	public void update(float delta){
+		getTransform().setPos(controller.getPos());
+	}
+	
 	public void move(Vector3f vel){
 		controller.setWalkDirection(vel.mul(0.015f));
+	}
+	
+	public CharacterController getController(){
+		return controller;
+	}
+	
+	public float getSpeed(){
+		return speed;
+	}
+	
+	public void setSpeed(float speed){
+		this.speed = speed;
 	}
 	
 	@Override

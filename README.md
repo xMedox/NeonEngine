@@ -16,3 +16,4 @@
 - Added the getCurrentYear, getCurrentMonth, getCurrentDay, getCurrentHour, getCurrentMinute and getCurrentSecond methods to the Time class
 - The x-Axis rotation of the LookComponent is now properly limited
 - Renamed the inputKey method to getInputKey, the inputKeyDown method to getInputKeyDown and the inputKeyUp method to getInputKeyUp
+- You can now set the InputKeys and the speed of the PlayerComponent

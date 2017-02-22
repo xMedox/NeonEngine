@@ -131,7 +131,7 @@ public class TestGame extends Game{
 		
 //		PhysicsEngine.addObject(cylinder);
 		
-		PlayerComponent p = new PlayerComponent(capsule, cam);
+		PlayerComponent p = new PlayerComponent(capsule, cam, 6, 10);
 		
 		player.addComponent(p);
 		
