@@ -100,7 +100,7 @@ public class WolfComponent extends EntityComponent{
 	}
 	
 	@Override
-	public void update(float delta){
+	public void input(float delta){
 		if(!dead){
 			float speed = 2;
 			
@@ -158,7 +158,10 @@ public class WolfComponent extends EntityComponent{
 		}else{
 			move(new Vector3f(0, 0, 0));
 		}
-		
+	}
+	
+	@Override
+	public void update(float delta){		
 		getTransform().setPos(controller.getPos().add(add));
 		getTransform().setRot(controller.getRot());
 		

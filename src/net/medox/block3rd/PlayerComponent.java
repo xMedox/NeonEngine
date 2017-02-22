@@ -66,11 +66,6 @@ public class PlayerComponent extends EntityComponent{
 	}
 	
 	@Override
-	public void update(float delta){
-		getTransform().setPos(controller.getPos());
-	}
-	
-	@Override
 	public void input(float delta){
 		float speed = 4;
 		
@@ -163,6 +158,11 @@ public class PlayerComponent extends EntityComponent{
 		}else{
 			move(dir);
 		}
+	}
+	
+	@Override
+	public void update(float delta){
+		getTransform().setPos(controller.getPos());
 	}
 	
 	public void move(Vector3f vel){
