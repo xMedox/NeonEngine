@@ -115,7 +115,7 @@ public class TextureData extends ReferenceCounter{
 			
 			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST || filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR || filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST || filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
 				GL30.glGenerateMipmap(textureTarget);
-				GL11.glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
+				GL11.glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
 			}else{
 				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_BASE_LEVEL, 0);
 				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_MAX_LEVEL, 0);

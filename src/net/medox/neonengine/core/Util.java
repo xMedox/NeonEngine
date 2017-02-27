@@ -153,15 +153,15 @@ public class Util{
 		return result.toArray(new String[result.size()]);
 	}
 	
-	public static int[] toIntArray(Integer... data){
-		int[] result = new int[data.length];
-		
-		for(int i = 0; i < data.length; i++){
-			result[i] = data[i];
-		}
-		
-		return result;
-	}
+//	public static int[] toIntArray(Integer... data){
+//		int[] result = new int[data.length];
+//		
+//		for(int i = 0; i < data.length; i++){
+//			result[i] = data[i];
+//		}
+//		
+//		return result;
+//	}
 	
 	public static float clamp(float value, float min, float max){
 		return value < min ? min : value > max ? max : value;

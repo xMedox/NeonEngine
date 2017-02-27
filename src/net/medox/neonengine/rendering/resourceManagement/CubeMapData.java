@@ -21,7 +21,6 @@ public class CubeMapData extends ReferenceCounter{
 	private int textureID;
 	private int frameBuffer;
 	private int renderBuffer;
-	
 	private int width[];
 	private int height[];
 	
@@ -136,7 +135,7 @@ public class CubeMapData extends ReferenceCounter{
 		
 		if(filters == GL11.GL_NEAREST_MIPMAP_NEAREST || filters == GL11.GL_NEAREST_MIPMAP_LINEAR || filters == GL11.GL_LINEAR_MIPMAP_NEAREST || filters == GL11.GL_LINEAR_MIPMAP_LINEAR){
 			GL30.glGenerateMipmap(GL13.GL_TEXTURE_CUBE_MAP);
-			GL11.glTexParameterf(GL13.GL_TEXTURE_CUBE_MAP, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT))/*Clamp(0.0f, 8.0f, maxAnisotropy)*/);
+			GL11.glTexParameterf(GL13.GL_TEXTURE_CUBE_MAP, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
 		}else{
 			GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL12.GL_TEXTURE_BASE_LEVEL, 0);
 			GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL12.GL_TEXTURE_MAX_LEVEL, 0);
