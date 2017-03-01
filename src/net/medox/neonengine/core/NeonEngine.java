@@ -139,12 +139,16 @@ public class NeonEngine{
 		
 //		final ProfileTimer test = new ProfileTimer();
 //		
-//		test.startInvocation();
+//		if(optionEnableProfiling){
+//			test.startInvocation();
+//		}
 		game.init();
-//		test.stopInvocation();
-//		
-//		test.displayAndReset("Start Time:");
-//		System.out.println("--------------------------------------------------------------");
+//		if(optionEnableProfiling){
+//			test.stopInvocation();
+//			
+//			test.displayAndReset("Start Time:");
+//			System.out.println("--------------------------------------------------------------");
+//		}
 		
 		boolean render;
 		
