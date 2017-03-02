@@ -184,6 +184,10 @@ public abstract class Collider{
 		body.setRestitution(restitution);
 	}
 	
+	public float getRestitution(){
+		return body.getRestitution();
+	}
+	
 	public void setSleepingThresholds(float linear, float angular){
 		body.setSleepingThresholds(linear, angular);
 	}
@@ -216,16 +220,16 @@ public abstract class Collider{
 		body.setWorldTransform(trans);
 	}
 	
+	public void cleanUp(){
+		body.dispose();
+	}
+	
 	@Override
 	protected void finalize() throws Throwable{
 		cleanUp();
 		colliders.remove(this);
 		
 		super.finalize();
-	}
-	
-	public void cleanUp(){
-		body.dispose();
 	}
 	
 	public static void dispose(){

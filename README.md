@@ -5,6 +5,9 @@
 **Rendering:**
 - The bloom effect is now resolution independent
 
+**Physics:**
+- Added the getRestitution method to the Collider class
+
 **Other:**
 - The ALC context now gets cleared before destroying it
 - Added the cleanUp method to the Sound class

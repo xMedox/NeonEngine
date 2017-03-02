@@ -22,16 +22,16 @@ public abstract class Constraint{
 		return constraint;
 	}
 	
+	public void cleanUp(){
+		constraint.dispose();
+	}
+	
 	@Override
 	protected void finalize() throws Throwable{
 		cleanUp();
 		constraints.remove(this);
 		
 		super.finalize();
-	}
-	
-	public void cleanUp(){
-		constraint.dispose();
 	}
 	
 	public static void dispose(){
