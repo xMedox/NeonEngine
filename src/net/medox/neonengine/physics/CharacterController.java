@@ -20,6 +20,7 @@ public class CharacterController{
 	
 //	private float jumpSpeed;
 	private float jumpHeight;
+	private boolean cleanedUp;
 	
 	public CharacterController(Collider collider, float stepHeight){
 		this.collider = collider;
@@ -181,17 +182,21 @@ public class CharacterController{
 		return jumpHeight;
 	}
 	
+	public void cleanUp(){
+		if(!cleanedUp){
+			ghostObject.dispose();
+			characterController.dispose();
+			
+			cleanedUp = true;
+		}
+	}
+	
 	@Override
 	protected void finalize() throws Throwable{
 		cleanUp();
 		characterControllers.remove(this);
 		
 		super.finalize();
-	}
-	
-	public void cleanUp(){
-		ghostObject.dispose();
-		characterController.dispose();
 	}
 	
 	public static void dispose(){

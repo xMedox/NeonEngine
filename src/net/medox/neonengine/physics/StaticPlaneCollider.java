@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
 public class StaticPlaneCollider extends Collider{
 	private final btCollisionShape shape;
+	private boolean cleanedUp;
 	
 	public StaticPlaneCollider(net.medox.neonengine.math.Vector3f planeNormal, float planeConstant){
 		super();
@@ -66,7 +67,11 @@ public class StaticPlaneCollider extends Collider{
 	
 	@Override
 	public void cleanUp(){
-		shape.dispose();
-		super.cleanUp();
+		if(!cleanedUp){
+			shape.dispose();
+			super.cleanUp();
+			
+			cleanedUp = true;
+		}
 	}
 }

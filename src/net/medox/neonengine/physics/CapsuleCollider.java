@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
 public class CapsuleCollider extends Collider{
 	private final btCollisionShape shape;
+	private boolean cleanedUp;
 	
 	public CapsuleCollider(float radius, float height){
 		super();
@@ -66,7 +67,11 @@ public class CapsuleCollider extends Collider{
 	
 	@Override
 	public void cleanUp(){
-		shape.dispose();
-		super.cleanUp();
+		if(!cleanedUp){
+			shape.dispose();
+			super.cleanUp();
+			
+			cleanedUp = true;
+		}
 	}
 }

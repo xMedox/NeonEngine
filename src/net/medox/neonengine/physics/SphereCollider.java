@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
 public class SphereCollider extends Collider{
 	private final btCollisionShape shape;
+	private boolean cleanedUp;
 	
 	public SphereCollider(float radius){
 		super();
@@ -66,7 +67,11 @@ public class SphereCollider extends Collider{
 	
 	@Override
 	public void cleanUp(){
-		shape.dispose();
-		super.cleanUp();
+		if(!cleanedUp){
+			shape.dispose();
+			super.cleanUp();
+			
+			cleanedUp = true;
+		}
 	}
 }

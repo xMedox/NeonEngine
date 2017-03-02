@@ -9,6 +9,7 @@ public abstract class Constraint{
 	private static final List<Constraint> constraints = new ArrayList<Constraint>();
 	
 	private btTypedConstraint constraint;
+	private boolean cleanedUp;
 	
 	public Constraint(){
 		constraints.add(this);
@@ -23,7 +24,11 @@ public abstract class Constraint{
 	}
 	
 	public void cleanUp(){
-		constraint.dispose();
+		if(!cleanedUp){
+			constraint.dispose();
+			
+			cleanedUp = true;
+		}
 	}
 	
 	@Override
