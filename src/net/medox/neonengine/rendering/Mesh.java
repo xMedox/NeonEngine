@@ -62,11 +62,9 @@ public class Mesh{
 			if(fileName.equals("")){
 				resource.dispose();
 				customModels.remove(resource);
-			}else{
-				if(resource.removeReference()){
-					resource.dispose();
-					loadedModels.remove(fileName);
-				}
+			}else if(resource.removeReference()){
+				resource.dispose();
+				loadedModels.remove(fileName);
 			}
 			
 			cleanedUp = true;

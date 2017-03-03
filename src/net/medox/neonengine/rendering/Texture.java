@@ -95,12 +95,10 @@ public class Texture{
 		if(!cleanedUp){
 			if(fileName.equals("")){
 				resource.dispose();
-				loadedTextures.remove(resource);
-			}else{
-				if(resource.removeReference()){
-					resource.dispose();
-					loadedTextures.remove(fileName);
-				}
+				customTextures.remove(resource);
+			}else if(resource.removeReference()){
+				resource.dispose();
+				loadedTextures.remove(fileName);
 			}
 			
 			cleanedUp = true;
