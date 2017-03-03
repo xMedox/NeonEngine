@@ -1,5 +1,7 @@
 package net.medox.neonengine.audio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +14,7 @@ import net.medox.neonengine.math.Vector3f;
 
 public class Sound{
 	private static final Map<String, SoundData> loadedSounds = new ConcurrentHashMap<String, SoundData>();
-	private static final Map<String, SourceData> loadedSources = new ConcurrentHashMap<String, SourceData>();
+	private static final List<SourceData> loadedSources = new ArrayList<SourceData>();
 	
 	private final SourceData source;
 	private final String fileName;
@@ -33,6 +35,7 @@ public class Sound{
 		}else{
 			resource.addReference();
 		}
+		loadedSources.add(source);
 		
 		source.setBuffer(resource);
 	}
@@ -40,6 +43,7 @@ public class Sound{
 	public void cleanUp(){
 		if(!cleanedUp){
 			source.dispose();
+			loadedSources.remove(source);
 			if(resource.removeReference() && !fileName.equals("")){
 				resource.dispose();
 				loadedSounds.remove(fileName);
@@ -120,7 +124,7 @@ public class Sound{
 			data.dispose();
 		}
 		
-		for(final SourceData data : loadedSources.values()){
+		for(final SourceData data : loadedSources){
 			data.dispose();
 		}
 	}
