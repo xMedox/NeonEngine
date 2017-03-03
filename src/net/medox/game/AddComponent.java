@@ -28,6 +28,7 @@ public class AddComponent extends EntityComponent{
 	private Transform coneTransform;
 	
 	private Material bricks;
+	private Material metal;
 	
 	private Mesh crateM;
 	private Mesh sphereM;
@@ -41,6 +42,12 @@ public class AddComponent extends EntityComponent{
 		bricks.setEmissiveMap(new Texture("rockLavaEmissive.png"));
 		bricks.setSpecularIntensity(0.25f);
 		bricks.setSpecularPower(2);
+		
+		metal = new Material();
+		metal.setDiffuseMap(new Texture("diffuse.png"));
+		metal.setEmissiveMap(new Texture("emissive.png"));
+		metal.setSpecularIntensity(0.5f + 0.15f/2);
+		metal.setSpecularPower(4f + 1f/2);
 		
 		crateM = new Mesh("crate.obj");
 		sphereM = new Mesh("sphere.obj");
@@ -62,6 +69,21 @@ public class AddComponent extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
+		if(Input.getKeyDown(Input.KEY_E)){
+			Entity entity = new Entity();
+			
+			SphereCollider sphere = new SphereCollider(0.25f);
+			sphere.setMassProps(10);
+			
+			sphere.setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(RenderingEngine.getMainCamera().getTransform().getTransformedRot().getForward().mul(1f)));
+			
+			sphere.applyCentralImpulse(RenderingEngine.getMainCamera().getTransform().getTransformedRot().getForward().mul(100f));
+			
+			entity.getTransform().setScale(0.25f);
+			
+			getParent().addChild(entity.addComponent(new PhysicsComponent(sphere)).addComponent(new MeshRenderer(sphereM, metal))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
+		}
+		
 		if(Input.getMouseDown(Input.BUTTON_RIGHT)){
 			Ray ray = new Ray(RenderingEngine.getMainCamera().getTransform().getTransformedPos(), RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(Util.mouseToRay().mul(100)));
 			
