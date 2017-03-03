@@ -1,7 +1,7 @@
 package net.medox.neonengine.rendering;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
@@ -13,7 +13,7 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.resourceManagement.ShaderData;
 
 public class Shader{
-	private static final Map<String, ShaderData> loadedShaders = new ConcurrentHashMap<String, ShaderData>();
+	private static final Map<String, ShaderData> loadedShaders = new HashMap<String, ShaderData>();
 	
 	private final String fileName;
 	

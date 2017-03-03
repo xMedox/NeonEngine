@@ -6,9 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 
@@ -17,7 +17,7 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
 public class Texture{
-	private static final Map<String, TextureData> loadedTextures = new ConcurrentHashMap<String, TextureData>();
+	private static final Map<String, TextureData> loadedTextures = new HashMap<String, TextureData>();
 	private static final List<TextureData> customTextures = new ArrayList<TextureData>();
 	
 	private final String fileName;

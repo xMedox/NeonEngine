@@ -1,7 +1,7 @@
 package net.medox.neonengine.rendering;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;
@@ -12,7 +12,7 @@ import net.medox.neonengine.rendering.ImageUtil.ImageData;
 import net.medox.neonengine.rendering.resourceManagement.CursorData;
 
 public class Cursor{
-	private static final Map<String, CursorData> loadedCursors = new ConcurrentHashMap<String, CursorData>();
+	private static final Map<String, CursorData> loadedCursors = new HashMap<String, CursorData>();
 	
 	private final String fileName;
 	private final int xPos;

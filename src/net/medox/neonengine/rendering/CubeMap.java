@@ -5,8 +5,8 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 
@@ -15,7 +15,7 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
 
 public class CubeMap{
-	private static final Map<String, CubeMapData> loadedCubeMaps = new ConcurrentHashMap<String, CubeMapData>();
+	private static final Map<String, CubeMapData> loadedCubeMaps = new HashMap<String, CubeMapData>();
 	
 	private final String fileNames[];
 	

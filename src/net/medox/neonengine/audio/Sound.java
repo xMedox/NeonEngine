@@ -1,9 +1,9 @@
 package net.medox.neonengine.audio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.medox.neonengine.audio.audioLoading.OGGSound;
 import net.medox.neonengine.audio.audioLoading.WAVSound;
@@ -13,7 +13,7 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.math.Vector3f;
 
 public class Sound{
-	private static final Map<String, SoundData> loadedSounds = new ConcurrentHashMap<String, SoundData>();
+	private static final Map<String, SoundData> loadedSounds = new HashMap<String, SoundData>();
 	private static final List<SourceData> loadedSources = new ArrayList<SourceData>();
 	
 	private final SourceData source;

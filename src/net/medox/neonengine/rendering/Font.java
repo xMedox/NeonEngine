@@ -8,8 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.awt.GraphicsEnvironment;
 
 import net.medox.neonengine.core.NeonEngine;
@@ -30,7 +30,7 @@ public class Font{
 	private static final Transform2D transform = new Transform2D();
 	
 	private final CharInfo[] charArray = new CharInfo[256];
-	private final Map<Character, CharInfo> customChars = new ConcurrentHashMap<Character, CharInfo>();
+	private final Map<Character, CharInfo> customChars = new HashMap<Character, CharInfo>();
 	private final boolean antialiasing;
 	private final int fontSize;
 	

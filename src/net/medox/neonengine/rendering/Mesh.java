@@ -1,9 +1,9 @@
 package net.medox.neonengine.rendering;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
@@ -13,7 +13,7 @@ import net.medox.neonengine.rendering.meshLoading.OBJModel;
 import net.medox.neonengine.rendering.resourceManagement.MeshData;
 
 public class Mesh{
-	private static final Map<String, MeshData> loadedModels = new ConcurrentHashMap<String, MeshData>();
+	private static final Map<String, MeshData> loadedModels = new HashMap<String, MeshData>();
 	private static final List<MeshData> customModels = new ArrayList<MeshData>();
 	
 	private final String fileName;

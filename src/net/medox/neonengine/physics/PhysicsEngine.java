@@ -1,9 +1,9 @@
 package net.medox.neonengine.physics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.bullet.Bullet;
@@ -50,7 +50,7 @@ public class PhysicsEngine{
 		
 		colliders = new ArrayList<Collider>();
 		constraints = new ArrayList<Constraint>();
-		colliderIds = new ConcurrentHashMap<Integer, Collider>();
+		colliderIds = new HashMap<Integer, Collider>();
 	}
 	
 	public static Collider getById(int index){

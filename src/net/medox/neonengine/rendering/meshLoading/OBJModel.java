@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Util;
@@ -71,9 +71,9 @@ public class OBJModel{
 	public IndexedModel toIndexedModel(){
 		final IndexedModel result = new IndexedModel();
 		final IndexedModel normalModel = new IndexedModel();
-		final Map<OBJIndex, Integer> resultIndexMap = new ConcurrentHashMap<OBJIndex, Integer>();
-		final Map<Integer, Integer> normalIndexMap = new ConcurrentHashMap<Integer, Integer>();
-		final Map<Integer, Integer> indexMap = new ConcurrentHashMap<Integer, Integer>();
+		final Map<OBJIndex, Integer> resultIndexMap = new HashMap<OBJIndex, Integer>();
+		final Map<Integer, Integer> normalIndexMap = new HashMap<Integer, Integer>();
+		final Map<Integer, Integer> indexMap = new HashMap<Integer, Integer>();
 		
 		for(int i = 0; i < indices.size(); i++){
 			final OBJIndex currentIndex = indices.get(i);
