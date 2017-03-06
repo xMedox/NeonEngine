@@ -25,7 +25,8 @@ public abstract class Constraint{
 	
 	public void cleanUp(){
 		if(!cleanedUp){
-			constraint.dispose();
+			disposeData();
+			constraints.remove(this);
 			
 			cleanedUp = true;
 		}
@@ -34,14 +35,17 @@ public abstract class Constraint{
 	@Override
 	protected void finalize() throws Throwable{
 		cleanUp();
-		constraints.remove(this);
 		
 		super.finalize();
 	}
 	
+	private void disposeData(){
+		constraint.dispose();
+	}
+	
 	public static void dispose(){
 		for(final Constraint data : constraints){
-			data.cleanUp();
+			data.disposeData();
 		}
 	}
 }

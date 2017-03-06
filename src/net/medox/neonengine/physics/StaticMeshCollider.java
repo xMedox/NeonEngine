@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 public class StaticMeshCollider extends Collider{
 	private final btBvhTriangleMeshShape shape;
 	private final btTriangleMesh meshInterface;
-	private boolean cleanedUp;
 	
 	public StaticMeshCollider(List<Integer> indicies, List<net.medox.neonengine.math.Vector3f> positions){
 		super();
@@ -88,13 +87,9 @@ public class StaticMeshCollider extends Collider{
 	}
 	
 	@Override
-	public void cleanUp(){
-		if(!cleanedUp){
-			shape.dispose();
-			meshInterface.dispose();
-			super.cleanUp();
-			
-			cleanedUp = true;
-		}
+	protected void disposeData(){
+		shape.dispose();
+		meshInterface.dispose();
+		super.disposeData();
 	}
 }

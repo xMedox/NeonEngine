@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 
 public class ConeCollider extends Collider{
 	private final btCollisionShape shape;
-	private boolean cleanedUp;
 	
 	public ConeCollider(float radius, float height){
 		super();
@@ -66,12 +65,8 @@ public class ConeCollider extends Collider{
 	}
 	
 	@Override
-	public void cleanUp(){
-		if(!cleanedUp){
-			shape.dispose();
-			super.cleanUp();
-			
-			cleanedUp = true;
-		}
+	protected void disposeData(){
+		shape.dispose();
+		super.disposeData();
 	}
 }

@@ -21,6 +21,7 @@ public abstract class Collider{
 	
 	private int group;
 	private Object object;
+	private boolean cleanedUp;
 	
 	public Collider(){
 		hitList = new ArrayList<Collider>();
@@ -221,20 +222,28 @@ public abstract class Collider{
 	}
 	
 	public void cleanUp(){
-		body.dispose();
+		if(!cleanedUp){
+			disposeData();
+			colliders.remove(this);
+			
+			cleanedUp = true;
+		}
 	}
 	
 	@Override
 	protected void finalize() throws Throwable{
 		cleanUp();
-		colliders.remove(this);
 		
 		super.finalize();
 	}
 	
+	protected void disposeData(){
+		body.dispose();
+	}
+	
 	public static void dispose(){
 		for(final Collider data : colliders){
-			data.cleanUp();
+			data.disposeData();
 		}
 	}
 }

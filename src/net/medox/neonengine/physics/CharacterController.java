@@ -184,8 +184,8 @@ public class CharacterController{
 	
 	public void cleanUp(){
 		if(!cleanedUp){
-			ghostObject.dispose();
-			characterController.dispose();
+			disposeData();
+			characterControllers.remove(this);
 			
 			cleanedUp = true;
 		}
@@ -194,14 +194,18 @@ public class CharacterController{
 	@Override
 	protected void finalize() throws Throwable{
 		cleanUp();
-		characterControllers.remove(this);
 		
 		super.finalize();
 	}
 	
+	private void disposeData(){
+		ghostObject.dispose();
+		characterController.dispose();
+	}
+	
 	public static void dispose(){
 		for(final CharacterController data : characterControllers){
-			data.cleanUp();
+			data.disposeData();
 		}
 	}
 }
