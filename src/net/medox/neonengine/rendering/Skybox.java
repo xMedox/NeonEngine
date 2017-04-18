@@ -20,30 +20,14 @@ public class Skybox{
 			final float vertexMin = -0.5f;
 			final float vertexMax = 0.5f;
 			
-			final Vector3f[] vertices = new Vector3f[]{new Vector3f(vertexMin, vertexMax, vertexMin),
-													   new Vector3f(vertexMin, vertexMax, vertexMax),
-													   new Vector3f(vertexMin, vertexMin, vertexMax),
-													   new Vector3f(vertexMin, vertexMin, vertexMin),
-													   new Vector3f(vertexMax, vertexMax, vertexMin),
-													   new Vector3f(vertexMin, vertexMax, vertexMin),
-													   new Vector3f(vertexMin, vertexMin, vertexMin),
-													   new Vector3f(vertexMax, vertexMin, vertexMin),
-													   new Vector3f(vertexMax, vertexMax, vertexMax),
-													   new Vector3f(vertexMax, vertexMax, vertexMin),
-													   new Vector3f(vertexMax, vertexMin, vertexMin),
-													   new Vector3f(vertexMax, vertexMin, vertexMax),
-													   new Vector3f(vertexMin, vertexMax, vertexMax),
-													   new Vector3f(vertexMax, vertexMax, vertexMax),
-													   new Vector3f(vertexMax, vertexMin, vertexMax),
-													   new Vector3f(vertexMin, vertexMin, vertexMax),
-													   new Vector3f(vertexMin, vertexMax, vertexMin),
-													   new Vector3f(vertexMax, vertexMax, vertexMin),
-													   new Vector3f(vertexMax, vertexMax, vertexMax),
-													   new Vector3f(vertexMin, vertexMax, vertexMax),
-													   new Vector3f(vertexMax, vertexMin, vertexMin),
-													   new Vector3f(vertexMin, vertexMin, vertexMin),
-													   new Vector3f(vertexMin, vertexMin, vertexMax),
-													   new Vector3f(vertexMax, vertexMin, vertexMax)};
+			final Vector3f[] vertices = new Vector3f[]{new Vector3f(vertexMin, vertexMax, vertexMax),
+														new Vector3f(vertexMin, vertexMin, vertexMax),
+														new Vector3f(vertexMax, vertexMax, vertexMin),
+														new Vector3f(vertexMin, vertexMax, vertexMin),
+														new Vector3f(vertexMin, vertexMin, vertexMin),
+														new Vector3f(vertexMax, vertexMin, vertexMin),
+														new Vector3f(vertexMax, vertexMax, vertexMax),
+														new Vector3f(vertexMax, vertexMin, vertexMax)};
 			
 			final IndexedModel model = new IndexedModel();
 			
@@ -51,23 +35,23 @@ public class Skybox{
 				model.addVertex(vertices[i]);
 			}
 			
-			model.addFace(0, 1, 2);
-			model.addFace(0, 2, 3);
+			model.addFace(2, 3, 4);
+			model.addFace(2, 4, 5);
 			
-			model.addFace(4, 5, 6);
-			model.addFace(4, 6, 7);
+			model.addFace(3, 0, 1);
+			model.addFace(3, 1, 4);
 			
-			model.addFace(8, 9, 10);
-			model.addFace(8, 10, 11);
+			model.addFace(6, 2, 5);
+			model.addFace(6, 5, 7);
 			
-			model.addFace(12, 13, 14);
-			model.addFace(12, 14, 15);
+			model.addFace(0, 6, 7);
+			model.addFace(0, 7, 1);
 			
-			model.addFace(16, 17, 18);
-			model.addFace(16, 18, 19);
+			model.addFace(3, 2, 6);
+			model.addFace(3, 6, 0);
 			
-			model.addFace(20, 21, 22);
-			model.addFace(20, 22, 23);
+			model.addFace(5, 4, 1);
+			model.addFace(5, 1, 7);
 			
 			mesh = new Mesh("", model.finalizeModel());
 		}

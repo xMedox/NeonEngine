@@ -4,6 +4,7 @@
 
 **Rendering:**
 - The bloom effect is now resolution independent
+- Removed the unneeded vertices of the skybox
 
 **Physics:**
 - Added the getRestitution method to the Collider class
