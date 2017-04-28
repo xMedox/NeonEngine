@@ -80,7 +80,10 @@ public class TestGame extends Game{
 //		RenderingEngine.addFilter(new Shader("filterFlip"));
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("posx.bmp", "negx.bmp", "posy.bmp", "negy.bmp", "posz.bmp", "negz.bmp"));
+//		RenderingEngine.setMainSkybox(new Skybox("tposx.jpg", "tnegx.jpg", "tposy.jpg", "tnegy.jpg", "tposz.jpg", "tnegz.jpg"));
+		RenderingEngine.setMainSkybox(new Skybox("right2.png", "left2.png", "top2.png", "bottom2.png", "front2.png", "back2.png"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
@@ -160,9 +163,8 @@ public class TestGame extends Game{
 		Material material = new Material();
 		material.setDiffuseMap(new Texture("bricks.jpg"));
 		material.setNormalMap(new Texture("bricksNormal.jpg"));
-		material.setSpecularMap(new Texture("bricksSpecular.jpg"));
-		material.setSpecularIntensity(0.5f + 0.15f/2);
-		material.setSpecularPower(4f + 1f/2);
+		material.setRoughness(0.85f);
+		material.setMetallic(0);
 		
 		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 		
@@ -189,8 +191,8 @@ public class TestGame extends Game{
 		
 		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
 		materialx.setDiffuseMap(new Texture("wood.png"));
-		materialx.setSpecularIntensity(0.5f + 0.15f/2);
-		materialx.setSpecularPower(4f + 1f/2);
+		materialx.setRoughness(0.5f);
+		materialx.setMetallic(0);
 		
 		Mesh meshx = new Mesh("plane.obj");
 		MeshRenderer meshRendererx = new MeshRenderer(meshx, materialx);
@@ -210,8 +212,8 @@ public class TestGame extends Game{
 		Material neonMaterial = new Material();
 		neonMaterial.setDiffuseMap(new Texture("diffuse.png"));
 		neonMaterial.setEmissiveMap(new Texture("emissive.png"));
-		neonMaterial.setSpecularIntensity(0.5f + 0.15f/2);
-		neonMaterial.setSpecularPower(4f + 1f/2);
+		neonMaterial.setRoughnessMap(new Texture("roughness.png"));
+		neonMaterial.setMetallicMap(new Texture("metallic.png"));
 		
 		MeshRenderer neonRenderer = new MeshRenderer(meshx, neonMaterial);
 		
@@ -225,8 +227,8 @@ public class TestGame extends Game{
 		Material materialDrake = new Material();
 		materialDrake.setDiffuseMap(new Texture("dragon.png"));
 		materialDrake.setEmissiveMap(new Texture("white.png"));
-		materialDrake.setSpecularIntensity(0.25f);
-		materialDrake.setSpecularPower(2);
+		materialDrake.setRoughness(0.85f);
+		materialDrake.setMetallic(0);
 		
 		MeshRenderer meshRendererDrake = new MeshRenderer(meshDrake, materialDrake);
 		
@@ -239,8 +241,8 @@ public class TestGame extends Game{
 		Material materialRock = new Material();
 		materialRock.setDiffuseMap(new Texture("rock.jpg"));
 		materialRock.setNormalMap(new Texture("rockNormal.png"));
-		materialRock.setSpecularIntensity(0.25f);
-		materialRock.setSpecularPower(2);
+		materialRock.setRoughness(0.85f);
+		materialRock.setMetallic(0);
 		
 		MeshRenderer meshRendererRock = new MeshRenderer(meshRock, materialRock);
 		
@@ -258,7 +260,8 @@ public class TestGame extends Game{
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 10.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 80.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, 60.0f, 1.0f, 0.9f, 0.000001f);
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 2.0f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 0.975f, 0.95f), 0.6f, 10, 20.0f, 1.0f, 0.7f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		
@@ -268,7 +271,7 @@ public class TestGame extends Game{
 		Entity pointLightObject = new Entity();
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 3f, new Vector3f(0, 0, 1));
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 1f, new Attenuation(0, 0, 1));
-		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 4f, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 6f, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		pointLightObject.addComponent(pointLight);
 		
 //		Entity pointLightObjectw = new Entity();
@@ -312,13 +315,13 @@ public class TestGame extends Game{
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), 0.7f);
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(91.1f), 7, 1.0f, 0.5f, 0.00002f);
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 1f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 7, 1.0f, 0.5f, 0.0000001f);
-		SpotLight spotLight = new SpotLight(new Vector3f(1, 1, 1), 4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		SpotLight spotLight = new SpotLight(new Vector3f(1, 1, 1), 6f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
 		spotLightObject.addComponent(spotLight);
 		spotLightObject.addComponent(new Light(spotLight));
 		
 		Entity spotLightObject2 = new Entity();
 		
-		SpotLight spotLight2 = new SpotLight(new Vector3f(1, 1, 1), 4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		SpotLight spotLight2 = new SpotLight(new Vector3f(1, 1, 1), 6f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
 		spotLightObject2.addComponent(spotLight2);
 		
 		pointLightObject.getTransform().getPos().set(5, 0, 5);
@@ -333,8 +336,8 @@ public class TestGame extends Game{
 		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
 		material2.setDiffuseMap(new Texture("monkey.png"));
 		material2.setEmissiveMap(new Texture("monkeyEmissive.png"));
-		material2.setSpecularIntensity(0.5f);
-		material2.setSpecularPower(1);
+		material2.setRoughness(0.5f);
+		material2.setMetallic(0);
 		
 		MeshRenderer meshRenderer2 = new MeshRenderer(mesh2, material2);
 		
@@ -342,10 +345,13 @@ public class TestGame extends Game{
 		monkeyObject.getTransform().getPos().set(0, 0, 5);
 		
 		Mesh pbrMesh = new Mesh("pbr.obj");
+		Texture plastic = new Texture("B.png");
+		Texture metal = new Texture("gold.png");
+		
 		Material pbrMaterial = new Material();
-		pbrMaterial.setDiffuseMap(new Texture("R.png"));
-		pbrMaterial.setSpecularIntensity(1);
-		pbrMaterial.setSpecularPower(8);
+		pbrMaterial.setDiffuseMap(plastic);
+		pbrMaterial.setRoughness(0f);
+		pbrMaterial.setMetallic(0);
 		
 		MeshRenderer pbrRenderer = new MeshRenderer(pbrMesh, pbrMaterial);
 		
@@ -354,10 +360,10 @@ public class TestGame extends Game{
 		
 		pbrObject.addComponent(pbrRenderer);
 		
-		Material pbrMaterial2 = new Material();
-		pbrMaterial2.setDiffuseMap(new Texture("gold.png"));
-		pbrMaterial2.setSpecularIntensity(1);
-		pbrMaterial2.setSpecularPower(8);
+		Material pbrMaterial2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		pbrMaterial2.setDiffuseMap(metal);
+		pbrMaterial2.setRoughness(0f);
+		pbrMaterial2.setMetallic(1);
 		
 		MeshRenderer pbrRenderer2 = new MeshRenderer(pbrMesh, pbrMaterial2);
 		
@@ -366,10 +372,10 @@ public class TestGame extends Game{
 		
 		pbrObject2.addComponent(pbrRenderer2);
 		
-		Material pbrMaterial3 = new Material();
-		pbrMaterial3.setDiffuseMap(new Texture("R.png"));
-		pbrMaterial3.setSpecularIntensity(2);
-		pbrMaterial3.setSpecularPower(16);
+		Material pbrMaterial3 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		pbrMaterial3.setDiffuseMap(plastic);
+		pbrMaterial3.setRoughness(0.5f);
+		pbrMaterial3.setMetallic(0);
 		
 		MeshRenderer pbrRenderer3 = new MeshRenderer(pbrMesh, pbrMaterial3);
 		
@@ -378,10 +384,10 @@ public class TestGame extends Game{
 		
 		pbrObject3.addComponent(pbrRenderer3);
 		
-		Material pbrMaterial4 = new Material();
-		pbrMaterial4.setDiffuseMap(new Texture("gold.png"));
-		pbrMaterial4.setSpecularIntensity(2);
-		pbrMaterial4.setSpecularPower(16);
+		Material pbrMaterial4 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		pbrMaterial4.setDiffuseMap(metal);
+		pbrMaterial4.setRoughness(0.5f);
+		pbrMaterial4.setMetallic(1);
 		
 		MeshRenderer pbrRenderer4 = new MeshRenderer(pbrMesh, pbrMaterial4);
 		
@@ -390,24 +396,48 @@ public class TestGame extends Game{
 		
 		pbrObject4.addComponent(pbrRenderer4);
 		
+		Material pbrMaterial5 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		pbrMaterial5.setDiffuseMap(plastic);
+		pbrMaterial5.setRoughness(1);
+		pbrMaterial5.setMetallic(0);
+		
+		MeshRenderer pbrRenderer5 = new MeshRenderer(pbrMesh, pbrMaterial5);
+		
+		Entity pbrObject5 = new Entity();
+		pbrObject5.getTransform().getPos().set(-11, -1f, 7);
+		
+		pbrObject5.addComponent(pbrRenderer5);
+		
+		Material pbrMaterial6 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+		pbrMaterial6.setDiffuseMap(metal);
+		pbrMaterial6.setRoughness(1);
+		pbrMaterial6.setMetallic(1);
+		
+		MeshRenderer pbrRenderer6 = new MeshRenderer(pbrMesh, pbrMaterial6);
+		
+		Entity pbrObject6 = new Entity();
+		pbrObject6.getTransform().getPos().set(-15, -1f, 7);
+		
+		pbrObject6.addComponent(pbrRenderer6);
+		
 //		Mesh swordmesh = new Mesh("sword.obj");
 		Mesh swordmesh = new Mesh("sword.obj");
 		Material swordmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		swordmaterial.setDiffuseMap(new Texture("sword.png"));
-		swordmaterial.setSpecularIntensity(2f);
-		swordmaterial.setSpecularPower(8f);
+		swordmaterial.setRoughness(0.5f);
+		swordmaterial.setMetallic(1);
 		
 		Mesh swordmesh2 = new Mesh("shield.obj");
 		Material sword4material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		sword4material.setDiffuseMap(new Texture("shield.png"));
-		sword4material.setSpecularIntensity(2f);
-		sword4material.setSpecularPower(8f);
+		sword4material.setRoughness(0.5f);
+		sword4material.setMetallic(1);
 		
 		Mesh swordmesh3 = new Mesh("roundShield.obj");
 		Material sword5material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		sword5material.setDiffuseMap(new Texture("roundShield.png"));
-		sword5material.setSpecularIntensity(2f);
-		sword5material.setSpecularPower(8f);
+		sword5material.setRoughness(0.5f);
+		sword5material.setMetallic(1);
 		
 		MeshRenderer swordmeshRenderer = new MeshRenderer(swordmesh, swordmaterial);
 		MeshRenderer swordmeshRenderer2 = new MeshRenderer(swordmesh2, sword4material);
@@ -452,8 +482,8 @@ public class TestGame extends Game{
 		Mesh humanmesh = new Mesh("human.obj");
 		Material humanmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		humanmaterial.setDiffuseMap(new Texture("white.png"));
-		humanmaterial.setSpecularIntensity(0);
-		humanmaterial.setSpecularPower(0);
+		humanmaterial.setRoughness(0.8f);
+		humanmaterial.setMetallic(0);
 		
 		MeshRenderer humanmeshRenderer = new MeshRenderer(humanmesh, humanmaterial);
 		
@@ -473,6 +503,8 @@ public class TestGame extends Game{
 		addEntity(pbrObject2);
 		addEntity(pbrObject3);
 		addEntity(pbrObject4);
+		addEntity(pbrObject5);
+		addEntity(pbrObject6);
 		addEntity(swordObject2);
 		
 		addEntity(planeObject);
@@ -492,10 +524,10 @@ public class TestGame extends Game{
 		
 		Material bricks = new Material();
 		bricks.setDiffuseMap(new Texture("lava.png"));
-		bricks.setNormalMap(new Texture("lavaNormal.jpg"));
+		bricks.setNormalMap(new Texture("lavaNormal.png"));
 		bricks.setEmissiveMap(new Texture("lavaEmissive.png"));
-		bricks.setSpecularIntensity(0.25f);
-		bricks.setSpecularPower(2);
+		bricks.setRoughness(0.75f);
+		bricks.setMetallic(0);
 		
 //		for(int i = 0; i < physicsEngineComponent.getPhysicsEngine().getNumObjects(); i++){
 //			Entity entity = new Entity();

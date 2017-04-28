@@ -1,3 +1,5 @@
+const float PI = 3.14159265359;
+
 struct BaseLight{
 	vec3 color;
 	float intensity;
@@ -27,25 +29,77 @@ struct SpotLight{
 	float cutoff;
 };
 
-vec4 CalcLight(BaseLight base, vec3 direction, vec3 normal, vec3 worldPos, float specular, float specularIntensity, float specularPower, vec3 eyePos){
-	float diffuseFactor = clamp(dot(normal, -direction), 0.0, 1.0);
+float DistributionGGX(vec3 N, vec3 H, float roughness){
+	float a = roughness*roughness;
+	float a2 = a*a;
+	float NdotH = max(dot(N, H), 0.0);
+	float NdotH2 = NdotH*NdotH;
 	
-	vec4 diffuseColor = vec4(0.0, 0.0, 0.0, 0.0);
-	vec4 specularColor = vec4(0.0, 0.0, 0.0, 0.0);
+	float nom = a2;
+	float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+	denom = PI * denom * denom;
 	
-	diffuseColor = vec4(base.color, 1.0) * base.intensity * diffuseFactor;
-	
-	float specularFactor = dot(normalize(eyePos - worldPos), normalize(reflect(direction, normal)));
-	specularFactor = clamp(pow(specularFactor, specularPower * specular), 0.0, 1.0);
-	
-	if(specularFactor > 0.0){
-		specularColor = vec4(base.color, 1.0) * specularIntensity * specular * specularFactor;
-	}
-	
-	return diffuseColor + specularColor;
+	return nom / denom;
 }
 
-vec4 CalcPointLight(PointLight pointLight, vec3 normal, vec3 worldPos, float specular, float specularIntensity, float specularPower, vec3 eyePos){
+float GeometrySchlickGGX(float NdotV, float roughness){
+	float r = (roughness + 1.0);
+	float k = (r*r) / 8.0;
+	
+	float nom = NdotV;
+	float denom = NdotV * (1.0 - k) + k;
+	
+	return nom / denom;
+}
+
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness){
+	float NdotV = max(dot(N, V), 0.0);
+	float NdotL = max(dot(N, L), 0.0);
+	float ggx2 = GeometrySchlickGGX(NdotV, roughness);
+	float ggx1 = GeometrySchlickGGX(NdotL, roughness);
+	
+	return ggx1 * ggx2;
+}
+
+vec3 fresnelSchlick(float cosTheta, vec3 F0){
+	return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, float roughness, float metallic, vec3 eyePos){
+	float rough = roughnessMap + roughness;
+	float metal = metallicMap + metallic;
+	
+	vec3 V = normalize(eyePos - worldPos);
+	
+	vec3 F0 = vec3(0.04);
+	F0 = mix(F0, diffuse, metal);
+	//F0 = mix(F0, pow(diffuse, vec3(2.2)), metal);
+	
+	
+	vec3 L = -direction;
+	vec3 H = normalize(V + L);
+	vec3 radiance = base.color * base.intensity;
+	
+	float NDF = DistributionGGX(normal, H, rough);
+	float G = GeometrySmith(normal, V, L, rough);
+	vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
+	
+	vec3 nominator = NDF * G * F;
+	float denominator = 4 * max(dot(normal, V), 0.0) * max(dot(normal, L), 0.0) + 0.001;
+	vec3 brdf = nominator / denominator;
+	
+	vec3 kS = F;
+	
+	vec3 kD = vec3(1.0) - kS;
+	kD *= 1.0 - metal;
+	
+	float NdotL = max(dot(normal, L), 0.0);
+	
+	return vec4((kD * diffuse / PI + brdf) * radiance * NdotL, 1);
+	//return vec4((kD * pow(diffuse, vec3(2.2)) / PI + brdf) * radiance * NdotL, 1);
+}
+
+vec4 CalcPointLight(PointLight pointLight, vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, float roughness, float metallic, vec3 eyePos){
 	vec3 lightDirection = worldPos - pointLight.position;
 	float distanceToPoint = length(lightDirection);
 	
@@ -55,5 +109,5 @@ vec4 CalcPointLight(PointLight pointLight, vec3 normal, vec3 worldPos, float spe
 	
 	lightDirection = normalize(lightDirection);
 	
-	return CalcLight(pointLight.base, lightDirection, normal, worldPos, specular, specularIntensity, specularPower, eyePos) / (pointLight.atten.constant + pointLight.atten.linear * distanceToPoint + pointLight.atten.exponent * distanceToPoint * distanceToPoint + 0.0001);
+	return CalcLight(pointLight.base, lightDirection, diffuse, normal, worldPos, roughnessMap, metallicMap, roughness, metallic, eyePos) / (pointLight.atten.constant + pointLight.atten.linear * distanceToPoint + pointLight.atten.exponent * distanceToPoint * distanceToPoint + 0.0001);
 }

@@ -2,7 +2,8 @@
 
 uniform sampler2D diffuseMap;
 uniform sampler2D normalMap;
-uniform sampler2D specMap;
+uniform sampler2D roughnessMap;
+uniform sampler2D metallicMap;
 
 uniform sampler2D R_shadowMap;
 uniform float R_shadowVarianceMin;
@@ -31,11 +32,11 @@ void main(){
 	
 	float shadow = CalcShadowAmount(R_shadowMap, shadowMapCoords0);
 	
-	outputFS = texture(diffuseMap, texCoord0) * CalcLightingEffect(normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1.0)), worldPos0, texture(specMap, texCoord0).x) * vec4(shadow, shadow, shadow, shadow);
+	outputFS = CalcLightingEffect(texture(diffuseMap, texCoord0).xyz, normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1.0)), worldPos0, texture(roughnessMap, texCoord0).x, texture(metallicMap, texCoord0).x) * vec4(shadow, shadow, shadow, shadow);
 	
 	//float brightness = dot(lighting.rgb, vec3(0.25, 0.25, 0.25));
 	
-	//if(brightness > 1.0){		
+	//if(brightness > 1.0){
 		//outputBloom = (diffuse * lighting)*vec4(0.5, 0.5, 0.5, 1.0);
 	//}else{		
 		outputBloom = vec4(0.0, 0.0, 0.0, 0.0);

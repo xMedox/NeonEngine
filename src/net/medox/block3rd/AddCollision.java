@@ -24,10 +24,12 @@ public class AddCollision extends EntityComponent{
 		red = new Material();
 		red.setDiffuseMap(new Texture("R.png", true));
 		red.setEmissiveMap(new Texture("G.png", true));
+		red.setRoughness(1);
 		
 		blue = new Material();
 		blue.setDiffuseMap(new Texture("B.png", true));
 		blue.setEmissiveMap(new Texture("G.png", true));
+		blue.setRoughness(1);
 		
 		crateM = new Mesh("block.obj");
 	}
@@ -52,11 +54,11 @@ public class AddCollision extends EntityComponent{
 			if(Util.randomInt(0, 1) == 0){
 				entity.addComponent(new MeshRenderer(crateM, red));
 				
-				entity.addComponent(new PointLight(new Vector3f(1, 0, 0), 4f, new Attenuation(0, 0, 1)));
+				entity.addComponent(new PointLight(new Vector3f(1, 0, 0), 6f, new Attenuation(0, 0, 1)));
 			}else{
 				entity.addComponent(new MeshRenderer(crateM, blue));
 				
-				entity.addComponent(new PointLight(new Vector3f(0, 0, 1), 4f, new Attenuation(0, 0, 1)));
+				entity.addComponent(new PointLight(new Vector3f(0, 0, 1), 6f, new Attenuation(0, 0, 1)));
 			}
 			
 			getParent().addChild(entity);

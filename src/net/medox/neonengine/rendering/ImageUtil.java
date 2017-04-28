@@ -44,8 +44,12 @@ public class ImageUtil{
 //		return new Texture(createImage(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, 2, 2));
 //	}
 	
-	public static Texture createDefaultSpecularMap(){
-		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
+	public static Texture createDefaultRoughnessMap(){
+		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+	}
+	
+	public static Texture createDefaultMetallicMap(){
+		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
 	}
 	
 	public static Texture createDefaultEmissiveMap(){

@@ -80,7 +80,10 @@ public class TestGame extends Game{
 //		RenderingEngine.addFilter(new Shader("filterFlip"));
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("posx.bmp", "negx.bmp", "posy.bmp", "negy.bmp", "posz.bmp", "negz.bmp"));
+//		RenderingEngine.setMainSkybox(new Skybox("tposx.jpg", "tnegx.jpg", "tposy.jpg", "tnegy.jpg", "tposz.jpg", "tnegz.jpg"));
+		RenderingEngine.setMainSkybox(new Skybox("right2.png", "left2.png", "top2.png", "bottom2.png", "front2.png", "back2.png"));
 		
 //		String es = Util.encrypt("Just a test");
 //		System.out.println(es);
@@ -148,6 +151,7 @@ public class TestGame extends Game{
 			
 			dragonM.setDiffuseMap(new Texture("redSword.png", true));
 			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
+			dragonM.setRoughness(1);
 		}else{
 			Window.setCursor(new Cursor("cursorBlue.png", 0, 0));
 			addEntity2D(new Entity2D().addComponent(new FPS(new Vector3f(0, 0, 1))));
@@ -157,6 +161,7 @@ public class TestGame extends Game{
 			
 			dragonM.setDiffuseMap(new Texture("blueSword.png", true));
 			dragonM.setEmissiveMap(new Texture("block60Emissive.png", true));
+			dragonM.setRoughness(1);
 		}
 		
 		Entity dragon = new Entity();
@@ -197,6 +202,7 @@ public class TestGame extends Game{
 		Entity wolf = new Entity();
 		Material wolfM = new Material();
 		wolfM.setDiffuseMap(new Texture("wolf.png", true));
+		wolfM.setRoughness(1);
 		MeshRendererWolf wolfR = new MeshRendererWolf(new Mesh("wolf.obj"), wolfM);
 		wolf.addComponent(wolfR);
 		wolf.getTransform().setScale(1.5f);
@@ -206,7 +212,7 @@ public class TestGame extends Game{
 		addEntity(wolf);
 		
 		Entity directionalLightObject = new Entity();
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, /*8.0f*/16.0f, 1.0f, /*0.7f*/0.2f, 0.000001f);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f, 10, /*8.0f*/16.0f, 1.0f, /*0.7f*/0.2f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
 		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
@@ -216,6 +222,7 @@ public class TestGame extends Game{
 		Material material = new Material();
 		material.setDiffuseMap(new Texture("blocks.png", true));
 		material.setEmissiveMap(new Texture("blocksEmissive.png", true));
+		material.setRoughness(1);
 		
 		Mesh mesh = new Mesh("blocks.obj");
 		
@@ -234,6 +241,7 @@ public class TestGame extends Game{
 		
 		Material mushdM = new Material();
 		mushdM.setDiffuseMap(new Texture("mushroom.png", true));
+		mushdM.setRoughness(1);
 		
 		Entity mush = new Entity();
 		mush.addComponent(new MeshRenderer(new Mesh("mushroom.obj"), mushdM));

@@ -9,13 +9,14 @@ public class Material{
 	public static final Texture DEFAULT_DIFFUSE_MAP_TEXTURE = ImageUtil.createDefaultDiffuseMap();
 	public static final Texture DEFAULT_NORMAL_MAP_TEXTURE = ImageUtil.createDefaultNormalMap();
 //	public static final Texture DEFAULT_DISPLACEMENT_MAP_TEXTURE = ImageUtil.createDefaultDisplacementMap();
-	public static final Texture DEFAULT_SPECULAR_MAP_TEXTURE = ImageUtil.createDefaultSpecularMap();
+	public static final Texture DEFAULT_ROUGHNESS_MAP_TEXTURE = ImageUtil.createDefaultRoughnessMap();
+	public static final Texture DEFAULT_METALLIC_MAP_TEXTURE = ImageUtil.createDefaultMetallicMap();
 	public static final Texture DEFAULT_EMISSIVE_MAP_TEXTURE = ImageUtil.createDefaultEmissiveMap();
 	
 //	public static final Texture defaultCubeMap = Util.createDefaultCubeMap();
 	
-	public static final float DEFAULT_SPECULAR_INTENSITY = 0;
-	public static final float DEFAULT_SPECULAR_POWER = 0;
+	public static final float DEFAULT_ROUGHNESS = 0;
+	public static final float DEFAULT_METALLIC = 0;
 	
 //	public static final float DEFAULT_DISP_MAP_SCALE = 0.0f;
 //	public static final float DEFAULT_DISP_MAP_OFFSET = 0.0f;
@@ -34,11 +35,12 @@ public class Material{
 		setTexture("diffuseMap", DEFAULT_DIFFUSE_MAP_TEXTURE);
 		setTexture("normalMap", DEFAULT_NORMAL_MAP_TEXTURE);
 //		setTexture("dispMap", DEFAULT_DISPLACEMENT_MAP_TEXTURE);
-		setTexture("specMap", DEFAULT_SPECULAR_MAP_TEXTURE);
+		setTexture("roughnessMap", DEFAULT_ROUGHNESS_MAP_TEXTURE);
+		setTexture("metallicMap", DEFAULT_METALLIC_MAP_TEXTURE);
 		setTexture("emissiveMap", DEFAULT_EMISSIVE_MAP_TEXTURE);
 		
-		setFloat("specularIntensity", DEFAULT_SPECULAR_INTENSITY);
-		setFloat("specularPower", DEFAULT_SPECULAR_POWER);
+		setFloat("roughness", DEFAULT_ROUGHNESS);
+		setFloat("metallic", DEFAULT_METALLIC);
 		
 //		/*float baseBias = defaultDispMapScale/2.0f;*/
 //		setFloat("dispMapScale", DEFAULT_DISP_MAP_SCALE);
@@ -54,20 +56,24 @@ public class Material{
 		setTexture("normalMap", texture);
 	}
 	
-	public void setSpecularMap(Texture texture){
-		setTexture("specMap", texture);
+	public void setRoughnessMap(Texture texture){
+		setTexture("roughnessMap", texture);
+	}
+	
+	public void setMetallicMap(Texture texture){
+		setTexture("metallicMap", texture);
 	}
 	
 	public void setEmissiveMap(Texture texture){
 		setTexture("emissiveMap", texture);
 	}
 	
-	public void setSpecularIntensity(float value){
-		setFloat("specularIntensity", value);
+	public void setRoughness(float value){
+		setFloat("roughness", value);
 	}
 	
-	public void setSpecularPower(float value){
-		setFloat("specularPower", value);
+	public void setMetallic(float value){
+		setFloat("metallic", value);
 	}
 	
 	public Texture getDiffuseMap(){
@@ -78,20 +84,24 @@ public class Material{
 		return getTexture("normalMap");
 	}
 	
-	public Texture getSpecularMap(){
-		return getTexture("specMap");
+	public Texture getRoughnessMap(){
+		return getTexture("roughnessMap");
+	}
+	
+	public Texture getMetallicMap(){
+		return getTexture("metallicMap");
 	}
 	
 	public Texture getEmissiveMap(){
 		return getTexture("emissiveMap");
 	}
 	
-	public float getSpecularIntensity(){
-		return getFloat("specularIntensity");
+	public float getRoughness(){
+		return getFloat("roughness");
 	}
 	
-	public float getSpecularPower(){
-		return getFloat("specularPower");
+	public float getMetallic(){
+		return getFloat("metallic");
 	}
 	
 //	@Override

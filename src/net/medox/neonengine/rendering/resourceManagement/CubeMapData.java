@@ -73,6 +73,24 @@ public class CubeMapData extends ReferenceCounter{
 		}
 	}
 	
+	public void bindAsRenderTarget(int face, int mip){
+//		for(int i = 0; i < 32; i++){
+//			RenderingEngine.textureBound.put(i, -1);
+//		}
+		
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, frameBuffer);
+		GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, renderBuffer);
+		GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, (int)(width[face] * Math.pow(0.5, mip)), (int)(height[face] * Math.pow(0.5, mip)));
+		GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, textureID, mip);
+		
+		if(!NeonEngine.is1x1ViewportEnabled()){
+			GL11.glViewport(0, 0, (int)(width[face] * Math.pow(0.5, mip)), (int)(height[face] * Math.pow(0.5, mip)));
+		}else{
+			GL11.glViewport(0, 0, 1, 1);
+		}
+	}
+	
 	public int[] getWidth(){
 		return width;
 	}

@@ -7,6 +7,8 @@ import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.Util;
+import net.medox.neonengine.lighting.Attenuation;
+import net.medox.neonengine.lighting.SpotLight;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
 import net.medox.neonengine.physics.ConeCollider;
@@ -37,17 +39,47 @@ public class AddComponent extends EntityComponent{
 	
 	public AddComponent(){
 		bricks = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-		bricks.setDiffuseMap(new Texture("rockLava.jpg"));
-		bricks.setNormalMap(new Texture("rockNormal.png"));
-		bricks.setEmissiveMap(new Texture("rockLavaEmissive.png"));
-		bricks.setSpecularIntensity(0.25f);
-		bricks.setSpecularPower(2);
+//		bricks.setDiffuseMap(new Texture("rock2222.jpg"));
+//		bricks.setNormalMap(new Texture("rock2_normal322.png"));
+//		bricks.setEmissiveMap(new Texture("rock22_glow22.png"));
+//		bricks.setRoughness(0.85f);
+//		bricks.setMetallic(0);
+		
+//		bricks.setDiffuseMap(new Texture("plastic.png"));
+//		bricks.setRoughnessMap(new Texture("plastic_rough.png"));
+		
+		bricks.setDiffuseMap(new Texture("limestone-rock-albedo.png"));
+		bricks.setRoughnessMap(new Texture("limestone-rock-roughness.png"));
+		bricks.setNormalMap(new Texture("limestone-rock-normal.png"));
+		bricks.setMetallicMap(new Texture("limestone-rock-metalness.png"));
+		
+//		bricks.setDiffuseMap(new Texture("bamboo-wood-semigloss-albedo.png"));
+//		bricks.setRoughnessMap(new Texture("bamboo-wood-semigloss-roughness.png"));
+//		bricks.setNormalMap(new Texture("bamboo-wood-semigloss-normal.png"));
+//		bricks.setMetallicMap(new Texture("bamboo-wood-semigloss-metal.png"));
+		
+//		bricks.setDiffuseMap(new Texture("old-textured-fabric-albedo3.png"));
+//		bricks.setRoughnessMap(new Texture("old-textured-fabric-roughness2.png"));
+//		bricks.setNormalMap(new Texture("old-textured-fabric-normal.png"));
+//		bricks.setMetallicMap(new Texture("old-textured-fabric-metalic.png"));
+		
+//		bricks.setDiffuseMap(new Texture("greasy-pan-2-albedo.png"));
+//		bricks.setRoughnessMap(new Texture("greasy-pan-2-roughness.png"));
+//		bricks.setNormalMap(new Texture("greasy-pan-2-normal.png"));
+//		bricks.setMetallicMap(new Texture("greasy-pan-2-metal.png"));
+		
+//		bricks.setDiffuseMap(new Texture("patchy_cement1_Base_Color.png"));
+//		bricks.setRoughnessMap(new Texture("patchy_cement1_Roughness.png"));
+//		bricks.setNormalMap(new Texture("patchy_cement1_Normal.png"));
+//		bricks.setMetallicMap(new Texture("patchy_cement1_Metallic.png"));
 		
 		metal = new Material();
-		metal.setDiffuseMap(new Texture("diffuse.png"));
-		metal.setEmissiveMap(new Texture("emissive.png"));
-		metal.setSpecularIntensity(0.5f + 0.15f/2);
-		metal.setSpecularPower(4f + 1f/2);
+//		metal.setDiffuseMap(new Texture("Diffuse.png"));
+//		metal.setEmissiveMap(new Texture("Emissive.png"));
+//		metal.setRoughnessMap(new Texture("Roughness.png"));
+//		metal.setMetallicMap(new Texture("Metallic.png"));
+		metal.setDiffuseMap(new Texture("plastic.png"));
+		metal.setRoughnessMap(new Texture("plastic_rough.png"));
 		
 		crateM = new Mesh("crate.obj");
 		sphereM = new Mesh("sphere.obj");
@@ -69,6 +101,19 @@ public class AddComponent extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
+		if(Input.getKeyDown(Input.KEY_J)){
+			SpotLight spotLight = new SpotLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+			
+			Entity entity = new Entity();
+			
+			entity.getTransform().setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos());
+			entity.getTransform().setRot(RenderingEngine.getMainCamera().getTransform().getTransformedRot());
+			
+			entity.addComponent(spotLight);
+			
+			getParent().addChild(entity);
+		}
+		
 		if(Input.getKeyDown(Input.KEY_E)){
 			Entity entity = new Entity();
 			

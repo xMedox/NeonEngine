@@ -35,6 +35,7 @@ public class RenderingEngine{
 	public static final int LINEAR					= GL11.GL_LINEAR;
 	public static final int NEAREST					= GL11.GL_NEAREST;
 	public static final int LINEAR_MIPMAP_LINEAR	= GL11.GL_LINEAR_MIPMAP_LINEAR;
+	public static final int NEAREST_MIPMAP_LINEAR	= GL11.GL_NEAREST_MIPMAP_LINEAR;
 	public static final int RGBA					= GL11.GL_RGBA;
 	public static final int NONE					= GL11.GL_NONE;
 	public static final int UNSIGNED_BYTE			= GL11.GL_UNSIGNED_BYTE;
@@ -90,6 +91,7 @@ public class RenderingEngine{
 	private static Shader gausBlurFilter;
 	private static Shader nullFilter;
 	private static Shader fxaaFilter;
+//	private static Shader hdrFilter;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -107,6 +109,8 @@ public class RenderingEngine{
 //	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
 	
 	private static boolean wireframeMode;
+	
+	private static CubeMap irradiance;
 	
 	public static void init(){
 		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
@@ -157,13 +161,13 @@ public class RenderingEngine{
 		samplerMap.put("cubeMap", 0);
 		samplerMap.put("diffuseMap", 0);
 		samplerMap.put("normalMap", 1);
-//		samplerMap.put("dispMap", 2);
-//		samplerMap.put("specMap", 3);
-//		samplerMap.put("emissiveMap", 4);
-//		samplerMap.put("shadowMap", 5);
-		samplerMap.put("specMap", 2);
-		samplerMap.put("emissiveMap", 3);
-		samplerMap.put("shadowMap", 4);
+		samplerMap.put("roughnessMap", 2);
+		samplerMap.put("metallicMap", 3);
+		samplerMap.put("emissiveMap", 4);
+		samplerMap.put("shadowMap", 5);
+		samplerMap.put("irradianceMap", 5);
+		samplerMap.put("prefilterMap", 6);
+		samplerMap.put("brdfLUT", 7);
 		
 		lights = new ArrayList<BaseLight>();
 		
@@ -199,8 +203,11 @@ public class RenderingEngine{
 		gausBlurFilter = new Shader("filterGausBlur");
 		nullFilter = new Shader("filterNull");
 		fxaaFilter = new Shader("filterFxaa");
+//		hdrFilter = new Shader("filterHdr");
 		
 		filters = new ArrayList<Shader>();
+		
+//		filters.add(hdrFilter);
 		
 		lightCamera = new Camera();
 		new Entity().addComponent(lightCamera);
@@ -233,6 +240,29 @@ public class RenderingEngine{
 		filterIndexed.addFace(3, 1, 2);
 		
 		filterPlane = new Mesh("", filterIndexed.finalizeModel());
+		
+		
+//		irradiance = new CubeMap(new String[]{"irradiance/right.png", "irradiance/left.png", "irradiance/top.png", "irradiance/bottom.png", "irradiance/front.png", "irradiance/back.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
+//		irradiance = new CubeMap(new String[]{"irradiance/posx.bmp", "irradiance/negx.bmp", "irradiance/posy.bmp", "irradiance/negy.bmp", "irradiance/posz.bmp", "irradiance/negz.bmp"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
+//		irradiance = new CubeMap(new String[]{"irradiance/tposx.png", "irradiance/tnegx.png", "irradiance/tposy.png", "irradiance/tnegy.png", "irradiance/tposz.png", "irradiance/tnegz.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
+		irradiance = new CubeMap(new String[]{"irradiance/right2.png", "irradiance/left2.png", "irradiance/top2.png", "irradiance/bottom2.png", "irradiance/front2.png", "irradiance/back2.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
+		
+		
+		Shader brdfShader = new Shader("brdf");
+		Texture brdf = new Texture(512, 512, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RG16F, GL30.GL_RG, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
+		
+		brdf.bindAsRenderTarget();
+		
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		brdfShader.bind();
+		brdfShader.updateUniforms(filterTransform, filterMaterial, filterCamera);
+		filterPlane.draw();
+		
+		brdfShader.cleanUp();
+		
+		setTexture("brdfLUT", brdf);
+		
+		
 		
 		for(int i = 0; i < NUM_SHADOW_MAPS; i++){
 			final int shadowMapSize = 1 << (i + 1);
@@ -684,6 +714,10 @@ public class RenderingEngine{
 		return skybox;
 	}
 	
+	public static CubeMap getIrradiance(){
+		return irradiance;
+	}
+	
 	public static Font getMainFont(){
 		return font;
 	}
@@ -752,6 +786,7 @@ public class RenderingEngine{
 		}
 		
 		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
+//		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
 		
 		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));

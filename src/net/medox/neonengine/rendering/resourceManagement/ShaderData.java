@@ -49,6 +49,24 @@ public class ShaderData extends ReferenceCounter{
 		
 		addAllAttributes(vetexShaderText);
 		
+		GL20.glLinkProgram(program);
+		
+		if(fileName.equals("forwardAmbient")){
+			GL20.glUseProgram(program);
+			
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "diffuseMap"), 0);/*RenderingEngine.getSamplerSlot("diffuseMap"));*/
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "normalMap"), 1);/*RenderingEngine.getSamplerSlot("normalMap"));*/
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "roughnessMap"), 2);/*RenderingEngine.getSamplerSlot("roughnessMap"));*/
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "metallicMap"), 3);/*RenderingEngine.getSamplerSlot("metallicMap"));*/
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "emissiveMap"), 4);/*RenderingEngine.getSamplerSlot("emissiveMap"));*/
+			
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_irradianceMap"), 5);/*RenderingEngine.getSamplerSlot("R_irradianceMap"));*/
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_prefilterMap"), 6);/*RenderingEngine.getSamplerSlot("R_prefilterMap"));*/
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_brdfLUT"), 7);/*RenderingEngine.getSamplerSlot("R_brdfLUT"));*/
+			
+			GL20.glUseProgram(0);
+		}
+		
 		compileShader();
 		
 		addShaderUniforms(vetexShaderText);
@@ -154,8 +172,6 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	private void compileShader(){
-		GL20.glLinkProgram(program);
-		
 		checkShaderError(program, GL20.GL_LINK_STATUS, true, "Error linking shader program");
 		
 		GL20.glValidateProgram(program);

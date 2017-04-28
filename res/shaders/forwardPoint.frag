@@ -5,13 +5,13 @@
 #include "lighting.glh"
 
 uniform vec3 C_eyePos;
-uniform float specularIntensity;
-uniform float specularPower;
+uniform float roughness;
+uniform float metallic;
 
 uniform PointLight R_pointLight;
 
-vec4 CalcLightingEffect(vec3 normal, vec3 worldPos, float specular){
-	return CalcPointLight(R_pointLight, normal, worldPos, specular, specularIntensity, specularPower, C_eyePos);
+vec4 CalcLightingEffect(vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap){
+	return CalcPointLight(R_pointLight, diffuse, normal, worldPos, roughnessMap, metallicMap, roughness, metallic, C_eyePos);
 }
 
 #include "lightingMain.fragh"
