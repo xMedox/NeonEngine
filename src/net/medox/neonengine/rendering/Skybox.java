@@ -111,7 +111,9 @@ public class Skybox{
 		
 		Shader prefilterShader = new Shader("prefilter");
 		
-		prefilterMap = new CubeMap(256, 256, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0);
+		final int prefilterWidth = 256;
+		final int prefilterHeight = 256;
+		prefilterMap = new CubeMap(prefilterWidth, prefilterHeight, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0);
 		
 		prefilterShader.bind();
 		
@@ -121,6 +123,8 @@ public class Skybox{
 		for(int mip = 0; mip < maxMipLevels; mip++){
 		    float roughness = (float)mip / (float)(maxMipLevels - 1);
 		    material.setRoughness(roughness);
+		    
+		    prefilterMap.changeRenderBufferSize((int)(prefilterWidth * Math.pow(0.5, mip)), (int)(prefilterHeight * Math.pow(0.5, mip)));
 			for(int i = 0; i < 6; i++){
 				if(i == 0){
 					camera.getTransform().lookAt(new Vector3f(-1, 0, 0), new Vector3f(0, -1, 0));

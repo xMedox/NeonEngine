@@ -95,6 +95,10 @@ public class CubeMap{
 		resource.bindAsRenderTarget(face);
 	}
 	
+	public void changeRenderBufferSize(int width, int height){
+		resource.changeRenderBufferSize(width, height);
+	}
+	
 	public void bindAsRenderTarget(int face, int mip){
 		resource.bindAsRenderTarget(face, mip);
 	}
