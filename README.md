@@ -6,6 +6,7 @@
 - The bloom effect is now resolution independent
 - Removed the unneeded vertices of the skybox
 - The Engine now uses PBR lighting
+- Added the changeRenderBufferSize method and bindAsRenderTarget method that takes in a mip level to the CubeMap class
 
 **Physics:**
 - Added the getRestitution method to the Collider class
