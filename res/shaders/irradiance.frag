@@ -4,7 +4,7 @@ in vec3 texCoord0;
 
 uniform samplerCube cubeMap;
 
-const float PI = 3.14159265359f;
+const float PI = 3.14159265359;
 
 layout(location = 0) out vec4 outputFS;
 
@@ -17,8 +17,8 @@ void main(){
 	vec3 right = cross(up, N);
 	up = cross(N, right);
 	
-	float sampleDelta = 0.025f;
-	float nrSamples = 0.0f;
+	float sampleDelta = 0.025;
+	float nrSamples = 0.0;
 	for(float phi = 0.0; phi < 2.0 * PI; phi += sampleDelta){
 		for(float theta = 0.0; theta < 0.5 * PI; theta += sampleDelta){
 			vec3 tangentSample = vec3(sin(theta) * cos(phi),  sin(theta) * sin(phi), cos(theta));
