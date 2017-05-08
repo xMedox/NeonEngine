@@ -243,7 +243,7 @@ public class RenderingEngine{
 		
 		
 //		irradiance = new CubeMap(new String[]{"irradiance/right.png", "irradiance/left.png", "irradiance/top.png", "irradiance/bottom.png", "irradiance/front.png", "irradiance/back.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
-//		irradiance = new CubeMap(new String[]{"irradiance/posx.bmp", "irradiance/negx.bmp", "irradiance/posy.bmp", "irradiance/negy.bmp", "irradiance/posz.bmp", "irradiance/negz.bmp"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
+//		irradiance = new CubeMap(new String[]{"irradiance/posx.png", "irradiance/negx.png", "irradiance/posy.png", "irradiance/negy.png", "irradiance/posz.png", "irradiance/negz.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
 //		irradiance = new CubeMap(new String[]{"irradiance/tposx.png", "irradiance/tnegx.png", "irradiance/tposy.png", "irradiance/tnegy.png", "irradiance/tposz.png", "irradiance/tnegz.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
 		irradiance = new CubeMap(new String[]{"irradiance/right2.png", "irradiance/left2.png", "irradiance/top2.png", "irradiance/bottom2.png", "irradiance/front2.png", "irradiance/back2.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
 		

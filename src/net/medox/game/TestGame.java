@@ -81,7 +81,7 @@ public class TestGame extends Game{
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
 //		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
-//		RenderingEngine.setMainSkybox(new Skybox("posx.bmp", "negx.bmp", "posy.bmp", "negy.bmp", "posz.bmp", "negz.bmp"));
+//		RenderingEngine.setMainSkybox(new Skybox("posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"));
 //		RenderingEngine.setMainSkybox(new Skybox("tposx.jpg", "tnegx.jpg", "tposy.jpg", "tnegy.jpg", "tposz.jpg", "tnegz.jpg"));
 		RenderingEngine.setMainSkybox(new Skybox("right2.png", "left2.png", "top2.png", "bottom2.png", "front2.png", "back2.png"));
 		
