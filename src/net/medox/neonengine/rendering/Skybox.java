@@ -17,14 +17,14 @@ public class Skybox{
 	
 	private final Material material;
 	
-//	private final CubeMap irradianceMap;
+	private final CubeMap irradianceMap;
 	private final CubeMap prefilterMap;
 	
-	public Skybox(String right, String left, String top, String bottom, String front, String back){
-		this(right, left, top, bottom, front, back, false);
+	public Skybox(/*String right, String left, String top, String bottom, String front, String back*/String filename){
+		this(/*right, left, top, bottom, front, back,*/filename, false);
 	}
 	
-	public Skybox(String right, String left, String top, String bottom, String front, String back, boolean nearest){
+	public Skybox(/*String right, String left, String top, String bottom, String front, String back,*/String filename, boolean nearest){
 		if(mesh == null){
 			final float vertexMin = -0.5f;
 			final float vertexMax = 0.5f;
@@ -65,47 +65,120 @@ public class Skybox{
 			mesh = new Mesh("", model.finalizeModel());
 		}
 		
-		material = new Material();
-		material.setCubeMap("cubeMap", new CubeMap(new String[]{right, left, top, bottom, front, back}, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST_MIPMAP_LINEAR : RenderingEngine.LINEAR_MIPMAP_LINEAR, RenderingEngine.RGBA, RenderingEngine.RGBA, RenderingEngine.UNSIGNED_BYTE, true));
+//		IntBuffer w = BufferUtils.createIntBuffer(1);
+//		IntBuffer h = BufferUtils.createIntBuffer(1);
+//		IntBuffer comp = BufferUtils.createIntBuffer(1);
+//		
+//		FloatBuffer data = stbi_loadf("res/textures/" + filename + ".hdr", w, h, comp, 0);
+//		
+//		if(data == null){
+//			System.out.println("ERROR");
+//			//TODO call the error method
+//		}
+//		
+//		int width = w.get();
+//		int height = h.get();
+//		
+//		
+//		int hdrTexture = GL11.glGenTextures();
+//		
+//		GL11.glBindTexture(GL11.GL_TEXTURE_2D, hdrTexture);
+////		RenderingEngine.textureBound.put(0, textureID[i]);
+//		
+//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+//		
+//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+//		
+//		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL30.GL_RGB16F, width, height, 0, GL11.GL_RGB, GL11.GL_FLOAT, data);
+//		
+//		stbi_image_free(data);
 		
+		Texture hdrTexture = new Texture(filename + ".hdr", GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true);
+		
+		
+		material = new Material();
 		
 		Entity e = new Entity();
 		Camera camera = new Camera((float)Math.toRadians(90.0f), 1, 0.1f, 1.0f);
 		e.addComponent(camera);
 		
+		Shader equirectangular = new Shader("equirectangular");
+		
+		CubeMap cubeMap = new CubeMap(512, 512, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
+		
+		equirectangular.bind();
+		
+		for(int i = 0; i < 6; i++){
+			if(i == 0){
+				camera.getTransform().lookAt(new Vector3f(-1, 0, 0), new Vector3f(0, -1, 0));
+			}else if(i == 1){
+				camera.getTransform().lookAt(new Vector3f(1, 0, 0), new Vector3f(0, -1, 0));
+			}else if(i == 2){
+				camera.getTransform().lookAt(new Vector3f(0, 1, 0), new Vector3f(0, 1, 0));
+			}else if(i == 3){
+				camera.getTransform().lookAt(new Vector3f(0, -1, 0), new Vector3f(0, 1, 0));
+			}else if(i == 4){
+				camera.getTransform().lookAt(new Vector3f(0, 0, 1), new Vector3f(0, -1, 0));
+			}else if(i == 5){
+				camera.getTransform().lookAt(new Vector3f(0, 0, -1), new Vector3f(0, -1, 0));
+			}
+			
+			cubeMap.bindAsRenderTarget(i);
+			
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+			
+			equirectangular.updateUniforms(transform, material, camera);
+			
+//			GL13.glActiveTexture(GL13.GL_TEXTURE0 + 0);
+//			GL11.glBindTexture(GL11.GL_TEXTURE_2D, hdrTexture);
+			hdrTexture.bind(0);
+			
+			mesh.draw();
+		}
+		
+		equirectangular.cleanUp();
+		
+//		GL11.glDeleteTextures(hdrTexture);
+		hdrTexture.cleanUp();
+		
+		//TODO stop generating the mipmaps before
+		cubeMap.glGenerateMipmap();
+		
+		material.setCubeMap("cubeMap", cubeMap);
 		
 		
-//		Shader irradianceShader = new Shader("irradiance");
-//		
-//		irradianceMap = new CubeMap(32, 32, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0);
-//		
-//		irradianceShader.bind();
-//		
-//		for(int i = 0; i < 6; i++){
-//			
-//			if(i == 0){
-//				camera.getTransform().lookAt(new Vector3f(-1, 0, 0), new Vector3f(0, -1, 0));
-//			}else if(i == 1){
-//				camera.getTransform().lookAt(new Vector3f(1, 0, 0), new Vector3f(0, -1, 0));
-//			}else if(i == 2){
-//				camera.getTransform().lookAt(new Vector3f(0, 1, 0), new Vector3f(0, 1, 0));
-//			}else if(i == 3){
-//				camera.getTransform().lookAt(new Vector3f(0, -1, 0), new Vector3f(0, 1, 0));
-//			}else if(i == 4){
-//				camera.getTransform().lookAt(new Vector3f(0, 0, 1), new Vector3f(0, -1, 0));
-//			}else if(i == 5){
-//				camera.getTransform().lookAt(new Vector3f(0, 0, -1), new Vector3f(0, -1, 0));
-//			}
-//			
-//			irradianceMap.bindAsRenderTarget(i);
-//			
-//			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-//			
-//			irradianceShader.updateUniforms(transform, material, camera);
-//			mesh.draw();
-//		}
-//		
-//		irradianceShader.cleanUp();
+		Shader irradianceShader = new Shader("irradiance");
+		
+		irradianceMap = new CubeMap(32, 32, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
+		
+		irradianceShader.bind();
+		
+		for(int i = 0; i < 6; i++){
+			if(i == 0){
+				camera.getTransform().lookAt(new Vector3f(-1, 0, 0), new Vector3f(0, -1, 0));
+			}else if(i == 1){
+				camera.getTransform().lookAt(new Vector3f(1, 0, 0), new Vector3f(0, -1, 0));
+			}else if(i == 2){
+				camera.getTransform().lookAt(new Vector3f(0, 1, 0), new Vector3f(0, 1, 0));
+			}else if(i == 3){
+				camera.getTransform().lookAt(new Vector3f(0, -1, 0), new Vector3f(0, 1, 0));
+			}else if(i == 4){
+				camera.getTransform().lookAt(new Vector3f(0, 0, 1), new Vector3f(0, -1, 0));
+			}else if(i == 5){
+				camera.getTransform().lookAt(new Vector3f(0, 0, -1), new Vector3f(0, -1, 0));
+			}
+			
+			irradianceMap.bindAsRenderTarget(i);
+			
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+			
+			irradianceShader.updateUniforms(transform, material, camera);
+			mesh.draw();
+		}
+		
+		irradianceShader.cleanUp();
 		
 		
 		
@@ -113,7 +186,7 @@ public class Skybox{
 		
 		final int prefilterWidth = 256;
 		final int prefilterHeight = 256;
-		prefilterMap = new CubeMap(prefilterWidth, prefilterHeight, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0);
+		prefilterMap = new CubeMap(prefilterWidth, prefilterHeight, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 		
 		prefilterShader.bind();
 		
@@ -150,15 +223,17 @@ public class Skybox{
 		}
 		
 		prefilterShader.cleanUp();
+		
+//		material.setCubeMap("cubeMap", irradianceMap);
 	}
 	
 	public CubeMap getCubeMap(){
 		return material.getCubeMap("cubeMap");
 	}
 	
-//	public CubeMap getIrradianceMap(){
-//		return irradianceMap;
-//	}
+	public CubeMap getIrradianceMap(){
+		return irradianceMap;
+	}
 	
 	public CubeMap getPrefilterMap(){
 		return prefilterMap;

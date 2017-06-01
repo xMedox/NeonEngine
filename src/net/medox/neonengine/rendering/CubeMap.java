@@ -197,6 +197,10 @@ public class CubeMap{
 		return byteBuffer;
 	}
 	
+	public void glGenerateMipmap(){
+		resource.glGenerateMipmap();
+	}
+	
 	public static void dispose(){
 		for(final CubeMapData data : loadedCubeMaps.values()){
 			data.dispose();

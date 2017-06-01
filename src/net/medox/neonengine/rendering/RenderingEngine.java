@@ -1,5 +1,7 @@
 package net.medox.neonengine.rendering;
 
+import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,7 +93,7 @@ public class RenderingEngine{
 	private static Shader gausBlurFilter;
 	private static Shader nullFilter;
 	private static Shader fxaaFilter;
-//	private static Shader hdrFilter;
+	private static Shader hdrFilter;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -110,7 +112,7 @@ public class RenderingEngine{
 	
 	private static boolean wireframeMode;
 	
-	private static CubeMap irradiance;
+//	private static CubeMap irradiance;
 	
 	public static void init(){
 		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
@@ -133,6 +135,8 @@ public class RenderingEngine{
 			renderProfileTimer2D = new ProfileTimer();
 			windowSyncProfileTimer = new ProfileTimer();
 		}
+		
+		stbi_set_flip_vertically_on_load(true);
 		
 		textureArray = new int[maxTextureImageUnits];
 		
@@ -203,11 +207,9 @@ public class RenderingEngine{
 		gausBlurFilter = new Shader("filterGausBlur");
 		nullFilter = new Shader("filterNull");
 		fxaaFilter = new Shader("filterFxaa");
-//		hdrFilter = new Shader("filterHdr");
+		hdrFilter = new Shader("filterHdr");
 		
 		filters = new ArrayList<Shader>();
-		
-//		filters.add(hdrFilter);
 		
 		lightCamera = new Camera();
 		new Entity().addComponent(lightCamera);
@@ -245,7 +247,7 @@ public class RenderingEngine{
 //		irradiance = new CubeMap(new String[]{"irradiance/right.png", "irradiance/left.png", "irradiance/top.png", "irradiance/bottom.png", "irradiance/front.png", "irradiance/back.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
 //		irradiance = new CubeMap(new String[]{"irradiance/posx.png", "irradiance/negx.png", "irradiance/posy.png", "irradiance/negy.png", "irradiance/posz.png", "irradiance/negz.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
 //		irradiance = new CubeMap(new String[]{"irradiance/tposx.png", "irradiance/tnegx.png", "irradiance/tposy.png", "irradiance/tnegy.png", "irradiance/tposz.png", "irradiance/tnegz.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
-		irradiance = new CubeMap(new String[]{"irradiance/right2.png", "irradiance/left2.png", "irradiance/top2.png", "irradiance/bottom2.png", "irradiance/front2.png", "irradiance/back2.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
+//		irradiance = new CubeMap(new String[]{"irradiance/right2.png", "irradiance/left2.png", "irradiance/top2.png", "irradiance/bottom2.png", "irradiance/front2.png", "irradiance/back2.png"}, TEXTURE_2D, /*false ? NEAREST : */LINEAR, RGBA, RGBA, UNSIGNED_BYTE, true);
 		
 		
 		Shader brdfShader = new Shader("brdf");
@@ -261,7 +263,6 @@ public class RenderingEngine{
 		brdfShader.cleanUp();
 		
 		setTexture("brdfLUT", brdf);
-		
 		
 		
 		for(int i = 0; i < NUM_SHADOW_MAPS; i++){
@@ -460,7 +461,10 @@ public class RenderingEngine{
 			windowSyncProfileTimer.startInvocation();
 		}
 		
+		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+		
 		renderFilters();
+//		applyFilter(nullFilter, getTexture("brdfLUT"), null);
 		
 		if(NeonEngine.isProfilingEnabled()){
 			windowSyncProfileTimer.stopInvocation();
@@ -482,29 +486,29 @@ public class RenderingEngine{
 			if(NeonEngine.isFXAAEnabled()){
 				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 				
-				applyFilter(fxaaFilter, getTexture("displayTexture"), null);
+				applyFilter(fxaaFilter, getTexture("postFilterTexture"), null);
 			}else{
-				applyFilter(nullFilter, getTexture("displayTexture"), null);
+				applyFilter(nullFilter, getTexture("postFilterTexture"), null);
 			}
 		}else{
 			if(NeonEngine.isFXAAEnabled()){
 				setVector3f("inverseFilterTextureSize", new Vector3f(1.0f/(float)getTexture("displayTexture").getWidth(), 1.0f/((float)getTexture("displayTexture").getHeight() + (float)getTexture("displayTexture").getWidth()/(float)getTexture("displayTexture").getHeight() * getFloat("fxaaAspectDistortion")), 0.0f));
 				
-				applyFilter(fxaaFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+				applyFilter(fxaaFilter, getTexture("postFilterTexture"), getTexture("displayTexture"));
 				
 				boolean evenNumber = true;
 				for(int i = 0; i < filters.size(); i++){
 					if(evenNumber){
 						if(filters.size()-1 == i){
-							applyFilter(filters.get(i), getTexture("postFilterTexture"), null);
-						}else{
-							applyFilter(filters.get(i), getTexture("postFilterTexture"), getTexture("displayTexture"));
-						}
-					}else{
-						if(filters.size()-1 == i){
 							applyFilter(filters.get(i), getTexture("displayTexture"), null);
 						}else{
 							applyFilter(filters.get(i), getTexture("displayTexture"), getTexture("postFilterTexture"));
+						}
+					}else{
+						if(filters.size()-1 == i){
+							applyFilter(filters.get(i), getTexture("postFilterTexture"), null);
+						}else{
+							applyFilter(filters.get(i), getTexture("postFilterTexture"), getTexture("displayTexture"));
 						}
 					}
 					
@@ -515,15 +519,15 @@ public class RenderingEngine{
 				for(int i = 0; i < filters.size(); i++){
 					if(evenNumber){
 						if(filters.size()-1 == i){
-							applyFilter(filters.get(i), getTexture("displayTexture"), null);
-						}else{
-							applyFilter(filters.get(i), getTexture("displayTexture"), getTexture("postFilterTexture"));
-						}
-					}else{
-						if(filters.size()-1 == i){
 							applyFilter(filters.get(i), getTexture("postFilterTexture"), null);
 						}else{
 							applyFilter(filters.get(i), getTexture("postFilterTexture"), getTexture("displayTexture"));
+						}
+					}else{
+						if(filters.size()-1 == i){
+							applyFilter(filters.get(i), getTexture("displayTexture"), null);
+						}else{
+							applyFilter(filters.get(i), getTexture("displayTexture"), getTexture("postFilterTexture"));
 						}
 					}
 					
@@ -714,9 +718,9 @@ public class RenderingEngine{
 		return skybox;
 	}
 	
-	public static CubeMap getIrradiance(){
-		return irradiance;
-	}
+//	public static CubeMap getIrradiance(){
+//		return irradiance;
+//	}
 	
 	public static Font getMainFont(){
 		return font;
@@ -785,8 +789,8 @@ public class RenderingEngine{
 			height2 = 1;
 		}
 		
-		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
-//		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
+//		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
+		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
 		
 		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));

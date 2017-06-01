@@ -1,6 +1,7 @@
 package net.medox.neonengine.rendering.resourceManagement;
 
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
@@ -44,6 +45,28 @@ public class TextureData extends ReferenceCounter{
 		renderBuffer = 0;
 		
 		initTextures(data, filters, internalFormat, format, type, clamp);
+		initRenderTargets(attachments);
+	}
+	
+	public TextureData(int textureTarget, int width, int height, int numTextures, FloatBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachments){
+		super();
+		
+		textureID = new int[numTextures];
+		this.textureTarget = textureTarget;
+		this.numTextures = numTextures;
+		
+		if(!NeonEngine.is2x2TextureEnabled()){
+			this.width = width;
+			this.height = height;
+		}else{
+			this.width = 2;
+			this.height = 2;
+		}
+		
+		frameBuffer = 0;
+		renderBuffer = 0;
+		
+		initTexturesFloat(data, filters, internalFormat, format, type, clamp);
 		initRenderTargets(attachments);
 	}
 	
@@ -97,6 +120,33 @@ public class TextureData extends ReferenceCounter{
 	}
 	
 	private void initTextures(ByteBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp){
+		for(int i = 0; i < numTextures; i++){
+			textureID[i] = GL11.glGenTextures();
+			
+			GL11.glBindTexture(textureTarget, textureID[i]);
+//			RenderingEngine.textureBound.put(0, textureID[i]);
+			
+			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MIN_FILTER, filters[i]);
+			GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_MAG_FILTER, filters[i]);
+			
+			if(clamp){
+				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+				GL11.glTexParameterf(textureTarget, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+			}
+			
+			GL11.glTexImage2D(textureTarget, 0, internalFormat[i], width, height, 0, format[i], type[i], data[i]);
+			
+			if(filters[i] == GL11.GL_NEAREST_MIPMAP_NEAREST || filters[i] == GL11.GL_NEAREST_MIPMAP_LINEAR || filters[i] == GL11.GL_LINEAR_MIPMAP_NEAREST || filters[i] == GL11.GL_LINEAR_MIPMAP_LINEAR){
+				GL30.glGenerateMipmap(textureTarget);
+				GL11.glTexParameterf(textureTarget, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, Util.clamp(0.0f, 8.0f, GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+			}else{
+				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_BASE_LEVEL, 0);
+				GL11.glTexParameteri(textureTarget, GL12.GL_TEXTURE_MAX_LEVEL, 0);
+			}
+		}
+	}
+	
+	private void initTexturesFloat(FloatBuffer[] data, int[] filters, int[] internalFormat, int[] format, int[] type, boolean clamp){
 		for(int i = 0; i < numTextures; i++){
 			textureID[i] = GL11.glGenTextures();
 			

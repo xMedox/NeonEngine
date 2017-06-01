@@ -66,14 +66,16 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0){
 }
 
 vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, float roughness, float metallic, vec3 eyePos){
+	vec3 color = pow(diffuse.rgb, vec3(2.2));
+	
 	float rough = roughnessMap + roughness;
 	float metal = metallicMap + metallic;
 	
 	vec3 V = normalize(eyePos - worldPos);
 	
 	vec3 F0 = vec3(0.04);
-	F0 = mix(F0, diffuse, metal);
-	//F0 = mix(F0, pow(diffuse, vec3(2.2)), metal);
+	//F0 = mix(F0, diffuse, metal);
+	F0 = mix(F0, color, metal);
 	
 	
 	vec3 L = -direction;
@@ -86,7 +88,7 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 w
 	
 	vec3 nominator = NDF * G * F;
 	float denominator = 4 * max(dot(normal, V), 0.0) * max(dot(normal, L), 0.0) + 0.001;
-	vec3 brdf = nominator / denominator;
+	vec3 specular = nominator / denominator;
 	
 	vec3 kS = F;
 	
@@ -95,8 +97,8 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 w
 	
 	float NdotL = max(dot(normal, L), 0.0);
 	
-	return vec4((kD * diffuse / PI + brdf) * radiance * NdotL, 1);
-	//return vec4((kD * pow(diffuse, vec3(2.2)) / PI + brdf) * radiance * NdotL, 1);
+	//return vec4((kD * diffuse / PI + specular) * radiance * NdotL, 1);
+	return vec4((kD * color / PI + specular) * radiance * NdotL, 1);
 }
 
 vec4 CalcPointLight(PointLight pointLight, vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, float roughness, float metallic, vec3 eyePos){

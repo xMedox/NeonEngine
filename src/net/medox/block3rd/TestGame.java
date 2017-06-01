@@ -46,7 +46,7 @@ public class TestGame extends Game{
 //		NeonEngine.init(new TestGame(), /*60*/1000);
 		
 		NeonEngine.enableProfiling(true);
-		NeonEngine.enableVSync(true);
+		NeonEngine.enableVSync(false);
 		NeonEngine.enableFXAA(false);
 		NeonEngine.enableShadows(true);
 		NeonEngine.enable2D(true);
@@ -80,10 +80,14 @@ public class TestGame extends Game{
 //		RenderingEngine.addFilter(new Shader("filterFlip"));
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-//		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
-//		RenderingEngine.setMainSkybox(new Skybox("posx.bmp", "negx.bmp", "posy.bmp", "negy.bmp", "posz.bmp", "negz.bmp"));
-//		RenderingEngine.setMainSkybox(new Skybox("tposx.jpg", "tnegx.jpg", "tposy.jpg", "tnegy.jpg", "tposz.jpg", "tnegz.jpg"));
-		RenderingEngine.setMainSkybox(new Skybox("right2.png", "left2.png", "top2.png", "bottom2.png", "front2.png", "back2.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("Arches_E_PineTree_3k"));
+		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
+//		RenderingEngine.setMainSkybox(new Skybox("Milkyway_small"));
+//		RenderingEngine.setMainSkybox(new Skybox("WinterForest_Ref"));
+//		RenderingEngine.setMainSkybox(new Skybox("Tropical_Beach_3k"));
+//		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
+//		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
+//		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
 		
 //		String es = Util.encrypt("Just a test");
 //		System.out.println(es);

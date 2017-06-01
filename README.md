@@ -5,7 +5,7 @@
 **Rendering:**
 - The bloom effect is now resolution independent
 - Removed the unneeded vertices of the skybox
-- The Engine now uses physically based rendering
+- The Engine now uses physically based rendering and hdr
 - Added the changeRenderBufferSize method and bindAsRenderTarget method that takes in a mip level to the CubeMap class
 
 **Physics:**
@@ -23,3 +23,5 @@
 - The x-Axis rotation of the LookComponent is now properly limited
 - Renamed the inputKey method to getInputKey, the inputKeyDown method to getInputKeyDown and the inputKeyUp method to getInputKeyUp
 - You can now set the InputKeys and the speed of the PlayerComponent
+- The Texture class now supports hdr files
+- The Skybox class now only takes in one file

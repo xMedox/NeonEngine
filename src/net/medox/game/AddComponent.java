@@ -38,30 +38,27 @@ public class AddComponent extends EntityComponent{
 	private Mesh coneM;
 	
 	public AddComponent(){
-		bricks = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
-//		bricks.setDiffuseMap(new Texture("rock2222.jpg"));
-//		bricks.setNormalMap(new Texture("rock2_normal322.png"));
-//		bricks.setEmissiveMap(new Texture("rock22_glow22.png"));
-//		bricks.setRoughness(0.85f);
+		bricks = new Material();
+//		bricks.setDiffuseMap(new Texture("rockLava.jpg"));
+//		bricks.setNormalMap(new Texture("rockNormal.png"));
+//		bricks.setEmissiveMap(new Texture("rockLavaEmissive.png"));
+//		bricks.setRoughness(1);
 //		bricks.setMetallic(0);
 		
 //		bricks.setDiffuseMap(new Texture("plastic.png"));
 //		bricks.setRoughnessMap(new Texture("plastic_rough.png"));
 		
-		bricks.setDiffuseMap(new Texture("limestone-rock-albedo.png"));
-		bricks.setRoughnessMap(new Texture("limestone-rock-roughness.png"));
-		bricks.setNormalMap(new Texture("limestone-rock-normal.png"));
-		bricks.setMetallicMap(new Texture("limestone-rock-metalness.png"));
+//		bricks.setDiffuseMap(new Texture("limestone-rock-albedo.png"));
+//		bricks.setRoughnessMap(new Texture("limestone-rock-roughness.png"));
+//		bricks.setNormalMap(new Texture("limestone-rock-normal.png"));
 		
-//		bricks.setDiffuseMap(new Texture("bamboo-wood-semigloss-albedo.png"));
-//		bricks.setRoughnessMap(new Texture("bamboo-wood-semigloss-roughness.png"));
-//		bricks.setNormalMap(new Texture("bamboo-wood-semigloss-normal.png"));
-//		bricks.setMetallicMap(new Texture("bamboo-wood-semigloss-metal.png"));
+		bricks.setDiffuseMap(new Texture("bamboo-wood-semigloss-albedo.png"));
+		bricks.setRoughnessMap(new Texture("bamboo-wood-semigloss-roughness.png"));
+		bricks.setNormalMap(new Texture("bamboo-wood-semigloss-normal.png"));
 		
 //		bricks.setDiffuseMap(new Texture("old-textured-fabric-albedo3.png"));
 //		bricks.setRoughnessMap(new Texture("old-textured-fabric-roughness2.png"));
 //		bricks.setNormalMap(new Texture("old-textured-fabric-normal.png"));
-//		bricks.setMetallicMap(new Texture("old-textured-fabric-metalic.png"));
 		
 //		bricks.setDiffuseMap(new Texture("greasy-pan-2-albedo.png"));
 //		bricks.setRoughnessMap(new Texture("greasy-pan-2-roughness.png"));
@@ -71,15 +68,32 @@ public class AddComponent extends EntityComponent{
 //		bricks.setDiffuseMap(new Texture("patchy_cement1_Base_Color.png"));
 //		bricks.setRoughnessMap(new Texture("patchy_cement1_Roughness.png"));
 //		bricks.setNormalMap(new Texture("patchy_cement1_Normal.png"));
-//		bricks.setMetallicMap(new Texture("patchy_cement1_Metallic.png"));
+		
+//		bricks.setDiffuseMap(new Texture("granitesmooth1-albedo.png"));
+//		bricks.setRoughnessMap(new Texture("granitesmooth1-roughness3.png"));
+//		bricks.setNormalMap(new Texture("granitesmooth1-normal2.png"));
+		
+//		bricks.setDiffuseMap(new Texture("gold-scuffed_basecolor.png"));
+//		bricks.setRoughnessMap(new Texture("gold-scuffed_roughness.png"));
+//		bricks.setMetallic(1);
+		
+//		bricks.setDiffuseMap(new Texture("Iron-Scuffed_basecolor.png"));
+//		bricks.setRoughnessMap(new Texture("Iron-Scuffed_roughness.png"));
+//		bricks.setMetallic(1);
+		
+//		bricks.setDiffuseMap(new Texture("Diffuse.png"));
+//		bricks.setEmissiveMap(new Texture("Emissive.png"));
+//		bricks.setRoughnessMap(new Texture("Roughness.png"));
+//		bricks.setMetallicMap(new Texture("Metallic.png"));
 		
 		metal = new Material();
-//		metal.setDiffuseMap(new Texture("Diffuse.png"));
-//		metal.setEmissiveMap(new Texture("Emissive.png"));
-//		metal.setRoughnessMap(new Texture("Roughness.png"));
-//		metal.setMetallicMap(new Texture("Metallic.png"));
-		metal.setDiffuseMap(new Texture("plastic.png"));
-		metal.setRoughnessMap(new Texture("plastic_rough.png"));
+		metal.setDiffuseMap(new Texture("Diffuse.png"));
+		metal.setEmissiveMap(new Texture("Emissive.png"));
+		metal.setRoughnessMap(new Texture("Roughness.png"));
+		metal.setMetallicMap(new Texture("Metallic.png"));
+		
+//		metal.setDiffuseMap(new Texture("plastic.png"));
+//		metal.setRoughnessMap(new Texture("plastic_rough.png"));
 		
 		crateM = new Mesh("crate.obj");
 		sphereM = new Mesh("sphere.obj");

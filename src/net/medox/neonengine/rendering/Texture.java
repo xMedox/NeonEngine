@@ -1,16 +1,23 @@
 package net.medox.neonengine.rendering;
 
+import static org.lwjgl.stb.STBImage.stbi_image_free;
+import static org.lwjgl.stb.STBImage.stbi_loadf;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import org.lwjgl.BufferUtils;
 
 import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
@@ -33,9 +40,23 @@ public class Texture{
 		resource = loadedTextures.get(fileName);
 		
 		if(resource == null){
-			final ByteBuffer texture = loadTexture(fileName);
+			final String[] splitArray = fileName.split("\\.");
+			final String ext = splitArray[splitArray.length - 1];
 			
-			resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
+			resource = null;
+			
+			if(ext.equals("hdr")){
+				final FloatBuffer texture = loadHDRTexture(fileName);
+				
+				resource = new TextureData(textureTarget, width, height, 1, new FloatBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
+				
+				stbi_image_free(texture);
+			}else{
+				final ByteBuffer texture = loadTexture(fileName);
+				
+				resource = new TextureData(textureTarget, width, height, 1, new ByteBuffer[]{texture}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
+			}
+			
 			loadedTextures.put(fileName, resource);
 		}else{
 			resource.addReference();
@@ -86,6 +107,18 @@ public class Texture{
 	}
 	
 	public Texture(int width, int height, ByteBuffer[] data, int textureTarget, int[] filter, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachment){
+		fileName = "";
+		resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
+		customTextures.add(resource);
+	}
+	
+	public Texture(int width, int height, FloatBuffer data, int textureTarget, int filter, int internalFormat, int format, int type, boolean clamp, int attachment){
+		fileName = "";
+		resource = new TextureData(textureTarget, width, height, 1, new FloatBuffer[]{data}, new int[]{filter}, new int[]{internalFormat}, new int[]{format}, new int[]{type}, clamp, new int[]{attachment});
+		customTextures.add(resource);
+	}
+	
+	public Texture(int width, int height, FloatBuffer[] data, int textureTarget, int[] filter, int[] internalFormat, int[] format, int[] type, boolean clamp, int[] attachment){
 		fileName = "";
 		resource = new TextureData(textureTarget, width, height, data.length, data, filter, internalFormat, format, type, clamp, attachment);
 		customTextures.add(resource);
@@ -286,6 +319,23 @@ public class Texture{
 		buffer.flip();
 		
 		return buffer;
+	}
+	
+	private FloatBuffer loadHDRTexture(String fileName){
+		IntBuffer w = BufferUtils.createIntBuffer(1);
+		IntBuffer h = BufferUtils.createIntBuffer(1);
+		IntBuffer comp = BufferUtils.createIntBuffer(1);
+		
+		FloatBuffer data = stbi_loadf("./res/textures/" + fileName, w, h, comp, 0);
+		
+		if(data == null){
+			NeonEngine.throwError("Error: unable to read " + fileName);
+		}
+		
+		width = w.get();
+		height = h.get();
+		
+		return data;
 	}
 	
 	public int getID(){

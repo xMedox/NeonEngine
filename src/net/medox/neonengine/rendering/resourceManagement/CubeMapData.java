@@ -163,6 +163,11 @@ public class CubeMapData extends ReferenceCounter{
 		}
 	}
 	
+	public void glGenerateMipmap(){
+		GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureID);
+		GL30.glGenerateMipmap(GL13.GL_TEXTURE_CUBE_MAP);
+	}
+	
 	private void initRenderTargets(int attachments){
 		if(attachments == 0){
 			return;

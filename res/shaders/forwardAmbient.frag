@@ -29,6 +29,8 @@ void main(){
 	vec4 diffuse = texture(diffuseMap, texCoord0);
 	
 	if(diffuse.a >= 0.5){
+		vec3 color = pow(diffuse.rgb, vec3(2.2));
+		
 		float rough = texture(roughnessMap, texCoord0).x + roughness;
 		float metal = texture(metallicMap, texCoord0).x + metallic;
 		
@@ -37,8 +39,8 @@ void main(){
 		vec3 R = reflect(-V, normal);
 		
 		vec3 F0 = vec3(0.04);
-		F0 = mix(F0, diffuse.rgb, metal);
-		//F0 = mix(F0, pow(diffuse.rgb, vec3(2.2)), metal);
+		//F0 = mix(F0, diffuse.rgb, metal);
+		F0 = mix(F0, color, metal);
 		
 		vec3 F = fresnelSchlickRoughness(max(dot(normal, V), 0.0), F0, rough);
 		
@@ -47,8 +49,8 @@ void main(){
 		kD *= 1.0 - metal;
 		
 		vec3 irradiance = texture(R_irradianceMap, normal).rgb;
-		vec3 diffuseUsed = irradiance * diffuse.rgb;
-		//vec3 diffuseUsed = irradiance * pow(diffuse.rgb, vec3(2.2));
+		//vec3 diffuseUsed = irradiance * diffuse.rgb;
+		vec3 diffuseUsed = irradiance * color;
 		
 		
 		

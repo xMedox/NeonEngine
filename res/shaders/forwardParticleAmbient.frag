@@ -15,7 +15,10 @@ void main(){
 	vec4 diffuse = texture(T_textures[tid0], texCoord0);
 	
 	if(diffuse.a >= 0.5){
-		outputFS = diffuse * clamp((vec4(R_ambient, 1.0) + color0.z), 0.0, 1.0);
+		vec3 color = pow(diffuse.rgb, vec3(2.2));
+		
+		//outputFS = vec4(color, diffuse.a) * clamp((vec4(R_ambient, 1.0) + color0.z), 0.0, 1.0);
+		outputFS = vec4(color, 1.0) * clamp((vec4(R_ambient, 1.0) + color0.z), 0.0, 1.0);
 		outputBloom = vec4(0.0, 0.0, 0.0, 0.0);
 	}else{
 		discard;

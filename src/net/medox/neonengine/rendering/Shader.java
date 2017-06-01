@@ -68,7 +68,9 @@ public class Shader{
 			final String uniformName = resource.getUniformNames().get(i);
 			final String uniformType = resource.getUniformTypes().get(i);
 			
-			if(uniformName.charAt(0) == 'T'){
+			if(uniformName.charAt(0) == 'X'){
+				setUniformi(uniformName, 0);
+			}else if(uniformName.charAt(0) == 'T'){
 				if(uniformName.charAt(1) == '_'){
 					final String unprefixedUniformName = uniformName.substring(2);
 					
@@ -116,8 +118,8 @@ public class Shader{
 							final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 //							RenderingEngine.getCubeMap(unprefixedUniformName).bind(samplerSlot);//TODO add this
 							//RenderingEngine.getMainSkybox().getCubeMap().bind(samplerSlot);
-							RenderingEngine.getIrradiance().bind(samplerSlot);
-//							RenderingEngine.getMainSkybox().getIrradianceMap().bind(samplerSlot);
+//							RenderingEngine.getIrradiance().bind(samplerSlot);
+							RenderingEngine.getMainSkybox().getIrradianceMap().bind(samplerSlot);
 							setUniformi(uniformName, samplerSlot);
 						}else{
 							NeonEngine.throwError("Error: " + uniformType + " is not a supported type in RenderingEngine.");

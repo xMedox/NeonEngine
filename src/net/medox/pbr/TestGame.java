@@ -23,7 +23,7 @@ import net.medox.neonengine.rendering.Window;
 public class TestGame extends Game{
 	public static void main(String[] args){
 		NeonEngine.enableProfiling(true);
-		NeonEngine.enableVSync(true);
+		NeonEngine.enableVSync(false);
 		NeonEngine.enableFXAA(true);
 		NeonEngine.enableShadows(true);
 		NeonEngine.enable2D(true);
@@ -51,12 +51,15 @@ public class TestGame extends Game{
 	public void init(){
 		super.init();
 		
-//		RenderingEngine.setAmbiet(new Vector3f(0.03f, 0.03f, 0.03f));
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-//		RenderingEngine.setMainSkybox(new Skybox("right.png", "left.png", "top.png", "bottom.png", "front.png", "back.png"));
-//		RenderingEngine.setMainSkybox(new Skybox("posx.bmp", "negx.bmp", "posy.bmp", "negy.bmp", "posz.bmp", "negz.bmp"));
-//		RenderingEngine.setMainSkybox(new Skybox("tposx.jpg", "tnegx.jpg", "tposy.jpg", "tnegy.jpg", "tposz.jpg", "tnegz.jpg"));
-		RenderingEngine.setMainSkybox(new Skybox("right2.png", "left2.png", "top2.png", "bottom2.png", "front2.png", "back2.png"));
+//		RenderingEngine.setMainSkybox(new Skybox("Arches_E_PineTree_3k"));
+		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
+//		RenderingEngine.setMainSkybox(new Skybox("Milkyway_small"));
+//		RenderingEngine.setMainSkybox(new Skybox("WinterForest_Ref"));
+//		RenderingEngine.setMainSkybox(new Skybox("Tropical_Beach_3k"));
+//		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
+//		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
+//		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		addEntity(gameObject);
@@ -74,14 +77,14 @@ public class TestGame extends Game{
 				Entity sphere = new Entity();
 				
 				Material sphereMaterial = new Material();
-				sphereMaterial.setDiffuseMap(new Texture("B.png"));
+				sphereMaterial.setDiffuseMap(new Texture("R.png"));
 				
 				sphereMaterial.setRoughness((1.0f - (i)/(float)(size-1)));
 				sphereMaterial.setMetallic((j)/(float)(size-1));
 				
 				MeshRenderer sphereRenderer = new MeshRenderer(sphereModel, sphereMaterial);
 				
-				sphere.getTransform().getPos().set(i*2.5f, j*2.5f, 0);
+				sphere.getTransform().setPos(i*2.5f, j*2.5f, 0);
 				sphere.addComponent(sphereRenderer);
 				addEntity(sphere);
 			}
