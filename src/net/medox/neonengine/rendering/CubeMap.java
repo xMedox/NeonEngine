@@ -197,8 +197,8 @@ public class CubeMap{
 		return byteBuffer;
 	}
 	
-	public void glGenerateMipmap(){
-		resource.glGenerateMipmap();
+	public void generateMipmap(){
+		resource.generateMipmap();
 	}
 	
 	public static void dispose(){

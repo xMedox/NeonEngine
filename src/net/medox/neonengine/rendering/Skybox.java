@@ -144,7 +144,7 @@ public class Skybox{
 		hdrTexture.cleanUp();
 		
 		//TODO stop generating the mipmaps before
-		cubeMap.glGenerateMipmap();
+		cubeMap.generateMipmap();
 		
 		material.setCubeMap("cubeMap", cubeMap);
 		
