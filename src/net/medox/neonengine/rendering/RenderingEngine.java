@@ -1,7 +1,5 @@
 package net.medox.neonengine.rendering;
 
-import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,9 +133,7 @@ public class RenderingEngine{
 			renderProfileTimer2D = new ProfileTimer();
 			windowSyncProfileTimer = new ProfileTimer();
 		}
-		
-		stbi_set_flip_vertically_on_load(true);
-		
+				
 		textureArray = new int[maxTextureImageUnits];
 		
 		for(int i = 0; i < maxTextureImageUnits; i++){

@@ -14,7 +14,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0 Build 82";
+	private static final String VERSION = "1.0.0 Build 83";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -212,15 +212,15 @@ public class NeonEngine{
 			}
 			
 			while(unprocssedTime >= frameTime){
-				if(Window.gotCreated()){
-					Window.updateInput();
-				}
-				
 				if(optionEnableProfiling){
 					windowUpdateTimer.startInvocation();
 				}
-				if(Window.gotCreated() && Window.isCloseRequested()){
-					stop();
+				if(Window.gotCreated()){
+					Window.updateInput();
+					
+					if(Window.isCloseRequested()){
+						stop();
+					}
 				}
 				if(optionEnableProfiling){
 					windowUpdateTimer.stopInvocation();

@@ -7,7 +7,7 @@ uniform mat4 T_MVP;
 out vec3 texCoord0;
 
 void main(){
-	vec3 pos = vec3(position.x, position.y, position.z);
+	vec3 pos = vec3(position.x, position.y*-1, position.z);
 	
 	gl_Position = T_MVP * vec4(position, 1.0);
 	gl_Position.z = gl_Position.w - 0.00001;

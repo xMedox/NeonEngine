@@ -8,6 +8,7 @@
 - The Engine now uses physically based rendering and hdr
 - Added the changeRenderBufferSize, generateMipmap and bindAsRenderTarget method that takes in a mip level to the CubeMap class
 - The Texture class now supports hdr files
+- All textures now get loaded by the stb_image library(Makes texture loading faster)
 
 **Physics:**
 - Added the getRestitution method to the Collider class
