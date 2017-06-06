@@ -232,15 +232,15 @@ public class CubeMap{
 				
 				final ByteBuffer tmp = MemoryUtil.memAlloc(widthSave * heightSave * STBImage.STBI_rgb_alpha);
 				
-			    STBImageResize.stbir_resize_uint8(data, width[i], height[i], 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb_alpha);
-			    
-			    STBImage.stbi_image_free(data);
-			    
-			    width[i] = widthSave;
-			    height[i] = heightSave;
-			    
-			    data = tmp;
-			    
+				STBImageResize.stbir_resize_uint8(data, width[i], height[i], 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb_alpha);
+				
+				STBImage.stbi_image_free(data);
+				
+				width[i] = widthSave;
+				height[i] = heightSave;
+				
+				data = tmp;
+				
 				if(NeonEngine.getTextureQuality() >= 2){
 					int widthSave2 = widthSave/2;
 					int heightSave2 = heightSave/2;
@@ -254,14 +254,14 @@ public class CubeMap{
 					
 					final ByteBuffer tmp2 = MemoryUtil.memAlloc(widthSave2 * heightSave2 * STBImage.STBI_rgb_alpha);
 					
-				    STBImageResize.stbir_resize_uint8(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb_alpha);
-				    
-				    MemoryUtil.memFree(tmp);
-				    
-				    width[i] = widthSave2;
-				    height[i] = heightSave2;
-				    
-				    data = tmp2;
+					STBImageResize.stbir_resize_uint8(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb_alpha);
+					
+					MemoryUtil.memFree(tmp);
+					
+					width[i] = widthSave2;
+					height[i] = heightSave2;
+					
+					data = tmp2;
 				}
 			}
 			

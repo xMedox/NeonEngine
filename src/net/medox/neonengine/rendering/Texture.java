@@ -276,15 +276,15 @@ public class Texture{
 			
 			final ByteBuffer tmp = MemoryUtil.memAlloc(widthSave * heightSave * STBImage.STBI_rgb_alpha);
 			
-		    STBImageResize.stbir_resize_uint8(data, width, height, 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb_alpha);
-		    
-		    STBImage.stbi_image_free(data);
-		    
-		    width = widthSave;
-		    height = heightSave;
-		    
-		    data = tmp;
-		    
+			STBImageResize.stbir_resize_uint8(data, width, height, 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb_alpha);
+			
+			STBImage.stbi_image_free(data);
+			
+			width = widthSave;
+			height = heightSave;
+			
+			data = tmp;
+			
 			if(NeonEngine.getTextureQuality() >= 2){
 				int widthSave2 = widthSave/2;
 				int heightSave2 = heightSave/2;
@@ -298,14 +298,14 @@ public class Texture{
 				
 				final ByteBuffer tmp2 = MemoryUtil.memAlloc(widthSave2 * heightSave2 * STBImage.STBI_rgb_alpha);
 				
-			    STBImageResize.stbir_resize_uint8(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb_alpha);
-			    
-			    MemoryUtil.memFree(tmp);
-			    
-			    width = widthSave2;
-			    height = heightSave2;
-			    
-			    data = tmp2;
+				STBImageResize.stbir_resize_uint8(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb_alpha);
+				
+				MemoryUtil.memFree(tmp);
+				
+				width = widthSave2;
+				height = heightSave2;
+				
+				data = tmp2;
 			}
 		}
 		
@@ -411,15 +411,15 @@ public class Texture{
 			
 			final FloatBuffer tmp = MemoryUtil.memAllocFloat(widthSave * heightSave * STBImage.STBI_rgb);
 			
-		    STBImageResize.stbir_resize_float(data, width, height, 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb);
-		    
-		    STBImage.stbi_image_free(data);
-		    
-		    width = widthSave;
-		    height = heightSave;
-		    
-		    data = tmp;
-		    
+			STBImageResize.stbir_resize_float(data, width, height, 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb);
+			
+			STBImage.stbi_image_free(data);
+			
+			width = widthSave;
+			height = heightSave;
+			
+			data = tmp;
+			
 			if(NeonEngine.getTextureQuality() >= 2){
 				int widthSave2 = widthSave/2;
 				int heightSave2 = heightSave/2;
@@ -433,14 +433,14 @@ public class Texture{
 				
 				final FloatBuffer tmp2 = MemoryUtil.memAllocFloat(widthSave2 * heightSave2 * STBImage.STBI_rgb);
 				
-			    STBImageResize.stbir_resize_float(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb);
-			    
-			    MemoryUtil.memFree(tmp);
-			    
-			    width = widthSave2;
-			    height = heightSave2;
-			    
-			    data = tmp2;
+				STBImageResize.stbir_resize_float(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb);
+				
+				MemoryUtil.memFree(tmp);
+				
+				width = widthSave2;
+				height = heightSave2;
+				
+				data = tmp2;
 			}
 		}
 		
