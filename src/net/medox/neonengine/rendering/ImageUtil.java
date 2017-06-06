@@ -2,11 +2,10 @@ package net.medox.neonengine.rendering;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.io.File;
-import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
-import javax.imageio.ImageIO;
+import org.lwjgl.stb.STBImage;
 
 import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
@@ -260,45 +259,58 @@ public class ImageUtil{
 						   { 21, 23, 25, 27, 29, 32, 34, 35, 37, 38, 39, 40, 40, 40, 40, 40, 39, 38, 37, 38, 36, 35, 34, 33, 32, 29, 28, 27, 25, 23, 22, 20}};
 	}
 	
-	public static ImageData bufferedImageToByteBuffer(BufferedImage image){
-		final int width = image.getWidth();
-		final int height = image.getHeight();
+	public static ImageData imageToByteBuffer(String file){
+//		BufferedImage image = null;
+//		
+//		try{
+//			image = ImageIO.read(new File(file));
+//		}catch(IOException e){
+//			NeonEngine.throwError("Error: unable to read " + file);
+//		}
+//		
+//		final int width = image.getWidth();
+//		final int height = image.getHeight();
+//		
+//		final int[] pixels = image.getRGB(0, 0, width, height, null, 0, width);
+//		
+//		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
+//		final boolean hasAlpha = image.getColorModel().hasAlpha();
+//		
+//		for(int y = 0; y < height; y++){
+//			for(int x = 0; x < width; x++){
+//				final int pixel = pixels[y * width + x];
+//				
+//				buffer.put((byte)((pixel >> 16) & 0xFF));
+//				buffer.put((byte)((pixel >> 8) & 0xFF));
+//				buffer.put((byte)((pixel) & 0xFF));
+//				
+//				if(hasAlpha){
+//					buffer.put((byte)((pixel >> 24) & 0xFF));
+//				}else{
+//					buffer.put((byte)(0xFF));
+//				}
+//			}
+//		}
+//		
+//		buffer.flip();
 		
-		final int[] pixels = image.getRGB(0, 0, width, height, null, 0, width);
+		final IntBuffer w = DataUtil.createIntBuffer(1);
+		final IntBuffer h = DataUtil.createIntBuffer(1);
+		final IntBuffer comp = DataUtil.createIntBuffer(1);
 		
-		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
-		final boolean hasAlpha = image.getColorModel().hasAlpha();
+		final ByteBuffer data = STBImage.stbi_load(file, w, h, comp, STBImage.STBI_rgb_alpha);
 		
-		for(int y = 0; y < height; y++){
-			for(int x = 0; x < width; x++){
-				final int pixel = pixels[y * width + x];
-				
-				buffer.put((byte)((pixel >> 16) & 0xFF));
-				buffer.put((byte)((pixel >> 8) & 0xFF));
-				buffer.put((byte)((pixel) & 0xFF));
-				
-				if(hasAlpha){
-					buffer.put((byte)((pixel >> 24) & 0xFF));
-				}else{
-					buffer.put((byte)(0xFF));
-				}
-			}
+		final int width = w.get();
+		final int height = h.get();
+		
+		if(data == null){
+			NeonEngine.throwError("Error: unable to read " + file + " " + STBImage.stbi_failure_reason());
 		}
 		
-		buffer.flip();
-		
-		return new ImageData(width, height, buffer);
+		return new ImageData(width, height, data);
 	}
 	
-	public static ImageData imageToByteBuffer(String file){
-		BufferedImage image = null;
-		
-		try{
-			image = ImageIO.read(new File(file));
-		}catch(IOException e){
-			NeonEngine.throwError("Error: unable to read " + file);
-		}
-		
+	public static ImageData bufferedImageToByteBuffer(BufferedImage image){
 		final int width = image.getWidth();
 		final int height = image.getHeight();
 		
@@ -337,6 +349,10 @@ public class ImageUtil{
 			this.width = width;
 			this.height = height;
 			this.data = data;
+		}
+		
+		public void cleanUp(){
+			STBImage.stbi_image_free(data);
 		}
 	}
 }

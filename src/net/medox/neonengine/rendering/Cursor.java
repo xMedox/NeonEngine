@@ -43,7 +43,9 @@ public class Cursor{
 			final GLFWImage image = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
 			final long cursor = GLFW.glfwCreateCursor(image, xPos, yPos);
+			
 			image.free();
+			pixels.cleanUp();
 			
 			if(cursor == MemoryUtil.NULL){
 				NeonEngine.throwError("Error: Failed to create the cursor.");

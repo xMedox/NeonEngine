@@ -280,6 +280,8 @@ public class Window{
 		GLFW.glfwSetWindowIcon(window, icons);
 		
 		icons.free();
+		pixels16.cleanUp();
+		pixels32.cleanUp();
 	}
 	
 	private static void setIcon(BufferedImage icon16, BufferedImage icon32){

@@ -5,11 +5,11 @@ import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.stb.STBImageResize;
 import org.lwjgl.system.MemoryUtil;
 
+import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.rendering.resourceManagement.CubeMapData;
 
@@ -206,9 +206,9 @@ public class CubeMap{
 //			
 //			buffer.flip();
 			
-			IntBuffer w = BufferUtils.createIntBuffer(1);
-			IntBuffer h = BufferUtils.createIntBuffer(1);
-			IntBuffer comp = BufferUtils.createIntBuffer(1);
+			final IntBuffer w = DataUtil.createIntBuffer(1);
+			final IntBuffer h = DataUtil.createIntBuffer(1);
+			final IntBuffer comp = DataUtil.createIntBuffer(1);
 			
 			ByteBuffer data = STBImage.stbi_load("./res/textures/" + fileNames[i], w, h, comp, STBImage.STBI_rgb_alpha);
 			
@@ -230,7 +230,7 @@ public class CubeMap{
 					heightSave = 1;
 				}
 				
-			    ByteBuffer tmp = MemoryUtil.memAlloc(widthSave * heightSave * STBImage.STBI_rgb_alpha);
+				final ByteBuffer tmp = MemoryUtil.memAlloc(widthSave * heightSave * STBImage.STBI_rgb_alpha);
 				
 			    STBImageResize.stbir_resize_uint8(data, width[i], height[i], 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb_alpha);
 			    
@@ -252,7 +252,7 @@ public class CubeMap{
 						heightSave2 = 1;
 					}
 					
-				    ByteBuffer tmp2 = MemoryUtil.memAlloc(widthSave2 * heightSave2 * STBImage.STBI_rgb_alpha);
+					final ByteBuffer tmp2 = MemoryUtil.memAlloc(widthSave2 * heightSave2 * STBImage.STBI_rgb_alpha);
 					
 				    STBImageResize.stbir_resize_uint8(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb_alpha);
 				    

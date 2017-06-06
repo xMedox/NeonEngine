@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.stb.STBImageResize;
 import org.lwjgl.system.MemoryUtil;
@@ -251,9 +250,9 @@ public class Texture{
 //		
 //		buffer.flip();
 		
-		IntBuffer w = BufferUtils.createIntBuffer(1);
-		IntBuffer h = BufferUtils.createIntBuffer(1);
-		IntBuffer comp = BufferUtils.createIntBuffer(1);
+		final IntBuffer w = DataUtil.createIntBuffer(1);
+		final IntBuffer h = DataUtil.createIntBuffer(1);
+		final IntBuffer comp = DataUtil.createIntBuffer(1);
 		
 		ByteBuffer data = STBImage.stbi_load("./res/textures/" + fileName, w, h, comp, STBImage.STBI_rgb_alpha);
 		
@@ -275,7 +274,7 @@ public class Texture{
 				heightSave = 1;
 			}
 			
-		    ByteBuffer tmp = MemoryUtil.memAlloc(widthSave * heightSave * STBImage.STBI_rgb_alpha);
+			final ByteBuffer tmp = MemoryUtil.memAlloc(widthSave * heightSave * STBImage.STBI_rgb_alpha);
 			
 		    STBImageResize.stbir_resize_uint8(data, width, height, 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb_alpha);
 		    
@@ -297,7 +296,7 @@ public class Texture{
 					heightSave2 = 1;
 				}
 				
-			    ByteBuffer tmp2 = MemoryUtil.memAlloc(widthSave2 * heightSave2 * STBImage.STBI_rgb_alpha);
+				final ByteBuffer tmp2 = MemoryUtil.memAlloc(widthSave2 * heightSave2 * STBImage.STBI_rgb_alpha);
 				
 			    STBImageResize.stbir_resize_uint8(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb_alpha);
 			    
@@ -386,9 +385,9 @@ public class Texture{
 	}
 	
 	private FloatBuffer loadHDRTexture(String fileName){
-		IntBuffer w = BufferUtils.createIntBuffer(1);
-		IntBuffer h = BufferUtils.createIntBuffer(1);
-		IntBuffer comp = BufferUtils.createIntBuffer(1);
+		final IntBuffer w = DataUtil.createIntBuffer(1);
+		final IntBuffer h = DataUtil.createIntBuffer(1);
+		final IntBuffer comp = DataUtil.createIntBuffer(1);
 		
 		FloatBuffer data = STBImage.stbi_loadf("./res/textures/" + fileName, w, h, comp, STBImage.STBI_rgb);
 		
@@ -410,7 +409,7 @@ public class Texture{
 				heightSave = 1;
 			}
 			
-			FloatBuffer tmp = MemoryUtil.memAllocFloat(widthSave * heightSave * STBImage.STBI_rgb);
+			final FloatBuffer tmp = MemoryUtil.memAllocFloat(widthSave * heightSave * STBImage.STBI_rgb);
 			
 		    STBImageResize.stbir_resize_float(data, width, height, 0, tmp, widthSave, heightSave, 0, STBImage.STBI_rgb);
 		    
@@ -432,7 +431,7 @@ public class Texture{
 					heightSave2 = 1;
 				}
 				
-				FloatBuffer tmp2 = MemoryUtil.memAllocFloat(widthSave2 * heightSave2 * STBImage.STBI_rgb);
+				final FloatBuffer tmp2 = MemoryUtil.memAllocFloat(widthSave2 * heightSave2 * STBImage.STBI_rgb);
 				
 			    STBImageResize.stbir_resize_float(tmp, widthSave, heightSave, 0, tmp2, widthSave2, heightSave2, 0, STBImage.STBI_rgb);
 			    
