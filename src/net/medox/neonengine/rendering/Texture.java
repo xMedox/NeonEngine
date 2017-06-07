@@ -1,6 +1,5 @@
 package net.medox.neonengine.rendering;
 
-import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -15,6 +14,7 @@ import org.lwjgl.system.MemoryUtil;
 
 import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
+import net.medox.neonengine.rendering.ImageUtil.ImageData;
 import net.medox.neonengine.rendering.resourceManagement.TextureData;
 
 public class Texture{
@@ -92,11 +92,11 @@ public class Texture{
 		this(fileName, RenderingEngine.TEXTURE_2D, nearest ? RenderingEngine.NEAREST : RenderingEngine.LINEAR);
 	}
 	
-	public Texture(BufferedImage image){		
+	public Texture(ImageData image){		
 		this(image, true);
 	}
 	
-	public Texture(BufferedImage image, boolean nearest){
+	public Texture(ImageData image, boolean nearest){
 		final ByteBuffer texture = loadTexture(image);
 		
 		fileName = "";
@@ -312,76 +312,83 @@ public class Texture{
 		return data;
 	}
 	
-	private ByteBuffer loadTexture(BufferedImage image){
-//		if(NeonEngine.getTextureQuality() >= 1){
-//			BufferedImage before = image;
-//			int w = before.getWidth()/2;
-//			int h = before.getHeight()/2;
-//			
-//			if(w <= 0){
-//				w = 1;
-//			}
-//			if(h <= 0){
-//				h = 1;
-//			}
-//			
-//			BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-//			AffineTransform at = new AffineTransform();
-//			at.scale((double)w/(double)image.getWidth(), (double)h/(double)image.getHeight());
-//			AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-//			after = scaleOp.filter(before, after);
-//			
-//			image = after;
-//			
-//			if(NeonEngine.getTextureQuality() >= 2){
-//				before = image;
-//				w = before.getWidth()/2;
-//				h = before.getHeight()/2;
+//	private ByteBuffer loadTexture(BufferedImage image){
+////		if(NeonEngine.getTextureQuality() >= 1){
+////			BufferedImage before = image;
+////			int w = before.getWidth()/2;
+////			int h = before.getHeight()/2;
+////			
+////			if(w <= 0){
+////				w = 1;
+////			}
+////			if(h <= 0){
+////				h = 1;
+////			}
+////			
+////			BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+////			AffineTransform at = new AffineTransform();
+////			at.scale((double)w/(double)image.getWidth(), (double)h/(double)image.getHeight());
+////			AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+////			after = scaleOp.filter(before, after);
+////			
+////			image = after;
+////			
+////			if(NeonEngine.getTextureQuality() >= 2){
+////				before = image;
+////				w = before.getWidth()/2;
+////				h = before.getHeight()/2;
+////				
+////				if(w <= 0){
+////					w = 1;
+////				}
+////				if(h <= 0){
+////					h = 1;
+////				}
+////				
+////				after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+////				at = new AffineTransform();
+////				at.scale((double)w/(double)image.getWidth(), (double)h/(double)image.getHeight());
+////				scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+////				after = scaleOp.filter(before, after);
+////				
+////				image = after;
+////			}
+////		}
+//		
+//		width = image.getWidth();
+//		height = image.getHeight();
+//		
+//		final int[] pixels = image.getRGB(0, 0, width, height, null, 0, width);
+//		
+//		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
+//		final boolean hasAlpha = image.getColorModel().hasAlpha();
+//		
+//		for(int y = 0; y < height; y++){
+//			for(int x = 0; x < width; x++){
+//				final int pixel = pixels[y * width + x];
 //				
-//				if(w <= 0){
-//					w = 1;
+//				buffer.put((byte)((pixel >> 16) & 0xFF));
+//				buffer.put((byte)((pixel >> 8) & 0xFF));
+//				buffer.put((byte)((pixel) & 0xFF));
+//				
+//				if(hasAlpha){
+//					buffer.put((byte)((pixel >> 24) & 0xFF));
+//				}else{
+//					buffer.put((byte)(0xFF));
 //				}
-//				if(h <= 0){
-//					h = 1;
-//				}
-//				
-//				after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-//				at = new AffineTransform();
-//				at.scale((double)w/(double)image.getWidth(), (double)h/(double)image.getHeight());
-//				scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-//				after = scaleOp.filter(before, after);
-//				
-//				image = after;
 //			}
 //		}
+//		
+//		buffer.flip();
+//		
+//		return buffer;
+//	}
+	
+	private ByteBuffer loadTexture(ImageData image){
+		width = image.width;
+		height = image.height;
 		
-		width = image.getWidth();
-		height = image.getHeight();
-		
-		final int[] pixels = image.getRGB(0, 0, width, height, null, 0, width);
-		
-		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
-		final boolean hasAlpha = image.getColorModel().hasAlpha();
-		
-		for(int y = 0; y < height; y++){
-			for(int x = 0; x < width; x++){
-				final int pixel = pixels[y * width + x];
-				
-				buffer.put((byte)((pixel >> 16) & 0xFF));
-				buffer.put((byte)((pixel >> 8) & 0xFF));
-				buffer.put((byte)((pixel) & 0xFF));
-				
-				if(hasAlpha){
-					buffer.put((byte)((pixel >> 24) & 0xFF));
-				}else{
-					buffer.put((byte)(0xFF));
-				}
-			}
-		}
-		
-		buffer.flip();
-		
-		return buffer;
+		return image.data;
 	}
 	
 	private FloatBuffer loadHDRTexture(String fileName){

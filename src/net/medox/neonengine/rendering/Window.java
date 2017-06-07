@@ -1,6 +1,5 @@
 package net.medox.neonengine.rendering;
 
-import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 
 import net.medox.neonengine.core.NeonEngine;
@@ -117,7 +116,7 @@ public class Window{
 		}
 		
 		if(startIcon16.equals("") || startIcon32.equals("")){
-			setIcon(ImageUtil.getDefaultIcon16(), ImageUtil.getDefaultIcon32());
+			setIcon(ImageUtil.valuesToImageData(ImageUtil.getDefaultIconRed(), ImageUtil.getDefaultIconGreen(), ImageUtil.getDefaultIconBlue()), ImageUtil.valuesToImageData(ImageUtil.getDefaultIcon32Red(), ImageUtil.getDefaultIcon32Green(), ImageUtil.getDefaultIcon32Blue()));
 		}else{
 			setIcon(startIcon16, startIcon32);
 		}
@@ -269,10 +268,10 @@ public class Window{
 	public static void setIcon(String icon16, String icon32){
 		final GLFWImage.Buffer icons = GLFWImage.malloc(2);
 		
-		final ImageData pixels16 = ImageUtil.imageToByteBuffer("./res/" + icon16);
+		final ImageData pixels16 = ImageUtil.imageToImageData(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
-		final ImageData pixels32 = ImageUtil.imageToByteBuffer("./res/" + icon32);
+		final ImageData pixels32 = ImageUtil.imageToImageData(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 	    
 		icons.position(0);
@@ -284,14 +283,16 @@ public class Window{
 		pixels32.cleanUp();
 	}
 	
-	private static void setIcon(BufferedImage icon16, BufferedImage icon32){
+	private static void setIcon(ImageData icon16, ImageData icon32){
 		final GLFWImage.Buffer icons = GLFWImage.malloc(2);
 		
-		final ImageData pixels16 = ImageUtil.bufferedImageToByteBuffer(icon16);
-		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
+//		final ImageData pixels16 = ImageUtil.bufferedImageToByteBuffer(icon16);
+//		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
+		icons.position(0).width(icon16.width).height(icon16.height).pixels(icon16.data);
 		
-		final ImageData pixels32 = ImageUtil.bufferedImageToByteBuffer(icon32);
-		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
+//		final ImageData pixels32 = ImageUtil.bufferedImageToByteBuffer(icon32);
+//		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
+		icons.position(1).width(icon32.width).height(icon32.height).pixels(icon32.data);
 		
 		icons.position(0);
 		

@@ -1,7 +1,6 @@
 package net.medox.neonengine.rendering;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -11,32 +10,34 @@ import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.core.NeonEngine;
 
 public class ImageUtil{
-	public static BufferedImage createImage(int[][] red, int[][] green, int[][] blue, int width, int height){
-		final BufferedImage ret = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	    
-		final WritableRaster raster = ret.getRaster();
-		
-	    for(int i = 0; i < height; i++){
-	        for(int j = 0; j < width; j++){
-                raster.setSample(j, i, 0, red[i][j]);
-                raster.setSample(j, i, 1, green[i][j]);
-                raster.setSample(j, i, 2, blue[i][j]);
-	        }
-	    }
-	    
-	    return ret;
-	}
+//	public static BufferedImage createImage(int[][] red, int[][] green, int[][] blue, int width, int height){
+//		final BufferedImage ret = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//	    
+//		final WritableRaster raster = ret.getRaster();
+//		
+//	    for(int i = 0; i < height; i++){
+//	        for(int j = 0; j < width; j++){
+//                raster.setSample(j, i, 0, red[i][j]);
+//                raster.setSample(j, i, 1, green[i][j]);
+//                raster.setSample(j, i, 2, blue[i][j]);
+//	        }
+//	    }
+//	    
+//	    return ret;
+//	}
 	
 //	public static Texture createWhite(){
 //		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
 //	}
 	
 	public static Texture createDefaultDiffuseMap(){
-		return new Texture(createImage(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}, 2, 2));
+//		return new Texture(createImage(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}, 2, 2));
+		return new Texture(ImageUtil.valuesToImageData(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}));
 	}
 	
 	public static Texture createDefaultNormalMap(){
-		return new Texture(createImage(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
+//		return new Texture(createImage(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
+		return new Texture(ImageUtil.valuesToImageData(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{255, 255}, {255, 255}}));
 	}
 	
 //	public static Texture createDefaultDisplacementMap(){	
@@ -44,15 +45,18 @@ public class ImageUtil{
 //	}
 	
 	public static Texture createDefaultRoughnessMap(){
-		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+//		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+		return new Texture(ImageUtil.valuesToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
 	}
 	
 	public static Texture createDefaultMetallicMap(){
-		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+//		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+		return new Texture(ImageUtil.valuesToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
 	}
 	
 	public static Texture createDefaultEmissiveMap(){
-		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+//		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
+		return new Texture(ImageUtil.valuesToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
 	}
 	
 //	public static Texture createDefaultCubeMap(){
@@ -82,13 +86,13 @@ public class ImageUtil{
 //		return result;
 //	}
 	
-	public static BufferedImage getDefaultIcon16(){
-		return createImage(getDefaultIconRed(), getDefaultIconGreen(), getDefaultIconBlue(), 16, 16);
-	}
-	
-	public static BufferedImage getDefaultIcon32(){
-		return createImage(getDefaultIcon32Red(), getDefaultIcon32Green(), getDefaultIcon32Blue(), 32, 32);
-	}
+//	public static BufferedImage getDefaultIcon16(){
+//		return createImage(getDefaultIconRed(), getDefaultIconGreen(), getDefaultIconBlue(), 16, 16);
+//	}
+//	
+//	public static BufferedImage getDefaultIcon32(){
+//		return createImage(getDefaultIcon32Red(), getDefaultIcon32Green(), getDefaultIcon32Blue(), 32, 32);
+//	}
 	
 //	public static BufferedImage getDefaultIcon128(){
 //		final BufferedImage before = getDefaultIcon16();
@@ -259,7 +263,7 @@ public class ImageUtil{
 						   { 21, 23, 25, 27, 29, 32, 34, 35, 37, 38, 39, 40, 40, 40, 40, 40, 39, 38, 37, 38, 36, 35, 34, 33, 32, 29, 28, 27, 25, 23, 22, 20}};
 	}
 	
-	public static ImageData imageToByteBuffer(String file){
+	public static ImageData imageToImageData(String file){
 //		BufferedImage image = null;
 //		
 //		try{
@@ -298,7 +302,7 @@ public class ImageUtil{
 		final IntBuffer h = DataUtil.createIntBuffer(1);
 		final IntBuffer comp = DataUtil.createIntBuffer(1);
 		
-		final ByteBuffer data = STBImage.stbi_load(file, w, h, comp, STBImage.STBI_rgb_alpha);
+		final ByteBuffer data = STBImage.stbi_load("./res/" + file, w, h, comp, STBImage.STBI_rgb_alpha);
 		
 		final int width = w.get();
 		final int height = h.get();
@@ -310,7 +314,7 @@ public class ImageUtil{
 		return new ImageData(width, height, data);
 	}
 	
-	public static ImageData bufferedImageToByteBuffer(BufferedImage image){
+	public static ImageData bufferedImageToImageData(BufferedImage image){
 		final int width = image.getWidth();
 		final int height = image.getHeight();
 		
@@ -332,6 +336,26 @@ public class ImageUtil{
 				}else{
 					buffer.put((byte)(0xFF));
 				}
+			}
+		}
+		
+		buffer.flip();
+		
+		return new ImageData(width, height, buffer);
+	}
+	
+	public static ImageData valuesToImageData(int[][] r, int[][] g, int[][] b){
+		final int width = r[0].length;
+		final int height = r.length;
+		
+		final ByteBuffer buffer = DataUtil.createByteBuffer(height * width * 4);
+		
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
+				buffer.put((byte)(r[y][x]));
+				buffer.put((byte)(g[y][x]));
+				buffer.put((byte)(b[y][x]));
+				buffer.put((byte)(255));
 			}
 		}
 		
