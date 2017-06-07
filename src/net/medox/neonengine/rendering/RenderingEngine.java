@@ -171,8 +171,6 @@ public class RenderingEngine{
 		
 		lights = new ArrayList<BaseLight>();
 		
-		setVector3f("ambient", new Vector3f(0.15f, 0.15f, 0.15f));
-		
 		setFloat("fxaaSpanMax", 8.0f);
 		setFloat("fxaaReduceMin", 1.0f/128.0f);
 		setFloat("fxaaReduceMul", 1.0f/8.0f);

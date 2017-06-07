@@ -4,8 +4,6 @@ in vec2 texCoord0;
 flat in int tid0;
 in vec3 color0;
 
-uniform vec3 R_ambient;
-
 uniform sampler2D T_textures[R_MAX_TEXTURE_IMAGE_UNITS];
 
 layout(location = 0) out vec4 outputFS;
@@ -17,8 +15,8 @@ void main(){
 	if(diffuse.a >= 0.5){
 		vec3 color = pow(diffuse.rgb, vec3(2.2));
 		
-		//outputFS = vec4(color, diffuse.a) * clamp((vec4(R_ambient, 1.0) + color0.z), 0.0, 1.0);
-		outputFS = vec4(color, 1.0) * clamp((vec4(R_ambient, 1.0) + color0.z), 0.0, 1.0);
+		//outputFS = vec4(color, diffuse.a);
+		outputFS = vec4(color, 1.0);
 		outputBloom = vec4(0.0, 0.0, 0.0, 0.0);
 	}else{
 		discard;
