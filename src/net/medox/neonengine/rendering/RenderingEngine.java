@@ -90,6 +90,7 @@ public class RenderingEngine{
 	private static Shader shader2D;
 	private static Shader gausBlurFilter;
 	private static Shader nullFilter;
+	private static Shader bloomFilter;
 	private static Shader fxaaFilter;
 	private static Shader hdrFilter;
 	
@@ -200,6 +201,7 @@ public class RenderingEngine{
 		shader2D = new Shader("shader2D");
 		gausBlurFilter = new Shader("filterGausBlur");
 		nullFilter = new Shader("filterNull");
+		bloomFilter = new Shader("filterBloom");
 		fxaaFilter = new Shader("filterFxaa");
 		hdrFilter = new Shader("filterHdr");
 		
@@ -432,6 +434,8 @@ public class RenderingEngine{
 		}
 		
 		if(NeonEngine.isBloomEnabled()){
+			applyFilter(bloomFilter, getTexture("displayTexture"), getTexture("displayTexture"));
+			
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
 			blurBloomMap(0.004f);
