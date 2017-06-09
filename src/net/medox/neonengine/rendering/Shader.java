@@ -109,16 +109,10 @@ public class Shader{
 					}else if(uniformType.equals("samplerCube")){
 						if(unprefixedUniformName.equals("prefilterMap")){
 							final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-//							RenderingEngine.getCubeMap(unprefixedUniformName).bind(samplerSlot);//TODO add this
-//							RenderingEngine.getMainSkybox().getCubeMap().bind(samplerSlot);
 							RenderingEngine.getMainSkybox().getPrefilterMap().bind(samplerSlot);
-//							RenderingEngine.getIrradiance().bind(samplerSlot);
 							setUniformi(uniformName, samplerSlot);
 						}else if(unprefixedUniformName.equals("irradianceMap")){
 							final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
-//							RenderingEngine.getCubeMap(unprefixedUniformName).bind(samplerSlot);//TODO add this
-							//RenderingEngine.getMainSkybox().getCubeMap().bind(samplerSlot);
-//							RenderingEngine.getIrradiance().bind(samplerSlot);
 							RenderingEngine.getMainSkybox().getIrradianceMap().bind(samplerSlot);
 							setUniformi(uniformName, samplerSlot);
 						}else{
