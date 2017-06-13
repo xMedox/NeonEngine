@@ -95,7 +95,7 @@ public class Skybox{
 //		
 //		stbi_image_free(data);
 		
-		Texture hdrTexture = new Texture(filename + ".hdr", GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true);
+		Texture hdrTexture = new Texture("skyboxes/" + filename + ".hdr", GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true);
 		
 		
 		material = new Material();

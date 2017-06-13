@@ -26,3 +26,4 @@
 - Renamed the inputKey method to getInputKey, the inputKeyDown method to getInputKeyDown and the inputKeyUp method to getInputKeyUp
 - You can now set the InputKeys and the speed of the PlayerComponent
 - The Skybox class now only takes in one file
+- The skyboxes are now stored in a separate skyboxes folder
