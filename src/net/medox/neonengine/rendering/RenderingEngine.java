@@ -191,7 +191,7 @@ public class RenderingEngine{
 		setRenderTextures();
 		
 		forwardAmbientShader = new Shader("geometryPass");
-		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
+		forwardParticleAmbientShader = new Shader("geometryPassParticle");
 		ambientShader = new Shader("ambient");
 		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMappingShader =  new Shader("shadowMapping");
@@ -316,12 +316,10 @@ public class RenderingEngine{
 		
 		object.renderAll(forwardAmbientShader, mainCamera);
 		
-		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
+		if(NeonEngine.areParticlesEnabled()){
+			batchRenderer.render(particleShader, mainCamera);
+		}
 		
-//		if(NeonEngine.areParticlesEnabled()){
-//			batchRenderer.render(particleShader, mainCamera);
-//		}
-//		
 //		for(int i = 0; i < lights.size(); i++){
 //			activeLight = lights.get(i);
 //			
@@ -452,6 +450,8 @@ public class RenderingEngine{
 			
 			windowSyncProfileTimer.startInvocation();
 		}
+		
+		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
 //		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
 		applyFilter(nullFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
