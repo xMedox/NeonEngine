@@ -142,12 +142,12 @@ public class Texture{
 		}
 	}
 	
-	@Override
-	protected void finalize() throws Throwable{
-		cleanUp();
-		
-		super.finalize();
-	}
+//	@Override
+//	protected void finalize() throws Throwable{
+//		cleanUp();
+//		
+//		super.finalize();
+//	}
 	
 	public void bind(int samplerSlot){
 		resource.bind(samplerSlot);
