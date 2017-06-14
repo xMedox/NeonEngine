@@ -80,7 +80,7 @@ public class SoundEngine{
 		listenerVelocity = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		listenerVelocity.flip();
 		
-		listenerRotation = DataUtil.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f});
+		listenerRotation = DataUtil.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, -1.0f,  0.0f, 1.0f, 0.0f});
 		listenerRotation.flip();
 	}
 	
@@ -101,9 +101,9 @@ public class SoundEngine{
 	}
 	
 	public static void setRotation(Quaternion value){
-		listenerRotation.put(0, -value.getForward().getX());
-		listenerRotation.put(1, -value.getForward().getY());
-		listenerRotation.put(2, -value.getForward().getZ());
+		listenerRotation.put(0, value.getBack().getX());
+		listenerRotation.put(1, value.getBack().getY());
+		listenerRotation.put(2, value.getBack().getZ());
 		listenerRotation.put(3, value.getUp().getX());
 		listenerRotation.put(4, value.getUp().getY());
 		listenerRotation.put(5, value.getUp().getZ());

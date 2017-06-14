@@ -72,8 +72,7 @@ public class Skybox{
 //		FloatBuffer data = stbi_loadf("res/textures/" + filename + ".hdr", w, h, comp, 0);
 //		
 //		if(data == null){
-//			System.out.println("ERROR");
-//			//TODO call the error method
+//			NeonEngine.throwError("Error: unable to read " + filename + ".hdr" + " " + STBImage.stbi_failure_reason());
 //		}
 //		
 //		int width = w.get();

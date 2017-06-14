@@ -23,7 +23,7 @@ public class NeonEngine{
 	private static ProfileTimer enginePhysicTimer;
 	
 	private static boolean optionEnableProfiling = false;
-	private static boolean optionEnableVSync = true;
+	private static boolean optionEnableVSync = false;
 	private static boolean optionEnableFXAA = true;
 	private static boolean optionEnableShadows = true;
 	private static boolean optionEnable2D = true;
