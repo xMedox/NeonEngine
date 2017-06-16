@@ -110,8 +110,6 @@ public class RenderingEngine{
 	
 	private static boolean wireframeMode;
 	
-//	private static CubeMap irradiance;
-	
 	public static void init(){
 		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
 		
@@ -705,10 +703,6 @@ public class RenderingEngine{
 	public static Skybox getMainSkybox(){
 		return skybox;
 	}
-	
-//	public static CubeMap getIrradiance(){
-//		return irradiance;
-//	}
 	
 	public static Font getMainFont(){
 		return font;

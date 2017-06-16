@@ -65,37 +65,7 @@ public class Skybox{
 			mesh = new Mesh("", model.finalizeModel());
 		}
 		
-//		IntBuffer w = BufferUtils.createIntBuffer(1);
-//		IntBuffer h = BufferUtils.createIntBuffer(1);
-//		IntBuffer comp = BufferUtils.createIntBuffer(1);
-//		
-//		FloatBuffer data = stbi_loadf("res/textures/" + filename + ".hdr", w, h, comp, 0);
-//		
-//		if(data == null){
-//			NeonEngine.throwError("Error: unable to read " + filename + ".hdr" + " " + STBImage.stbi_failure_reason());
-//		}
-//		
-//		int width = w.get();
-//		int height = h.get();
-//		
-//		
-//		int hdrTexture = GL11.glGenTextures();
-//		
-//		GL11.glBindTexture(GL11.GL_TEXTURE_2D, hdrTexture);
-////		RenderingEngine.textureBound.put(0, textureID[i]);
-//		
-//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-//		
-//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
-//		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
-//		
-//		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL30.GL_RGB16F, width, height, 0, GL11.GL_RGB, GL11.GL_FLOAT, data);
-//		
-//		stbi_image_free(data);
-		
 		Texture hdrTexture = new Texture("skyboxes/" + filename + ".hdr", GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true);
-		
 		
 		material = new Material();
 		
@@ -130,8 +100,6 @@ public class Skybox{
 			
 			equirectangular.updateUniforms(transform, material, camera);
 			
-//			GL13.glActiveTexture(GL13.GL_TEXTURE0 + 0);
-//			GL11.glBindTexture(GL11.GL_TEXTURE_2D, hdrTexture);
 			hdrTexture.bind(0);
 			
 			mesh.draw();
@@ -139,14 +107,12 @@ public class Skybox{
 		
 		equirectangular.cleanUp();
 		
-//		GL11.glDeleteTextures(hdrTexture);
 		hdrTexture.cleanUp();
 		
 		//TODO stop generating the mipmaps before
 		cubeMap.generateMipmap();
 		
 		material.setCubeMap("cubeMap", cubeMap);
-		
 		
 		Shader irradianceShader = new Shader("irradiance");
 		
@@ -178,8 +144,6 @@ public class Skybox{
 		}
 		
 		irradianceShader.cleanUp();
-		
-		
 		
 		Shader prefilterShader = new Shader("prefilter");
 		
