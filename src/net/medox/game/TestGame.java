@@ -230,6 +230,21 @@ public class TestGame extends Game{
 		neonObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(90)));
 		neonObject.addComponent(neonRenderer);
 		
+		Material emissiveMaterial = new Material();
+//		emissiveMaterial.setDiffuseMap(new Texture("white.png"));
+		emissiveMaterial.setRoughness(1);
+//		emissiveMaterial.setMetallic(1);
+		
+		Mesh pbrMesh = new Mesh("pbr.obj");
+		
+		MeshRenderer emissiveRenderer = new MeshRenderer(pbrMesh, emissiveMaterial);
+		
+		Entity emissiveObject = new Entity();
+		emissiveObject.getTransform().setPos(4, -1, -10);
+		emissiveObject.addComponent(emissiveRenderer);
+		
+		emissiveObject.addComponent(new EmissiveComponent(emissiveMaterial));
+		
 		Mesh meshDrake = new Mesh("dragon.obj");
 		Material materialDrake = new Material();
 		materialDrake.setDiffuseMap(new Texture("dragon.png"));
@@ -355,7 +370,7 @@ public class TestGame extends Game{
 		Entity monkeyObject = new Entity().addComponent(new LookAtComponent()).addComponent(meshRenderer2);
 		monkeyObject.getTransform().setPos(0, 0, 5);
 		
-		Mesh pbrMesh = new Mesh("pbr.obj");
+//		Mesh pbrMesh = new Mesh("pbr.obj");
 //		Texture plastic = new Texture("B.png");
 //		Texture metal = new Texture("gold.png");
 		
@@ -539,6 +554,7 @@ public class TestGame extends Game{
 		addEntity(planeObject);
 		addEntity(planeObjectx);
 		addEntity(neonObject);
+		addEntity(emissiveObject);
 		addEntity(directionalLightObject);
 		addEntity(pointLightObject);
 		addEntity(spotLightObject);

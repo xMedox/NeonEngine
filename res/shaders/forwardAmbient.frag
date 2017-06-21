@@ -17,6 +17,7 @@ uniform sampler2D R_brdfLUT;
 uniform vec3 C_eyePos;
 uniform float roughness;
 uniform float metallic;
+uniform float emissive;
 
 layout(location = 0) out vec4 outputFS;
 layout(location = 1) out vec4 outputBloom;
@@ -64,13 +65,13 @@ void main(){
 		vec3 ambient = kD * diffuseUsed + specular;
 		
 		
-		vec4 emissive = texture(emissiveMap, texCoord0);
+		float emiss = texture(emissiveMap, texCoord0).r + emissive;
 		
-		outputFS = vec4(ambient, 1.0) + diffuse * vec4(emissive.r, emissive.r, emissive.r, 1.0);
+		outputFS = vec4(ambient, 1.0) + diffuse * vec4(emiss, emiss, emiss, 1.0);
 		
-		//if(dot(emissive.r, 0.8*2.0) > 1.0){
-		if(emissive.r > 0){
-			outputBloom = diffuse * vec4(emissive.r, emissive.r, emissive.r, 1.0);
+		//if(dot(emiss, 0.8*2.0) > 1.0){
+		if(emiss > 0){
+			outputBloom = diffuse * vec4(emiss, emiss, emiss, 1.0);
 		}else{
 			outputBloom = vec4(0.0, 0.0, 0.0, 0.0);
 		}

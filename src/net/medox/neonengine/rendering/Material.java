@@ -17,6 +17,7 @@ public class Material{
 	
 	public static final float DEFAULT_ROUGHNESS = 0;
 	public static final float DEFAULT_METALLIC = 0;
+	public static final float DEFAULT_EMISSIVE = 0;
 	
 //	public static final float DEFAULT_DISP_MAP_SCALE = 0.0f;
 //	public static final float DEFAULT_DISP_MAP_OFFSET = 0.0f;
@@ -41,6 +42,7 @@ public class Material{
 		
 		setFloat("roughness", DEFAULT_ROUGHNESS);
 		setFloat("metallic", DEFAULT_METALLIC);
+		setFloat("emissive", DEFAULT_EMISSIVE);
 		
 //		/*float baseBias = defaultDispMapScale/2.0f;*/
 //		setFloat("dispMapScale", DEFAULT_DISP_MAP_SCALE);
@@ -76,6 +78,10 @@ public class Material{
 		setFloat("metallic", value);
 	}
 	
+	public void setEmissive(float value){
+		setFloat("emissive", value);
+	}
+	
 	public Texture getDiffuseMap(){
 		return getTexture("diffuse");
 	}
@@ -102,6 +108,10 @@ public class Material{
 	
 	public float getMetallic(){
 		return getFloat("metallic");
+	}
+	
+	public float getEmissive(){
+		return getFloat("emissive");
 	}
 	
 //	@Override

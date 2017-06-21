@@ -10,6 +10,7 @@
 - The Texture class now supports hdr files
 - All textures now get loaded by the stb_image library(Makes texture loading faster)
 - VSync is now disabled by default
+- Added the emissive value to the Material class
 
 **Physics:**
 - Added the getRestitution method to the Collider class
