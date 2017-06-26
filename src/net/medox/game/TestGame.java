@@ -743,6 +743,7 @@ public class TestGame extends Game{
 		MeshRenderer2D c3 = new MeshRenderer2D(new Texture("medox.png"));
 		Lock2D l3 = new Lock2D(0, 0, new Vector2f(0f, 0f));
 		e3.addComponent(c3).addComponent(l3);
+		e3.addComponent(new Move2D());
 		
 		e3.getTransform().setPos(new Vector2f(0, 0));
 		e3.getTransform().setScale(new Vector2f(256, 256));
