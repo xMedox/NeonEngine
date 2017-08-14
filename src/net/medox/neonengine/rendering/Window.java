@@ -41,7 +41,7 @@ public class Window{
 	private static int maxWidth = DONT_CARE;
 	private static int maxHeight = DONT_CARE;
 	
-	private static boolean isFullscreen;
+	private static boolean fullscreen;
 	private static boolean gotResized;
 	
 	private static boolean startResizable;
@@ -81,7 +81,7 @@ public class Window{
 			GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
 		}
         
-		if(isFullscreen){
+		if(fullscreen){
 			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 			window = GLFW.glfwCreateWindow(vidMode.width(), vidMode.height(), title, GLFW.glfwGetPrimaryMonitor(), MemoryUtil.NULL);
 			
@@ -106,7 +106,7 @@ public class Window{
 			NeonEngine.throwError("Error: Failed to create the GLFW window.");
 		}
 		
-		if(!isFullscreen){
+		if(!fullscreen){
 			final GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 		    
 			xPos = (vidMode.width() - width) / 2;
@@ -219,7 +219,7 @@ public class Window{
 	
 	public static void setStartFullscreen(boolean value){
 		if(!gotCreated){
-			isFullscreen = value;
+			fullscreen = value;
 		}
 	}
 	
@@ -340,7 +340,7 @@ public class Window{
 	
 	public static void setFullscreen(boolean value){
 		if(value){
-			if(!isFullscreen){
+			if(!fullscreen){
 				oldXPos = xPos;
 				oldYPos = yPos;
 				oldWidth = width;
@@ -355,10 +355,10 @@ public class Window{
 					GLFW.glfwSwapInterval(0);
 				}
 				
-				isFullscreen = true;
+				fullscreen = true;
 			}
 		}else{
-			if(isFullscreen){
+			if(fullscreen){
 				xPos = oldXPos;
 				yPos = oldYPos;
 				width = oldWidth;
@@ -372,7 +372,7 @@ public class Window{
 					GLFW.glfwSwapInterval(0);
 				}
 				
-				isFullscreen = false;
+				fullscreen = false;
 			}
 		}
 	}
@@ -432,7 +432,7 @@ public class Window{
 	}
 	
 	public static boolean isFullscreen(){
-		return isFullscreen;
+		return fullscreen;
 	}
 	
 	public static boolean isResizable(){

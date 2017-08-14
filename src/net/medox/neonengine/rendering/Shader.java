@@ -79,7 +79,7 @@ public class Shader{
 					}else if(unprefixedUniformName.equals("model")){
 						setUniformMatrix4f(uniformName, worldMatrix);
 					}else if(unprefixedUniformName.equals("textures")){
-						setUniformiVector(uniformName, RenderingEngine.textureArray);
+						setUniformiVector(uniformName, RenderingEngine.getTextureIdsArray());
 					}else{
 						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Transform.");
 					}

@@ -44,12 +44,12 @@ public class RenderingEngine{
 	private static final Matrix4f BIAS_MATRIX = new Matrix4f().initScale(0.5f, 0.5f, 0.5f).mul(new Matrix4f().initTranslation(1.0f, 1.0f, 1.0f));
 	private static final Matrix4f NO_SHADOW_MATRIX = new Matrix4f().initScale(0, 0, 0);
 	
-	public static int maxTextureImageUnits;
-	public static int[] textureArray;
-	
 	private static ProfileTimer renderProfileTimer;
 	private static ProfileTimer renderProfileTimer2D;
 	private static ProfileTimer windowSyncProfileTimer;
+	
+	private static int maxTextureImageUnits;
+	private static int[] textureIdsArray;
 	
 //	public static int meshBound;
 //	public static int shaderBound;
@@ -132,10 +132,10 @@ public class RenderingEngine{
 			windowSyncProfileTimer = new ProfileTimer();
 		}
 				
-		textureArray = new int[maxTextureImageUnits];
+		textureIdsArray = new int[maxTextureImageUnits];
 		
 		for(int i = 0; i < maxTextureImageUnits; i++){
-			textureArray[i] = i;
+			textureIdsArray[i] = i;
 		}
 		
 //		meshBound = -1;
@@ -838,6 +838,14 @@ public class RenderingEngine{
 	
 	public static boolean isWireframeMode(){
 		return wireframeMode;
+	}
+	
+	public static int getMaxTextureImageUnits(){
+		return maxTextureImageUnits;
+	}
+	
+	public static int[] getTextureIdsArray(){
+		return textureIdsArray;
 	}
 	
 	public static void dispose(){
