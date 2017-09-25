@@ -11,6 +11,7 @@
 - All textures now get loaded by the stb_image library(Makes texture loading faster)
 - VSync is now disabled by default
 - Added the emissive value to the Material class
+- You can now set the exposure of a camera
 
 **Physics:**
 - Added the getRestitution method to the Collider class

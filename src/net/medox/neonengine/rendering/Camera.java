@@ -7,21 +7,30 @@ import net.medox.neonengine.math.Vector3f;
 public class Camera extends EntityComponent{
 	private CameraBase base;
 	private Frustum frustum;
+	private float exposure;
 	
 	public Camera(){
 		base = new CameraBase();
+		
+		exposure = 1.0f;
 	}
 	
 	public Camera(float fov, float aspectRatio, float zNear, float zFar){
 		base = new PerspectiveBase(fov, aspectRatio, zNear, zFar);
+		
+		exposure = 1.0f;
 	}
 	
 	public Camera(float fov, float zNear, float zFar){
 		base = new PerspectiveBase(fov, (float)Window.getWidth()/(float)Window.getHeight(), zNear, zFar);
+		
+		exposure = 1.0f;
 	}
 	
 	public Camera(float left, float right, float bottom, float top, float near, float far){
 		base = new OrthographicBase(left, right, bottom, top, near, far);
+		
+		exposure = 1.0f;
 	}
 	
 	public void update(){
@@ -151,5 +160,14 @@ public class Camera extends EntityComponent{
 	
 	public void setFar(float far){
 		base.setFar(far);
+	}
+	
+	
+	public float getExposure(){
+		return exposure;
+	}
+	
+	public void setExposure(float exposure){
+		this.exposure = exposure;
 	}
 }
