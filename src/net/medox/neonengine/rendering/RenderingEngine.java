@@ -320,6 +320,36 @@ public class RenderingEngine{
 			batchRenderer.render(particleShader, mainCamera);
 		}
 		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		}
+		
+		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
+		
+		
+//		getTexture("displayTexture").bindAsRenderTarget();
+//		
+//		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+//		ambientShader.bind();
+//		ambientShader.updateUniforms(filterTransform, filterMaterial, filterCamera);
+//		filterPlane.draw();
+		
+		
+//		activeLight = lights.get(0);
+//		
+//		GL11.glEnable(GL11.GL_BLEND);
+//		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//		GL11.glDepthMask(false);
+//		GL11.glDepthFunc(GL11.GL_EQUAL);
+//		
+//		renderingState = LIGHTING_STATE;
+//		
+//		applyFilter(activeLight.getShader(), getTexture("displayTexture"), getTexture("renderTexture"));
+//		
+//		GL11.glDepthMask(true);
+//		GL11.glDepthFunc(GL11.GL_LESS);
+//		GL11.glDisable(GL11.GL_BLEND);
+		
 //		for(int i = 0; i < lights.size(); i++){
 //			activeLight = lights.get(i);
 //			
@@ -421,11 +451,11 @@ public class RenderingEngine{
 //			GL11.glDisable(GL11.GL_BLEND);
 //		}
 		
-//		renderSkybox();
+		renderSkybox();
 		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		}
+//		if(wireframeMode){
+//			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+//		}
 		
 //		if(NeonEngine.isBloomEnabled()){
 //			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
@@ -451,10 +481,10 @@ public class RenderingEngine{
 			windowSyncProfileTimer.startInvocation();
 		}
 		
-		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
+//		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
-//		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
-		applyFilter(nullFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+//		applyFilter(nullFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
 		
 		renderFilters();
 //		applyFilter(nullFilter, getTexture("brdfLUT"), null);
@@ -786,8 +816,8 @@ public class RenderingEngine{
 		
 		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
 		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL11.GL_RGBA, GL30.GL_RGB16F, GL30.GL_RGB16F, GL30.GL_RG};
-		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_RGBA, GL30.GL_RG};
+		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG32F};
+		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG};
 		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE};
 		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3, GL30.GL_COLOR_ATTACHMENT4};
 		
