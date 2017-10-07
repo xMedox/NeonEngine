@@ -67,7 +67,7 @@ void main(){
 		outputBloom = vec4(emiss, 1.0);
 	}else{
 		if(rough == 1 && metal == 1){
-			outputFS = vec4(diffuse.rgb, 1.0);
+			outputFS = vec4(pow(diffuse.rgb, vec3(2.2)), 1.0);
 			outputBloom = vec4(0.0, 0.0, 0.0, 1.0);
 		}else{
 			discard;
