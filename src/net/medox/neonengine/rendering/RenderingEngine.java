@@ -457,23 +457,23 @@ public class RenderingEngine{
 //			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 //		}
 		
-//		if(NeonEngine.isBloomEnabled()){
-//			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
-//			
-//			blurBloomMap(0.004f);
-//			blurBloomMap(0.001f);
-//			
-//			GL11.glEnable(GL11.GL_BLEND);
-//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-////			GL11.glDepthMask(false);
-////			GL11.glDepthFunc(GL11.GL_EQUAL);
-//			
-//			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
-//			
-////			GL11.glDepthMask(true);
-////			GL11.glDepthFunc(GL11.GL_LESS);
-//			GL11.glDisable(GL11.GL_BLEND);
-//		}
+		if(NeonEngine.isBloomEnabled()){
+			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
+			
+			blurBloomMap(0.004f);
+			blurBloomMap(0.001f);
+			
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//			GL11.glDepthMask(false);
+//			GL11.glDepthFunc(GL11.GL_EQUAL);
+			
+			applyFilter(bloomCombineShader, getTexture("bloomTexture1"), getTexture("displayTexture"));
+			
+//			GL11.glDepthMask(true);
+//			GL11.glDepthFunc(GL11.GL_LESS);
+			GL11.glDisable(GL11.GL_BLEND);
+		}
 		
 		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer.stopInvocation();
