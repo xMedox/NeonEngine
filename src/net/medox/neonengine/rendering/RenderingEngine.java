@@ -319,9 +319,9 @@ public class RenderingEngine{
 		for(int i = 0; i < lights.size(); i++){
 			activeLight = lights.get(i);
 			
+			final ShadowInfo shadowInfo = activeLight.getShadowInfo();
+			
 			if(NeonEngine.areShadowsEnabled()){
-				final ShadowInfo shadowInfo = activeLight.getShadowInfo();
-				
 				int shadowMapIndex = 0;
 				
 				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
@@ -387,6 +387,16 @@ public class RenderingEngine{
 				
 				getTexture("displayTexture").bindAsRenderTarget();
 			}else{
+				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
+					lightCamera.changeMode(shadowInfo.getBase());
+					
+					final ShadowCameraTransform shadowCameraTransform = activeLight.calcShadowCameraTransform(mainCamera.getTransform().getTransformedPos(), mainCamera.getTransform().getTransformedRot());
+					lightCamera.getTransform().setPos(shadowCameraTransform.pos);
+					lightCamera.getTransform().setRot(shadowCameraTransform.rot);
+										
+					lightCamera.updateFrustum();
+				}
+				
 				setTexture("shadowMap", shadowMaps[0]);
 				lightMatrix = NO_SHADOW_MATRIX;
 				setFloat("shadowVarianceMin", 0.00002f);
