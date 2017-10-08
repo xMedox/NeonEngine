@@ -82,7 +82,6 @@ public class RenderingEngine{
 	private static Shader forwardAmbientShader;
 	private static Shader forwardParticleAmbientShader;
 	private static Shader ambientShader;
-	private static Shader forwardParticleShader;
 	private static Shader shadowMappingShader;
 	private static Shader particleShadowMappingShader;
 	private static Shader skyboxShader;
@@ -193,7 +192,6 @@ public class RenderingEngine{
 		forwardAmbientShader = new Shader("geometryPass");
 		forwardParticleAmbientShader = new Shader("geometryPassParticle");
 		ambientShader = new Shader("deferredAmbient");
-		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMappingShader =  new Shader("shadowMapping");
 		particleShadowMappingShader = new Shader("particleShadowMapping");
 		skyboxShader = new Shader("skyboxShader");
@@ -444,18 +442,18 @@ public class RenderingEngine{
 			
 			renderingState = LIGHTING_STATE;
 			
-			if(NeonEngine.areParticlesEnabled()){
-				particleCamera = mainCamera;
-				particleShader = forwardParticleShader;
-				particleFlipFaces = false;
-			}
+//			if(NeonEngine.areParticlesEnabled()){
+//				particleCamera = mainCamera;
+//				particleShader = forwardParticleShader;
+//				particleFlipFaces = false;
+//			}
 			
 //			object.renderAll(activeLight.getShader(), mainCamera);
 			applyFilter(activeLight.getShader(), getTexture("renderTexture"), getTexture("displayTexture"));
 			
-			if(NeonEngine.areParticlesEnabled()){
-				batchRenderer.render(particleShader, mainCamera);
-			}
+//			if(NeonEngine.areParticlesEnabled()){
+//				batchRenderer.render(particleShader, mainCamera);
+//			}
 			
 			GL11.glDepthMask(true);
 			GL11.glDepthFunc(GL11.GL_LESS);
