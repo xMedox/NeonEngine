@@ -6,7 +6,6 @@ uniform sampler2D R0_filterTexture;
 uniform sampler2D R1_filterTexture;
 uniform sampler2D R2_filterTexture;
 uniform sampler2D R3_filterTexture;
-uniform sampler2D R4_filterTexture;
 
 uniform samplerCube R_irradianceMap;
 uniform samplerCube R_prefilterMap;
@@ -24,15 +23,15 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness){
 void main(){
 	vec4 diffuse = texture(R0_filterTexture, texCoord0);
 	
-	vec3 normal = texture(R2_filterTexture, texCoord0).xyz;
+	vec3 normal = texture(R1_filterTexture, texCoord0).xyz;
 	
-	float rough = texture(R4_filterTexture, texCoord0).x;
-	float metal = texture(R4_filterTexture, texCoord0).y;
+	float rough = texture(R3_filterTexture, texCoord0).x;
+	float metal = texture(R3_filterTexture, texCoord0).y;
 	
 	if(normal.x != 0.0 || normal.y != 0.0 || normal.z != 0.0){
 		vec3 color = pow(diffuse.rgb, vec3(2.2));
 		
-		vec3 V = normalize(C0_eyePos - texture(R3_filterTexture, texCoord0).xyz);
+		vec3 V = normalize(C0_eyePos - texture(R2_filterTexture, texCoord0).xyz);
 		vec3 R = reflect(-V, normal);
 		
 		vec3 F0 = vec3(0.04);
@@ -61,10 +60,15 @@ void main(){
 		vec3 ambient = kD * diffuseUsed + specular;
 		
 		
-		vec3 emiss = texture(R1_filterTexture, texCoord0).xyz;
+		float emiss = diffuse.a;
 		
-		outputFS = vec4(ambient + emiss, 1.0);
-		outputBloom = vec4(emiss, 1.0);
+		outputFS = vec4(ambient, 1.0) + diffuse * vec4(emiss, emiss, emiss, 1.0);
+		
+		if(emiss > 0){
+			outputBloom = diffuse * vec4(emiss, emiss, emiss, 1.0);
+		}else{
+			outputBloom = vec4(0.0, 0.0, 0.0, 0.0);
+		}
 	}else{
 		if(rough == 1 && metal == 1){
 			outputFS = vec4(pow(diffuse.rgb, vec3(2.2)), 1.0);

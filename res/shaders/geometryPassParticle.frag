@@ -12,7 +12,6 @@ layout (location = 0) out vec4 out0;
 layout (location = 1) out vec4 out1;
 layout (location = 2) out vec4 out2;
 layout (location = 3) out vec4 out3;
-layout (location = 4) out vec4 out4;
 
 void main(){
 	vec4 diffuse = texture(T_textures[tid0], texCoord0);
@@ -23,8 +22,7 @@ void main(){
 		out0 = diffuse;
 		out1 = vec4(0.0, 0.0, 0.0, 0.0);
 		out2 = vec4(0.0, 0.0, 0.0, 0.0);
-		out3 = vec4(0.0, 0.0, 0.0, 0.0);
-		out4 = vec4(1.0, 1.0, 0.0, 0.0);
+		out3 = vec4(1.0, 1.0, 0.0, 0.0);
 	}else{
 		discard;
 	}

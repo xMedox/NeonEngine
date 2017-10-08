@@ -146,13 +146,13 @@ public class Shader{
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
 						setUniformi(uniformName, 13);
-					}else if(uniformName.charAt(1) == '4'){
+					}/*else if(uniformName.charAt(1) == '4'){
 						final String unprefixedUniformName = uniformName.substring(3);
 						
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
 						setUniformi(uniformName, 14);
-					}
+					}*/
 				}
 			}else if(uniformName.charAt(0) == 'C'){
 				if(uniformName.charAt(1) == '_'){
