@@ -57,7 +57,7 @@ public class TestGame extends Game{
 		NeonEngine.setShadowQuality(0);
 		NeonEngine.setRenderQuality(1);
 		
-		NeonEngine.init(new TestGame(), /*600*/240);
+		NeonEngine.init(new TestGame(), /*600*/60);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartSize(854, 480);
@@ -88,6 +88,9 @@ public class TestGame extends Game{
 //		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
+//		RenderingEngine.setMainSkybox(new Skybox("Malibu_Overlook_3k"));
+//		RenderingEngine.setMainSkybox(new Skybox("BasketballCourt_3k"));
+//		RenderingEngine.setMainSkybox(new Skybox("Mono_Lake_B_Ref"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
@@ -169,9 +172,12 @@ public class TestGame extends Game{
 //		material.setNormalMap(new Texture("bricksNormal.jpg"));
 //		material.setRoughness(0.85f);
 		material.setMetallic(0);
-		material.setDiffuseMap(new Texture("grass1-albedo32.png"));
+		material.setDiffuseMap(new Texture("grass1-albedo33.png"));
 		material.setNormalMap(new Texture("grass1-normal2.png"));
 		material.setRoughnessMap(new Texture("grass1-rough.png"));
+//		material.setDiffuseMap(new Texture("mossy-ground1-albedo.png"));
+//		material.setNormalMap(new Texture("mossy-ground1-normal.png"));
+//		material.setRoughnessMap(new Texture("mossy-ground1-roughness.png"));
 		
 		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 		

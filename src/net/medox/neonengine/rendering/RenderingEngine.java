@@ -322,6 +322,11 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
+		getTexture("displayTexture").bindAsRenderTarget();
+		
+		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
 		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
 		
@@ -460,11 +465,15 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		}
+		
 		renderSkybox();
 		
-//		if(wireframeMode){
-//			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-//		}
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		}
 		
 		if(NeonEngine.isBloomEnabled()){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
