@@ -286,7 +286,7 @@ public class TestGame extends Game{
 		Entity pointLightObject = new Entity();
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 3f, new Vector3f(0, 0, 1));
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 1f, new Attenuation(0, 0, 1));
-		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 10f)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		pointLightObject.addComponent(pointLight);
 		
 //		Entity pointLightObjectw = new Entity();
@@ -546,9 +546,9 @@ public class TestGame extends Game{
 		addEntity(planeObjectx);
 		addEntity(neonObject);
 		addEntity(directionalLightObject);
-		addEntity(pointLightObject);
 		addEntity(spotLightObject);
 		addEntity(spotLightObject2);
+		addEntity(pointLightObject);
 		addEntity(monkeyObject);
 		
 //		physicsEngine.addObject(new PhysicsObject(new BoundingSphere(new Vector3f(-1.414f/4.0f * 7.0f, 0.0f, -1.414f/4.0f * 7.0f), 1.0f), new Vector3f(1.414f/2.0f, 0.0f, 1.414f/2.0f))); 

@@ -58,6 +58,7 @@ public class PointLight extends BaseLight{
 		this.range = (float)(-b + Math.sqrt(b * b - 4 * a * c))/(2 * a);
 	}
 	
+	@Override
 	public float getRange(){
 		return range;
 	}

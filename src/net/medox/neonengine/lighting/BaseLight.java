@@ -24,6 +24,10 @@ public class BaseLight extends EntityComponent{
 		this.type = type;
 	}
 	
+	public float getRange(){
+		return 0;
+	}
+	
 	public void setShader(Shader shader){
 		this.shader = shader;
 	}

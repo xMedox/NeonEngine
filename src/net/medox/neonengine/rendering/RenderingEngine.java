@@ -112,7 +112,15 @@ public class RenderingEngine{
 	
 //	private static CubeMap irradiance;
 	
+	private static Mesh sphereM;
+	private static Material materialM;
+	private static Shader testShader;
+	
 	public static void init(){
+		sphereM = new Mesh("sphere.obj");
+		materialM = new Material();
+		testShader = new Shader("testShader");
+		
 		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
 		
 		if(NeonEngine.isProfilingEnabled()){
@@ -474,6 +482,24 @@ public class RenderingEngine{
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
+		
+		Transform t = new Transform();
+		t.setScale(activeLight.getRange());
+		
+		System.out.println(activeLight.getRange());
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+		GL11.glDepthMask(false);
+		GL11.glDepthFunc(GL11.GL_GREATER);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		
+		renderMesh(testShader, t, sphereM, materialM, mainCamera);
+		
+		GL11.glDepthMask(true);
+		GL11.glDepthFunc(GL11.GL_LESS);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		
 		if(NeonEngine.isBloomEnabled()){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
