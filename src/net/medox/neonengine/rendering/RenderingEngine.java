@@ -321,6 +321,16 @@ public class RenderingEngine{
 			
 			final ShadowInfo shadowInfo = activeLight.getShadowInfo();
 			
+			if(activeLight.getType() != BaseLight.POINT_LIGHT){
+				lightCamera.changeMode(shadowInfo.getBase());
+				
+				final ShadowCameraTransform shadowCameraTransform = activeLight.calcShadowCameraTransform(mainCamera.getTransform().getTransformedPos(), mainCamera.getTransform().getTransformedRot());
+				lightCamera.getTransform().setPos(shadowCameraTransform.pos);
+				lightCamera.getTransform().setRot(shadowCameraTransform.rot);
+				
+				lightCamera.updateFrustum();
+			}
+			
 			if(NeonEngine.areShadowsEnabled()){
 				int shadowMapIndex = 0;
 				
@@ -340,15 +350,7 @@ public class RenderingEngine{
 					GL11.glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 					GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
 					
-					lightCamera.changeMode(shadowInfo.getBase());
-					
-					final ShadowCameraTransform shadowCameraTransform = activeLight.calcShadowCameraTransform(mainCamera.getTransform().getTransformedPos(), mainCamera.getTransform().getTransformedRot());
-					lightCamera.getTransform().setPos(shadowCameraTransform.pos);
-					lightCamera.getTransform().setRot(shadowCameraTransform.rot);
-					
 					lightMatrix = BIAS_MATRIX.mul(lightCamera.getViewProjection());
-					
-					lightCamera.updateFrustum();
 					
 					setFloat("shadowVarianceMin", shadowInfo.getMinVariance());
 					setFloat("shadowLightBleedingReduction", shadowInfo.getLightBleedReductionAmount());
@@ -387,16 +389,6 @@ public class RenderingEngine{
 				
 				getTexture("displayTexture").bindAsRenderTarget();
 			}else{
-				if(shadowInfo.getShadowMapSizeAsPowerOf2() != 0){
-					lightCamera.changeMode(shadowInfo.getBase());
-					
-					final ShadowCameraTransform shadowCameraTransform = activeLight.calcShadowCameraTransform(mainCamera.getTransform().getTransformedPos(), mainCamera.getTransform().getTransformedRot());
-					lightCamera.getTransform().setPos(shadowCameraTransform.pos);
-					lightCamera.getTransform().setRot(shadowCameraTransform.rot);
-										
-					lightCamera.updateFrustum();
-				}
-				
 				setTexture("shadowMap", shadowMaps[0]);
 				lightMatrix = NO_SHADOW_MATRIX;
 				setFloat("shadowVarianceMin", 0.00002f);

@@ -45,6 +45,8 @@ public class PointLight extends BaseLight{
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
 			setShadowInfo(new ShadowInfo(new PerspectiveBase((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
+		}else{
+			setShadowInfo(new ShadowInfo(new PerspectiveBase((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, 0, 0, 0, 0));
 		}
 	}
 	

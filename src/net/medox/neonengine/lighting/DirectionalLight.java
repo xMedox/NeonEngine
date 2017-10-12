@@ -37,6 +37,8 @@ public class DirectionalLight extends BaseLight{
 		}
 		if(shadowMapSizeAsPowerOf2 != 0){
 			setShadowInfo(new ShadowInfo(new OrthographicBase(-halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea), true, shadowMapSizeAsPowerOf2, shadowSoftness, lightBleedReductionAmount, minVariance));
+		}else{
+			setShadowInfo(new ShadowInfo(new OrthographicBase(-halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea), true, 0, 0, 0, 0));
 		}
 	}
 	
