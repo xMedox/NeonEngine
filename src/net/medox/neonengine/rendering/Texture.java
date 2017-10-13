@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.stb.STBImageResize;
 import org.lwjgl.system.MemoryUtil;
@@ -159,6 +160,14 @@ public class Texture{
 	
 	public void bind(int samplerSlot, int id){
 		resource.bind(samplerSlot, id);
+	}
+	
+	public void bindAsReadTarget(){
+		resource.bindAsReadTarget();
+	}
+	
+	public void bindAsDrawTarget(){
+		resource.bindAsDrawTarget();
 	}
 	
 	public void bindAsRenderTarget(){

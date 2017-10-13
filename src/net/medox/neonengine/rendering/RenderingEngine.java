@@ -483,23 +483,31 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
-		Transform t = new Transform();
-		t.setScale(activeLight.getRange());
+		getTexture("renderTexture").bindAsReadTarget();
+		getTexture("displayTexture").bindAsDrawTarget();
+		GL30.glBlitFramebuffer(0, 0, getTexture("displayTexture").getWidth(), getTexture("displayTexture").getHeight(), 0, 0, getTexture("displayTexture").getWidth(), getTexture("displayTexture").getHeight(), GL11.GL_DEPTH_BUFFER_BIT, GL11.GL_NEAREST);
 		
-		System.out.println(activeLight.getRange());
+		getTexture("displayTexture").bindAsRenderTarget();
+		
+		
+		Transform t = new Transform();
+		t.setPos(5, 0, 5);
+		t.setScale(8);
 		
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 		GL11.glDepthMask(false);
-		GL11.glDepthFunc(GL11.GL_GREATER);
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDepthFunc(GL11.GL_GEQUAL);
+//		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glCullFace(GL11.GL_FRONT);
 		
 		renderMesh(testShader, t, sphereM, materialM, mainCamera);
 		
 		GL11.glDepthMask(true);
 		GL11.glDepthFunc(GL11.GL_LESS);
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+//		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glCullFace(GL11.GL_BACK);
 		
 		if(NeonEngine.isBloomEnabled()){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));

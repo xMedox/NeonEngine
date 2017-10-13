@@ -4,6 +4,7 @@ import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
+import net.medox.neonengine.components.MoveComponent;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.components.PlayerComponent;
@@ -57,7 +58,7 @@ public class TestGame extends Game{
 		NeonEngine.setShadowQuality(0);
 		NeonEngine.setRenderQuality(1);
 		
-		NeonEngine.init(new TestGame(), /*600*/60);
+		NeonEngine.init(new TestGame(), /*600*/1000);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartSize(854, 480);
@@ -141,15 +142,17 @@ public class TestGame extends Game{
 		
 //		PhysicsEngine.addObject(cylinder);
 		
-		PlayerComponent p = new PlayerComponent(capsule, cam, 6, 10);
+//		PlayerComponent p = new PlayerComponent(capsule, cam, 6, 10);
 		
-		player.addComponent(p);
+//		player.addComponent(p);
 		
 		Listener listener = new Listener();
 		
 		playerHead.addComponent(listener);
 		
 		player.addChild(playerHead);
+		
+		playerHead.addComponent(new MoveComponent(6));
 		
 //		player.addComponent(new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f)).addComponent(new LookComponent(0.15f)).addComponent(new SprintMove(15f, 15f*2));
 		
@@ -286,7 +289,7 @@ public class TestGame extends Game{
 		Entity pointLightObject = new Entity();
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 3f, new Vector3f(0, 0, 1));
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 1f, new Attenuation(0, 0, 1));
-		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 10f)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		pointLightObject.addComponent(pointLight);
 		
 //		Entity pointLightObjectw = new Entity();

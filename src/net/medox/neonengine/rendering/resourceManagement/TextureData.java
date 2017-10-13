@@ -96,6 +96,14 @@ public class TextureData extends ReferenceCounter{
 //		}
 	}
 	
+	public void bindAsReadTarget(){
+		GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, frameBuffer);
+	}
+	
+	public void bindAsDrawTarget(){
+		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, frameBuffer);
+	}
+	
     public void bindAsRenderTarget(){
 //		for(int i = 0; i < 32; i++){
 //			RenderingEngine.textureBound.put(i, -1);
