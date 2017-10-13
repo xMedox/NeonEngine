@@ -483,20 +483,38 @@ public class RenderingEngine{
 				t.setPos(activeLight.getTransform().getPos());
 				t.setScale(18.931456f/4);
 				
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-				GL11.glDepthMask(false);
-				GL11.glDepthFunc(GL11.GL_GEQUAL);
-//				GL11.glDisable(GL11.GL_CULL_FACE);
-				GL11.glCullFace(GL11.GL_FRONT);
-				
-				renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
-				
-				GL11.glDepthMask(true);
-				GL11.glDepthFunc(GL11.GL_LESS);
-				GL11.glDisable(GL11.GL_BLEND);
-//				GL11.glEnable(GL11.GL_CULL_FACE);
-				GL11.glCullFace(GL11.GL_BACK);
+				if(Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(18.931456f/4, 2)){
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+					GL11.glDepthMask(false);
+					GL11.glDepthFunc(GL11.GL_GEQUAL);
+//					GL11.glDisable(GL11.GL_CULL_FACE);
+					GL11.glCullFace(GL11.GL_FRONT);
+					
+					renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
+					
+					GL11.glDepthMask(true);
+					GL11.glDepthFunc(GL11.GL_LESS);
+					GL11.glDisable(GL11.GL_BLEND);
+//					GL11.glEnable(GL11.GL_CULL_FACE);
+					GL11.glCullFace(GL11.GL_BACK);
+				}else{
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+					GL11.glDepthMask(false);
+//					GL11.glDepthFunc(GL11.GL_GEQUAL);
+					GL11.glDepthFunc(GL11.GL_LEQUAL);
+//					GL11.glDisable(GL11.GL_CULL_FACE);
+//					GL11.glCullFace(GL11.GL_FRONT);
+					
+					renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
+					
+					GL11.glDepthMask(true);
+					GL11.glDepthFunc(GL11.GL_LESS);
+					GL11.glDisable(GL11.GL_BLEND);
+//					GL11.glEnable(GL11.GL_CULL_FACE);
+//					GL11.glCullFace(GL11.GL_BACK);
+				}
 			}
 		}
 		

@@ -58,7 +58,7 @@ public class TestGame extends Game{
 		NeonEngine.setShadowQuality(0);
 		NeonEngine.setRenderQuality(1);
 		
-		NeonEngine.init(new TestGame(), /*600*/1000);
+		NeonEngine.init(new TestGame(), /*600*/240);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartSize(854, 480);
