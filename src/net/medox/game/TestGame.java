@@ -333,13 +333,13 @@ public class TestGame extends Game{
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), 0.7f);
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(91.1f), 7, 1.0f, 0.5f, 0.00002f);
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 1f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 7, 1.0f, 0.5f, 0.0000001f);
-		SpotLight spotLight = new SpotLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		PointLight spotLight = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		spotLightObject.addComponent(spotLight);
 		spotLightObject.addComponent(new Light(spotLight));
 		
 		Entity spotLightObject2 = new Entity();
 		
-		SpotLight spotLight2 = new SpotLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		PointLight spotLight2 = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		spotLightObject2.addComponent(spotLight2);
 		
 		pointLightObject.getTransform().setPos(5, 0, 5);

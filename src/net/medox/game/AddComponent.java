@@ -8,6 +8,7 @@ import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.core.Util;
 import net.medox.neonengine.lighting.Attenuation;
+import net.medox.neonengine.lighting.PointLight;
 import net.medox.neonengine.lighting.SpotLight;
 import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.physics.BoxCollider;
@@ -116,8 +117,7 @@ public class AddComponent extends EntityComponent{
 	@Override
 	public void input(float delta){
 		if(Input.getKeyDown(Input.KEY_J)){
-			SpotLight spotLight = new SpotLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
-			
+			PointLight spotLight = new PointLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f+1, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 			Entity entity = new Entity();
 			
 			entity.getTransform().setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos());
