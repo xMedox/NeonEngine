@@ -27,6 +27,8 @@ import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.meshLoading.IndexedModel;
 
 public class RenderingEngine{
+	public static int showTexture = 0;
+	
 	public static final int DIFFUSE_STATE			= 0;
 	public static final int SHADOW_STATE			= 1;
 	public static final int LIGHTING_STATE			= 2;
@@ -92,6 +94,11 @@ public class RenderingEngine{
 	private static Shader nullFilter;
 	private static Shader fxaaFilter;
 	private static Shader hdrFilter;
+	
+	private static Shader filterDiffuse;
+	private static Shader filterNormal;
+	private static Shader filterPos;
+	private static Shader filterMat;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -202,6 +209,11 @@ public class RenderingEngine{
 		nullFilter = new Shader("filterNull");
 		fxaaFilter = new Shader("filterFxaa");
 		hdrFilter = new Shader("filterHdr");
+		
+		filterDiffuse = new Shader("filterDiffuse");
+		filterNormal = new Shader("filterNormal");
+		filterPos = new Shader("filterPos");
+		filterMat = new Shader("filterMat");
 		
 		filters = new ArrayList<Shader>();
 		
@@ -523,13 +535,24 @@ public class RenderingEngine{
 			windowSyncProfileTimer.startInvocation();
 		}
 		
-//		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
-		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
-//		applyFilter(nullFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
-		
-		renderFilters();
-//		applyFilter(nullFilter, getTexture("brdfLUT"), null);
+		if(showTexture == 0){
+	//		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
+			
+			applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+	//		applyFilter(nullFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+			
+			renderFilters();
+	//		applyFilter(nullFilter, getTexture("brdfLUT"), null);
+		}else if(showTexture == 1){
+			applyFilter(filterDiffuse, getTexture("renderTexture"), null);
+		}else if(showTexture == 2){
+			applyFilter(filterNormal, getTexture("renderTexture"), null);
+		}else if(showTexture == 3){
+			applyFilter(filterPos, getTexture("renderTexture"), null);
+		}else if(showTexture == 4){
+			applyFilter(filterMat, getTexture("renderTexture"), null);
+		}
 		
 		if(NeonEngine.isProfilingEnabled()){
 			windowSyncProfileTimer.stopInvocation();
