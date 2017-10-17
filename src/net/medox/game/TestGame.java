@@ -4,6 +4,7 @@ import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
+import net.medox.neonengine.components.MoveComponent;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.components.PlayerComponent;
@@ -57,7 +58,7 @@ public class TestGame extends Game{
 		NeonEngine.setShadowQuality(0);
 		NeonEngine.setRenderQuality(1);
 		
-		NeonEngine.init(new TestGame(), /*600*/60);
+		NeonEngine.init(new TestGame(), /*600*/240);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartSize(854, 480);
@@ -141,15 +142,17 @@ public class TestGame extends Game{
 		
 //		PhysicsEngine.addObject(cylinder);
 		
-		PlayerComponent p = new PlayerComponent(capsule, cam, 6, 10);
+//		PlayerComponent p = new PlayerComponent(capsule, cam, 6, 10);
 		
-		player.addComponent(p);
+//		player.addComponent(p);
 		
 		Listener listener = new Listener();
 		
 		playerHead.addComponent(listener);
 		
 		player.addChild(playerHead);
+		
+		playerHead.addComponent(new MoveComponent(6));
 		
 //		player.addComponent(new Camera((float)Math.toRadians(65.0f), 0.01f, 1000.0f)).addComponent(new LookComponent(0.15f)).addComponent(new SprintMove(15f, 15f*2));
 		
@@ -266,7 +269,7 @@ public class TestGame extends Game{
 		
 		float light = 1.0f;
 		
-		Entity directionalLightObject = new Entity();
+//		Entity directionalLightObject = new Entity();
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f, 12, 80.0f, 1.0f, 0.2f, 0.00002f);
@@ -276,12 +279,12 @@ public class TestGame extends Game{
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 80.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, 60.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 2.0f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f+light, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
+//		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f+light, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 0.975f, 0.95f), 0.6f, 10, 20.0f, 1.0f, 0.7f, 0.000001f);
-		directionalLightObject.addComponent(directionalLight);
-		
-		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
-		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
+//		directionalLightObject.addComponent(directionalLight);
+//		
+//		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
+//		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
 		
 		Entity pointLightObject = new Entity();
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 3f, new Vector3f(0, 0, 1));
@@ -330,13 +333,13 @@ public class TestGame extends Game{
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), 0.7f);
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 0.4f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(91.1f), 7, 1.0f, 0.5f, 0.00002f);
 //		SpotLight spotLight = new SpotLight(new Vector3f(1, 0, 1), 1f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 7, 1.0f, 0.5f, 0.0000001f);
-		SpotLight spotLight = new SpotLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		PointLight spotLight = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		spotLightObject.addComponent(spotLight);
 		spotLightObject.addComponent(new Light(spotLight));
 		
 		Entity spotLightObject2 = new Entity();
 		
-		SpotLight spotLight2 = new SpotLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+		PointLight spotLight2 = new PointLight(new Vector3f(1, 1, 0), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
 		spotLightObject2.addComponent(spotLight2);
 		
 		pointLightObject.getTransform().setPos(5, 0, 5);
@@ -545,7 +548,7 @@ public class TestGame extends Game{
 		addEntity(planeObject);
 		addEntity(planeObjectx);
 		addEntity(neonObject);
-		addEntity(directionalLightObject);
+//		addEntity(directionalLightObject);
 		addEntity(pointLightObject);
 		addEntity(spotLightObject);
 		addEntity(spotLightObject2);
