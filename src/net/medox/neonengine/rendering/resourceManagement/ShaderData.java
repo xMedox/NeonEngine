@@ -178,7 +178,7 @@ public class ShaderData extends ReferenceCounter{
 		final int uniformLocation = GL20.glGetUniformLocation(program, uniformName);
 		
 		if(uniformLocation == -1){
-			NeonEngine.throwError("Error: Could not find uniform \"" + uniformName + "\" in " + fileName + ".");
+//			NeonEngine.throwError("Error: Could not find uniform \"" + uniformName + "\" in " + fileName + ".");
 		}
 		
 		uniformMap.put(uniformName, uniformLocation);
@@ -340,11 +340,11 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void setUniformf(String uniformName, float value){
-		GL20.glUniform1f(uniformMap.get(uniformName), value);
+		GL20.glUniform1f(GL20.glGetUniformLocation(program, uniformName), value);
 	}
 	
 	public void setUniformVector3f(String uniformName, Vector3f value){
-		GL20.glUniform3f(uniformMap.get(uniformName), value.getX(), value.getY(), value.getZ());
+		GL20.glUniform3f(GL20.glGetUniformLocation(program, uniformName), value.getX(), value.getY(), value.getZ());
 	}
 	
 //	public void setUniformVector2f(String uniformName, Vector2f value){
