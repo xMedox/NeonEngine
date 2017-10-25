@@ -60,6 +60,7 @@ public class TestGame extends Game{
 //		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
+//		RenderingEngine.setMainSkybox(new Skybox("skyboxTest"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		addEntity(gameObject);
@@ -91,7 +92,7 @@ public class TestGame extends Game{
 		}
 		
 		Entity directionalLightObject = new Entity();
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f/*, 10, 8.0f, 1.0f, 0.7f, 0.000001f*/);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f, 10, 8.0f, 1.0f, 0.7f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		
 //		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));

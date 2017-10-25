@@ -81,13 +81,14 @@ public class TestGame extends Game{
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
 //		RenderingEngine.setMainSkybox(new Skybox("Arches_E_PineTree_3k"));
-		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
+//		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
 //		RenderingEngine.setMainSkybox(new Skybox("Milkyway_small"));
 //		RenderingEngine.setMainSkybox(new Skybox("WinterForest_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("Tropical_Beach_3k"));
 //		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
+		RenderingEngine.setMainSkybox(new Skybox("skyboxTest"));
 		
 //		String es = Util.encrypt("Just a test");
 //		System.out.println(es);
@@ -216,7 +217,7 @@ public class TestGame extends Game{
 		addEntity(wolf);
 		
 		Entity directionalLightObject = new Entity();
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f, 10, /*8.0f*/16.0f, 1.0f, /*0.7f*/0.2f, 0.000001f);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(/*1, 1, 1*/1, 0.95f, 0.82f), 1.0f, 10, /*8.0f*/16.0f, 1.0f, /*0.7f*/0.2f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
 		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));

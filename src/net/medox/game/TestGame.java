@@ -81,13 +81,14 @@ public class TestGame extends Game{
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
 //		RenderingEngine.setMainSkybox(new Skybox("Arches_E_PineTree_3k"));
-		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
+//		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
 //		RenderingEngine.setMainSkybox(new Skybox("Milkyway_small"));
 //		RenderingEngine.setMainSkybox(new Skybox("WinterForest_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("Tropical_Beach_3k"));
 //		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
+		RenderingEngine.setMainSkybox(new Skybox("skyboxTest"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
@@ -116,6 +117,7 @@ public class TestGame extends Game{
 		playerHead.getTransform().setPos(new Vector3f(0, 0.75f, 0));
 		
 		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
+//		cam.setExposure(1);
 		
 		playerHead.addComponent(cam);
 		playerHead.addComponent(new LookComponent(0.15f));
@@ -169,9 +171,11 @@ public class TestGame extends Game{
 //		material.setNormalMap(new Texture("bricksNormal.jpg"));
 //		material.setRoughness(0.85f);
 		material.setMetallic(0);
-		material.setDiffuseMap(new Texture("grass1-albedo32.png"));
-		material.setNormalMap(new Texture("grass1-normal2.png"));
-		material.setRoughnessMap(new Texture("grass1-rough.png"));
+		material.setDiffuseMap(new Texture("green.png"));
+//		material.setEmissiveMap(new Texture("monkeyEmissive.png"));
+//		material.setDiffuseMap(new Texture("plastic.png"));
+//		material.setRoughnessMap(new Texture("plastic_rough.png"));
+		material.setRoughness(0.95f);
 		
 		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 		
@@ -285,7 +289,7 @@ public class TestGame extends Game{
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 80.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, 60.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 2.0f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 1.0f+light, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(/*1, 1, 1*/1, 0.95f, 0.82f), 1.0f+light, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 0.975f, 0.95f), 0.6f, 10, 20.0f, 1.0f, 0.7f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		
@@ -358,10 +362,11 @@ public class TestGame extends Game{
 		
 		Mesh mesh2 = new Mesh("monkey.obj");
 		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
-		material2.setDiffuseMap(new Texture("monkey.png"));
-		material2.setEmissiveMap(new Texture("monkeyEmissive.png"));
+		material2.setDiffuseMap(new Texture("white.png"));
+//		material2.setEmissiveMap(new Texture("monkeyEmissive.png"));
 //		material2.setDiffuseMap(new Texture("plastic.png"));
-		material2.setRoughnessMap(new Texture("plastic_rough.png"));
+//		material2.setRoughnessMap(new Texture("plastic_rough.png"));
+		material2.setRoughness(0.2f);
 //		material2.setRoughness(0.65f);
 //		material2.setMetallic(0);
 		
@@ -393,8 +398,12 @@ public class TestGame extends Game{
 //		pbrMaterial2.setDiffuseMap(metal);
 //		pbrMaterial2.setRoughness(0f);
 //		pbrMaterial2.setMetallic(1);
-		pbrMaterial2.setDiffuseMap(new Texture("gold-scuffed_basecolor.png"));
-		pbrMaterial2.setRoughnessMap(new Texture("gold-scuffed_roughness.png"));
+//		pbrMaterial2.setDiffuseMap(new Texture("gold-scuffed_basecolor.png"));
+//		pbrMaterial2.setRoughnessMap(new Texture("gold-scuffed_roughness.png"));
+//		pbrMaterial2.setMetallic(1);
+		pbrMaterial2.setDiffuseMap(new Texture("gold-scuffed_basecolor-boosted.png"));
+//		pbrMaterial2.setDiffuseMap(new Texture("red.png"));
+		pbrMaterial2.setRoughness(0.5f);
 		pbrMaterial2.setMetallic(1);
 		
 		MeshRenderer pbrRenderer2 = new MeshRenderer(pbrMesh, pbrMaterial2);
@@ -422,8 +431,12 @@ public class TestGame extends Game{
 //		pbrMaterial4.setDiffuseMap(metal);
 //		pbrMaterial4.setRoughness(0.5f);
 //		pbrMaterial4.setMetallic(1);
+//		pbrMaterial4.setDiffuseMap(new Texture("Iron-Scuffed_basecolor.png"));
+//		pbrMaterial4.setRoughnessMap(new Texture("Iron-Scuffed_roughness.png"));
+//		pbrMaterial4.setMetallic(1);
 		pbrMaterial4.setDiffuseMap(new Texture("Iron-Scuffed_basecolor.png"));
-		pbrMaterial4.setRoughnessMap(new Texture("Iron-Scuffed_roughness.png"));
+//		pbrMaterial4.setDiffuseMap(new Texture("blue.png"));
+		pbrMaterial4.setRoughness(0.5f);
 		pbrMaterial4.setMetallic(1);
 		
 		MeshRenderer pbrRenderer4 = new MeshRenderer(pbrMesh, pbrMaterial4);
