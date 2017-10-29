@@ -15,7 +15,7 @@ public class SpotLight extends PointLight{
 		
 		setShader(new Shader("forwardSpot"));
 		
-		setShadowInfo(new ShadowInfo(null, false, 0, 0, 0, 0));
+		setShadowInfo(new ShadowInfo(new PerspectiveBase(viewAngle, 1.0f, 0.1f, getRange()), false, 0, 0, 0, 0));
 	}
 	
 	public SpotLight(Vector3f color, float intensity, Attenuation attenuation, float viewAngle, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){

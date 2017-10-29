@@ -22,7 +22,7 @@ public class PointLight extends BaseLight{
 		
 		setShader(new Shader("forwardPoint"));
 		
-		setShadowInfo(new ShadowInfo(null, false, 0, 0, 0, 0));
+		setShadowInfo(new ShadowInfo(new PerspectiveBase((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, 0, 0, 0, 0));
 	}
 	
 	public PointLight(Vector3f color, float intensity, Attenuation attenuation, int shadowMapSizeAsPowerOf2, float shadowSoftness, float lightBleedReductionAmount, float minVariance){

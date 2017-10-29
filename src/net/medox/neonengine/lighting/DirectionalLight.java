@@ -14,7 +14,7 @@ public class DirectionalLight extends BaseLight{
 		
 		setShader(new Shader("forwardDirectional"));
 		
-		setShadowInfo(new ShadowInfo(null, true, 0, 0, 0, 0));
+		setShadowInfo(new ShadowInfo(new OrthographicBase(-halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea, -halfShadowArea, halfShadowArea), true, 0, 0, 0, 0));
 	}
 	
 	public DirectionalLight(Vector3f color, float intensity, int shadowMapSizeAsPowerOf2, float shadowArea, float shadowSoftness, float lightBleedReductionAmount, float minVariance){
