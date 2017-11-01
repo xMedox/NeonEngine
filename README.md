@@ -30,3 +30,4 @@
 - You can now set the InputKeys and the speed of the PlayerComponent
 - The Skybox class now only takes in one file
 - The skyboxes are now stored in a separate skyboxes folder
+- Added the requestAttention method in the Window class

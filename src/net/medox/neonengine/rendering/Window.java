@@ -463,6 +463,10 @@ public class Window{
 		return cursor;
 	}
 	
+	public static void requestAttention(){
+		GLFW.glfwRequestWindowAttention(window);
+	}
+	
 	
 	public static void setCursorPos(int xPos, int yPos){
 		GLFW.glfwSetCursorPos(window, (double)xPos, (double)yPos);
