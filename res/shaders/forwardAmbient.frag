@@ -67,11 +67,11 @@ void main(){
 		
 		float emiss = texture(emissiveMap, texCoord0).r + emissive;
 		
-		outputFS = vec4(ambient, 1.0) + diffuse * vec4(emiss, emiss, emiss, 1.0);
+		outputFS = vec4(ambient, 1.0) + vec4(color, 1) * vec4(emiss, emiss, emiss, 1.0);
 		
 		//if(dot(emiss, 0.8*2.0) > 1.0){
 		if(emiss > 0){
-			outputBloom = diffuse * vec4(emiss, emiss, emiss, 1.0);
+			outputBloom = vec4(color, 1) * vec4(emiss, emiss, emiss, 1.0);
 		}else{
 			outputBloom = vec4(0.0, 0.0, 0.0, 0.0);
 		}

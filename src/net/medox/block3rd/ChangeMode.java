@@ -49,5 +49,11 @@ public class ChangeMode extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_F6)){
 			Window.setSize(Window.getWidth()+10, Window.getHeight()+10);
 		}
+		if(Input.getKeyDown(Input.KEY_F7)){
+			NeonEngine.enableBloom(!NeonEngine.isBloomEnabled());
+		}
+		if(Input.getKeyDown(Input.KEY_F8)){
+			RenderingEngine.setBloomBlurMode(!RenderingEngine.getBloomBlurMode());
+		}
 	}
 }

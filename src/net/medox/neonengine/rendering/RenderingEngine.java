@@ -109,6 +109,7 @@ public class RenderingEngine{
 //	private static CubeMap[] shadowCubeMapTempTargets = new CubeMap[NUM_SHADOW_MAPS];
 	
 	private static boolean wireframeMode;
+	private static boolean bloomBlurMode;
 	
 	public static void init(){
 		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
@@ -428,8 +429,10 @@ public class RenderingEngine{
 		if(NeonEngine.isBloomEnabled()){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
-			blurBloomMap(0.004f);
-			blurBloomMap(0.001f);
+			if(!bloomBlurMode){
+				blurBloomMap(0.004f);
+				blurBloomMap(0.001f);
+			}
 			
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
@@ -551,10 +554,10 @@ public class RenderingEngine{
 	}
 	
 	private static void blurBloomMap(float blurAmount){
-		setVector3f("blurScale", new Vector3f(blurAmount, blurAmount * ((float)getTexture("bloomTexture1").getWidth()/(float)getTexture("bloomTexture1").getHeight()), 0.0f));
+		setVector3f("blurScale", new Vector3f(blurAmount, 0.0f, 0.0f));
 		applyFilter(gausBlurFilter, getTexture("bloomTexture1"), getTexture("bloomTexture2"));
 		
-		setVector3f("blurScale", new Vector3f(-blurAmount, blurAmount * ((float)getTexture("bloomTexture1").getWidth()/(float)getTexture("bloomTexture1").getHeight()), 0.0f));
+		setVector3f("blurScale", new Vector3f(0.0f, blurAmount * ((float)getTexture("bloomTexture1").getWidth()/(float)getTexture("bloomTexture1").getHeight()), 0.0f));
 		applyFilter(gausBlurFilter, getTexture("bloomTexture2"), getTexture("bloomTexture1"));
 	}
 	
@@ -773,12 +776,11 @@ public class RenderingEngine{
 			height2 = 1;
 		}
 		
-//		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
 		
-		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
-		setTexture("bloomTexture2", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGBA16F, GL11.GL_RGBA, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGBA16F, GL11.GL_RGBA, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
 	}
 	
 	public static void setTexture(String name, Texture texture){
@@ -840,6 +842,14 @@ public class RenderingEngine{
 	
 	public static boolean isWireframeMode(){
 		return wireframeMode;
+	}
+	
+	public static void setBloomBlurMode(boolean bloom){
+		bloomBlurMode = bloom;
+	}
+	
+	public static boolean getBloomBlurMode(){
+		return bloomBlurMode;
 	}
 	
 	public static int getMaxTextureImageUnits(){

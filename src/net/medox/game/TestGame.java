@@ -265,9 +265,10 @@ public class TestGame extends Game{
 		
 		Mesh meshRock = new Mesh("rock.obj");
 		Material materialRock = new Material();
-		materialRock.setDiffuseMap(new Texture("rock.jpg"));
+		materialRock.setDiffuseMap(new Texture("rockLava.jpg"));
+		materialRock.setEmissiveMap(new Texture("rockLavaEmissive.png"));
 		materialRock.setNormalMap(new Texture("rockNormal.png"));
-		materialRock.setRoughness(1);
+		materialRock.setRoughness(0.95f);
 		materialRock.setMetallic(0);
 		
 		MeshRenderer meshRendererRock = new MeshRenderer(meshRock, materialRock);
@@ -277,7 +278,7 @@ public class TestGame extends Game{
 		planeObjectRock.getTransform().setPos(8, -1, 15);
 		planeObjectRock.getTransform().setScale(new Vector3f(2, 2, 2));
 		
-		float light = 1.0f;
+		float light = 2.0f;
 		
 		Entity directionalLightObject = new Entity();
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.4f);
@@ -363,6 +364,7 @@ public class TestGame extends Game{
 		Mesh mesh2 = new Mesh("monkey.obj");
 		Material material2 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 1, 8
 		material2.setDiffuseMap(new Texture("white.png"));
+//		material2.setDiffuseMap(new Texture("monkey.png"));
 //		material2.setEmissiveMap(new Texture("monkeyEmissive.png"));
 //		material2.setDiffuseMap(new Texture("plastic.png"));
 //		material2.setRoughnessMap(new Texture("plastic_rough.png"));
@@ -481,8 +483,10 @@ public class TestGame extends Game{
 		Mesh swordmesh = new Mesh("sword.obj");
 		Material swordmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		swordmaterial.setDiffuseMap(new Texture("sword.png"));
-		swordmaterial.setRoughness(0.2f);
-		swordmaterial.setMetallic(1);
+		swordmaterial.setRoughnessMap(new Texture("swordRough.png"));
+		swordmaterial.setMetallicMap(new Texture("swordMetall.png"));
+//		swordmaterial.setRoughness(0.2f);
+//		swordmaterial.setMetallic(1);
 		
 		Mesh swordmesh2 = new Mesh("shield.obj");
 		Material sword4material = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
