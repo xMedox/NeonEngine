@@ -464,11 +464,11 @@ public class RenderingEngine{
 	
 	private static void renderSkybox(){
 		if(skybox != null){
-			GL11.glDepthMask(false);
+			GL11.glDepthFunc(GL11.GL_LEQUAL);
 			
 			skybox.render(skyboxShader, mainCamera);
 			
-			GL11.glDepthMask(true);
+			GL11.glDepthFunc(GL11.GL_LESS);
 		}
 	}
 	
