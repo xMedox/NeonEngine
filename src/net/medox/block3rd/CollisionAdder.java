@@ -70,7 +70,7 @@ public class CollisionAdder extends EntityComponent{
 	}
 	
 	private void addCollision(int x, int y, int z, Entity e){
-		BoxCollider box = new BoxCollider(new Vector3f(0.5f, 0.5f, 0.5f));
+		BoxCollider box = new BoxCollider(0.5f, 0.5f, 0.5f);
 		box.setMassProps(0);
 		
 		Transform t = new Transform();

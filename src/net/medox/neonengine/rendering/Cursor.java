@@ -39,7 +39,7 @@ public class Cursor{
 		resource = loadedCursors.get(fileName);
 		
 		if(resource == null){
-			final ImageData pixels = ImageUtil.imageToImageData(fileName);
+			final ImageData pixels = ImageUtil.convertToImageData(fileName);
 			final GLFWImage image = GLFWImage.malloc().set(pixels.width, pixels.height, pixels.data);
 			
 			final long cursor = GLFW.glfwCreateCursor(image, xPos, yPos);

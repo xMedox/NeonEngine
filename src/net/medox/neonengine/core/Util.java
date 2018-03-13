@@ -168,7 +168,7 @@ public class Util{
 	}
 	
 	public static Vector3f mouseToRay(){
-		Vector3f result = new Vector3f();
+		Vector3f result = new Vector3f(0, 0, 0);
 		
 		final Camera camera = RenderingEngine.getMainCamera();
 		

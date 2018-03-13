@@ -53,19 +53,15 @@ public class Material{
 	public void setDiffuseMap(Texture texture){
 		setTexture("diffuseMap", texture);
 	}
-	
 	public void setNormalMap(Texture texture){
 		setTexture("normalMap", texture);
 	}
-	
 	public void setRoughnessMap(Texture texture){
 		setTexture("roughnessMap", texture);
 	}
-	
 	public void setMetallicMap(Texture texture){
 		setTexture("metallicMap", texture);
 	}
-	
 	public void setEmissiveMap(Texture texture){
 		setTexture("emissiveMap", texture);
 	}
@@ -73,11 +69,9 @@ public class Material{
 	public void setRoughness(float value){
 		setFloat("roughness", value);
 	}
-	
 	public void setMetallic(float value){
 		setFloat("metallic", value);
 	}
-	
 	public void setEmissive(float value){
 		setFloat("emissive", value);
 	}
@@ -85,19 +79,15 @@ public class Material{
 	public Texture getDiffuseMap(){
 		return getTexture("diffuse");
 	}
-	
 	public Texture getNormalMap(){
 		return getTexture("normalMap");
 	}
-	
 	public Texture getRoughnessMap(){
 		return getTexture("roughnessMap");
 	}
-	
 	public Texture getMetallicMap(){
 		return getTexture("metallicMap");
 	}
-	
 	public Texture getEmissiveMap(){
 		return getTexture("emissiveMap");
 	}
@@ -105,11 +95,9 @@ public class Material{
 	public float getRoughness(){
 		return getFloat("roughness");
 	}
-	
 	public float getMetallic(){
 		return getFloat("metallic");
 	}
-	
 	public float getEmissive(){
 		return getFloat("emissive");
 	}
@@ -138,17 +126,14 @@ public class Material{
 		textureMap.remove(name);
 		textureMap.put(name, texture);
 	}
-	
 	public void setCubeMap(String name, CubeMap cubeMap){
 		cubeMapMap.remove(name);
 		cubeMapMap.put(name, cubeMap);
 	}
-	
 	public void setVector3f(String name, Vector3f vector3f){
 		vector3fMap.remove(name);
 		vector3fMap.put(name, vector3f);
 	}
-	
 	public void setFloat(String name, float floatValue){
 		floatMap.remove(name);
 		floatMap.put(name, floatValue);
@@ -157,15 +142,12 @@ public class Material{
 	public Texture getTexture(String name){
 		return textureMap.get(name);
 	}
-	
 	public CubeMap getCubeMap(String name){
 		return cubeMapMap.get(name);
 	}
-	
 	public Vector3f getVector3f(String name){
 		return vector3fMap.get(name);
 	}
-	
 	public float getFloat(String name){
 		return floatMap.get(name);
 	}

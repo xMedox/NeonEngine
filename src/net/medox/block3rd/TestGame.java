@@ -101,21 +101,21 @@ public class TestGame extends Game{
 //		Lock2D lifeLock = new Lock2D(4, -80-27, new Vector2f(0, 1));
 		Lock2D lifeLock = new Lock2D(4, -80-27+8, new Vector2f(0, 1));
 		life.addComponent(lifeLock);
-		life.getTransform().setScale(new Vector2f(202, 27));
+		life.getTransform().setScale(202, 27);
 		addEntity2D(life);
 		
 		Entity2D sprint = new Entity2D();
 //		Lock2D sprintLock = new Lock2D(4, -119-27, new Vector2f(0, 1));
 		Lock2D sprintLock = new Lock2D(4, -107-27+8, new Vector2f(0, 1));
 		sprint.addComponent(sprintLock);
-		sprint.getTransform().setScale(new Vector2f(202, 27));
+		sprint.getTransform().setScale(202, 27);
 		addEntity2D(sprint);
 		
 		Entity2D button = new Entity2D();
 		Lock2D buttonLock = new Lock2D(4, -134-27+8, new Vector2f(0, 1));
 		button.addComponent(buttonLock);
 		button.addComponent(new Slider(0, new Vector3f(0.5f, 0.5f, 0.5f), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT)));
-		button.getTransform().setScale(new Vector2f(202, 27));
+		button.getTransform().setScale(202, 27);
 		addEntity2D(button);
 		
 		Entity player = new Entity();
@@ -180,8 +180,8 @@ public class TestGame extends Game{
 		Lock2D teamLock = new Lock2D(4, -64-4, new Vector2f(0, 1));
 		team.addComponent(teamRenderer);
 		team.addComponent(teamLock);
-//		team.getTransform().setPos(new Vector2f(0, 0));
-		team.getTransform().setScale(new Vector2f(64, 64));
+//		team.getTransform().setPos(0, 0);
+		team.getTransform().setScale(64, 64);
 		addEntity2D(team);
 		
 //		Entity2D team2 = new Entity2D();
@@ -189,8 +189,8 @@ public class TestGame extends Game{
 //		Lock2D teamLock2 = new Lock2D(64, -64, new Vector2f(0, 1));
 //		team2.addComponent(teamRenderer2);
 //		team2.addComponent(teamLock2);
-////		team2.getTransform().setPos(new Vector2f(0, 0));
-//		team2.getTransform().setScale(new Vector2f(64, 64));
+////		team2.getTransform().setPos(0, 0);
+//		team2.getTransform().setScale(64, 64);
 //		addEntity2D(team2);
 		
 		Entity changeMode = new Entity();

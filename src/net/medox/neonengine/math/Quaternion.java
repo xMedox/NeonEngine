@@ -6,15 +6,13 @@ public class Quaternion{
 	private float z;
 	private float w;
 	
-	//only for networking{
 	public Quaternion(){
 		x = 0;
 		y = 0;
 		z = 0;
 		w = 1;
 	}
-	//}
-
+	
 	public Quaternion(float x, float y, float z, float w){
 		this.x = x;
 		this.y = y;

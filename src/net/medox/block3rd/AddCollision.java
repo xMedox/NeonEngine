@@ -42,9 +42,9 @@ public class AddCollision extends EntityComponent{
 			entity.getTransform().setScale(0.5f);
 			
 //			Transform t = new Transform();
-//			t.setPos(new Vector3f(8, 10, 8));
+//			t.setPos(8, 10, 8);
 			
-			BoxCollider box = new BoxCollider(new Vector3f(0.5f, 0.5f, 0.5f));
+			BoxCollider box = new BoxCollider(0.5f, 0.5f, 0.5f);
 			box.setMassProps(1);
 			
 			box.setTransform(/*t*/entity.getTransform());

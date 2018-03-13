@@ -113,8 +113,8 @@ public class TestGame extends Game{
 		Entity player = new Entity();
 		Entity playerHead = new Entity();
 		
-		player.getTransform().setPos(new Vector3f(0, 2, 0));
-		playerHead.getTransform().setPos(new Vector3f(0, 0.75f, 0));
+		player.getTransform().setPos(0, 2, 0);
+		playerHead.getTransform().setPos(0, 0.75f, 0);
 		
 		Camera cam = new Camera((float)Math.toRadians(65.0f), 0.01f, 400.0f);
 //		cam.setExposure(1);
@@ -171,7 +171,9 @@ public class TestGame extends Game{
 //		material.setNormalMap(new Texture("bricksNormal.jpg"));
 //		material.setRoughness(0.85f);
 		material.setMetallic(0);
-		material.setDiffuseMap(new Texture("green.png"));
+		material.setDiffuseMap(new Texture("greenGrass.png"));
+		material.setNormalMap(new Texture("grass1-normal2.png"));
+		material.setRoughnessMap(new Texture("grass1-rough.png"));
 //		material.setEmissiveMap(new Texture("monkeyEmissive.png"));
 //		material.setDiffuseMap(new Texture("plastic.png"));
 //		material.setRoughnessMap(new Texture("plastic_rough.png"));
@@ -210,8 +212,7 @@ public class TestGame extends Game{
 		
 		Entity planeObjectx = new Entity();
 		planeObjectx.getTransform().setPos(0-20+3, 2.5f, 5-20+3);
-//		planeObject.getTransform().setScale(new Vector3f(25f, 25f, 25f));
-		planeObjectx.getTransform().setScale(new Vector3f(1, 1, 1));
+//		planeObject.getTransform().setScale(25f);
 //		planeObject.getTransform().rotate(new Vector3f(1, 0, -1), (float)Math.toRadians(90));
 //		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 0), (float)Math.toRadians(90));
 		planeObjectx.getTransform().rotate(new Vector3f(1, 0, 0), (float)Math.toRadians(90));
@@ -235,8 +236,10 @@ public class TestGame extends Game{
 		neonObject.addComponent(neonRenderer);
 		
 		Material emissiveMaterial = new Material();
-//		emissiveMaterial.setDiffuseMap(new Texture("white.png"));
-		emissiveMaterial.setRoughness(1);
+		emissiveMaterial.setDiffuseMap(new Texture("red.png"));
+//		emissiveMaterial.setRoughnessMap(new Texture("plastic_rough.png"));
+//		emissiveMaterial.setRoughness(1);
+		emissiveMaterial.setRoughness(0.22f);
 //		emissiveMaterial.setMetallic(1);
 		
 		Mesh pbrMesh = new Mesh("pbr.obj");
@@ -261,13 +264,13 @@ public class TestGame extends Game{
 		Entity planeObjectDrake = new Entity();
 		planeObjectDrake.addComponent(meshRendererDrake);
 		planeObjectDrake.getTransform().setPos(14, -1, 15);
-		planeObjectDrake.getTransform().setScale(new Vector3f(4, 4, 4));
+		planeObjectDrake.getTransform().setScale(4);
 		
 		Mesh meshRock = new Mesh("rock.obj");
 		Material materialRock = new Material();
-		materialRock.setDiffuseMap(new Texture("rockLava.jpg"));
-		materialRock.setEmissiveMap(new Texture("rockLavaEmissive.png"));
-		materialRock.setNormalMap(new Texture("rockNormal.png"));
+		materialRock.setDiffuseMap(new Texture("rockLava2.png"));
+		materialRock.setEmissiveMap(new Texture("rockLavaEmissive2.png"));
+		materialRock.setNormalMap(new Texture("rockNormal2.png"));
 		materialRock.setRoughness(0.95f);
 		materialRock.setMetallic(0);
 		
@@ -276,7 +279,7 @@ public class TestGame extends Game{
 		Entity planeObjectRock = new Entity();
 		planeObjectRock.addComponent(meshRendererRock);
 		planeObjectRock.getTransform().setPos(8, -1, 15);
-		planeObjectRock.getTransform().setScale(new Vector3f(2, 2, 2));
+		planeObjectRock.getTransform().setScale(2);
 		
 		float light = 2.0f;
 		
@@ -505,18 +508,18 @@ public class TestGame extends Game{
 		MeshRenderer swordmeshRenderer3 = new MeshRenderer(swordmesh3, sword5material);
 		
 		Entity swordObject = new Entity();
-//		swordObject.getTransform().setScale(new Vector3f(0.0125f*12, 0.0125f*12, 0.0125f*12));
-		swordObject.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+//		swordObject.getTransform().setScale(0.0125f*12);
+		swordObject.getTransform().setScale(0.5f);
 //		swordObject.getTransform().setPos(0.2f*12, /*-0.08f*/-0.0625f*12, 0.25f*12);
 		swordObject.getTransform().setPos(0.2f*12, 1, 0.25f*12);
 		swordObject.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90)));
 		
 		Entity swordObject2 = new Entity();
-		swordObject2.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+		swordObject2.getTransform().setScale(0.5f);
 		swordObject2.getTransform().setPos(3f, 3f, 0f);
 		
 		Entity swordObject3 = new Entity();
-		swordObject3.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+		swordObject3.getTransform().setScale(0.5f);
 		swordObject3.getTransform().setPos(6f, 3f, 0f);
 		
 		swordObject.addComponent(swordmeshRenderer);
@@ -549,7 +552,7 @@ public class TestGame extends Game{
 		MeshRenderer humanmeshRenderer = new MeshRenderer(humanmesh, humanmaterial);
 		
 		Entity humanObject = new Entity();
-		humanObject.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
+		humanObject.getTransform().setScale(0.5f);
 		humanObject.getTransform().setPos(12f, 10f, 10f);
 		
 		humanObject.addComponent(humanmeshRenderer);
@@ -615,22 +618,22 @@ public class TestGame extends Game{
 		
 		
 		Transform tk = new Transform();
-		tk.setPos(new Vector3f(3, 15, 0));
+		tk.setPos(3, 15, 0);
 		
 		sphere.setTransform(tk);
 //		testphys2.getSphere().setMassProps(0);
 		
-		tk.setPos(new Vector3f(5, 15, 0));
+		tk.setPos(5, 15, 0);
 		
 		sphere2.setTransform(tk);
 //		testphys2.getSphere().setMassProps(0);
 		
 		
 		Transform tkA = new Transform();
-		tkA.setPos(new Vector3f(1, 0, 0));
+		tkA.setPos(1, 0, 0);
 		
 		Transform tkB = new Transform();
-		tkB.setPos(new Vector3f(-1, 0, 0));
+		tkB.setPos(-1, 0, 0);
 		
 		PointConstraint constraint = new PointConstraint(sphere2, sphere, new Vector3f(-1, 0, 0), new Vector3f(1, 0, 0));
 //		SliderConstraint constraint = new SliderConstraint(testphys.getSphere(), testphys2.getSphere(), tkA, tkB, false);
@@ -650,10 +653,10 @@ public class TestGame extends Game{
 		
 		Entity stair1 = new Entity();
 		
-		BoxCollider box1 = new BoxCollider(new Vector3f(0.5f, 0.15f, 0.75f));
+		BoxCollider box1 = new BoxCollider(0.5f, 0.15f, 0.75f);
 		
-		stair1.getTransform().setPos(new Vector3f(5, -1 + 0.15f, 10));
-		stair1.getTransform().setScale(new Vector3f(0.5f, 0.15f, 0.75f));
+		stair1.getTransform().setPos(5, -1 + 0.15f, 10);
+		stair1.getTransform().setScale(0.5f, 0.15f, 0.75f);
 		
 		box1.setPos(stair1.getTransform().getTransformedPos());
 		
@@ -666,10 +669,10 @@ public class TestGame extends Game{
 		
 		Entity stair2 = new Entity();
 		
-		BoxCollider box2 = new BoxCollider(new Vector3f(0.5f, 0.3f, 0.75f));
+		BoxCollider box2 = new BoxCollider(0.5f, 0.3f, 0.75f);
 		
-		stair2.getTransform().setPos(new Vector3f(6, -1 + 0.3f, 10));
-		stair2.getTransform().setScale(new Vector3f(0.5f, 0.3f, 0.75f));
+		stair2.getTransform().setPos(6, -1 + 0.3f, 10);
+		stair2.getTransform().setScale(0.5f, 0.3f, 0.75f);
 		
 		box2.setPos(stair2.getTransform().getTransformedPos());
 		
@@ -682,10 +685,10 @@ public class TestGame extends Game{
 		
 		Entity stair3 = new Entity();
 		
-		BoxCollider box3 = new BoxCollider(new Vector3f(0.5f, 0.45f, 0.75f));
+		BoxCollider box3 = new BoxCollider(0.5f, 0.45f, 0.75f);
 		
-		stair3.getTransform().setPos(new Vector3f(7, -1 + 0.45f, 10));
-		stair3.getTransform().setScale(new Vector3f(0.5f, 0.45f, 0.75f));
+		stair3.getTransform().setPos(7, -1 + 0.45f, 10);
+		stair3.getTransform().setScale(0.5f, 0.45f, 0.75f);
 		
 		box3.setPos(stair3.getTransform().getTransformedPos());
 		
@@ -698,10 +701,10 @@ public class TestGame extends Game{
 		
 		Entity stair4 = new Entity();
 		
-		BoxCollider box4 = new BoxCollider(new Vector3f(0.5f, 0.6f, 0.75f));
+		BoxCollider box4 = new BoxCollider(0.5f, 0.6f, 0.75f);
 		
-		stair4.getTransform().setPos(new Vector3f(8, -1 + 0.6f, 10));
-		stair4.getTransform().setScale(new Vector3f(0.5f, 0.6f, 0.75f));
+		stair4.getTransform().setPos(8, -1 + 0.6f, 10);
+		stair4.getTransform().setScale(0.5f, 0.6f, 0.75f);
 		
 		box4.setPos(stair4.getTransform().getTransformedPos());
 		
@@ -723,17 +726,18 @@ public class TestGame extends Game{
 		Lock2D l = new Lock2D(-16/2, -16/2, new Vector2f(0.5f, 0.5f));
 		e.addComponent(c).addComponent(l);
 		
-		e.getTransform().setPos(new Vector2f(Window.getWidth()/2-16/2, Window.getHeight()/2-16/2));
-		e.getTransform().setScale(new Vector2f(16, 16));
+		e.getTransform().setPos(Window.getWidth()/2-16/2, Window.getHeight()/2-16/2);
+		e.getTransform().setScale(16, 16);
 //		e.getTransform().setRot((float)Math.toRadians(45));
 		
 		addEntity2D(e);
 		
 		Entity2D e2 = new Entity2D();
-		Lock2D l2 = new Lock2D(-256, -40, new Vector2f(1f, 1f));		e2.addComponent(l2);
+		Lock2D l2 = new Lock2D(-256, -40, new Vector2f(1f, 1f));
+		e2.addComponent(l2);
 		
-		e2.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40));
-		e2.getTransform().setScale(new Vector2f(256, 40));
+		e2.getTransform().setPos(Window.getWidth()-256, Window.getHeight()-40);
+		e2.getTransform().setScale(256, 40);
 		
 //		Slider slider = new Slider(1, new Vector3f(1, 0, 0), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
 		Slider slider = new Slider(1, new Vector3f(0.02352941176f*2, 0.11372549019f*2, 0.27058823529f*2), new Vector3f(1, 1, 1), 0, new InputKey(Input.MOUSE, Input.BUTTON_RIGHT));
@@ -751,8 +755,8 @@ public class TestGame extends Game{
 		Lock2D l22 = new Lock2D(-256, -40-29, new Vector2f(1f, 1f));
 		e22.addComponent(l22).addComponent(new TextBox(10, "", new Vector3f(1, 1, 1), new Vector3f(0, 0, 0), new InputKey(Input.MOUSE, Input.BUTTON_RIGHT)));
 		
-		e22.getTransform().setPos(new Vector2f(Window.getWidth()-256, Window.getHeight()-40-29));
-		e22.getTransform().setScale(new Vector2f(256, 29));
+		e22.getTransform().setPos(Window.getWidth()-256, Window.getHeight()-40-29);
+		e22.getTransform().setScale(256, 29);
 		
 		addEntity2D(e22);
 		
@@ -762,8 +766,8 @@ public class TestGame extends Game{
 		e3.addComponent(c3).addComponent(l3);
 		e3.addComponent(new Move2D());
 		
-		e3.getTransform().setPos(new Vector2f(0, 0));
-		e3.getTransform().setScale(new Vector2f(256, 256));
+		e3.getTransform().setPos(0, 0);
+		e3.getTransform().setScale(256, 256);
 		
 		addEntity2D(e3);
 		
@@ -780,8 +784,8 @@ public class TestGame extends Game{
 		Lock2D l10 = new Lock2D(0, -40, new Vector2f(0f, 1f));
 		e10.addComponent(l10).addComponent(s1);
 		
-		e10.getTransform().setPos(new Vector2f(0, Window.getHeight()-40));
-		e10.getTransform().setScale(new Vector2f(256, 40));
+		e10.getTransform().setPos(0, Window.getHeight()-40);
+		e10.getTransform().setScale(256, 40);
 		
 		addEntity2D(e10);
 		
@@ -791,7 +795,7 @@ public class TestGame extends Game{
 		e11.addComponent(l11).addComponent(s2);
 		
 		e11.getTransform().setPos(new Vector2f(0, Window.getHeight()-80));
-		e11.getTransform().setScale(new Vector2f(256, 40));
+		e11.getTransform().setScale(256, 40);
 		
 		addEntity2D(e11);
 		
@@ -800,8 +804,8 @@ public class TestGame extends Game{
 		Lock2D l12 = new Lock2D(0, -120, new Vector2f(0f, 1f));
 		e12.addComponent(l12).addComponent(s3);
 		
-		e12.getTransform().setPos(new Vector2f(0, Window.getHeight()-120));
-		e12.getTransform().setScale(new Vector2f(256, 40));
+		e12.getTransform().setPos(0, Window.getHeight()-120);
+		e12.getTransform().setScale(256, 40);
 		
 		addEntity2D(e12);
 		
@@ -838,7 +842,7 @@ public class TestGame extends Game{
 		
 		particle2.addComponent(new SmokeComponent()).addComponent(new SmokeComponent());
 		
-//		particle2.getTransform().setPos(new Vector3f(0, 0.5f, 0));
+//		particle2.getTransform().setPos(0, 0.5f, 0);
 		
 		addEntity(particle2);
 		
@@ -852,10 +856,10 @@ public class TestGame extends Game{
 				
 				particle.addComponent(new ParticleRenderer(pMat));
 				
-//				particle.getTransform().setScale(new Vector3f(1.5f, 1.5f, 1.5f));
-				particle.getTransform().setScale(new Vector3f(1, 1, 1));
-//				particle.getTransform().setPos(new Vector3f(i*2-2.5f*2, 5, 1+j*2));
-				particle.getTransform().setPos(new Vector3f(0, -0.5f, 0));
+//				particle.getTransform().setScale(1.5f);
+				particle.getTransform().setScale(1);
+//				particle.getTransform().setPos(i*2-2.5f*2, 5, 1+j*2);
+				particle.getTransform().setPos(0, -0.5f, 0);
 				
 				addEntity(particle);
 				
@@ -867,10 +871,10 @@ public class TestGame extends Game{
 				
 				particle4.addComponent(new ParticleRenderer(pMat2));
 				
-//				particle.getTransform().setScale(new Vector3f(1.5f, 1.5f, 1.5f));
-				particle4.getTransform().setScale(new Vector3f(1, 1, 1));
-//				particle.getTransform().setPos(new Vector3f(i*2-2.5f*2, 5, 1+j*2));
-				particle4.getTransform().setPos(new Vector3f(12, 0, 0));
+//				particle.getTransform().setScale(1.5f);
+				particle4.getTransform().setScale(1);
+//				particle.getTransform().setPos(i*2-2.5f*2, 5, 1+j*2);
+				particle4.getTransform().setPos(12, 0, 0);
 				
 				addEntity(particle4);
 //			}

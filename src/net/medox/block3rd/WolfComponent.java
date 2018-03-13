@@ -30,7 +30,7 @@ public class WolfComponent extends EntityComponent{
 		
 //		cylinder = new Cylinder(1, 2);
 //		capsule = new Cylinder(new Vector3f(0.5f, 2, 0.5f));
-		box = new BoxCollider(new Vector3f(0.275f, 0.575f, 0.775f));
+		box = new BoxCollider(0.275f, 0.575f, 0.775f);
 		
 		add = new Vector3f(0, -0.575f, 0);
 		sub = new Vector3f(0, 1, 0);
@@ -44,7 +44,7 @@ public class WolfComponent extends EntityComponent{
 		box.setSleepingThresholds(0, 0);
 		
 		Transform t = new Transform();
-		t.setPos(new Vector3f(7, 7, 7));
+		t.setPos(7, 7, 7);
 		box.setTransform(t);
 //		controlBall.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 //		capsule.s

@@ -115,12 +115,12 @@ public class Matrix4f{
 	public Matrix4f mul(Matrix4f m){
 		final Matrix4f res = new Matrix4f();
 		
-		for(int i = 0; i < 4; i ++){
-			for(int j = 0; j < 4; j ++){
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
 				res.set(i, j, this.m[i][0] * m.get(0, j) + 
-								this.m[i][1] * m.get(1, j) +
-								this.m[i][2] * m.get(2, j) +
-								this.m[i][3] * m.get(3, j));
+							  this.m[i][1] * m.get(1, j) +
+							  this.m[i][2] * m.get(2, j) +
+							  this.m[i][3] * m.get(3, j));
 			}
 		}
 		
@@ -166,8 +166,8 @@ public class Matrix4f{
 	@Override
 	public String toString(){
 		return "{(" + m[0][0] + ", " + m[0][1] + ", " + m[0][2] + ", " + m[0][3] + "), " +
-			   "(" + m[1][0] + ", " + m[1][1] + ", " + m[1][2] + ", " + m[1][3] + "), " +
-			   "(" + m[2][0] + ", " + m[2][1] + ", " + m[2][2] + ", " + m[2][3] + "), " +
-			   "(" + m[3][0] + ", " + m[3][1] + ", " + m[3][2] + ", " + m[3][3] + ")}";
+			    "(" + m[1][0] + ", " + m[1][1] + ", " + m[1][2] + ", " + m[1][3] + "), " +
+			    "(" + m[2][0] + ", " + m[2][1] + ", " + m[2][2] + ", " + m[2][3] + "), " +
+			    "(" + m[3][0] + ", " + m[3][1] + ", " + m[3][2] + ", " + m[3][3] + ")}";
 	}
 }

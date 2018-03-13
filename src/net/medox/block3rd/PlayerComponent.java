@@ -28,7 +28,7 @@ public class PlayerComponent extends EntityComponent{
 	private Texture g;
 	
 	public PlayerComponent(Entity entity){
-		box = new BoxCollider(new Vector3f(0.475f, 0.975f, 0.475f));
+		box = new BoxCollider(0.475f, 0.975f, 0.475f);
 		
 //		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
 		box.setMassProps(2.5f);

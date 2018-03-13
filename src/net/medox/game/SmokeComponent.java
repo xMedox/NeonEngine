@@ -5,7 +5,6 @@ import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Time;
 import net.medox.neonengine.core.Util;
-import net.medox.neonengine.math.Vector3f;
 import net.medox.neonengine.rendering.ParticleMaterial;
 import net.medox.neonengine.rendering.Texture;
 
@@ -36,9 +35,9 @@ public class SmokeComponent extends EntityComponent{
 			particle.addComponent(new ParticleRenderer(pMat));
 			particle.addComponent(new Smoke());
 			
-			particle.getTransform().setScale(new Vector3f(0.5f, 0.5f, 0.5f));
-//			particle.getTransform().setScale(new Vector3f(2, 2, 2));
-//			particle.getTransform().setPos(new Vector3f(i*2-2.5f*2, 5, 1+j*2));
+			particle.getTransform().setScale(0.5f);
+//			particle.getTransform().setScale(2);
+//			particle.getTransform().setPos(i*2-2.5f*2, 5, 1+j*2);
 			
 //			particle.getTransform().setPos(new Vector3f(Util.randomFloat()*0.7f, 0, Util.randomFloat()*0.7f));
 			

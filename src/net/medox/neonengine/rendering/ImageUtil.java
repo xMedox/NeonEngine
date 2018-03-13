@@ -28,35 +28,37 @@ public class ImageUtil{
 	
 //	public static Texture createWhite(){
 //		return new Texture(createImage(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
+//		return new Texture(ImageUtil.convertToImageData(new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
 //	}
 	
 	public static Texture createDefaultDiffuseMap(){
 //		return new Texture(createImage(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}, 2, 2));
-		return new Texture(ImageUtil.valuesToImageData(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}));
+		return new Texture(ImageUtil.convertToImageData(new int[][]{{255, 0}, {0, 255}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 255}, {255, 0}}));
 	}
 	
 	public static Texture createDefaultNormalMap(){
 //		return new Texture(createImage(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{255, 255}, {255, 255}}, 2, 2));
-		return new Texture(ImageUtil.valuesToImageData(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{255, 255}, {255, 255}}));
+		return new Texture(ImageUtil.convertToImageData(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{255, 255}, {255, 255}}));
 	}
 	
 //	public static Texture createDefaultDisplacementMap(){	
 //		return new Texture(createImage(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, 2, 2));
+//		return new Texture(ImageUtil.convertToImageData(new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, new int[][]{{128, 128}, {128, 128}}, 2, 2));
 //	}
 	
 	public static Texture createDefaultRoughnessMap(){
 //		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
-		return new Texture(ImageUtil.valuesToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
+		return new Texture(ImageUtil.convertToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
 	}
 	
 	public static Texture createDefaultMetallicMap(){
 //		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
-		return new Texture(ImageUtil.valuesToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
+		return new Texture(ImageUtil.convertToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
 	}
 	
 	public static Texture createDefaultEmissiveMap(){
 //		return new Texture(createImage(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, 2, 2));
-		return new Texture(ImageUtil.valuesToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
+		return new Texture(ImageUtil.convertToImageData(new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}, new int[][]{{0, 0}, {0, 0}}));
 	}
 	
 //	public static Texture createDefaultCubeMap(){
@@ -263,7 +265,7 @@ public class ImageUtil{
 						   { 21, 23, 25, 27, 29, 32, 34, 35, 37, 38, 39, 40, 40, 40, 40, 40, 39, 38, 37, 38, 36, 35, 34, 33, 32, 29, 28, 27, 25, 23, 22, 20}};
 	}
 	
-	public static ImageData imageToImageData(String file){
+	public static ImageData convertToImageData(String file){
 //		BufferedImage image = null;
 //		
 //		try{
@@ -314,7 +316,7 @@ public class ImageUtil{
 		return new ImageData(width, height, data);
 	}
 	
-	public static ImageData bufferedImageToImageData(BufferedImage image){
+	public static ImageData convertToImageData(BufferedImage image){
 		final int width = image.getWidth();
 		final int height = image.getHeight();
 		
@@ -344,7 +346,7 @@ public class ImageUtil{
 		return new ImageData(width, height, buffer);
 	}
 	
-	public static ImageData valuesToImageData(int[][] r, int[][] g, int[][] b){
+	public static ImageData convertToImageData(int[][] r, int[][] g, int[][] b){
 		final int width = r[0].length;
 		final int height = r.length;
 		

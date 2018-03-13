@@ -116,7 +116,7 @@ public class Window{
 		}
 		
 		if(startIcon16.equals("") || startIcon32.equals("")){
-			setIcon(ImageUtil.valuesToImageData(ImageUtil.getDefaultIconRed(), ImageUtil.getDefaultIconGreen(), ImageUtil.getDefaultIconBlue()), ImageUtil.valuesToImageData(ImageUtil.getDefaultIcon32Red(), ImageUtil.getDefaultIcon32Green(), ImageUtil.getDefaultIcon32Blue()));
+			setIcon(ImageUtil.convertToImageData(ImageUtil.getDefaultIconRed(), ImageUtil.getDefaultIconGreen(), ImageUtil.getDefaultIconBlue()), ImageUtil.convertToImageData(ImageUtil.getDefaultIcon32Red(), ImageUtil.getDefaultIcon32Green(), ImageUtil.getDefaultIcon32Blue()));
 		}else{
 			setIcon(startIcon16, startIcon32);
 		}
@@ -268,10 +268,10 @@ public class Window{
 	public static void setIcon(String icon16, String icon32){
 		final GLFWImage.Buffer icons = GLFWImage.malloc(2);
 		
-		final ImageData pixels16 = ImageUtil.imageToImageData(icon16);
+		final ImageData pixels16 = ImageUtil.convertToImageData(icon16);
 		icons.position(0).width(pixels16.width).height(pixels16.height).pixels(pixels16.data);
 		
-		final ImageData pixels32 = ImageUtil.imageToImageData(icon32);
+		final ImageData pixels32 = ImageUtil.convertToImageData(icon32);
 		icons.position(1).width(pixels32.width).height(pixels32.height).pixels(pixels32.data);
 	    
 		icons.position(0);

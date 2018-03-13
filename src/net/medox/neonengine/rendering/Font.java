@@ -170,7 +170,7 @@ public class Font{
 				fontImage = null;
 			}
 			
-			fontTexture = new Texture(ImageUtil.bufferedImageToImageData(imgTemp));
+			fontTexture = new Texture(ImageUtil.convertToImageData(imgTemp));
 		}catch(Exception e){
 			NeonEngine.throwError("Error: Failed to create font.");
 		}

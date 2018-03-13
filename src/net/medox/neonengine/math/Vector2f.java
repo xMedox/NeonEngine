@@ -4,12 +4,10 @@ public class Vector2f{
 	private float x;
 	private float y;
 	
-	//only for networking{
 	public Vector2f(){
 		x = 0;
 		y = 0;
 	}
-	//}
 	
 	public Vector2f(float x, float y){
 		this.x = x;

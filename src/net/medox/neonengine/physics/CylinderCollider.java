@@ -10,6 +10,26 @@ import com.badlogic.gdx.physics.bullet.linearmath.btDefaultMotionState;
 public class CylinderCollider extends Collider{
 	private final btCollisionShape shape;
 	
+	public CylinderCollider(float halfExtentsX, float halfExtentsY, float halfExtentsZ){
+		super();
+		
+//		final MotionState motionState = new DefaultMotionState(DEFAULT_TRANSFORM);
+		
+		shape = new btCylinderShape(new Vector3(halfExtentsX, halfExtentsY, halfExtentsZ));
+		
+		final Vector3 inertia = new Vector3(0, 0, 0);
+		shape.calculateLocalInertia(1f, inertia);
+		
+//		final RigidBodyConstructionInfo bodyConstructionInfo = new RigidBodyConstructionInfo(1f, motionState, shape, inertia);
+		
+//		ballBodyConstructionInfo.restitution = 0.5f;
+//		ballBodyConstructionInfo.angularDamping = 0.95f;
+		
+//		setBody(new RigidBody(bodyConstructionInfo));
+//		setBody(new RigidBody(new RigidBodyConstructionInfo(1f, motionState, shape, inertia)));
+		setBody(new btRigidBody(new btRigidBodyConstructionInfo(1f, new btDefaultMotionState(DEFAULT_TRANSFORM), shape, inertia)));
+	}
+	
 	public CylinderCollider(net.medox.neonengine.math.Vector3f halfExtents){
 		super();
 		

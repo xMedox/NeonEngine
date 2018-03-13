@@ -101,16 +101,16 @@ public class AddComponent extends EntityComponent{
 		coneM = new Mesh("cone.obj");
 		
 		boxTransform = new Transform();
-		boxTransform.setPos(new Vector3f(-5, 15, 0));
+		boxTransform.setPos(-5, 15, 0);
 		
 		sphereTransform = new Transform();
-		sphereTransform.setPos(new Vector3f(0, 15, 0));
+		sphereTransform.setPos(0, 15, 0);
 		
 		cylinderTransform = new Transform();
-		cylinderTransform.setPos(new Vector3f(5, 15, 0));
+		cylinderTransform.setPos(5, 15, 0);
 		
 		coneTransform = new Transform();
-		coneTransform.setPos(new Vector3f(10, 15, 0));
+		coneTransform.setPos(10, 15, 0);
 	}
 	
 	@Override
@@ -184,7 +184,7 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_N)){
 			Entity entity = new Entity();
 			
-			BoxCollider box = new BoxCollider(new Vector3f(1f, 1f, 1f));
+			BoxCollider box = new BoxCollider(1f, 1f, 1f);
 			box.setMassProps(4);
 			
 			box.setTransform(boxTransform);
@@ -214,7 +214,7 @@ public class AddComponent extends EntityComponent{
 			
 			entity.getTransform().setScale(new Vector3f(2, 2, 2));
 			
-			CylinderCollider cylinder = new CylinderCollider(new Vector3f(1f, 1f, 1f));
+			CylinderCollider cylinder = new CylinderCollider(1f, 1f, 1f);
 			cylinder.setMassProps(4);
 			
 			cylinder.setTransform(cylinderTransform);
