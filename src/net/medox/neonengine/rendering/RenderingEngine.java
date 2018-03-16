@@ -427,6 +427,8 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		
 		if(NeonEngine.isBloomEnabled()){
 			applyFilter(bloomSwitchShader, getTexture("displayTexture"), getTexture("bloomTexture1"));
 			
@@ -457,6 +459,8 @@ public class RenderingEngine{
 		
 		renderFilters();
 //		applyFilter(nullFilter, getTexture("brdfLUT"), null);
+		
+//		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		
 		if(NeonEngine.isProfilingEnabled()){
 			windowSyncProfileTimer.stopInvocation();
@@ -538,7 +542,7 @@ public class RenderingEngine{
 		
 		setTexture("filterTexture", source);
 		
-		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+//		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 		filter.bind();
 		filter.updateUniforms(filterTransform, filterMaterial, filterCamera);
 		filterPlane.draw();
@@ -547,11 +551,15 @@ public class RenderingEngine{
 	}
 	
 	private static void blurShadowMap(int shadowMapIndex, float blurAmount){
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		
 		setVector3f("blurScale", new Vector3f(blurAmount/(shadowMaps[shadowMapIndex].getWidth()), 0.0f, 0.0f));
 		applyFilter(gausBlurFilter, shadowMaps[shadowMapIndex], shadowMapTempTargets[shadowMapIndex]);
 		
 		setVector3f("blurScale", new Vector3f(0.0f, blurAmount/(shadowMaps[shadowMapIndex].getHeight()), 0.0f));
 		applyFilter(gausBlurFilter, shadowMapTempTargets[shadowMapIndex], shadowMaps[shadowMapIndex]);
+		
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 	}
 	
 	private static void blurBloomMap(float blurAmount){
@@ -569,16 +577,17 @@ public class RenderingEngine{
 		if(NeonEngine.is2DEnabled()){
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
+//			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			
 			object.renderAll();
 			
 			batchRenderer.render(shader2D, camera2D);
 			
 			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
 		}
+		
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		
 		if(NeonEngine.isProfilingEnabled()){
 			renderProfileTimer2D.stopInvocation();
 		}

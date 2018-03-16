@@ -66,6 +66,23 @@ public class Material{
 		setTexture("emissiveMap", texture);
 	}
 	
+	//TODO use those methods in the examples
+	public void setDiffuseMap(String fileName){
+		setDiffuseMap(new Texture(fileName));
+	}
+	public void setNormalMap(String fileName){
+		setNormalMap(new Texture(fileName));
+	}
+	public void setRoughnessMap(String fileName){
+		setRoughnessMap(new Texture(fileName));
+	}
+	public void setMetallicMap(String fileName){
+		setMetallicMap(new Texture(fileName));
+	}
+	public void setEmissiveMap(String fileName){
+		setEmissiveMap(new Texture(fileName));
+	}
+	
 	public void setRoughness(float value){
 		setFloat("roughness", value);
 	}
