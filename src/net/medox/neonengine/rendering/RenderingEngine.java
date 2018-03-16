@@ -91,7 +91,7 @@ public class RenderingEngine{
 	private static Shader gausBlurFilter;
 	private static Shader nullFilter;
 	private static Shader fxaaFilter;
-	private static Shader hdrFilter;
+	private static Shader toneMappingFilter;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -200,7 +200,7 @@ public class RenderingEngine{
 		gausBlurFilter = new Shader("filterGausBlur");
 		nullFilter = new Shader("filterNull");
 		fxaaFilter = new Shader("filterFxaa");
-		hdrFilter = new Shader("filterHdr");
+		toneMappingFilter = new Shader("filterToneMapping");
 		
 		filters = new ArrayList<Shader>();
 		
@@ -237,6 +237,7 @@ public class RenderingEngine{
 		filterPlane = new Mesh("", filterIndexed.finalizeModel());
 		
 		
+		//TODO stop generating the brdf on startup create it once in a seperate programm
 		Shader brdfShader = new Shader("brdf");
 		Texture brdf = new Texture(512, 512, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RG16F, GL30.GL_RG, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 		
@@ -452,7 +453,7 @@ public class RenderingEngine{
 			windowSyncProfileTimer.startInvocation();
 		}
 		
-		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+		applyFilter(toneMappingFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
 		
 		renderFilters();
 //		applyFilter(nullFilter, getTexture("brdfLUT"), null);

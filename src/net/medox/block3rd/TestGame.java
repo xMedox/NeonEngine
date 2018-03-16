@@ -32,19 +32,6 @@ import net.medox.neonengine.rendering.Window;
 
 public class TestGame extends Game{
 	public static void main(String[] args){
-//		NeonEngine.enableProfiling(true);
-//		NeonEngine.enableVSync(false);
-//		NeonEngine.enableFXAA(false);
-//		NeonEngine.enableShadows(true);
-//		NeonEngine.enable2D(true);
-//		NeonEngine.enableParticles(false);
-//		NeonEngine.enableBloom(true);
-//		NeonEngine.setTextureQuality(0);
-//		NeonEngine.setShadowQuality(0);
-//		NeonEngine.setRenderQuality(1);
-//		
-//		NeonEngine.init(new TestGame(), /*60*/1000);
-		
 		NeonEngine.enableProfiling(true);
 		NeonEngine.enableVSync(false);
 		NeonEngine.enableFXAA(false);
@@ -56,14 +43,13 @@ public class TestGame extends Game{
 		NeonEngine.setShadowQuality(0);
 		NeonEngine.setRenderQuality(1);
 		
-		NeonEngine.init(new TestGame(), 60);
+		NeonEngine.init(new TestGame(), /*600*/60);
 		
-		Window.setStartTitle("Project Robot");
+		Window.setStartTitle("Block Test");
 		Window.setStartSize(854, 480);
 		Window.setStartFullscreen(false);
 		Window.setStartResizable(true);
 		Window.setStartIcon("icon16.png", "icon32.png");
-//		Window.setStartCursor("cursor test red.png", 0, 0);
 //		Window.setStartSizeLimits(256, 256, 854, 480);
 		
 		NeonEngine.createWindow();

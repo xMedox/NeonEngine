@@ -14,7 +14,7 @@ import net.medox.neonengine.rendering.Texture;
 import net.medox.neonengine.rendering.Window;
 
 public class NeonEngine{
-	private static final String VERSION = "1.0.0 Build 89";
+	private static final String VERSION = "1.0.0 Build 90";
 	
 	private static ProfileTimer sleepTimer;
 	private static ProfileTimer swapBufferTimer;
@@ -67,10 +67,10 @@ public class NeonEngine{
 		PhysicsEngine.init();
 	}
 	
-	public static void throwError(String text){
-		String error = windowError + text + "\n";
+	public static void throwError(String errText){
+		String error = windowError + errText + "\n";
 		
-		System.err.println(text);
+		System.err.println(errText);
 		final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		for(int i = 2; i < stack.length; i++){
 			error += "\tat ";
@@ -90,10 +90,10 @@ public class NeonEngine{
 		System.exit(1);
 	}
 	
-	public static void throwErrorWindow(String text){
-		windowError += text/* + "\njava.lang.Exception"*/ + "\n";
+	public static void throwErrorWindow(String errText){
+		windowError += errText/* + "\njava.lang.Exception"*/ + "\n";
 		
-		System.err.println(text/* + "\njava.lang.Exception"*/);
+		System.err.println(errText/* + "\njava.lang.Exception"*/);
 		final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		for(int i = 5; i < stack.length; i++){
 			windowError += "\tat ";

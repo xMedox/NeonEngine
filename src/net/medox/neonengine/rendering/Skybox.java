@@ -75,6 +75,7 @@ public class Skybox{
 		
 		Shader equirectangular = new Shader("equirectangular");
 		
+		//TODO make the skybox resolution based on the base hdr texture
 		CubeMap cubeMap = new CubeMap(512, 512, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 		
 		equirectangular.bind();
@@ -109,7 +110,7 @@ public class Skybox{
 		
 		hdrTexture.cleanUp();
 		
-		//TODO stop generating the mipmaps before
+		//TODO stop generating the mipmaps on startup create them once in a seperate programm
 		cubeMap.generateMipmap();
 		
 		material.setCubeMap("cubeMap", cubeMap);
