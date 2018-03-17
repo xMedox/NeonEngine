@@ -6,6 +6,7 @@ import net.medox.neonengine.core.DataUtil;
 import net.medox.neonengine.math.Vector3f;
 
 import org.lwjgl.openal.AL10;
+import org.lwjgl.openal.AL11;
 
 public class SourceData{
 	private final int source;
@@ -29,6 +30,14 @@ public class SourceData{
 	
 	public void play(){
 		AL10.alSourcePlay(source);
+	}
+	
+	public void pause(){
+		AL10.alSourcePause(source);
+	}
+	
+	public void rewind(){
+		AL10.alSourceRewind(source);
 	}
 	
 	public void stop(){
@@ -77,6 +86,25 @@ public class SourceData{
 	
 	public void setRolloffFactor(float value){
 		AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR, value);
+	}
+	
+	public boolean isPlaying(){
+		return (AL10.alGetSourcei(source, AL10.AL_SOURCE_STATE) == AL10.AL_PLAYING);
+	}
+	
+	public boolean isPaused(){
+		return (AL10.alGetSourcei(source, AL10.AL_SOURCE_STATE) == AL10.AL_PAUSED);
+	}
+	
+	public float getTimeOffset(){
+		return AL10.alGetSourcef(source, AL11.AL_SEC_OFFSET);
+	}
+	
+	//TODO maybe remove the play and pause calls(updates the AL11.AL_SEC_OFFSET value and sets paused to true)
+	public void setTimeOffset(float time){
+		play();
+		AL10.alSourcef(source, AL11.AL_SEC_OFFSET, time);
+		pause();
 	}
 	
 	public void dispose(){

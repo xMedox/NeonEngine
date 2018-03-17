@@ -64,6 +64,14 @@ public class Sound{
 		source.play();
 	}
 	
+	public void pause(){
+		source.pause();
+	}
+	
+	public void rewind(){
+		source.rewind();
+	}
+	
 	public void stop(){
 		source.stop();
 	}
@@ -98,6 +106,22 @@ public class Sound{
 	
 	public void setRolloffFactor(float value){
 		source.setRolloffFactor(value);
+	}
+	
+	public boolean isPlaying(){
+		return source.isPlaying();
+	}
+	
+	public boolean isPaused(){
+		return source.isPaused();
+	}
+	
+	public float getTimeOffset(){
+		return source.getTimeOffset();
+	}
+	
+	public void setTimeOffset(float time){
+		source.setTimeOffset(time);
 	}
 	
 	private Sound loadSound(String fileName){

@@ -23,10 +23,24 @@ public class SoundComponent extends EntityComponent{
 		if(Input.getMouseDown(Input.BUTTON_MIDDLE)){
 			audio.play();
 		}
+		
+//		if(Input.getMouseDown(Input.BUTTON_4)){
+//			audio.pause();
+//		}
+//		
+//		if(Input.getMouseDown(Input.BUTTON_5)){
+//			audio.rewind();
+//		}
+//		
+//		if(Input.getKeyDown(Input.KEY_O)){
+//			audio.setTimeOffset(132.1500319f);
+//		}
 	}
 	
 	@Override
 	public void update(float delta){
 		audio.setPosition(getTransform().getTransformedPos());
+		
+//		System.out.println(audio.isPlaying() + "|" + audio.isPaused() + "|" + audio.getTimeOffset() + "/" + audio.getLength());
 	}
 }
