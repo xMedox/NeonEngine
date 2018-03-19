@@ -36,12 +36,13 @@ public class ChangeMode extends EntityComponent{
 			NeonEngine.enable2D(!NeonEngine.is2DEnabled());
 		}
 		if(Input.getKeyDown(Input.KEY_F4)){
-			if(!filterEnabled){
-				RenderingEngine.addFilter(filter);
-			}else{
-				RenderingEngine.removeFilter(filter);
-			}
-			filterEnabled = !filterEnabled;
+//			if(!filterEnabled){
+//				RenderingEngine.addFilter(filter);
+//			}else{
+//				RenderingEngine.removeFilter(filter);
+//			}
+//			filterEnabled = !filterEnabled;
+			NeonEngine.enableBloom(!NeonEngine.isBloomEnabled());
 		}
 		if(Input.getKeyDown(Input.KEY_F5)){
 			Window.setPos(Window.getX()+10, Window.getY()+10);

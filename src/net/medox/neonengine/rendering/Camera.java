@@ -32,6 +32,10 @@ public class Camera extends EntityComponent{
 		return base.getMode();
 	}
 	
+	public Matrix4f getProjection(){
+		return base.getProjection();
+	}
+	
 	public Matrix4f getViewProjection(){
 		final Vector3f cameraPos = getTransform().getTransformedPos().mul(-1);
 		

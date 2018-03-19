@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
@@ -92,6 +93,7 @@ public class RenderingEngine{
 	private static Shader nullFilter;
 	private static Shader fxaaFilter;
 	private static Shader hdrFilter;
+	private static Shader depthFilter;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -202,6 +204,7 @@ public class RenderingEngine{
 		nullFilter = new Shader("filterNull");
 		fxaaFilter = new Shader("filterFxaa");
 		hdrFilter = new Shader("filterHdr");
+		depthFilter = new Shader("depthFilter");
 		
 		filters = new ArrayList<Shader>();
 		
@@ -501,7 +504,11 @@ public class RenderingEngine{
 		
 //		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
-		applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+		if(NeonEngine.isBloomEnabled()){
+			applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+		}else{
+			applyFilter(depthFilter, getTexture("renderTexture"), getTexture("postFilterTexture"));
+		}
 //		applyFilter(nullFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
 		
 		renderFilters();
@@ -832,12 +839,12 @@ public class RenderingEngine{
 			height2 = 1;
 		}
 		
-		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
-		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG};
-		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG};
-		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE};
-		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3};
+		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
+		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
+		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG, GL14.GL_DEPTH_COMPONENT32};
+		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG, GL11.GL_DEPTH_COMPONENT};
+		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT};
+		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3, GL30.GL_DEPTH_ATTACHMENT};
 		
 		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		

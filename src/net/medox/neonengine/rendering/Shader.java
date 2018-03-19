@@ -78,6 +78,14 @@ public class Shader{
 						setUniformMatrix4f(uniformName, MVPMatrix);
 					}else if(unprefixedUniformName.equals("model")){
 						setUniformMatrix4f(uniformName, worldMatrix);
+					}else if(unprefixedUniformName.equals("projMatrixInv")){
+						final Matrix4f projMatrixInv = RenderingEngine.getMainCamera().getProjection().invert();
+						
+						setUniformMatrix4f(uniformName, projMatrixInv);
+					}else if(unprefixedUniformName.equals("MVPI")){
+						final Matrix4f MVPMatrixInvert = RenderingEngine.getMainCamera().getViewProjection().invert();
+						
+						setUniformMatrix4f(uniformName, MVPMatrixInvert);
 					}else if(unprefixedUniformName.equals("textures")){
 						setUniformiVector(uniformName, RenderingEngine.textureArray);
 					}else{
@@ -148,13 +156,13 @@ public class Shader{
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
 						setUniformi(uniformName, 13);
-					}/*else if(uniformName.charAt(1) == '4'){
+					}else if(uniformName.charAt(1) == '4'){
 						final String unprefixedUniformName = uniformName.substring(3);
 						
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
 						setUniformi(uniformName, 14);
-					}*/
+					}
 				}
 			}else if(uniformName.charAt(0) == 'C'){
 				if(uniformName.charAt(1) == '_'){
