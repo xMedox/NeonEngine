@@ -2,7 +2,7 @@
 
 in vec2 texCoord0;
 
-uniform sampler2D R4_filterTexture;
+uniform sampler2D R3_filterTexture;
 
 uniform mat4 T_projMatrixInv;
 uniform mat4 T_viewMatrixInv;;
@@ -10,7 +10,7 @@ uniform mat4 T_viewMatrixInv;;
 layout(location = 0) out vec4 outputFS;
 
 vec3 worldPosFromDepth(){
-	float depth = texture(R4_filterTexture, texCoord0).x;
+	float depth = texture(R3_filterTexture, texCoord0).x;
 	
 	float z = depth * 2.0 - 1.0;
 	

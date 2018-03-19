@@ -1,7 +1,6 @@
 #version 330
 
 in vec2 texCoord0;
-in vec3 worldPos0;
 in mat3 tbnMatrix;
 
 uniform sampler2D diffuseMap;
@@ -16,7 +15,6 @@ uniform float metallic;
 layout (location = 0) out vec4 out0;
 layout (location = 1) out vec4 out1;
 layout (location = 2) out vec4 out2;
-layout (location = 3) out vec4 out3;
 
 void main(){
 	vec4 diffuse = texture(diffuseMap, texCoord0);
@@ -34,12 +32,11 @@ void main(){
 		//}
 		
 		out1 = vec4(normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1.0)), 1.0);
-		out2 = vec4(worldPos0, 1.0);
 		
 		float rough = texture(roughnessMap, texCoord0).x + roughness;
 		float metal = texture(metallicMap, texCoord0).x + metallic;
 		
-		out3 = vec4(rough, metal, 0.0, 1.0);
+		out2 = vec4(rough, metal, 0.0, 1.0);
 	}else{
 		discard;
 	}

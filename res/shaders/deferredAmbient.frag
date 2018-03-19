@@ -4,8 +4,8 @@ in vec2 texCoord0;
 
 uniform sampler2D R0_filterTexture;
 uniform sampler2D R1_filterTexture;
+uniform sampler2D R2_filterTexture;
 uniform sampler2D R3_filterTexture;
-uniform sampler2D R4_filterTexture;
 
 uniform samplerCube R_irradianceMap;
 uniform samplerCube R_prefilterMap;
@@ -24,7 +24,7 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness){
 }
 
 vec3 worldPosFromDepth(){
-	float depth = texture(R4_filterTexture, texCoord0).x;
+	float depth = texture(R3_filterTexture, texCoord0).x;
 	
 	float z = depth * 2.0 - 1.0;
 	
@@ -43,8 +43,8 @@ void main(){
 	
 	vec3 normal = texture(R1_filterTexture, texCoord0).xyz;
 	
-	float rough = texture(R3_filterTexture, texCoord0).x;
-	float metal = texture(R3_filterTexture, texCoord0).y;
+	float rough = texture(R2_filterTexture, texCoord0).x;
+	float metal = texture(R2_filterTexture, texCoord0).y;
 	
 	if(normal.x != 0.0 || normal.y != 0.0 || normal.z != 0.0){
 		vec3 color = pow(diffuse.rgb, vec3(2.2));
