@@ -82,8 +82,8 @@ public class Shader{
 						final Matrix4f projMatrixInv = RenderingEngine.getMainCamera().getProjection().invert();
 						
 						setUniformMatrix4f(uniformName, projMatrixInv);
-					}else if(unprefixedUniformName.equals("MVPI")){
-						final Matrix4f MVPMatrixInvert = RenderingEngine.getMainCamera().getViewProjection().invert();
+					}else if(unprefixedUniformName.equals("viewMatrixInv")){
+						final Matrix4f MVPMatrixInvert = RenderingEngine.getMainCamera().getView().invert();
 						
 						setUniformMatrix4f(uniformName, MVPMatrixInvert);
 					}else if(unprefixedUniformName.equals("textures")){

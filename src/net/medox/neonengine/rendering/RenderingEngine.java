@@ -94,6 +94,7 @@ public class RenderingEngine{
 	private static Shader fxaaFilter;
 	private static Shader hdrFilter;
 	private static Shader depthFilter;
+	private static Shader depthFilter2;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -205,6 +206,7 @@ public class RenderingEngine{
 		fxaaFilter = new Shader("filterFxaa");
 		hdrFilter = new Shader("filterHdr");
 		depthFilter = new Shader("depthFilter");
+		depthFilter2 = new Shader("depthFilter2");
 		
 		filters = new ArrayList<Shader>();
 		
@@ -505,7 +507,11 @@ public class RenderingEngine{
 //		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
 		if(NeonEngine.isBloomEnabled()){
-			applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+			if(NeonEngine.areShadowsEnabled()){
+				applyFilter(depthFilter2, getTexture("renderTexture"), getTexture("postFilterTexture"));
+			}else{
+				applyFilter(hdrFilter, getTexture("displayTexture"), getTexture("postFilterTexture"));
+			}
 		}else{
 			applyFilter(depthFilter, getTexture("renderTexture"), getTexture("postFilterTexture"));
 		}

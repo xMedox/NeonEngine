@@ -14,7 +14,7 @@ uniform sampler2D R_brdfLUT;
 uniform vec3 C0_eyePos;
 
 uniform mat4 T_projMatrixInv;
-uniform mat4 T_MVPI;
+uniform mat4 T_viewMatrixInv;
 
 layout(location = 0) out vec4 outputFS;
 layout(location = 1) out vec4 outputBloom;
@@ -23,15 +23,17 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness){
     return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
-vec3 worldPosFromDepth(float depth){
-    float z = depth * 2.0 - 1.0;
+vec3 worldPosFromDepth(){
+	float depth = texture(R4_filterTexture, texCoord0).x;
+	
+	float z = depth * 2.0 - 1.0;
 	
     vec4 clipSpacePosition = vec4(texCoord0 * 2.0 - 1.0, z, 1.0);
     vec4 viewSpacePosition = T_projMatrixInv * clipSpacePosition;
 	
     viewSpacePosition /= viewSpacePosition.w;
 	
-    vec4 worldSpacePosition = T_MVPI * viewSpacePosition;
+    vec4 worldSpacePosition = T_viewMatrixInv * viewSpacePosition;
 	
     return worldSpacePosition.xyz;
 }
@@ -45,11 +47,9 @@ void main(){
 	float metal = texture(R3_filterTexture, texCoord0).y;
 	
 	if(normal.x != 0.0 || normal.y != 0.0 || normal.z != 0.0){
-		float depth = texture(R4_filterTexture, texCoord0).x;
-		
 		vec3 color = pow(diffuse.rgb, vec3(2.2));
 		
-		vec3 V = normalize(C0_eyePos - worldPosFromDepth(depth));
+		vec3 V = normalize(C0_eyePos - worldPosFromDepth());
 		vec3 R = reflect(-V, normal);
 		
 		vec3 F0 = vec3(0.04);
