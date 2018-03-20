@@ -5,7 +5,7 @@ in vec2 texCoord0;
 uniform sampler2D R3_filterTexture;
 
 uniform mat4 T_projMatrixInv;
-uniform mat4 T_viewMatrixInv;;
+uniform mat4 T_viewMatrixInv;
 
 layout(location = 0) out vec4 outputFS;
 
