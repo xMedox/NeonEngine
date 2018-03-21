@@ -43,7 +43,7 @@ public class PhysicsEngine{
 		
 		dynamicsWorld.getDispatchInfo().setAllowedCcdPenetration(0.00001f);
 		
-		dynamicsWorld.getSolverInfo().setNumIterations(60);
+		dynamicsWorld.getSolverInfo().setNumIterations(20);
 		
 		new Callback();
 		broadphase.getOverlappingPairCache().setInternalGhostPairCallback(new btGhostPairCallback());
@@ -112,7 +112,7 @@ public class PhysicsEngine{
 			colliders.get(i).clearList();
 		}
 		
-		dynamicsWorld.stepSimulation(delta, 60);
+		dynamicsWorld.stepSimulation(delta, 20);
 	}
 	
 	public static void setGravity(float gravity){

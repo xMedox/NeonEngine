@@ -196,9 +196,10 @@ public class TestGame extends Game{
 //		coll.setMassProps(0);
 		
 //		StaticPhysicsComponent physic = new StaticPhysicsComponent(coll);
-		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlaneCollider(new Vector3f(0, 1, 0), -1));
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new BoxCollider(new Vector3f(50, 1f, 50)));
 		
 		physic.getCollider().setMassProps(0);
+		physic.getCollider().setPos(new Vector3f(0, -2, 0));
 		
 		planeObject.addComponent(physic);
 		
