@@ -32,7 +32,6 @@ import net.medox.neonengine.physics.CapsuleCollider;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
-import net.medox.neonengine.physics.StaticPlaneCollider;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Cursor;
 import net.medox.neonengine.rendering.Font;
@@ -196,9 +195,10 @@ public class TestGame extends Game{
 //		coll.setMassProps(0);
 		
 //		StaticPhysicsComponent physic = new StaticPhysicsComponent(coll);
-		StaticPhysicsComponent physic = new StaticPhysicsComponent(/*new Box(new Vector3f(100, 1f, 100))*/new StaticPlaneCollider(new Vector3f(0, 1, 0), -1));
+		StaticPhysicsComponent physic = new StaticPhysicsComponent(new BoxCollider(new Vector3f(50, 1f, 50)));
 		
 		physic.getCollider().setMassProps(0);
+		physic.getCollider().setPos(new Vector3f(0, -2, 0));
 		
 		planeObject.addComponent(physic);
 		
