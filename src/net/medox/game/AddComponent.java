@@ -133,11 +133,11 @@ public class AddComponent extends EntityComponent{
 			Entity entity = new Entity();
 			
 			SphereCollider sphere = new SphereCollider(0.25f);
-			sphere.setMassProps(10);
+			sphere.setMassProps(800);
 			
 			sphere.setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(RenderingEngine.getMainCamera().getTransform().getTransformedRot().getForward().mul(1f)));
 			
-			sphere.applyCentralImpulse(RenderingEngine.getMainCamera().getTransform().getTransformedRot().getForward().mul(100f));
+			sphere.applyCentralImpulse(RenderingEngine.getMainCamera().getTransform().getTransformedRot().getForward().mul(8000f));
 			
 			entity.getTransform().setScale(0.25f);
 			
@@ -149,7 +149,7 @@ public class AddComponent extends EntityComponent{
 			
 			if(ray.hasHit()){
 				ray.getHitCollider().activate(true);
-				ray.getHitCollider().applyCentralImpulse(new Vector3f(0, 20, 0));
+				ray.getHitCollider().applyCentralImpulse(new Vector3f(0, 2000, 0));
 //				ray.getHitCollider().setLinearVelocity(new Vector3f(0, 10, 0));
 				
 //				if(ray.getHitCollider().getGroup() == 1){
@@ -185,7 +185,10 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_N)){
 			Entity entity = new Entity();
 			
+//			entity.getTransform().setScale(0.5f);
+//			BoxCollider box = new BoxCollider(0.5f, 0.5f, 0.5f);
 			BoxCollider box = new BoxCollider(1f, 1f, 1f);
+//			box.setMassProps(200);
 			box.setMassProps(400);
 			
 			box.setTransform(boxTransform);
@@ -199,7 +202,10 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_B)){
 			Entity entity = new Entity();
 			
-			SphereCollider sphere = new SphereCollider(1);
+//			entity.getTransform().setScale(0.5f);
+//			SphereCollider sphere = new SphereCollider(0.5f);
+			SphereCollider sphere = new SphereCollider(1f);
+//			sphere.setMassProps(200);
 			sphere.setMassProps(400);
 			
 			sphere.setTransform(sphereTransform);
@@ -213,9 +219,11 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_V)){
 			Entity entity = new Entity();
 			
-			entity.getTransform().setScale(new Vector3f(2, 2, 2));
-			
+//			entity.getTransform().setScale(1f);
+//			CylinderCollider cylinder = new CylinderCollider(0.5f, 0.5f, 0.5f);
+			entity.getTransform().setScale(2f);
 			CylinderCollider cylinder = new CylinderCollider(1f, 1f, 1f);
+//			cylinder.setMassProps(200);
 			cylinder.setMassProps(400);
 			
 			cylinder.setTransform(cylinderTransform);
@@ -229,7 +237,10 @@ public class AddComponent extends EntityComponent{
 		if(Input.getKeyDown(Input.KEY_C)){
 			Entity entity = new Entity();
 			
+//			entity.getTransform().setScale(0.5f);
+//			ConeCollider cone = new ConeCollider(0.5f, 1f);
 			ConeCollider cone = new ConeCollider(1f, 2f);
+//			cone.setMassProps(200);
 			cone.setMassProps(400);
 			
 			cone.setTransform(coneTransform);

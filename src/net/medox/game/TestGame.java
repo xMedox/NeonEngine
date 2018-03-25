@@ -122,7 +122,7 @@ public class TestGame extends Game{
 		playerHead.addComponent(new LookComponent(0.15f));
 		
 		SphereCollider sphere2 = new SphereCollider(1);
-		sphere2.setMassProps(1f);
+		sphere2.setMassProps(600f);
 		PhysicsComponent testphys = new PhysicsComponent(sphere2);
 //		testphys.getSphere().setMassProps(0);
 		
@@ -136,8 +136,6 @@ public class TestGame extends Game{
 //		characterCollider.setFriction(0.5f);
 		characterCollider.setSleepingThresholds(0, 0);
 //		characterCollider.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
-		
-//		PhysicsEngine.addObject(characterCollider);
 		
 		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10);
 		
@@ -188,17 +186,14 @@ public class TestGame extends Game{
 		planeObject.addComponent(meshRenderer);
 		
 //		StaticMeshCollider coll = mesh.generateCollider();
-//		
-//		coll.setPos(planeObject.getTransform().getTransformedPos());
-//		coll.setScale(/*2*/10);
-//		
-//		coll.setMassProps(0);
 		
 //		StaticPhysicsComponent physic = new StaticPhysicsComponent(coll);
 		StaticPhysicsComponent physic = new StaticPhysicsComponent(new BoxCollider(new Vector3f(50, 1f, 50)));
 		
 		physic.getCollider().setMassProps(0);
 		physic.getCollider().setPos(new Vector3f(0, -2, 0));
+//		physic.getCollider().setPos(planeObject.getTransform().getTransformedPos());
+//		physic.getCollider().setScale(10);
 		
 		planeObject.addComponent(physic);
 		
@@ -609,7 +604,7 @@ public class TestGame extends Game{
 		addEntity(entity.addComponent(testphys).addComponent(new MeshRenderer(new Mesh("sphere.obj"), bricks)).addComponent(new SoundComponent())/*.addComponent(new PointLight(new Vector3f(1, 0, 0), 3f, new Attenuation(0, 0, 1), 5, 1.0f, 0.5f, 0.000001f))*/);
 		
 		SphereCollider sphere = new SphereCollider(1);
-		sphere.setMassProps(1f);
+		sphere.setMassProps(600f);
 		PhysicsComponent testphys2 = new PhysicsComponent(sphere);
 		
 		Entity entity5 = new Entity();
