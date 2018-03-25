@@ -33,7 +33,9 @@ public class ConeCollider extends Collider{
 	@Override
 	public void setMassProps(float mass){
 		final Vector3 inertia = new Vector3(0, 0, 0);
-		shape.calculateLocalInertia(mass, inertia);
+		if(mass != 0){
+			shape.calculateLocalInertia(mass, inertia);
+		}
 		
 		setMassProps(mass, new net.medox.neonengine.math.Vector3f(inertia.x, inertia.y, inertia.z));
 	}

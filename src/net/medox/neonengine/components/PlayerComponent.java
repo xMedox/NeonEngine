@@ -23,11 +23,18 @@ public class PlayerComponent extends EntityComponent{
 	private float speed;
 	private float sprintSpeed;
 	
+	private int group;
+	private int mask;
+	
 	public PlayerComponent(Collider collider, Camera camera, float speed, float sprintSpeed){
-		this(collider, camera, speed, sprintSpeed, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D), new InputKey(Input.KEYBOARD, Input.KEY_LEFT_SHIFT), new InputKey(Input.KEYBOARD, Input.KEY_SPACE));
+		this(collider, camera, speed, sprintSpeed, -1, -1, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D), new InputKey(Input.KEYBOARD, Input.KEY_LEFT_SHIFT), new InputKey(Input.KEYBOARD, Input.KEY_SPACE));
 	}
 	
-	public PlayerComponent(Collider collider, Camera camera, float speed, float sprintSpeed, InputKey forwardKey, InputKey backKey, InputKey leftKey, InputKey rightKey, InputKey sprintKey, InputKey jumpKey){
+	public PlayerComponent(Collider collider, Camera camera, float speed, float sprintSpeed, int group, int mask){
+		this(collider, camera, speed, sprintSpeed, group, mask, new InputKey(Input.KEYBOARD, Input.KEY_W), new InputKey(Input.KEYBOARD, Input.KEY_S), new InputKey(Input.KEYBOARD, Input.KEY_A), new InputKey(Input.KEYBOARD, Input.KEY_D), new InputKey(Input.KEYBOARD, Input.KEY_LEFT_SHIFT), new InputKey(Input.KEYBOARD, Input.KEY_SPACE));
+	}
+	
+	public PlayerComponent(Collider collider, Camera camera, float speed, float sprintSpeed, int group, int mask, InputKey forwardKey, InputKey backKey, InputKey leftKey, InputKey rightKey, InputKey sprintKey, InputKey jumpKey){
 		controller = new CharacterController(collider, 0.3f);
 		
 		controller.setMaxJumpHeight(4);
@@ -46,6 +53,9 @@ public class PlayerComponent extends EntityComponent{
 		this.rightKey = rightKey;
 		this.sprintKey = sprintKey;
 		this.jumpKey = jumpKey;
+		
+		this.group = group;
+		this.mask = mask;
 	}
 	
 	@Override
@@ -110,7 +120,11 @@ public class PlayerComponent extends EntityComponent{
 	
 	@Override
 	public void addToEngine(){
-		PhysicsEngine.addController(controller);
+		if(group != -1 && mask != -1){
+			PhysicsEngine.addController(controller, group, mask);
+		}else{
+			PhysicsEngine.addController(controller);
+		}
 	}
 	
 	@Override

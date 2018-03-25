@@ -6,18 +6,18 @@ import net.medox.neonengine.physics.PhysicsEngine;
 
 public class PhysicsComponent extends EntityComponent{
 	private Collider collider;
-//	private int group;
-//	private int mask;
+	private int group;
+	private int mask;
 	
-	public PhysicsComponent(Collider collider/*, int group, int mask*/){
+	public PhysicsComponent(Collider collider, int group, int mask){
 		this.collider = collider;
-//		this.group = group;
-//		this.mask = mask;
+		this.group = group;
+		this.mask = mask;
 	}
 	
-//	public PhysicsComponent(Collider collider){
-//		this(collider, -1, -1);
-//	}
+	public PhysicsComponent(Collider collider){
+		this(collider, -1, -1);
+	}
 	
 	@Override
 	public void update(float delta){
@@ -35,11 +35,11 @@ public class PhysicsComponent extends EntityComponent{
 	
 	@Override
 	public void addToEngine(){
-//		if(group != -1 && mask != -1){
-//			PhysicsEngine.addObject(this.collider, group, mask);
-//		}else{
+		if(group != -1 && mask != -1){
+			PhysicsEngine.addCollider(this.collider, group, mask);
+		}else{
 			PhysicsEngine.addCollider(this.collider);
-//		}
+		}
 	}
 	
 	@Override

@@ -126,20 +126,20 @@ public class TestGame extends Game{
 		PhysicsComponent testphys = new PhysicsComponent(sphere2);
 //		testphys.getSphere().setMassProps(0);
 		
-		CapsuleCollider capsule = new CapsuleCollider(0.5f, 1f);
+		CapsuleCollider characterCollider = new CapsuleCollider(0.5f, 1f);
 		
-//		capsule.setMassProps(2.5f, new Vector3f(0, 0, 0));
-		capsule.setMassProps(70.8f);
-//		capsule.setRestitution(0f);
-//		capsule.setAngularFactor(1f);
-		capsule.setAngularFactor(0);
-//		capsule.setFriction(0.5f);
-		capsule.setSleepingThresholds(0, 0);
-//		controlBall.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
+//		characterCollider.setMassProps(2.5f, new Vector3f(0, 0, 0));
+		characterCollider.setMassProps(70.8f);
+//		characterCollider.setRestitution(0f);
+//		characterCollider.setAngularFactor(1f);
+		characterCollider.setAngularFactor(0);
+//		characterCollider.setFriction(0.5f);
+		characterCollider.setSleepingThresholds(0, 0);
+//		characterCollider.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
-//		PhysicsEngine.addObject(cylinder);
+//		PhysicsEngine.addObject(characterCollider);
 		
-		PlayerComponent p = new PlayerComponent(capsule, cam, 6, 10);
+		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10);
 		
 		player.addComponent(p);
 		

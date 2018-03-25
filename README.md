@@ -33,3 +33,4 @@
 - The skyboxes are now stored in a separate skyboxes folder
 - Added the requestAttention method in the Window class
 - Added the pause, rewind, isPlaying, isPaused, getTimeOffset and setTimeOffset methods to the Sound class
+- The physics components now support groups and masks
