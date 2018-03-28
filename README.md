@@ -16,6 +16,7 @@
 **Physics:**
 - Added the getRestitution method to the Collider class
 - Added a new constructor to the BoxCollider and CylinderCollider classes that takes in 3 floats
+- Increased the update rate of the Physics Engine to 240 updates per second
 
 **Other:**
 - The ALC context now gets cleared before destroying it

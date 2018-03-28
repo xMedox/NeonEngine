@@ -116,8 +116,10 @@ public class AddComponent extends EntityComponent{
 	@Override
 	public void input(float delta){
 		if(Input.getKeyDown(Input.KEY_J)){
-//			SpotLight light = new SpotLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
-			PointLight light = new PointLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f, new Attenuation(0, 0, 0.1f)/*, (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f*/);
+			float lightInten = 2.0f;
+			
+//			SpotLight light = new SpotLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f+lightInten, new Attenuation(0, 0, 0.1f), (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f);
+			PointLight light = new PointLight(new Vector3f(Util.randomFloat(), Util.randomFloat(), Util.randomFloat()), 6f+lightInten, new Attenuation(0, 0, 1)/*, (float)Math.toRadians(90f), 8, 1.0f, 0.5f, 0.000001f*/);
 			
 			Entity entity = new Entity();
 			

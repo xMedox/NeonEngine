@@ -62,7 +62,7 @@ public class WolfComponent extends EntityComponent{
 //		controller.setMaxJumpHeight(4.6f);
 //		controller.setJumpSpeed(100);
 		
-		controller.setMaxSlope((float)Math.toRadians(55));
+		controller.setMaxSlope((float)Math.toRadians(60));
 		
 //		controller.setFallSpeed(9.80665f);
 //		controller.setGravity(9.80665f);
@@ -173,9 +173,9 @@ public class WolfComponent extends EntityComponent{
 		
 //		cylinder.setLinearVelocity(vel);
 //		if(controller.onGround()){
-			controller.setWalkDirection(vel.mul(0.015f));
+			controller.setWalkDirection(vel);
 //		}else{
-//			controller.setWalkDirection(vel.mul(0.0125f));
+//			controller.setWalkDirection(vel.mul(0.8f));
 //		}
 	}
 	

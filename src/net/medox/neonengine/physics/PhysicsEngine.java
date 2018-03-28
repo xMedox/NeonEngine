@@ -29,6 +29,8 @@ public class PhysicsEngine{
 	private static Map<Integer, Collider> colliderIds;
 	private static int nextId;
 	
+	private static int updatesPerSecond;
+	
 	public static void init(){
 		Bullet.init();
 		
@@ -51,6 +53,8 @@ public class PhysicsEngine{
 		colliders = new ArrayList<Collider>();
 		constraints = new ArrayList<Constraint>();
 		colliderIds = new HashMap<Integer, Collider>();
+		
+		updatesPerSecond = 240;
 	}
 	
 	public static Collider getById(int index){
@@ -112,7 +116,7 @@ public class PhysicsEngine{
 			colliders.get(i).clearList();
 		}
 		
-		dynamicsWorld.stepSimulation(delta, 20);
+		dynamicsWorld.stepSimulation(delta, updatesPerSecond, 1f/updatesPerSecond);
 	}
 	
 	public static void setGravity(float gravity){
@@ -125,6 +129,10 @@ public class PhysicsEngine{
 	
 	public static void rayTest(net.medox.neonengine.math.Vector3f rayFromWorld, net.medox.neonengine.math.Vector3f rayToWorld, RayResultCallback resultCallback){
 		dynamicsWorld.rayTest(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()), resultCallback);
+	}
+	
+	public static int getUpdatesPerSecond(){
+		return updatesPerSecond;
 	}
 	
 	public static void dispose(){

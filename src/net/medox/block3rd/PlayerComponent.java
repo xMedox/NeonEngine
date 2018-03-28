@@ -50,7 +50,7 @@ public class PlayerComponent extends EntityComponent{
 //		controller.setMaxJumpHeight(4.6f);
 //		controller.setJumpSpeed(100);
 		
-		controller.setMaxSlope((float)Math.toRadians(55));
+		controller.setMaxSlope((float)Math.toRadians(60));
 		
 		this.entity = entity;
 		
@@ -130,22 +130,22 @@ public class PlayerComponent extends EntityComponent{
 		boolean changed = false;
 		
 		if(Input.getKey(Input.KEY_W) && !Input.getKey(Input.KEY_S)){
-			dir = dir.add(entity.getTransform().getRot().getForward().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getForward());
 			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_A) && !Input.getKey(Input.KEY_D)){
-			dir = dir.add(entity.getTransform().getRot().getLeft().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getLeft());
 			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_S) && !Input.getKey(Input.KEY_W)){
-			dir = dir.add(entity.getTransform().getRot().getBack().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getBack());
 			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_D) && !Input.getKey(Input.KEY_A)){
-			dir = dir.add(entity.getTransform().getRot().getRight().mul(new Vector3f(1, 0, 1)).normalized());
+			dir = dir.add(entity.getTransform().getRot().getRight());
 			changed = true;
 		}
 		
@@ -154,7 +154,9 @@ public class PlayerComponent extends EntityComponent{
 		}
 		
 		if(changed){
-			move(dir.normalized().mul(speed));
+			dir = dir.mul(new Vector3f(1, 0, 1)).normalized();
+			
+			move(dir.mul(speed));
 		}else{
 			move(dir);
 		}
@@ -167,9 +169,9 @@ public class PlayerComponent extends EntityComponent{
 	
 	public void move(Vector3f vel){
 //		if(controller.onGround()){
-			controller.setWalkDirection(vel.mul(0.015f));
+			controller.setWalkDirection(vel);
 //		}else{
-//			controller.setWalkDirection(vel.mul(0.0125f));
+//			controller.setWalkDirection(vel.mul(0.8f));
 //		}
 	}
 	
