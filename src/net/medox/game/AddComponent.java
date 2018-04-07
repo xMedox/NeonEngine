@@ -87,10 +87,12 @@ public class AddComponent extends EntityComponent{
 //		bricks.setMetallicMap(new Texture("Metallic.png"));
 		
 		metal = new Material();
-		metal.setDiffuseMap(new Texture("Diffuse.png"));
-		metal.setEmissiveMap(new Texture("Emissive.png"));
-		metal.setRoughnessMap(new Texture("Roughness.png"));
-		metal.setMetallicMap(new Texture("Metallic.png"));
+//		metal.setDiffuseMap(new Texture("Diffuse.png"));
+//		metal.setEmissiveMap(new Texture("Emissive.png"));
+//		metal.setRoughnessMap(new Texture("Roughness.png"));
+//		metal.setMetallicMap(new Texture("Metallic.png"));
+		metal.setDiffuseMap(new Texture("streaked-marble-albedo2.png"));
+		metal.setRoughnessMap(new Texture("streaked-marble-roughness1.png"));
 		
 //		metal.setDiffuseMap(new Texture("plastic.png"));
 //		metal.setRoughnessMap(new Texture("plastic_rough.png"));
@@ -136,6 +138,7 @@ public class AddComponent extends EntityComponent{
 			
 			SphereCollider sphere = new SphereCollider(0.25f);
 			sphere.setMassProps(800);
+			sphere.setRestitution(0.1f);
 			
 			sphere.setPos(RenderingEngine.getMainCamera().getTransform().getTransformedPos().add(RenderingEngine.getMainCamera().getTransform().getTransformedRot().getForward().mul(1f)));
 			
@@ -143,7 +146,7 @@ public class AddComponent extends EntityComponent{
 			
 			entity.getTransform().setScale(0.25f);
 			
-			getParent().addChild(entity.addComponent(new PhysicsComponent(sphere)).addComponent(new MeshRenderer(sphereM, metal))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
+			getParent().addChild(entity.addComponent(new PhysicsComponent(sphere/*, 4, 1 | 2 | 4*/)).addComponent(new MeshRenderer(sphereM, metal))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
 		
 		if(Input.getMouseDown(Input.BUTTON_RIGHT)){
@@ -192,13 +195,14 @@ public class AddComponent extends EntityComponent{
 			BoxCollider box = new BoxCollider(1f, 1f, 1f);
 //			box.setMassProps(200);
 			box.setMassProps(400);
+			box.setRestitution(0.1f);
 			
 			box.setTransform(boxTransform);
 			
 //			box.setGroup(1);
 //			box.setObject(entity);
 			
-			getParent().addChild(entity.addComponent(new PhysicsComponent(box)).addComponent(new MeshRenderer(crateM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
+			getParent().addChild(entity.addComponent(new PhysicsComponent(box/*, 1, 1*/)).addComponent(new MeshRenderer(crateM, bricks))/*.addComponent(new PointLight(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()), 3f, new Attenuation(0, 0, 1)))*/);
 		}
 		
 		if(Input.getKeyDown(Input.KEY_B)){
@@ -209,6 +213,7 @@ public class AddComponent extends EntityComponent{
 			SphereCollider sphere = new SphereCollider(1f);
 //			sphere.setMassProps(200);
 			sphere.setMassProps(400);
+			sphere.setRestitution(0.1f);
 			
 			sphere.setTransform(sphereTransform);
 			
@@ -227,6 +232,7 @@ public class AddComponent extends EntityComponent{
 			CylinderCollider cylinder = new CylinderCollider(1f, 1f, 1f);
 //			cylinder.setMassProps(200);
 			cylinder.setMassProps(400);
+			cylinder.setRestitution(0.1f);
 			
 			cylinder.setTransform(cylinderTransform);
 			
@@ -244,6 +250,7 @@ public class AddComponent extends EntityComponent{
 			ConeCollider cone = new ConeCollider(1f, 2f);
 //			cone.setMassProps(200);
 			cone.setMassProps(400);
+			cone.setRestitution(0.1f);
 			
 			cone.setTransform(coneTransform);
 			

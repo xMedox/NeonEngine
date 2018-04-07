@@ -70,7 +70,7 @@ public class Skybox{
 		material = new Material();
 		
 		Entity e = new Entity();
-		Camera camera = new Camera((float)Math.toRadians(90.0f), 1, 0.1f, 1.0f);
+		Camera camera = new Camera((float)Math.toRadians(90.0f), 1, 0.1f, 10.0f);
 		e.addComponent(camera);
 		
 		Shader equirectangular = new Shader("equirectangular");
@@ -111,6 +111,25 @@ public class Skybox{
 		equirectangular.cleanUp();
 		
 		hdrTexture.cleanUp();
+		
+		
+		
+		
+		
+//		//TODO save to file dosnt work with newest STB version
+//		
+//		for(int face = 0; face < 6; face++){
+//			cubeMap.bind(0);
+//			
+//			FloatBuffer raw_img = DataUtil.createFloatBuffer(cubeWidth * cubeHeight * 3);
+//			GL11.glGetTexImage(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, 0, GL11.GL_RGB, GL11.GL_FLOAT, raw_img);
+//			
+//			STBImageWrite.stbi_write_hdr("res/textures/skyboxes/test/test" + (face+1) + ".hdr", cubeWidth, cubeHeight, 3, raw_img);
+//		}
+		
+		
+		
+		
 		
 		//TODO stop generating the mipmaps on startup create them once in a seperate programm
 		cubeMap.generateMipmap();
@@ -157,7 +176,7 @@ public class Skybox{
 		
 		prefilterShader.bind();
 		
-		material.setMetallic(material.getCubeMap("cubeMap").getWidth()[0]);
+		material.setMetallic(cubeWidth);
 		
 		int maxMipLevels = 5;
 		for(int mip = 0; mip < maxMipLevels; mip++){

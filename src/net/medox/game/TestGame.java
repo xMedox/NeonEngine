@@ -79,7 +79,7 @@ public class TestGame extends Game{
 //		RenderingEngine.addFilter(new Shader("filterFlip"));
 		
 		RenderingEngine.setMainFont(new Font("font.ttf", 16, false));
-//		RenderingEngine.setMainSkybox(new Skybox("Arches_E_PineTree_3k"));
+		RenderingEngine.setMainSkybox(new Skybox("Arches_E_PineTree_3k"));
 //		RenderingEngine.setMainSkybox(new Skybox("newport_loft"));
 //		RenderingEngine.setMainSkybox(new Skybox("Milkyway_small"));
 //		RenderingEngine.setMainSkybox(new Skybox("WinterForest_Ref"));
@@ -87,7 +87,7 @@ public class TestGame extends Game{
 //		RenderingEngine.setMainSkybox(new Skybox("Frozen_Waterfall_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("hdrvfx_0012_sand_v11_Ref"));
 //		RenderingEngine.setMainSkybox(new Skybox("untitled4"));
-		RenderingEngine.setMainSkybox(new Skybox("skyboxTest"));
+//		RenderingEngine.setMainSkybox(new Skybox("skyboxTest"));
 		
 		Entity gameObject = new Entity().addComponent(new FullscreenSetter()).addComponent(new ScreenshotTaker()).addComponent(new ChangeMode());
 		
@@ -137,7 +137,7 @@ public class TestGame extends Game{
 		characterCollider.setSleepingThresholds(0, 0);
 //		characterCollider.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
-		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10);
+		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10/*, 2, 1 | 2 | 4*/);
 		
 		player.addComponent(p);
 		
@@ -199,7 +199,8 @@ public class TestGame extends Game{
 		
 		Material materialx = new Material();//new Texture("test2.png"), new Vector3f(1, 1, 1), 1, 8
 		materialx.setDiffuseMap(new Texture("wood.png"));
-		materialx.setRoughness(0.5f);
+		materialx.setRoughnessMap(new Texture("woodRough.png"));
+//		materialx.setRoughness(0.5f);
 		materialx.setMetallic(0);
 		
 		Mesh meshx = new Mesh("plane.obj");
@@ -292,8 +293,9 @@ public class TestGame extends Game{
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 0.975f, 0.95f), 0.6f, 10, 20.0f, 1.0f, 0.7f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		
-		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
-		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
+//		directionalLightObject.getTransform().setRot(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(-45)));
+//		directionalLightObject.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(45));
+		directionalLightObject.getTransform().setRot(new Quaternion(-0.18570876f, -0.49597028f, -0.109499946f, 0.8411513f));
 		
 		Entity pointLightObject = new Entity();
 //		PointLight pointLight = new PointLight(new Vector3f(1, 1, 0), 3f, new Vector3f(0, 0, 1));
@@ -399,11 +401,11 @@ public class TestGame extends Game{
 //		pbrMaterial2.setRoughness(0f);
 //		pbrMaterial2.setMetallic(1);
 //		pbrMaterial2.setDiffuseMap(new Texture("gold-scuffed_basecolor.png"));
-//		pbrMaterial2.setRoughnessMap(new Texture("gold-scuffed_roughness.png"));
+		pbrMaterial2.setRoughnessMap(new Texture("gold-scuffed_roughness.png"));
 //		pbrMaterial2.setMetallic(1);
 		pbrMaterial2.setDiffuseMap(new Texture("gold-scuffed_basecolor-boosted.png"));
 //		pbrMaterial2.setDiffuseMap(new Texture("red.png"));
-		pbrMaterial2.setRoughness(0.5f);
+//		pbrMaterial2.setRoughness(0.5f);
 		pbrMaterial2.setMetallic(1);
 		
 		MeshRenderer pbrRenderer2 = new MeshRenderer(pbrMesh, pbrMaterial2);
@@ -432,11 +434,11 @@ public class TestGame extends Game{
 //		pbrMaterial4.setRoughness(0.5f);
 //		pbrMaterial4.setMetallic(1);
 //		pbrMaterial4.setDiffuseMap(new Texture("Iron-Scuffed_basecolor.png"));
-//		pbrMaterial4.setRoughnessMap(new Texture("Iron-Scuffed_roughness.png"));
+		pbrMaterial4.setRoughnessMap(new Texture("Iron-Scuffed_roughness.png"));
 //		pbrMaterial4.setMetallic(1);
 		pbrMaterial4.setDiffuseMap(new Texture("Iron-Scuffed_basecolor.png"));
 //		pbrMaterial4.setDiffuseMap(new Texture("blue.png"));
-		pbrMaterial4.setRoughness(0.5f);
+//		pbrMaterial4.setRoughness(0.5f);
 		pbrMaterial4.setMetallic(1);
 		
 		MeshRenderer pbrRenderer4 = new MeshRenderer(pbrMesh, pbrMaterial4);
@@ -476,6 +478,38 @@ public class TestGame extends Game{
 		pbrObject6.getTransform().setPos(-15, -1f, 7);
 		
 		pbrObject6.addComponent(pbrRenderer6);
+		
+		Material pbrMaterial7 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		pbrMaterial7.setDiffuseMap(plastic);
+//		pbrMaterial7.setRoughness(1);
+//		pbrMaterial7.setMetallic(0);
+		pbrMaterial7.setDiffuseMap(new Texture("plasticpattern1-albedo.png"));
+		pbrMaterial7.setRoughnessMap(new Texture("plasticpattern1-roughness2.png"));
+		pbrMaterial7.setNormalMap(new Texture("plasticpattern1-normal2b.png"));
+		pbrMaterial7.setMetallic(0);
+		
+		MeshRenderer pbrRenderer7 = new MeshRenderer(pbrMesh, pbrMaterial7);
+		
+		Entity pbrObject7 = new Entity();
+		pbrObject7.getTransform().setPos(-11, -1f, 3);
+		
+		pbrObject7.addComponent(pbrRenderer7);
+		
+		Material pbrMaterial8 = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
+//		pbrMaterial8.setDiffuseMap(metal);
+//		pbrMaterial8.setRoughness(1);
+//		pbrMaterial8.setMetallic(1);
+		pbrMaterial8.setDiffuseMap(new Texture("rust-panel-albedo.png"));
+		pbrMaterial8.setRoughnessMap(new Texture("rust-panel-roughness.png"));
+		pbrMaterial8.setNormalMap(new Texture("rust-panel-normal-ue.png"));
+		pbrMaterial8.setMetallicMap(new Texture("rust-panel-metalness.png"));
+		
+		MeshRenderer pbrRenderer8 = new MeshRenderer(pbrMesh, pbrMaterial8);
+		
+		Entity pbrObject8 = new Entity();
+		pbrObject8.getTransform().setPos(-15, -1f, 3);
+		
+		pbrObject8.addComponent(pbrRenderer8);
 		
 //		Mesh swordmesh = new Mesh("sword.obj");
 		Mesh swordmesh = new Mesh("sword.obj");
@@ -564,6 +598,8 @@ public class TestGame extends Game{
 		addEntity(pbrObject4);
 		addEntity(pbrObject5);
 		addEntity(pbrObject6);
+		addEntity(pbrObject7);
+		addEntity(pbrObject8);
 		addEntity(swordObject2);
 		
 		addEntity(planeObject);
@@ -708,6 +744,31 @@ public class TestGame extends Game{
 		stair4.addComponent(new StaticPhysicsComponent(box4)).addComponent(new MeshRenderer(new Mesh("crate.obj"), bricks));
 		
 		addEntity(stair4);
+		
+		
+		Entity bounce = new Entity();
+		
+		BoxCollider bounceBox = new BoxCollider(1f, 0.25f, 1f);
+		
+		bounce.getTransform().setPos(-5, -1 + 0.25f, 10);
+		bounce.getTransform().setScale(1f, 0.5f, 1f);
+		
+		bounceBox.setPos(bounce.getTransform().getTransformedPos());
+		
+		bounce.getTransform().setScale(2f, 0.5f, 2f);
+		
+		bounceBox.setMassProps(0);
+		bounceBox.setRestitution(10);
+		
+		Material block = new Material();
+		block.setDiffuseMap(new Texture("slime.png"));
+		block.setNormalMap(new Texture("slimeNormal.png"));
+		block.setMetallic(0);
+		block.setRoughness(0.3f/*0.25f*/);
+		
+		bounce.addComponent(new PhysicsComponent(bounceBox)).addComponent(new MeshRenderer(new Mesh("block.obj"), block));
+		
+		addEntity(bounce);
 		
 		
 //		addEntity((new Entity()).addComponent(physicsEngineComponent));

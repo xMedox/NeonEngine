@@ -253,6 +253,24 @@ public class RenderingEngine{
 		setTexture("brdfLUT", brdf);
 		
 		
+		
+//		//TODO save to file dosnt work with newest STB version
+//		brdf.bind(0);
+//		
+//		FloatBuffer raw_img = DataUtil.createFloatBuffer(512 * 512 * 3);
+//		GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, GL11.GL_FLOAT, raw_img);
+//		
+//		STBImageWrite.stbi_write_hdr("res/textures/skyboxes/test/brdf.hdr", 512, 512, 3, raw_img);
+		
+		
+		
+//		Texture texture = new Texture("/skyboxes/test/brdf.hdr", GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true);
+//		
+//		setTexture("brdfLUT", texture);
+		
+		
+		
+		
 		for(int i = 0; i < NUM_SHADOW_MAPS; i++){
 			final int shadowMapSize = 1 << (i + 1);
 			

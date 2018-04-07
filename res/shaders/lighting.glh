@@ -74,7 +74,6 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 w
 	vec3 V = normalize(eyePos - worldPos);
 	
 	vec3 F0 = vec3(0.04);
-	//F0 = mix(F0, diffuse, metal);
 	F0 = mix(F0, color, metal);
 	
 	
@@ -84,7 +83,7 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 w
 	
 	float NDF = DistributionGGX(normal, H, rough);
 	float G = GeometrySmith(normal, V, L, rough);
-	vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
+	vec3 F = fresnelSchlick(clamp(dot(H, V), 0.0, 1.0), F0);
 	
 	vec3 nominator = NDF * G * F;
 	float denominator = 4 * max(dot(normal, V), 0.0) * max(dot(normal, L), 0.0) + 0.001;
@@ -97,7 +96,6 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 w
 	
 	float NdotL = max(dot(normal, L), 0.0);
 	
-	//return vec4((kD * diffuse / PI + specular) * radiance * NdotL, 1);
 	return vec4((kD * color / PI + specular) * radiance * NdotL, 1);
 }
 
