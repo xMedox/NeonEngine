@@ -93,6 +93,7 @@ public class AddComponent extends EntityComponent{
 //		metal.setMetallicMap(new Texture("Metallic.png"));
 		metal.setDiffuseMap(new Texture("streaked-marble-albedo2.png"));
 		metal.setRoughnessMap(new Texture("streaked-marble-roughness1.png"));
+		metal.setMetallic(0);
 		
 //		metal.setDiffuseMap(new Texture("plastic.png"));
 //		metal.setRoughnessMap(new Texture("plastic_rough.png"));

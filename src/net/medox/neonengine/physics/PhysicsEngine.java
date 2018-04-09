@@ -131,7 +131,11 @@ public class PhysicsEngine{
 		dynamicsWorld.rayTest(new Vector3(rayFromWorld.getX(), rayFromWorld.getY(), rayFromWorld.getZ()), new Vector3(rayToWorld.getX(), rayToWorld.getY(), rayToWorld.getZ()), resultCallback);
 	}
 	
-	public static int getUpdatesPerSecond(){
+	public static void changeUpdaterate(int rate){
+		updatesPerSecond = rate;
+	}
+	
+	public static int getUpdaterate(){
 		return updatesPerSecond;
 	}
 	
