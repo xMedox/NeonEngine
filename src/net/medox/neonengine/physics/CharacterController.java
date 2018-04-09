@@ -59,7 +59,7 @@ public class CharacterController{
 	
 	public void setWalkDirection(net.medox.neonengine.math.Vector3f dir){
 		//To make the speed independent from the update rate
-		dir = dir.mul(1f/PhysicsEngine.getUpdatesPerSecond());
+		dir = dir.mul(1f/PhysicsEngine.getUpdaterate());
 		
 		characterController.setWalkDirection(new Vector3(dir.getX(), dir.getY(), dir.getZ()));
 	}
