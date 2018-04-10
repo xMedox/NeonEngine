@@ -81,9 +81,8 @@ public class RenderingEngine{
 	private static List<Shader> filters;
 	
 	private static Shader geometryPassShader;
+	private static Shader geometryPassParticleShader;
 	private static Shader ambientShader;
-	private static Shader forwardParticleAmbientShader;
-	private static Shader forwardParticleShader;
 	private static Shader shadowMappingShader;
 	private static Shader particleShadowMappingShader;
 	private static Shader skyboxShader;
@@ -191,9 +190,8 @@ public class RenderingEngine{
 		setRenderTextures();
 		
 		geometryPassShader = new Shader("geometryPass");
+		geometryPassParticleShader = new Shader("geometryPassParticle");
 		ambientShader = new Shader("deferredAmbient");
-		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
-		forwardParticleShader = new Shader("forwardParticleForward");
 		shadowMappingShader =  new Shader("shadowMapping");
 		particleShadowMappingShader = new Shader("particleShadowMapping");
 		skyboxShader = new Shader("skyboxShader");
@@ -329,15 +327,15 @@ public class RenderingEngine{
 		
 		if(NeonEngine.areParticlesEnabled()){
 			particleCamera = mainCamera;
-			particleShader = forwardParticleAmbientShader;
+			particleShader = geometryPassParticleShader;
 			particleFlipFaces = false;
 		}
 		
 		object.renderAll(geometryPassShader, mainCamera);
 		
-//		if(NeonEngine.areParticlesEnabled()){
-//			batchRenderer.render(particleShader, mainCamera);
-//		}
+		if(NeonEngine.areParticlesEnabled()){
+			batchRenderer.render(particleShader, mainCamera);
+		}
 		
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
