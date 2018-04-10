@@ -129,6 +129,8 @@ public class Shader{
 					}else{
 						RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
 					}
+				}else if(uniformName.equals("RM_lightMatrix")){
+					setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix());
 				}else if(uniformName.charAt(2) == '_'){
 					if(uniformName.charAt(1) == '0'){
 						final String unprefixedUniformName = uniformName.substring(3);
