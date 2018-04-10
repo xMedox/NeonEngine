@@ -65,6 +65,19 @@ public class ShaderData extends ReferenceCounter{
 			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_brdfLUT"), RenderingEngine.getSamplerSlot("brdfLUT"));
 			
 			GL20.glUseProgram(0);
+		}else if(fileName.equals("deferredAmbient")){
+			GL20.glUseProgram(program);
+			
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R0_filterTexture"), 10);
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R1_filterTexture"), 11);
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R2_filterTexture"), 12);
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R3_filterTexture"), 13);
+			
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_irradianceMap"), RenderingEngine.getSamplerSlot("irradianceMap"));
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_prefilterMap"), RenderingEngine.getSamplerSlot("prefilterMap"));
+			GL20.glUniform1i(GL20.glGetUniformLocation(program, "R_brdfLUT"), RenderingEngine.getSamplerSlot("brdfLUT"));
+			
+			GL20.glUseProgram(0);
 		}
 		
 		compileShader();
