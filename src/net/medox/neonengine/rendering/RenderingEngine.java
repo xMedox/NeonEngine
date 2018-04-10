@@ -814,12 +814,12 @@ public class RenderingEngine{
 			height2 = 1;
 		}
 		
-		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
-		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RG, GL14.GL_DEPTH_COMPONENT32};
-		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL30.GL_RG, GL11.GL_DEPTH_COMPONENT};
-		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT};
-		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_DEPTH_ATTACHMENT};
+		final ByteBuffer[] data = new ByteBuffer[]{	(ByteBuffer)null, 			(ByteBuffer)null, 			(ByteBuffer)null, 			(ByteBuffer)null};
+		final int[] filter = new int[]{				GL11.GL_LINEAR, 			GL11.GL_LINEAR, 			GL11.GL_LINEAR, 			GL11.GL_LINEAR};
+		final int[] internalFormat = new int[]{		GL11.GL_RGBA, 				GL30.GL_RGB32F, 			GL30.GL_RG16F, 				GL14.GL_DEPTH_COMPONENT32};
+		final int[] format = new int[]{				GL11.GL_RGBA, 				GL11.GL_RGB, 				GL30.GL_RG, 				GL11.GL_DEPTH_COMPONENT};
+		final int[] type = new int[]{				GL11.GL_UNSIGNED_BYTE, 		GL11.GL_FLOAT, 				GL11.GL_FLOAT, 				GL11.GL_FLOAT};
+		final int[] attachment = new int[]{			GL30.GL_COLOR_ATTACHMENT0, 	GL30.GL_COLOR_ATTACHMENT1, 	GL30.GL_COLOR_ATTACHMENT2, 	GL30.GL_DEPTH_ATTACHMENT};
 		
 		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		
