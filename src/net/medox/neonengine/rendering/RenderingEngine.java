@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
@@ -79,9 +80,9 @@ public class RenderingEngine{
 	
 	private static List<Shader> filters;
 	
-	private static Shader forwardAmbientShader;
-	private static Shader forwardParticleAmbientShader;
-	private static Shader forwardParticleShader;
+	private static Shader geometryPassShader;
+	private static Shader geometryPassParticleShader;
+	private static Shader ambientShader;
 	private static Shader shadowMappingShader;
 	private static Shader particleShadowMappingShader;
 	private static Shader skyboxShader;
@@ -188,9 +189,9 @@ public class RenderingEngine{
 		
 		setRenderTextures();
 		
-		forwardAmbientShader = new Shader("forwardAmbient");
-		forwardParticleAmbientShader = new Shader("forwardParticleAmbient");
-		forwardParticleShader = new Shader("forwardParticleForward");
+		geometryPassShader = new Shader("geometryPass");
+		geometryPassParticleShader = new Shader("geometryPassParticle");
+		ambientShader = new Shader("deferredAmbient");
 		shadowMappingShader =  new Shader("shadowMapping");
 		particleShadowMappingShader = new Shader("particleShadowMapping");
 		skyboxShader = new Shader("skyboxShader");
@@ -313,7 +314,7 @@ public class RenderingEngine{
 		
 		mainCamera.updateFrustum();
 		
-		getTexture("displayTexture").bindAsRenderTarget();
+		getTexture("renderTexture").bindAsRenderTarget();
 		
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -326,15 +327,26 @@ public class RenderingEngine{
 		
 		if(NeonEngine.areParticlesEnabled()){
 			particleCamera = mainCamera;
-			particleShader = forwardParticleAmbientShader;
+			particleShader = geometryPassParticleShader;
 			particleFlipFaces = false;
 		}
 		
-		object.renderAll(forwardAmbientShader, mainCamera);
+		object.renderAll(geometryPassShader, mainCamera);
 		
 		if(NeonEngine.areParticlesEnabled()){
 			batchRenderer.render(particleShader, mainCamera);
 		}
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		}
+		
+		getTexture("displayTexture").bindAsRenderTarget();
+		
+		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		applyFilter(ambientShader, getTexture("renderTexture"), getTexture("displayTexture"));
 		
 		for(int i = 0; i < lights.size(); i++){
 			activeLight = lights.get(i);
@@ -422,21 +434,26 @@ public class RenderingEngine{
 			
 			renderingState = LIGHTING_STATE;
 			
-			if(NeonEngine.areParticlesEnabled()){
-				particleCamera = mainCamera;
-				particleShader = forwardParticleShader;
-				particleFlipFaces = false;
-			}
+//			if(NeonEngine.areParticlesEnabled()){
+//				particleCamera = mainCamera;
+//				particleShader = forwardParticleShader;
+//				particleFlipFaces = false;
+//			}
 			
-			object.renderAll(activeLight.getShader(), mainCamera);
+//			object.renderAll(activeLight.getShader(), mainCamera);
+			applyFilter(activeLight.getShader(), getTexture("renderTexture"), getTexture("displayTexture"));
 			
-			if(NeonEngine.areParticlesEnabled()){
-				batchRenderer.render(particleShader, mainCamera);
-			}
+//			if(NeonEngine.areParticlesEnabled()){
+//				batchRenderer.render(particleShader, mainCamera);
+//			}
 			
 			GL11.glDepthMask(true);
 			GL11.glDepthFunc(GL11.GL_LESS);
 			GL11.glDisable(GL11.GL_BLEND);
+		}
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 		}
 		
 		renderSkybox();
@@ -732,9 +749,9 @@ public class RenderingEngine{
 		return font;
 	}
 	
-	public static Shader getForwardAmbient(){
-		return forwardAmbientShader;
-	}
+//	public static Shader getGeometryPassShader(){
+//		return geometryPassShader;
+//	}
 	
 	public static void setMainCamera(Camera mainCamera){
 		RenderingEngine.mainCamera = mainCamera;
@@ -758,6 +775,8 @@ public class RenderingEngine{
 		
 		mainCamera.update();
 		camera2D.update();
+		
+		getTexture("renderTexture").cleanUp();
 		
 		getTexture("displayTexture").cleanUp();
 		getTexture("postFilterTexture").cleanUp();
@@ -794,6 +813,15 @@ public class RenderingEngine{
 		if(height2 <= 0){
 			height2 = 1;
 		}
+		
+		final ByteBuffer[] data = new ByteBuffer[]{	(ByteBuffer)null, 			(ByteBuffer)null, 			(ByteBuffer)null, 			(ByteBuffer)null};
+		final int[] filter = new int[]{				GL11.GL_LINEAR, 			GL11.GL_LINEAR, 			GL11.GL_LINEAR, 			GL11.GL_LINEAR};
+		final int[] internalFormat = new int[]{		GL11.GL_RGBA, 				GL30.GL_RGB32F, 			GL30.GL_RG16F, 				GL14.GL_DEPTH_COMPONENT32};
+		final int[] format = new int[]{				GL11.GL_RGBA, 				GL11.GL_RGB, 				GL30.GL_RG, 				GL11.GL_DEPTH_COMPONENT};
+		final int[] type = new int[]{				GL11.GL_UNSIGNED_BYTE, 		GL11.GL_FLOAT, 				GL11.GL_FLOAT, 				GL11.GL_FLOAT};
+		final int[] attachment = new int[]{			GL30.GL_COLOR_ATTACHMENT0, 	GL30.GL_COLOR_ATTACHMENT1, 	GL30.GL_COLOR_ATTACHMENT2, 	GL30.GL_DEPTH_ATTACHMENT};
+		
+		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		
 		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));

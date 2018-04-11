@@ -20,7 +20,7 @@ public class PointLight extends BaseLight{
 		
 		init(attenuation);
 		
-		setShader(new Shader("forwardPoint"));
+		setShader(new Shader("deferredPoint"));
 		
 		setShadowInfo(new ShadowInfo(new PerspectiveBase((float)Math.toRadians(90.0f), 1.0f, 0.1f, range), false, 0, 0, 0, 0));
 	}
@@ -30,7 +30,7 @@ public class PointLight extends BaseLight{
 		
 		init(attenuation);
 		
-		setShader(new Shader("forwardPoint"));
+		setShader(new Shader("deferredPoint"));
 		
 		if(NeonEngine.getShadowQuality() >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;

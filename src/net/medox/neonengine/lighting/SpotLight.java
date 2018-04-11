@@ -13,7 +13,7 @@ public class SpotLight extends PointLight{
 		
 		init(attenuation, viewAngle);
 		
-		setShader(new Shader("forwardSpot"));
+		setShader(new Shader("deferredSpot"));
 		
 		setShadowInfo(new ShadowInfo(new PerspectiveBase(viewAngle, 1.0f, 0.1f, getRange()), false, 0, 0, 0, 0));
 	}
@@ -23,7 +23,7 @@ public class SpotLight extends PointLight{
 		
 		init(attenuation, viewAngle);
 		
-		setShader(new Shader("forwardSpot"));
+		setShader(new Shader("deferredSpot"));
 		
 		if(NeonEngine.getShadowQuality() >= 1 && shadowMapSizeAsPowerOf2 != 0){
 			shadowMapSizeAsPowerOf2 -= 1;

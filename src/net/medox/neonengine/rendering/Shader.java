@@ -83,6 +83,14 @@ public class Shader{
 					}else{
 						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Transform.");
 					}
+				}else if(uniformName.equals("TM_projMatrixInv")){
+					final Matrix4f projMatrixInv = RenderingEngine.getMainCamera().getProjection().invert();
+					
+					setUniformMatrix4f(uniformName, projMatrixInv);
+				}else if(uniformName.equals("TM_viewMatrixInv")){
+					final Matrix4f MVPMatrixInvert = RenderingEngine.getMainCamera().getView().invert();
+					
+					setUniformMatrix4f(uniformName, MVPMatrixInvert);
 				}
 			}else if(uniformName.charAt(0) == 'R'){
 				if(uniformName.charAt(1) == '_'){
@@ -121,6 +129,8 @@ public class Shader{
 					}else{
 						RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
 					}
+				}else if(uniformName.equals("RM_lightMatrix")){
+					setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix());
 				}else if(uniformName.charAt(2) == '_'){
 					if(uniformName.charAt(1) == '0'){
 						final String unprefixedUniformName = uniformName.substring(3);
@@ -134,7 +144,7 @@ public class Shader{
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
 						setUniformi(uniformName, 11);
-					}/*else if(uniformName.charAt(1) == '2'){
+					}else if(uniformName.charAt(1) == '2'){
 						final String unprefixedUniformName = uniformName.substring(3);
 						
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
@@ -152,7 +162,7 @@ public class Shader{
 //						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
 						RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
 						setUniformi(uniformName, 14);
-					}*/
+					}
 				}
 			}else if(uniformName.charAt(0) == 'C'){
 				if(uniformName.charAt(1) == '_'){
@@ -165,9 +175,9 @@ public class Shader{
 					}else{
 						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Camera.");
 					}
-				}/*else if(uniformName.equals("C0_eyePos")){
+				}else if(uniformName.equals("CM_eyePos")){
 					setUniformVector3f(uniformName, RenderingEngine.getMainCamera().getTransform().getTransformedPos());
-				}*/
+				}
 			}else if(uniformType.equals("sampler2D")){
 				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
 				material.getTexture(uniformName).bind(samplerSlot);

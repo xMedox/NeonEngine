@@ -12,6 +12,7 @@
 - VSync is now disabled by default
 - Added the emissive value to the Material class
 - You can now set the exposure of a camera
+- The Engine now uses a deferred renderer
 
 **Physics:**
 - Added the getRestitution method to the Collider class
