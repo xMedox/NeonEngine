@@ -18,9 +18,13 @@ public class PerspectiveBase extends CameraBase{
 		setProjection(new Matrix4f().initPerspective(fov, aspectRatio, zNear, zFar));
 	}
 	
+	private int updateSize(int value){
+		return value <= 0 ? 1 : value;
+	}
+	
 	@Override
 	public void update(){
-		aspectRatio = (float)Window.getWidth()/(float)Window.getHeight();
+		aspectRatio = (float)updateSize(Window.getWidth())/(float)updateSize(Window.getHeight());
 		
 		setProjection(new Matrix4f().initPerspective(fov, aspectRatio, zNear, zFar));
 	}

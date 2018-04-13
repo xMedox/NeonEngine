@@ -788,46 +788,32 @@ public class RenderingEngine{
 	}
 	
 	private static void setRenderTextures(){
-		float quality = NeonEngine.getRenderQuality();
+		float quality = NeonEngine.getRenderQuality() <= 0 ? 1 : NeonEngine.getRenderQuality();
 		
-		if(quality <= 0){
-			quality = 1;
-		}
+		int width = updateSize((int)((float)Window.getWidth()/quality));
+		int height = updateSize((int)((float)Window.getHeight()/quality));
 		
-		int width = (int)((float)Window.getWidth()/quality);
-		int height = (int)((float)Window.getHeight()/quality);
-		
-		if(width <= 0){
-			width = 1;
-		}
-		if(height <= 0){
-			height = 1;
-		}
-		
-		int width2 = (int)((float)Window.getWidth()/quality/2);
-		int height2 = (int)((float)Window.getHeight()/quality/2);
-		
-		if(width2 <= 0){
-			width2 = 1;
-		}
-		if(height2 <= 0){
-			height2 = 1;
-		}
+		int width2 = updateSize((int)((float)Window.getWidth()/quality/2f));
+		int height2 = updateSize((int)((float)Window.getHeight()/quality/2f));
 		
 		final ByteBuffer[] data = new ByteBuffer[]{	(ByteBuffer)null, 			(ByteBuffer)null, 			(ByteBuffer)null, 			(ByteBuffer)null};
 		final int[] filter = new int[]{				GL11.GL_LINEAR, 			GL11.GL_LINEAR, 			GL11.GL_LINEAR, 			GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{		GL11.GL_RGBA, 				GL30.GL_RGB32F, 			GL30.GL_RG16F, 				GL14.GL_DEPTH_COMPONENT32};
+		final int[] internalFormat = new int[]{		GL11.GL_RGBA8, 				GL30.GL_RGB32F, 			GL30.GL_RG16F, 				GL14.GL_DEPTH_COMPONENT32};
 		final int[] format = new int[]{				GL11.GL_RGBA, 				GL11.GL_RGB, 				GL30.GL_RG, 				GL11.GL_DEPTH_COMPONENT};
 		final int[] type = new int[]{				GL11.GL_UNSIGNED_BYTE, 		GL11.GL_FLOAT, 				GL11.GL_FLOAT, 				GL11.GL_FLOAT};
 		final int[] attachment = new int[]{			GL30.GL_COLOR_ATTACHMENT0, 	GL30.GL_COLOR_ATTACHMENT1, 	GL30.GL_COLOR_ATTACHMENT2, 	GL30.GL_DEPTH_ATTACHMENT};
 		
 		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		
-		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
-		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
+		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGB16F, GL30.GL_RGB16F}, new int[]{GL11.GL_RGB, GL11.GL_RGB}, new int[]{GL11.GL_FLOAT, GL11.GL_FLOAT}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
+		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGB8, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
 		
-		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGBA16F, GL11.GL_RGBA, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
-		setTexture("bloomTexture2", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGBA16F, GL11.GL_RGBA, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
+		setTexture("bloomTexture2", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
+	}
+	
+	private static int updateSize(int value){
+		return value <= 0 ? 1 : value;
 	}
 	
 	public static void setTexture(String name, Texture texture){

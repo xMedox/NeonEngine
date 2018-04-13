@@ -2,7 +2,7 @@
 
 #include "forwardlighting.fragh"
 
-#include "lighting.glh"
+#include "forwardLighting.glh"
 
 uniform vec3 C_eyePos;
 uniform float roughness;
@@ -22,4 +22,4 @@ vec4 CalcLightingEffect(vec3 diffuse, vec3 normal, vec3 worldPos, float roughnes
 	return color;
 }
 
-#include "lightingMain.fragh"
+#include "forwardLightingMain.fragh"

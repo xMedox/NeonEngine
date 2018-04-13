@@ -22,7 +22,7 @@ public class Camera extends EntityComponent{
 	}
 	
 	public Camera(float fov, float zNear, float zFar){
-		base = new PerspectiveBase(fov, (float)Window.getWidth()/(float)Window.getHeight(), zNear, zFar);
+		base = new PerspectiveBase(fov, (float)updateSize(Window.getWidth())/(float)updateSize(Window.getHeight()), zNear, zFar);
 		
 		exposure = 1.0f;
 	}
@@ -31,6 +31,10 @@ public class Camera extends EntityComponent{
 		base = new OrthographicBase(left, right, bottom, top, near, far);
 		
 		exposure = 1.0f;
+	}
+	
+	private int updateSize(int value){
+		return value <= 0 ? 1 : value;
 	}
 	
 	public void update(){

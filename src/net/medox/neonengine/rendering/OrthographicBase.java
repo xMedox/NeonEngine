@@ -22,12 +22,16 @@ public class OrthographicBase extends CameraBase{
 		setProjection(new Matrix4f().initOrthographic(left, right, bottom, top, near, far));
 	}
 	
+	private int updateSize(int value){
+		return value <= 0 ? 1 : value;
+	}
+	
 	@Override
 	public void update(){
 		left = 0;
-		right = Window.getWidth();
+		right = updateSize(Window.getWidth());
 		bottom = 0;
-		top = Window.getHeight();
+		top = updateSize(Window.getHeight());
 		
 		setProjection(new Matrix4f().initOrthographic(left, right, bottom, top, near, far));
 	}

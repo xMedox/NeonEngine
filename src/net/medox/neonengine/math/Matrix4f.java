@@ -142,7 +142,7 @@ public class Matrix4f{
 	public Matrix4f invert(){
 		float determinant = determinant();
 		
-		if (determinant != 0){
+		if(determinant != 0){
 			Matrix4f result = new Matrix4f();
 				
 			float determinant_inv = 1f/determinant;
@@ -192,8 +192,7 @@ public class Matrix4f{
 	}
 	
 	private float determinant(){ 
-		float f = 
-				m[0][0] 
+		float f = m[0][0] 
 				* ((m[1][1] * m[2][2] * m[3][3] + m[1][2] * m[2][3] * m[3][1] + m[1][3] * m[2][1] * m[3][2]) 
 						- m[1][3] * m[2][2] * m[3][1] 
 						- m[1][1] * m[2][3] * m[3][2] 
@@ -217,7 +216,7 @@ public class Matrix4f{
 	}
 	
 	private float determinant3x3(float t00, float t01, float t02, float t10, float t11, float t12, float t20, float t21, float t22) { 
-		return   t00 * (t11 * t22 - t12 * t21) 
+		return    t00 * (t11 * t22 - t12 * t21) 
 				+ t01 * (t12 * t20 - t10 * t22) 
 				+ t02 * (t10 * t21 - t11 * t20); 
 	}

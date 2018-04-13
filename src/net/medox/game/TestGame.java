@@ -174,7 +174,7 @@ public class TestGame extends Game{
 //		material.setEmissiveMap(new Texture("monkeyEmissive.png"));
 //		material.setDiffuseMap(new Texture("plastic.png"));
 //		material.setRoughnessMap(new Texture("plastic_rough.png"));
-		material.setRoughness(0.95f);
+//		material.setRoughness(0.95f);
 		
 		MeshRenderer meshRenderer = new MeshRenderer(mesh, material);
 		
