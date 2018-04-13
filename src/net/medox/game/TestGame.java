@@ -289,7 +289,7 @@ public class TestGame extends Game{
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 12, 80.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 0.6f, 10, 60.0f, 1.0f, 0.9f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), 2.0f, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
-		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(/*1, 1, 1*/1, 0.95f, 0.82f), 1.0f+light, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
+		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(/*1, 1, 1*/1, 0.95f, 0.82f), 2.0f+light, 10, /*10.0f*/8.0f, 1.0f, 0.7f, 0.000001f);
 //		DirectionalLight directionalLight = new DirectionalLight(new Vector3f(1, 0.975f, 0.95f), 0.6f, 10, 20.0f, 1.0f, 0.7f, 0.000001f);
 		directionalLightObject.addComponent(directionalLight);
 		

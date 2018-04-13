@@ -130,22 +130,22 @@ public class PlayerComponent extends EntityComponent{
 		boolean changed = false;
 		
 		if(Input.getKey(Input.KEY_W) && !Input.getKey(Input.KEY_S)){
-			dir = dir.add(entity.getTransform().getRot().getForward());
+			dir = dir.add(entity.getTransform().getRot().getForward().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_A) && !Input.getKey(Input.KEY_D)){
-			dir = dir.add(entity.getTransform().getRot().getLeft());
+			dir = dir.add(entity.getTransform().getRot().getLeft().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_S) && !Input.getKey(Input.KEY_W)){
-			dir = dir.add(entity.getTransform().getRot().getBack());
+			dir = dir.add(entity.getTransform().getRot().getBack().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
 		
 		if(Input.getKey(Input.KEY_D) && !Input.getKey(Input.KEY_A)){
-			dir = dir.add(entity.getTransform().getRot().getRight());
+			dir = dir.add(entity.getTransform().getRot().getRight().mul(new Vector3f(1, 0, 1)).normalized());
 			changed = true;
 		}
 		
@@ -154,7 +154,7 @@ public class PlayerComponent extends EntityComponent{
 		}
 		
 		if(changed){
-			dir = dir.mul(new Vector3f(1, 0, 1)).normalized();
+			dir = dir.normalized();
 			
 			move(dir.mul(speed));
 		}else{
