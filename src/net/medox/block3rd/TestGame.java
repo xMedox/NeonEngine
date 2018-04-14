@@ -116,7 +116,9 @@ public class TestGame extends Game{
 		PlayerComponent p = new PlayerComponent(playerLook);
 //		p.getCapsule().setTransform(player.getTransform());
 		p.getBox().setTransform(player.getTransform());
-		player.addComponent(p);
+		p.setEnity(player);
+//		player.addComponent(p);
+		playerLook.addComponent(p);
 		Listener listener = new Listener();
 		playerHead.addComponent(listener);
 		playerLook.addChild(playerHead);

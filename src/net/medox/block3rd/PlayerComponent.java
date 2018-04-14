@@ -27,6 +27,8 @@ public class PlayerComponent extends EntityComponent{
 	
 	private Texture g;
 	
+	private Entity entity2;
+	
 	public PlayerComponent(Entity entity){
 		box = new BoxCollider(0.475f, 0.975f, 0.475f);
 		
@@ -57,6 +59,8 @@ public class PlayerComponent extends EntityComponent{
 		t1 = new Texture("block60.png", true);
 		t2 = new Texture("redSword.png", true);
 		t3 = new Texture("blueSword.png", true);
+		
+		entity2 = getParent();
 		
 		g = new Texture("block60Emissive.png", true);
 	}
@@ -164,7 +168,7 @@ public class PlayerComponent extends EntityComponent{
 	
 	@Override
 	public void update(float delta){
-		getTransform().setPos(controller.getPos());
+		entity2.getTransform().setPos(controller.getPos());
 	}
 	
 	public void move(Vector3f vel){
@@ -173,6 +177,14 @@ public class PlayerComponent extends EntityComponent{
 //		}else{
 //			controller.setWalkDirection(vel.mul(0.8f));
 //		}
+	}
+	
+	public Entity getEnity(){
+		return entity2;
+	}
+	
+	public void setEnity(Entity entity){
+		entity2 = entity;
 	}
 	
 	@Override

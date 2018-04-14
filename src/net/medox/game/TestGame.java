@@ -138,8 +138,10 @@ public class TestGame extends Game{
 //		characterCollider.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
 		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10/*, 2, 1 | 2 | 4*/);
+		p.setEnity(player);
 		
-		player.addComponent(p);
+//		player.addComponent(p);
+		playerHead.addComponent(p);
 		
 		Listener listener = new Listener();
 		

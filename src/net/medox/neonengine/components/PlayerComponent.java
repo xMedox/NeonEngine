@@ -1,5 +1,6 @@
 package net.medox.neonengine.components;
 
+import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
 import net.medox.neonengine.core.InputKey;
@@ -22,6 +23,8 @@ public class PlayerComponent extends EntityComponent{
 	
 	private float speed;
 	private float sprintSpeed;
+	
+	private Entity entity;
 	
 	private int group;
 	private int mask;
@@ -53,6 +56,8 @@ public class PlayerComponent extends EntityComponent{
 		this.rightKey = rightKey;
 		this.sprintKey = sprintKey;
 		this.jumpKey = jumpKey;
+		
+		entity = getParent();
 		
 		this.group = group;
 		this.mask = mask;
@@ -101,7 +106,7 @@ public class PlayerComponent extends EntityComponent{
 	
 	@Override
 	public void update(float delta){
-		getTransform().setPos(controller.getPos());
+		entity.getTransform().setPos(controller.getPos());
 	}
 	
 	public void move(Vector3f vel){
@@ -118,6 +123,14 @@ public class PlayerComponent extends EntityComponent{
 	
 	public void setSpeed(float speed){
 		this.speed = speed;
+	}
+	
+	public Entity getEnity(){
+		return entity;
+	}
+	
+	public void setEnity(Entity entity){
+		this.entity = entity;
 	}
 	
 	@Override
