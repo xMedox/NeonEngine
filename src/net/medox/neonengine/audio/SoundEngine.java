@@ -27,6 +27,8 @@ public class SoundEngine{
 	private static FloatBuffer listenerVelocity;
 	
 	public static void init(){
+		//setting the realtek format to 48000bits and adding the hrtfs in a folder in appdata makes it work
+		
 		device = ALC10.alcOpenDevice((ByteBuffer)null);
 		if(device == MemoryUtil.NULL){
 			NeonEngine.throwError("Error: Failed to open the default OpenAL device.");
