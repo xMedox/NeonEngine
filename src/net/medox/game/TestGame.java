@@ -6,7 +6,6 @@ import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.components.PhysicsComponent;
-import net.medox.neonengine.components.PlayerComponent;
 import net.medox.neonengine.components.ScreenshotTaker;
 import net.medox.neonengine.components.StaticPhysicsComponent;
 import net.medox.neonengine.components2D.Lock2D;
@@ -130,7 +129,7 @@ public class TestGame extends Game{
 		
 //		characterCollider.setMassProps(2.5f, new Vector3f(0, 0, 0));
 		characterCollider.setMassProps(70.8f);
-//		characterCollider.setRestitution(0f);
+		characterCollider.setRestitution(0.1f);
 //		characterCollider.setAngularFactor(1f);
 		characterCollider.setAngularFactor(0);
 //		characterCollider.setFriction(0.5f);
