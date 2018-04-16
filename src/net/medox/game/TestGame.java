@@ -545,6 +545,18 @@ public class TestGame extends Game{
 		addEntity(pbrObject6);
 		addEntity(swordObject2);
 		
+		for(int x = -10; x <= 10; x+=5){
+			for(int z = -10; z <= 10; z+=5){
+				Entity pointLightObject2 = new Entity();
+				PointLight pointLight2 = new PointLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+				pointLightObject2.addComponent(pointLight2);
+				
+				pointLightObject2.getTransform().setPos(new Vector3f(x, 0, z));
+				
+				addEntity(pointLightObject2);
+			}
+		}
+		
 		addEntity(planeObject);
 		addEntity(planeObjectx);
 		addEntity(neonObject);

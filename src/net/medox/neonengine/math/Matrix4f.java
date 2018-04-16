@@ -139,6 +139,88 @@ public class Matrix4f{
 		return res;
 	}
 	
+	public Matrix4f invert(){
+		float determinant = determinant();
+		
+		if(determinant != 0){
+			Matrix4f result = new Matrix4f();
+				
+			float determinant_inv = 1f/determinant;
+			
+			
+			float t00 =  determinant3x3(m[1][1], m[1][2], m[1][3], m[2][1], m[2][2], m[2][3], m[3][1], m[3][2], m[3][3]);
+			float t01 = -determinant3x3(m[1][0], m[1][2], m[1][3], m[2][0], m[2][2], m[2][3], m[3][0], m[3][2], m[3][3]);
+			float t02 =  determinant3x3(m[1][0], m[1][1], m[1][3], m[2][0], m[2][1], m[2][3], m[3][0], m[3][1], m[3][3]);
+			float t03 = -determinant3x3(m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2], m[3][0], m[3][1], m[3][2]);
+			
+			float t10 = -determinant3x3(m[0][1], m[0][2], m[0][3], m[2][1], m[2][2], m[2][3], m[3][1], m[3][2], m[3][3]);
+			float t11 =  determinant3x3(m[0][0], m[0][2], m[0][3], m[2][0], m[2][2], m[2][3], m[3][0], m[3][2], m[3][3]);
+			float t12 = -determinant3x3(m[0][0], m[0][1], m[0][3], m[2][0], m[2][1], m[2][3], m[3][0], m[3][1], m[3][3]);
+			float t13 =  determinant3x3(m[0][0], m[0][1], m[0][2], m[2][0], m[2][1], m[2][2], m[3][0], m[3][1], m[3][2]);
+			
+			float t20 =  determinant3x3(m[0][1], m[0][2], m[0][3], m[1][1], m[1][2], m[1][3], m[3][1], m[3][2], m[3][3]);
+			float t21 = -determinant3x3(m[0][0], m[0][2], m[0][3], m[1][0], m[1][2], m[1][3], m[3][0], m[3][2], m[3][3]);
+			float t22 =  determinant3x3(m[0][0], m[0][1], m[0][3], m[1][0], m[1][1], m[1][3], m[3][0], m[3][1], m[3][3]);
+			float t23 = -determinant3x3(m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[3][0], m[3][1], m[3][2]);
+			
+			float t30 = -determinant3x3(m[0][1], m[0][2], m[0][3], m[1][1], m[1][2], m[1][3], m[2][1], m[2][2], m[2][3]);
+			float t31 =  determinant3x3(m[0][0], m[0][2], m[0][3], m[1][0], m[1][2], m[1][3], m[2][0], m[2][2], m[2][3]);
+			float t32 = -determinant3x3(m[0][0], m[0][1], m[0][3], m[1][0], m[1][1], m[1][3], m[2][0], m[2][1], m[2][3]);
+			float t33 =  determinant3x3(m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2]);
+			
+			result.m[0][0] = t00*determinant_inv;
+			result.m[1][1] = t11*determinant_inv;
+			result.m[2][2] = t22*determinant_inv;
+			result.m[3][3] = t33*determinant_inv;
+			result.m[0][1] = t10*determinant_inv;
+			result.m[1][0] = t01*determinant_inv;
+			result.m[2][0] = t02*determinant_inv;
+			result.m[0][2] = t20*determinant_inv;
+			result.m[1][2] = t21*determinant_inv;
+			result.m[2][1] = t12*determinant_inv;
+			result.m[0][3] = t30*determinant_inv;
+			result.m[3][0] = t03*determinant_inv;
+			result.m[1][3] = t31*determinant_inv;
+			result.m[3][1] = t13*determinant_inv;
+			result.m[3][2] = t23*determinant_inv;
+			result.m[2][3] = t32*determinant_inv;
+			
+			return result;
+		}else{
+			return null;
+		}
+	}
+	
+	private float determinant(){ 
+		float f = m[0][0] 
+				* ((m[1][1] * m[2][2] * m[3][3] + m[1][2] * m[2][3] * m[3][1] + m[1][3] * m[2][1] * m[3][2]) 
+						- m[1][3] * m[2][2] * m[3][1] 
+						- m[1][1] * m[2][3] * m[3][2] 
+						- m[1][2] * m[2][1] * m[3][3]); 
+		f -= m[0][1] 
+				* ((m[1][0] * m[2][2] * m[3][3] + m[1][2] * m[2][3] * m[3][0] + m[1][3] * m[2][0] * m[3][2]) 
+						- m[1][3] * m[2][2] * m[3][0] 
+						- m[1][0] * m[2][3] * m[3][2] 
+						- m[1][2] * m[2][0] * m[3][3]); 
+		f += m[0][2] 
+				* ((m[1][0] * m[2][1] * m[3][3] + m[1][1] * m[2][3] * m[3][0] + m[1][3] * m[2][0] * m[3][1]) 
+						- m[1][3] * m[2][1] * m[3][0] 
+						- m[1][0] * m[2][3] * m[3][1] 
+						- m[1][1] * m[2][0] * m[3][3]); 
+		f -= m[0][3] 
+				* ((m[1][0] * m[2][1] * m[3][2] + m[1][1] * m[2][2] * m[3][0] + m[1][2] * m[2][0] * m[3][1]) 
+						- m[1][2] * m[2][1] * m[3][0] 
+						- m[1][0] * m[2][2] * m[3][1] 
+						- m[1][1] * m[2][0] * m[3][2]); 
+		return f; 
+	}
+	
+	private float determinant3x3(float t00, float t01, float t02, float t10, float t11, float t12, float t20, float t21, float t22) { 
+		return    t00 * (t11 * t22 - t12 * t21) 
+				+ t01 * (t12 * t20 - t10 * t22) 
+				+ t02 * (t10 * t21 - t11 * t20); 
+	}
+	
 //	public float[] getMList(){
 //		float[] res = new float[16];
 //

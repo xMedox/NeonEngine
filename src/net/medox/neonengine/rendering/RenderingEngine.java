@@ -119,7 +119,7 @@ public class RenderingEngine{
 	private static Shader testShader2;
 	
 	public static void init(){
-		sphereM = new Mesh("sphere.obj");
+		sphereM = new Mesh("sphere3.obj");
 		materialM = new Material();
 		testShader = new Shader("testShader");
 		testShader2 = new Shader("testShader2");
@@ -482,79 +482,81 @@ public class RenderingEngine{
 				GL11.glDepthFunc(GL11.GL_LESS);
 				GL11.glDisable(GL11.GL_BLEND);
 			}else{
-				float size = activeLight.getRange();
-				
-				Transform t = new Transform();
-				t.setPos(activeLight.getTransform().getPos());
-				t.setScale(size);
-				
-				if(Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(size, 2)){
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-					GL11.glDepthMask(false);
-					GL11.glDepthFunc(GL11.GL_GEQUAL);
-//					GL11.glDisable(GL11.GL_CULL_FACE);
-					GL11.glCullFace(GL11.GL_FRONT);
+				if(mainCamera.getFrustum().sphereInFrustum(activeLight.getTransform().getPos(), activeLight.getRange())){
+					float size = activeLight.getRange();
 					
-					renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
+					Transform t = new Transform();
+					t.setPos(activeLight.getTransform().getPos());
+					t.setScale(size);
 					
-					GL11.glDepthMask(true);
-					GL11.glDepthFunc(GL11.GL_LESS);
-					GL11.glDisable(GL11.GL_BLEND);
-//					GL11.glEnable(GL11.GL_CULL_FACE);
-					GL11.glCullFace(GL11.GL_BACK);
-				}else{
-					GL11.glStencilMask(GL11.GL_TRUE);
-					GL11.glEnable(GL11.GL_STENCIL_TEST);
-					GL11.glDepthMask(false);
-					
-//					GL11.glEnable(GL11.GL_BLEND);
-//					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-//					GL11.glDepthMask(false);
-//					GL11.glDepthFunc(GL11.GL_GEQUAL);
-					GL11.glDepthFunc(GL11.GL_LEQUAL);
-					GL11.glDisable(GL11.GL_CULL_FACE);
-//					GL11.glCullFace(GL11.GL_FRONT);
-					
-					GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
-					
-					GL11.glStencilFunc(GL11.GL_ALWAYS, 0, 0);
-					
-					GL20.glStencilOpSeparate(GL11.GL_BACK, GL11.GL_KEEP, GL14.GL_INCR_WRAP, GL11.GL_KEEP);
-					GL20.glStencilOpSeparate(GL11.GL_FRONT, GL11.GL_KEEP, GL14.GL_DECR_WRAP, GL11.GL_KEEP);
-					
-					renderMesh(testShader2, t, sphereM, materialM, mainCamera);
-					
-//					GL11.glDepthMask(true);
-//					GL11.glDepthFunc(GL11.GL_LESS);
-//					GL11.glDisable(GL11.GL_BLEND);
-					GL11.glEnable(GL11.GL_CULL_FACE);
-//					GL11.glCullFace(GL11.GL_BACK);
-					GL11.glStencilMask(GL11.GL_FALSE);
-					
-					
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-//					GL11.glDepthMask(false);
-					GL11.glDisable(GL11.GL_DEPTH_TEST);
-//					GL11.glDepthFunc(GL11.GL_GEQUAL);
-//					GL11.glDepthFunc(GL11.GL_LEQUAL);
-//					GL11.glDisable(GL11.GL_CULL_FACE);
-//					GL11.glCullFace(GL11.GL_FRONT);
-					
-					GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
-					
-					renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
-					
-//					GL11.glDepthMask(true);
-					GL11.glDepthFunc(GL11.GL_LESS);
-					GL11.glDisable(GL11.GL_BLEND);
-//					GL11.glEnable(GL11.GL_CULL_FACE);
-					GL11.glEnable(GL11.GL_DEPTH_TEST);
-//					GL11.glCullFace(GL11.GL_BACK);
-					
-					GL11.glDepthMask(true);
-					GL11.glDisable(GL11.GL_STENCIL_TEST);
+					if(Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(size, 2)){
+						GL11.glEnable(GL11.GL_BLEND);
+						GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+						GL11.glDepthMask(false);
+						GL11.glDepthFunc(GL11.GL_GEQUAL);
+	//					GL11.glDisable(GL11.GL_CULL_FACE);
+						GL11.glCullFace(GL11.GL_FRONT);
+						
+						renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
+						
+						GL11.glDepthMask(true);
+						GL11.glDepthFunc(GL11.GL_LESS);
+						GL11.glDisable(GL11.GL_BLEND);
+	//					GL11.glEnable(GL11.GL_CULL_FACE);
+						GL11.glCullFace(GL11.GL_BACK);
+					}else{
+						GL11.glStencilMask(GL11.GL_TRUE);
+						GL11.glEnable(GL11.GL_STENCIL_TEST);
+						GL11.glDepthMask(false);
+						
+	//					GL11.glEnable(GL11.GL_BLEND);
+	//					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+	//					GL11.glDepthMask(false);
+	//					GL11.glDepthFunc(GL11.GL_GEQUAL);
+						GL11.glDepthFunc(GL11.GL_LEQUAL);
+						GL11.glDisable(GL11.GL_CULL_FACE);
+	//					GL11.glCullFace(GL11.GL_FRONT);
+						
+						GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+						
+						GL11.glStencilFunc(GL11.GL_ALWAYS, 0, 0);
+						
+						GL20.glStencilOpSeparate(GL11.GL_BACK, GL11.GL_KEEP, GL14.GL_INCR_WRAP, GL11.GL_KEEP);
+						GL20.glStencilOpSeparate(GL11.GL_FRONT, GL11.GL_KEEP, GL14.GL_DECR_WRAP, GL11.GL_KEEP);
+						
+						renderMesh(testShader2, t, sphereM, materialM, mainCamera);
+						
+	//					GL11.glDepthMask(true);
+	//					GL11.glDepthFunc(GL11.GL_LESS);
+	//					GL11.glDisable(GL11.GL_BLEND);
+						GL11.glEnable(GL11.GL_CULL_FACE);
+	//					GL11.glCullFace(GL11.GL_BACK);
+						GL11.glStencilMask(GL11.GL_FALSE);
+						
+						
+						GL11.glEnable(GL11.GL_BLEND);
+						GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+	//					GL11.glDepthMask(false);
+						GL11.glDisable(GL11.GL_DEPTH_TEST);
+	//					GL11.glDepthFunc(GL11.GL_GEQUAL);
+	//					GL11.glDepthFunc(GL11.GL_LEQUAL);
+	//					GL11.glDisable(GL11.GL_CULL_FACE);
+	//					GL11.glCullFace(GL11.GL_FRONT);
+						
+						GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
+						
+						renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
+						
+	//					GL11.glDepthMask(true);
+						GL11.glDepthFunc(GL11.GL_LESS);
+						GL11.glDisable(GL11.GL_BLEND);
+	//					GL11.glEnable(GL11.GL_CULL_FACE);
+						GL11.glEnable(GL11.GL_DEPTH_TEST);
+	//					GL11.glCullFace(GL11.GL_BACK);
+						
+						GL11.glDepthMask(true);
+						GL11.glDisable(GL11.GL_STENCIL_TEST);
+					}
 				}
 			}
 		}
@@ -569,81 +571,83 @@ public class RenderingEngine{
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
-		float size = 4;
-		
-		Transform t = new Transform();
-		t.setPos(0, 0, 0);
-		t.setScale(size);
-		
-		boolean truesa = Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(size, 2);
-		
-		if(truesa){
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-			GL11.glDepthMask(false);
-			GL11.glDepthFunc(GL11.GL_GEQUAL);
-//			GL11.glDisable(GL11.GL_CULL_FACE);
-			GL11.glCullFace(GL11.GL_FRONT);
+		if(mainCamera.getFrustum().sphereInFrustum(new Vector3f(0, 0, 0), 4)){
+			float size = 4;
 			
-			renderMesh(testShader, t, sphereM, materialM, mainCamera);
+			Transform t = new Transform();
+			t.setPos(0, 0, 0);
+			t.setScale(size);
 			
-			GL11.glDepthMask(true);
-			GL11.glDepthFunc(GL11.GL_LESS);
-			GL11.glDisable(GL11.GL_BLEND);
-//			GL11.glEnable(GL11.GL_CULL_FACE);
-			GL11.glCullFace(GL11.GL_BACK);
-		}else{
-			GL11.glStencilMask(GL11.GL_TRUE);
-			GL11.glEnable(GL11.GL_STENCIL_TEST);
-			GL11.glDepthMask(false);
+			boolean truesa = Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(size, 2);
 			
-//			GL11.glEnable(GL11.GL_BLEND);
-//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-//			GL11.glDepthMask(false);
-//			GL11.glDepthFunc(GL11.GL_GEQUAL);
-			GL11.glDepthFunc(GL11.GL_LEQUAL);
-			GL11.glDisable(GL11.GL_CULL_FACE);
-//			GL11.glCullFace(GL11.GL_FRONT);
-			
-			GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
-			
-			GL11.glStencilFunc(GL11.GL_ALWAYS, 0, 0);
-			
-			GL20.glStencilOpSeparate(GL11.GL_BACK, GL11.GL_KEEP, GL14.GL_INCR_WRAP, GL11.GL_KEEP);
-			GL20.glStencilOpSeparate(GL11.GL_FRONT, GL11.GL_KEEP, GL14.GL_DECR_WRAP, GL11.GL_KEEP);
-			
-			renderMesh(testShader2, t, sphereM, materialM, mainCamera);
-			
-//			GL11.glDepthMask(true);
-//			GL11.glDepthFunc(GL11.GL_LESS);
-//			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_CULL_FACE);
-//			GL11.glCullFace(GL11.GL_BACK);
-			GL11.glStencilMask(GL11.GL_FALSE);
-			
-			
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-//			GL11.glDepthMask(false);
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
-//			GL11.glDepthFunc(GL11.GL_GEQUAL);
-//			GL11.glDepthFunc(GL11.GL_LEQUAL);
-//			GL11.glDisable(GL11.GL_CULL_FACE);
-//			GL11.glCullFace(GL11.GL_FRONT);
-			
-			GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
-			
-			renderMesh(testShader, t, sphereM, materialM, mainCamera);
-			
-//			GL11.glDepthMask(true);
-			GL11.glDepthFunc(GL11.GL_LESS);
-			GL11.glDisable(GL11.GL_BLEND);
-//			GL11.glEnable(GL11.GL_CULL_FACE);
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
-//			GL11.glCullFace(GL11.GL_BACK);
-			
-			GL11.glDepthMask(true);
-			GL11.glDisable(GL11.GL_STENCIL_TEST);
+			if(truesa){
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+				GL11.glDepthMask(false);
+				GL11.glDepthFunc(GL11.GL_GEQUAL);
+	//			GL11.glDisable(GL11.GL_CULL_FACE);
+				GL11.glCullFace(GL11.GL_FRONT);
+				
+				renderMesh(testShader, t, sphereM, materialM, mainCamera);
+				
+				GL11.glDepthMask(true);
+				GL11.glDepthFunc(GL11.GL_LESS);
+				GL11.glDisable(GL11.GL_BLEND);
+	//			GL11.glEnable(GL11.GL_CULL_FACE);
+				GL11.glCullFace(GL11.GL_BACK);
+			}else{
+				GL11.glStencilMask(GL11.GL_TRUE);
+				GL11.glEnable(GL11.GL_STENCIL_TEST);
+				GL11.glDepthMask(false);
+				
+	//			GL11.glEnable(GL11.GL_BLEND);
+	//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+	//			GL11.glDepthMask(false);
+	//			GL11.glDepthFunc(GL11.GL_GEQUAL);
+				GL11.glDepthFunc(GL11.GL_LEQUAL);
+				GL11.glDisable(GL11.GL_CULL_FACE);
+	//			GL11.glCullFace(GL11.GL_FRONT);
+				
+				GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+				
+				GL11.glStencilFunc(GL11.GL_ALWAYS, 0, 0);
+				
+				GL20.glStencilOpSeparate(GL11.GL_BACK, GL11.GL_KEEP, GL14.GL_INCR_WRAP, GL11.GL_KEEP);
+				GL20.glStencilOpSeparate(GL11.GL_FRONT, GL11.GL_KEEP, GL14.GL_DECR_WRAP, GL11.GL_KEEP);
+				
+				renderMesh(testShader2, t, sphereM, materialM, mainCamera);
+				
+	//			GL11.glDepthMask(true);
+	//			GL11.glDepthFunc(GL11.GL_LESS);
+	//			GL11.glDisable(GL11.GL_BLEND);
+				GL11.glEnable(GL11.GL_CULL_FACE);
+	//			GL11.glCullFace(GL11.GL_BACK);
+				GL11.glStencilMask(GL11.GL_FALSE);
+				
+				
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+	//			GL11.glDepthMask(false);
+				GL11.glDisable(GL11.GL_DEPTH_TEST);
+	//			GL11.glDepthFunc(GL11.GL_GEQUAL);
+	//			GL11.glDepthFunc(GL11.GL_LEQUAL);
+	//			GL11.glDisable(GL11.GL_CULL_FACE);
+	//			GL11.glCullFace(GL11.GL_FRONT);
+				
+				GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
+				
+				renderMesh(testShader, t, sphereM, materialM, mainCamera);
+				
+	//			GL11.glDepthMask(true);
+				GL11.glDepthFunc(GL11.GL_LESS);
+				GL11.glDisable(GL11.GL_BLEND);
+	//			GL11.glEnable(GL11.GL_CULL_FACE);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+	//			GL11.glCullFace(GL11.GL_BACK);
+				
+				GL11.glDepthMask(true);
+				GL11.glDisable(GL11.GL_STENCIL_TEST);
+			}
 		}
 		
 		if(NeonEngine.isBloomEnabled()){
@@ -1003,12 +1007,12 @@ public class RenderingEngine{
 			height2 = 1;
 		}
 		
-		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
-		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG32F, GL30.GL_DEPTH_COMPONENT32F};
-		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG, GL11.GL_DEPTH_COMPONENT};
-		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT};
-		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3, GL30.GL_DEPTH_ATTACHMENT};
+		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
+		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
+		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RG32F, GL30.GL_DEPTH_COMPONENT32F};
+		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL30.GL_RG, GL11.GL_DEPTH_COMPONENT};
+		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT};
+		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_DEPTH_ATTACHMENT};
 		
 		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		
