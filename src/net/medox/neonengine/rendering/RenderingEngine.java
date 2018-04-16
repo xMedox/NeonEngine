@@ -520,7 +520,17 @@ public class RenderingEngine{
 			}
 		}
 		
-		float size = 7.7287345f;
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		}
+		
+		renderSkybox();
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		}
+		
+		float size = 4;
 		
 		Transform t = new Transform();
 		t.setPos(0, 0, 0);
@@ -559,16 +569,6 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 //			GL11.glEnable(GL11.GL_CULL_FACE);
 //			GL11.glCullFace(GL11.GL_BACK);
-		}
-		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-		}
-		
-		renderSkybox();
-		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
 		if(NeonEngine.isBloomEnabled()){
