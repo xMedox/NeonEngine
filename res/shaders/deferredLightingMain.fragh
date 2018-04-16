@@ -55,12 +55,11 @@ void main(){
 	if(normal.x != 0.0 || normal.y != 0.0 || normal.z != 0.0){
 		vec3 pos = worldPosFromDepth();
 		
-		float rough = texture(R2_filterTexture, texCoord0).x;
-		float metal = texture(R2_filterTexture, texCoord0).y;
+		vec2 roughMetal = texture(R2_filterTexture, texCoord0).xy;
 		
 		float shadow = CalcShadowAmount(R_shadowMap, (RM_lightMatrix * vec4(pos, 1.0)));
 		
-		outputFS = CalcLightingEffect(texture(R0_filterTexture, texCoord0).xyz, normal.xyz, pos, rough, metal) * vec4(shadow, shadow, shadow, shadow);
+		outputFS = CalcLightingEffect(texture(R0_filterTexture, texCoord0).xyz, normal.xyz, pos, roughMetal.x, roughMetal.y) * vec4(shadow, shadow, shadow, shadow);
 	}else{
 		discard;
 	}
