@@ -75,8 +75,14 @@ void main(){
 		
 		float shadow = CalcShadowAmount(R_shadowMap, (R0_lightMatrix * vec4(pos.xyz, 1.0)));
 		
+		vec3 diffuse2 = pow(diffuse.rgb, vec3(2.2));
+		
+		vec3 F0 = vec3(0.04);
+		//F0 = mix(F0, diffuse, metal);
+		F0 = mix(F0, diffuse2, metal);
+		
 		for(int i = 0; i < NR_LIGHTS; ++i){
-			color += CalcPointLight(R_pointLight[i], diffuse, normal.xyz, pos.xyz, rough, metal, C0_eyePos) * vec4(shadow, shadow, shadow, shadow);
+			color += CalcPointLight(R_pointLight[i], F0, diffuse2, normal.xyz, pos.xyz, rough, metal, C0_eyePos) * vec4(shadow, shadow, shadow, shadow);
 		}
 	}else{
 		discard;

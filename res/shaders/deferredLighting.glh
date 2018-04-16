@@ -65,17 +65,11 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0){
 	return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
-vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, vec3 eyePos){
-	vec3 color = pow(diffuse.rgb, vec3(2.2));
-	
+vec4 CalcLight(BaseLight base, vec3 F0, vec3 direction, vec3 color, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, vec3 eyePos){
 	float rough = roughnessMap;
 	float metal = metallicMap;
 	
 	vec3 V = normalize(eyePos - worldPos);
-	
-	vec3 F0 = vec3(0.04);
-	//F0 = mix(F0, diffuse, metal);
-	F0 = mix(F0, color, metal);
 	
 	
 	vec3 L = -direction;
@@ -101,7 +95,7 @@ vec4 CalcLight(BaseLight base, vec3 direction, vec3 diffuse, vec3 normal, vec3 w
 	return vec4((kD * color / PI + specular) * radiance * NdotL, 1);
 }
 
-vec4 CalcPointLight(PointLight pointLight, vec3 diffuse, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, vec3 eyePos){
+vec4 CalcPointLight(PointLight pointLight, vec3 F0, vec3 color, vec3 normal, vec3 worldPos, float roughnessMap, float metallicMap, vec3 eyePos){
 	vec3 lightDirection = worldPos - pointLight.position;
 	float distanceToPoint = length(lightDirection);
 	
@@ -111,5 +105,5 @@ vec4 CalcPointLight(PointLight pointLight, vec3 diffuse, vec3 normal, vec3 world
 	
 	lightDirection = normalize(lightDirection);
 	
-	return CalcLight(pointLight.base, lightDirection, diffuse, normal, worldPos, roughnessMap, metallicMap, eyePos) / (pointLight.atten.constant + pointLight.atten.linear * distanceToPoint + pointLight.atten.exponent * distanceToPoint * distanceToPoint + 0.0001);
+	return CalcLight(pointLight.base, F0, lightDirection, color, normal, worldPos, roughnessMap, metallicMap, eyePos) / (pointLight.atten.constant + pointLight.atten.linear * distanceToPoint + pointLight.atten.exponent * distanceToPoint * distanceToPoint + 0.0001);
 }
