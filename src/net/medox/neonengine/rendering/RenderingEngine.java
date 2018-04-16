@@ -504,6 +504,7 @@ public class RenderingEngine{
 //					GL11.glEnable(GL11.GL_CULL_FACE);
 					GL11.glCullFace(GL11.GL_BACK);
 				}else{
+					GL11.glStencilMask(GL11.GL_TRUE);
 					GL11.glEnable(GL11.GL_STENCIL_TEST);
 					GL11.glDepthMask(false);
 					
@@ -529,6 +530,7 @@ public class RenderingEngine{
 //					GL11.glDisable(GL11.GL_BLEND);
 					GL11.glEnable(GL11.GL_CULL_FACE);
 //					GL11.glCullFace(GL11.GL_BACK);
+					GL11.glStencilMask(GL11.GL_FALSE);
 					
 					
 					GL11.glEnable(GL11.GL_BLEND);
@@ -538,7 +540,7 @@ public class RenderingEngine{
 //					GL11.glDepthFunc(GL11.GL_GEQUAL);
 //					GL11.glDepthFunc(GL11.GL_LEQUAL);
 //					GL11.glDisable(GL11.GL_CULL_FACE);
-					GL11.glCullFace(GL11.GL_FRONT);
+//					GL11.glCullFace(GL11.GL_FRONT);
 					
 					GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
 					
@@ -549,7 +551,7 @@ public class RenderingEngine{
 					GL11.glDisable(GL11.GL_BLEND);
 //					GL11.glEnable(GL11.GL_CULL_FACE);
 					GL11.glEnable(GL11.GL_DEPTH_TEST);
-					GL11.glCullFace(GL11.GL_BACK);
+//					GL11.glCullFace(GL11.GL_BACK);
 					
 					GL11.glDepthMask(true);
 					GL11.glDisable(GL11.GL_STENCIL_TEST);
@@ -591,6 +593,7 @@ public class RenderingEngine{
 //			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glCullFace(GL11.GL_BACK);
 		}else{
+			GL11.glStencilMask(GL11.GL_TRUE);
 			GL11.glEnable(GL11.GL_STENCIL_TEST);
 			GL11.glDepthMask(false);
 			
@@ -616,6 +619,7 @@ public class RenderingEngine{
 //			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_CULL_FACE);
 //			GL11.glCullFace(GL11.GL_BACK);
+			GL11.glStencilMask(GL11.GL_FALSE);
 			
 			
 			GL11.glEnable(GL11.GL_BLEND);
@@ -625,7 +629,7 @@ public class RenderingEngine{
 //			GL11.glDepthFunc(GL11.GL_GEQUAL);
 //			GL11.glDepthFunc(GL11.GL_LEQUAL);
 //			GL11.glDisable(GL11.GL_CULL_FACE);
-			GL11.glCullFace(GL11.GL_FRONT);
+//			GL11.glCullFace(GL11.GL_FRONT);
 			
 			GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
 			
@@ -636,7 +640,7 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 //			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
-			GL11.glCullFace(GL11.GL_BACK);
+//			GL11.glCullFace(GL11.GL_BACK);
 			
 			GL11.glDepthMask(true);
 			GL11.glDisable(GL11.GL_STENCIL_TEST);
@@ -1001,10 +1005,10 @@ public class RenderingEngine{
 		
 		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
 		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG32F, GL30.GL_DEPTH32F_STENCIL8};
-		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG, GL30.GL_DEPTH_STENCIL};
-		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL30.GL_FLOAT_32_UNSIGNED_INT_24_8_REV};
-		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3, GL30.GL_DEPTH_STENCIL_ATTACHMENT};
+		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG32F, GL30.GL_DEPTH_COMPONENT32F};
+		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG, GL11.GL_DEPTH_COMPONENT};
+		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT};
+		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3, GL30.GL_DEPTH_ATTACHMENT};
 		
 		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		
