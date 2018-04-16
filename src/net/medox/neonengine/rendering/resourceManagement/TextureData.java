@@ -193,7 +193,7 @@ public class TextureData extends ReferenceCounter{
 		
 		boolean hasDepth = false;
 		for(int i = 0; i < numTextures; i++){
-			if(attachments[i] == GL30.GL_DEPTH_ATTACHMENT){
+			if(attachments[i] == GL30.GL_DEPTH_ATTACHMENT || attachments[i] == GL30.GL_DEPTH_STENCIL_ATTACHMENT){
 				drawBuffers.put(i, GL11.GL_NONE);
 				hasDepth = true;
 			}else{

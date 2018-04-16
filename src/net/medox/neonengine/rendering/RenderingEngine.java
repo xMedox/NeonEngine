@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
@@ -115,11 +116,13 @@ public class RenderingEngine{
 	private static Mesh sphereM;
 	private static Material materialM;
 	private static Shader testShader;
+	private static Shader testShader2;
 	
 	public static void init(){
 		sphereM = new Mesh("sphere.obj");
 		materialM = new Material();
 		testShader = new Shader("testShader");
+		testShader2 = new Shader("testShader2");
 		
 		maxTextureImageUnits = GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS);
 		
@@ -501,26 +504,70 @@ public class RenderingEngine{
 //					GL11.glEnable(GL11.GL_CULL_FACE);
 					GL11.glCullFace(GL11.GL_BACK);
 				}else{
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+					GL11.glEnable(GL11.GL_STENCIL_TEST);
 					GL11.glDepthMask(false);
+					
+//					GL11.glEnable(GL11.GL_BLEND);
+//					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//					GL11.glDepthMask(false);
 //					GL11.glDepthFunc(GL11.GL_GEQUAL);
 					GL11.glDepthFunc(GL11.GL_LEQUAL);
-//					GL11.glDisable(GL11.GL_CULL_FACE);
+					GL11.glDisable(GL11.GL_CULL_FACE);
 //					GL11.glCullFace(GL11.GL_FRONT);
+					
+					GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+					
+					GL11.glStencilFunc(GL11.GL_ALWAYS, 0, 0);
+					
+					GL20.glStencilOpSeparate(GL11.GL_BACK, GL11.GL_KEEP, GL14.GL_INCR_WRAP, GL11.GL_KEEP);
+					GL20.glStencilOpSeparate(GL11.GL_FRONT, GL11.GL_KEEP, GL14.GL_DECR_WRAP, GL11.GL_KEEP);
+					
+					renderMesh(testShader2, t, sphereM, materialM, mainCamera);
+					
+//					GL11.glDepthMask(true);
+//					GL11.glDepthFunc(GL11.GL_LESS);
+//					GL11.glDisable(GL11.GL_BLEND);
+					GL11.glEnable(GL11.GL_CULL_FACE);
+//					GL11.glCullFace(GL11.GL_BACK);
+					
+					
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//					GL11.glDepthMask(false);
+					GL11.glDisable(GL11.GL_DEPTH_TEST);
+//					GL11.glDepthFunc(GL11.GL_GEQUAL);
+//					GL11.glDepthFunc(GL11.GL_LEQUAL);
+//					GL11.glDisable(GL11.GL_CULL_FACE);
+					GL11.glCullFace(GL11.GL_FRONT);
+					
+					GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
 					
 					renderMesh(activeLight.getShader(), t, sphereM, materialM, mainCamera);
 					
-					GL11.glDepthMask(true);
+//					GL11.glDepthMask(true);
 					GL11.glDepthFunc(GL11.GL_LESS);
 					GL11.glDisable(GL11.GL_BLEND);
 //					GL11.glEnable(GL11.GL_CULL_FACE);
-//					GL11.glCullFace(GL11.GL_BACK);
+					GL11.glEnable(GL11.GL_DEPTH_TEST);
+					GL11.glCullFace(GL11.GL_BACK);
+					
+					GL11.glDepthMask(true);
+					GL11.glDisable(GL11.GL_STENCIL_TEST);
 				}
 			}
 		}
 		
-		float size = 7.7287345f;
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		}
+		
+		renderSkybox();
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		}
+		
+		float size = 4;
 		
 		Transform t = new Transform();
 		t.setPos(0, 0, 0);
@@ -544,31 +591,55 @@ public class RenderingEngine{
 //			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glCullFace(GL11.GL_BACK);
 		}else{
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+			GL11.glEnable(GL11.GL_STENCIL_TEST);
 			GL11.glDepthMask(false);
+			
+//			GL11.glEnable(GL11.GL_BLEND);
+//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//			GL11.glDepthMask(false);
 //			GL11.glDepthFunc(GL11.GL_GEQUAL);
 			GL11.glDepthFunc(GL11.GL_LEQUAL);
-//			GL11.glDisable(GL11.GL_CULL_FACE);
+			GL11.glDisable(GL11.GL_CULL_FACE);
 //			GL11.glCullFace(GL11.GL_FRONT);
+			
+			GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+			
+			GL11.glStencilFunc(GL11.GL_ALWAYS, 0, 0);
+			
+			GL20.glStencilOpSeparate(GL11.GL_BACK, GL11.GL_KEEP, GL14.GL_INCR_WRAP, GL11.GL_KEEP);
+			GL20.glStencilOpSeparate(GL11.GL_FRONT, GL11.GL_KEEP, GL14.GL_DECR_WRAP, GL11.GL_KEEP);
+			
+			renderMesh(testShader2, t, sphereM, materialM, mainCamera);
+			
+//			GL11.glDepthMask(true);
+//			GL11.glDepthFunc(GL11.GL_LESS);
+//			GL11.glDisable(GL11.GL_BLEND);
+			GL11.glEnable(GL11.GL_CULL_FACE);
+//			GL11.glCullFace(GL11.GL_BACK);
+			
+			
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//			GL11.glDepthMask(false);
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+//			GL11.glDepthFunc(GL11.GL_GEQUAL);
+//			GL11.glDepthFunc(GL11.GL_LEQUAL);
+//			GL11.glDisable(GL11.GL_CULL_FACE);
+			GL11.glCullFace(GL11.GL_FRONT);
+			
+			GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
 			
 			renderMesh(testShader, t, sphereM, materialM, mainCamera);
 			
-			GL11.glDepthMask(true);
+//			GL11.glDepthMask(true);
 			GL11.glDepthFunc(GL11.GL_LESS);
 			GL11.glDisable(GL11.GL_BLEND);
 //			GL11.glEnable(GL11.GL_CULL_FACE);
-//			GL11.glCullFace(GL11.GL_BACK);
-		}
-		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-		}
-		
-		renderSkybox();
-		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GL11.glCullFace(GL11.GL_BACK);
+			
+			GL11.glDepthMask(true);
+			GL11.glDisable(GL11.GL_STENCIL_TEST);
 		}
 		
 		if(NeonEngine.isBloomEnabled()){
@@ -928,17 +999,18 @@ public class RenderingEngine{
 			height2 = 1;
 		}
 		
-		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
-		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
-		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG32F};
-		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG};
-		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE};
-		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3};
+		final ByteBuffer[] data = new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null};
+		final int[] filter = new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR};
+		final int[] internalFormat = new int[]{GL11.GL_RGBA, GL30.GL_RGB32F, GL30.GL_RGB32F, GL30.GL_RG32F, GL30.GL_DEPTH32F_STENCIL8};
+		final int[] format = new int[]{GL11.GL_RGBA, GL11.GL_RGB, GL11.GL_RGB, GL30.GL_RG, GL30.GL_DEPTH_STENCIL};
+		final int[] type = new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_FLOAT, GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL30.GL_FLOAT_32_UNSIGNED_INT_24_8_REV};
+		final int[] attachment = new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_COLOR_ATTACHMENT2, GL30.GL_COLOR_ATTACHMENT3, GL30.GL_DEPTH_STENCIL_ATTACHMENT};
 		
 		setTexture("renderTexture", new Texture(width, height, data, GL11.GL_TEXTURE_2D, filter, internalFormat, format, type, true, attachment));
 		
 //		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_UNSIGNED_BYTE, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
-		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
+		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA, GL30.GL_DEPTH32F_STENCIL8}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA, GL30.GL_DEPTH_STENCIL}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE, GL30.GL_FLOAT_32_UNSIGNED_INT_24_8_REV}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1, GL30.GL_DEPTH_STENCIL_ATTACHMENT}));
+//		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGBA16F, GL11.GL_RGBA}, new int[]{GL11.GL_RGBA, GL11.GL_RGBA}, new int[]{GL11.GL_FLOAT, GL11.GL_UNSIGNED_BYTE}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
 		
 		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGBA, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
