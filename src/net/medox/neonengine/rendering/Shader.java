@@ -83,6 +83,14 @@ public class Shader{
 					}else{
 						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Transform.");
 					}
+				}else if(uniformName.equals("TM_projMatrixInv")){
+					final Matrix4f projMatrixInv = RenderingEngine.getMainCamera().getProjection().invert();
+					
+					setUniformMatrix4f(uniformName, projMatrixInv);
+				}else if(uniformName.equals("TM_viewMatrixInv")){
+					final Matrix4f MVPMatrixInvert = RenderingEngine.getMainCamera().getView().invert();
+					
+					setUniformMatrix4f(uniformName, MVPMatrixInvert);
 				}
 			}else if(uniformName.charAt(0) == 'R'){
 				if(uniformName.charAt(1) == '_'){

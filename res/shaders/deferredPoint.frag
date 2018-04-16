@@ -6,7 +6,10 @@ in vec2 texCoord0;
 
 uniform vec3 C0_eyePos;
 
-const int NR_LIGHTS = 32;
+uniform mat4 TM_projMatrixInv;
+uniform mat4 TM_viewMatrixInv;
+
+const int NR_LIGHTS = 128;
 uniform PointLight R_pointLight[NR_LIGHTS];
 
 #include "sampling.glh"
@@ -39,6 +42,21 @@ float CalcShadowAmount(sampler2D shadowMap, vec4 initialShadowMapCoords){
 	}
 }
 
+vec3 worldPosFromDepth(){
+	float depth = texture(R3_filterTexture, texCoord0).x;
+	
+	float z = depth * 2.0 - 1.0;
+	
+    vec4 clipSpacePosition = vec4(texCoord0 * 2.0 - 1.0, z, 1.0);
+    vec4 viewSpacePosition = TM_projMatrixInv * clipSpacePosition;
+	
+    viewSpacePosition /= viewSpacePosition.w;
+	
+    vec4 worldSpacePosition = TM_viewMatrixInv * viewSpacePosition;
+	
+    return worldSpacePosition.xyz;
+}
+
 void main(){
 	//vec4 diffuse = texture(diffuseMap, texCoord0);
 	//vec4 lighting = CalcLightingEffect(normalize(tbnMatrix * (255.0/128.0 * texture(normalMap, texCoord0).xyz - 1)), worldPos0, texture(specMap, texCoord0).x) * CalcShadowAmount(R_shadowMap, shadowMapCoords0);
@@ -50,10 +68,10 @@ void main(){
 	if(normal.x != 0.0 || normal.y != 0.0 || normal.z != 0.0){
 		vec3 diffuse = texture(R0_filterTexture, texCoord0).xyz;
 		
-		vec4 pos = texture(R2_filterTexture, texCoord0);
+		vec3 pos = worldPosFromDepth();
 		
-		float rough = texture(R3_filterTexture, texCoord0).x;
-		float metal = texture(R3_filterTexture, texCoord0).y;
+		float rough = texture(R2_filterTexture, texCoord0).x;
+		float metal = texture(R2_filterTexture, texCoord0).y;
 		
 		float shadow = CalcShadowAmount(R_shadowMap, (R0_lightMatrix * vec4(pos.xyz, 1.0)));
 		

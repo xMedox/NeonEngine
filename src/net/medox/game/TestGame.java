@@ -58,7 +58,7 @@ public class TestGame extends Game{
 		NeonEngine.setShadowQuality(0);
 		NeonEngine.setRenderQuality(1);
 		
-		NeonEngine.init(new TestGame(), /*600*/240);
+		NeonEngine.init(new TestGame(), /*600*/1000);
 		
 		Window.setStartTitle("Project Knight");
 		Window.setStartSize(854, 480);
@@ -544,6 +544,18 @@ public class TestGame extends Game{
 		addEntity(pbrObject5);
 		addEntity(pbrObject6);
 		addEntity(swordObject2);
+		
+		for(int x = -10; x <= 10; x+=2){
+			for(int z = -10; z <= 10; z+=2){
+				Entity pointLightObject2 = new Entity();
+				PointLight pointLight2 = new PointLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+				pointLightObject2.addComponent(pointLight2);
+				
+				pointLightObject2.getTransform().setPos(new Vector3f(x, 0, z));
+				
+				addEntity(pointLightObject2);
+			}
+		}
 		
 		addEntity(planeObject);
 		addEntity(planeObjectx);
