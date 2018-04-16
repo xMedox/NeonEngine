@@ -6,7 +6,7 @@ import net.medox.neonengine.rendering.PerspectiveBase;
 import net.medox.neonengine.rendering.Shader;
 
 public class PointLight extends BaseLight{
-	private static final int COLOR_DEPTH = 256;
+	private static final float COLOR_DEPTH = (256.0f / 5.0f);
 	
 	private Attenuation attenuation;
 	private float range;
@@ -53,7 +53,7 @@ public class PointLight extends BaseLight{
 		
 		final float a = attenuation.getExponent();
 		final float b = attenuation.getLinear();
-		final float c = attenuation.getConstant() - COLOR_DEPTH * getIntensity() * getColor().max();
+		final float c = attenuation.getConstant() - COLOR_DEPTH * getIntensity()/6f * getColor().max();
 		
 		this.range = (float)(-b + Math.sqrt(b * b - 4 * a * c))/(2 * a);
 	}

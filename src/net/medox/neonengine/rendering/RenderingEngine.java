@@ -479,11 +479,13 @@ public class RenderingEngine{
 				GL11.glDepthFunc(GL11.GL_LESS);
 				GL11.glDisable(GL11.GL_BLEND);
 			}else{
+				float size = activeLight.getRange();
+				
 				Transform t = new Transform();
 				t.setPos(activeLight.getTransform().getPos());
-				t.setScale(18.931456f/4);
+				t.setScale(size);
 				
-				if(Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(18.931456f/4, 2)){
+				if(Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(size, 2)){
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 					GL11.glDepthMask(false);
@@ -518,21 +520,13 @@ public class RenderingEngine{
 			}
 		}
 		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-		}
-		
-		renderSkybox();
-		
-		if(wireframeMode){
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		}
+		float size = 7.7287345f;
 		
 		Transform t = new Transform();
 		t.setPos(0, 0, 0);
-		t.setScale(18.931456f/4);
+		t.setScale(size);
 		
-		boolean truesa = Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(18.931456f/4, 2);
+		boolean truesa = Math.pow(t.getTransformedPos().getX() - mainCamera.getTransform().getTransformedPos().getX(), 2) + Math.pow(t.getTransformedPos().getY() - mainCamera.getTransform().getTransformedPos().getY(), 2) + Math.pow(t.getTransformedPos().getZ() - mainCamera.getTransform().getTransformedPos().getZ(), 2) <= Math.pow(size, 2);
 		
 		if(truesa){
 			GL11.glEnable(GL11.GL_BLEND);
@@ -565,6 +559,16 @@ public class RenderingEngine{
 			GL11.glDisable(GL11.GL_BLEND);
 //			GL11.glEnable(GL11.GL_CULL_FACE);
 //			GL11.glCullFace(GL11.GL_BACK);
+		}
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		}
+		
+		renderSkybox();
+		
+		if(wireframeMode){
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		}
 		
 		if(NeonEngine.isBloomEnabled()){
