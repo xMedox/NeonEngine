@@ -4,6 +4,7 @@ import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
+import net.medox.neonengine.components.MoveComponent;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.components.ScreenshotTaker;
@@ -141,6 +142,7 @@ public class TestGame extends Game{
 		
 //		player.addComponent(p);
 		playerHead.addComponent(p);
+//		playerHead.addComponent(new MoveComponent(6));
 		
 		Listener listener = new Listener();
 		
@@ -603,6 +605,18 @@ public class TestGame extends Game{
 		addEntity(pbrObject8);
 		addEntity(swordObject2);
 		
+//		for(int x = -10; x <= 10; x+=2){
+//			for(int z = -10; z <= 10; z+=2){
+//				Entity pointLightObject2 = new Entity();
+//				PointLight pointLight2 = new PointLight(new Vector3f(1, 1, 1), 6f+light, new Attenuation(0, 0, 1)/*, 8, 1.0f, 0.5f, 0.000001f*/);
+//				pointLightObject2.addComponent(pointLight2);
+//				
+//				pointLightObject2.getTransform().setPos(new Vector3f(x, 0, z));
+//				
+//				addEntity(pointLightObject2);
+//			}
+//		}
+		
 		addEntity(planeObject);
 		addEntity(planeObjectx);
 		addEntity(neonObject);
@@ -770,6 +784,24 @@ public class TestGame extends Game{
 		bounce.addComponent(new PhysicsComponent(bounceBox)).addComponent(new MeshRenderer(new Mesh("block.obj"), block));
 		
 		addEntity(bounce);
+		
+		
+		
+		Entity aventador = new Entity();
+		
+		aventador.getTransform().setPos(8, -1, -10);
+		aventador.getTransform().setScale(1.5f, 1.5f, 1.5f);
+		aventador.getTransform().rotate(new Vector3f(0, 1, 0), (float)Math.toRadians(90));
+		
+		Material aventadorMaterial = new Material();
+		aventadorMaterial.setDiffuseMap(new Texture("aventador.png"));
+//		aventadorMaterial.setNormalMap(new Texture("slimeNormal.png"));
+		aventadorMaterial.setMetallic(0);
+		aventadorMaterial.setRoughness(0.15f/*0.25f*/);
+		
+		aventador.addComponent(new MeshRenderer(new Mesh("aventador.obj"), aventadorMaterial));
+		
+		addEntity(aventador);
 		
 		
 //		addEntity((new Entity()).addComponent(physicsEngineComponent));

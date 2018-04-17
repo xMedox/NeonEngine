@@ -76,8 +76,8 @@ public class Skybox{
 		Shader equirectangular = new Shader("equirectangular");
 		
 		//TODO make the skybox resolution based on the base hdr texture
-		final int cubeWidth = /*(int)(hdrTexture.getWidth()/4f)*/512;
-		final int cubeHeight = /*(int)(hdrTexture.getWidth()/4f)*/512;
+		final int cubeWidth = (int)(hdrTexture.getWidth()/4f);
+		final int cubeHeight = (int)(hdrTexture.getWidth()/4f);
 		CubeMap cubeMap = new CubeMap(cubeWidth, cubeHeight, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR_MIPMAP_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0);
 		
 		equirectangular.bind();

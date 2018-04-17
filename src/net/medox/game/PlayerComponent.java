@@ -111,8 +111,9 @@ public class PlayerComponent extends EntityComponent{
 	
 	public void move(Vector3f vel, float delta){
 //		controller.setWalkDirection(vel);
-		collider.applyCentralImpulse(vel);
+//		collider.applyCentralImpulse(vel.mul(40).mul(delta));
 //		collider.setPos(collider.getPos().add(vel.mul(delta)));
+		collider.setLinearVelocity(new Vector3f(vel.getX(), collider.getLinearVelocity().getY(), vel.getZ()));
 	}
 	
 	public Collider getCollider(){
