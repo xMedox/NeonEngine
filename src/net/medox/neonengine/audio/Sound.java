@@ -10,6 +10,7 @@ import net.medox.neonengine.audio.audioLoading.WAVSound;
 import net.medox.neonengine.audio.resourceManagement.SoundData;
 import net.medox.neonengine.audio.resourceManagement.SourceData;
 import net.medox.neonengine.core.NeonEngine;
+import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
 
 public class Sound{
@@ -94,6 +95,22 @@ public class Sound{
 	
 	public void setLooping(boolean value){
 		source.setLooping(value);
+	}
+	
+	public void setRotation(Quaternion value){
+		source.setRotation(value);
+	}
+	
+	public void setInnerAngle(float value){
+		source.setInnerAngle(value);
+	}
+	
+	public void setOuterAngle(float value){
+		source.setOuterAngle(value);
+	}
+	
+	public void setOuterGain(float value){
+		source.setOuterGain(value);
 	}
 	
 //	public void setMinGain(float value){

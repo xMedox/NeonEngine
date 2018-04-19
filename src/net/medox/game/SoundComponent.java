@@ -3,13 +3,25 @@ package net.medox.game;
 import net.medox.neonengine.audio.Sound;
 import net.medox.neonengine.core.EntityComponent;
 import net.medox.neonengine.core.Input;
+import net.medox.neonengine.core.InputKey;
 
 public class SoundComponent extends EntityComponent{
 	private Sound audio;
 	
+	private InputKey play;
+	
 	public SoundComponent(){
-		audio = new Sound("hit.ogg");
+		this("hit.ogg");
+	}
+	
+	public SoundComponent(String fileName){
+		this(fileName, new InputKey(Input.MOUSE, Input.BUTTON_MIDDLE));
+	}
+	
+	public SoundComponent(String fileName, InputKey play){
+		audio = new Sound(fileName);
 		
+		this.play = play;
 //		audio.setPitch(1.0f);
 //		audio.setGain(1.0f);
 //		audio.setPosition(new Vector3f(0.0f, 0.0f, 0.0f));
@@ -20,7 +32,7 @@ public class SoundComponent extends EntityComponent{
 	
 	@Override
 	public void input(float delta){
-		if(Input.getMouseDown(Input.BUTTON_MIDDLE)){
+		if(Input.getInputKeyDown(play)){
 			audio.play();
 		}
 		
@@ -42,5 +54,9 @@ public class SoundComponent extends EntityComponent{
 		audio.setPosition(getTransform().getTransformedPos());
 		
 //		System.out.println(audio.isPlaying() + "|" + audio.isPaused() + "|" + audio.getTimeOffset() + "/" + audio.getLength());
+	}
+	
+	public Sound getSound(){
+		return audio;
 	}
 }

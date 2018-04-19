@@ -3,6 +3,7 @@ package net.medox.neonengine.audio.resourceManagement;
 import java.nio.FloatBuffer;
 
 import net.medox.neonengine.core.DataUtil;
+import net.medox.neonengine.math.Quaternion;
 import net.medox.neonengine.math.Vector3f;
 
 import org.lwjgl.openal.AL10;
@@ -13,6 +14,7 @@ public class SourceData{
 	
 	private final FloatBuffer sourcePosition;
 	private final FloatBuffer sourceVelocity;
+	private final FloatBuffer sourceRotation;
 	
 	public SourceData(){
 		source = AL10.alGenSources();
@@ -22,6 +24,9 @@ public class SourceData{
 		
 		sourceVelocity = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
 		sourceVelocity.flip();
+		
+		sourceRotation = DataUtil.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f});
+		sourceRotation.flip();
 	}
 	
 	public void setBuffer(SoundData data){
@@ -66,6 +71,26 @@ public class SourceData{
 		sourceVelocity.put(2, value.getZ());
         
 		AL10.alSourcefv(source, AL10.AL_VELOCITY, sourceVelocity);
+	}
+	
+	public void setRotation(Quaternion value){
+		sourceRotation.put(0, value.getForward().getX());
+		sourceRotation.put(1, value.getForward().getY());
+		sourceRotation.put(2, value.getForward().getZ());
+		
+		AL10.alSourcefv(source, AL10.AL_DIRECTION, sourceRotation);
+	}
+	
+	public void setInnerAngle(float value){
+		AL10.alSourcef(source, AL10.AL_CONE_INNER_ANGLE, value);
+	}
+	
+	public void setOuterAngle(float value){
+		AL10.alSourcef(source, AL10.AL_CONE_OUTER_ANGLE, value);
+	}
+	
+	public void setOuterGain(float value){
+		AL10.alSourcef(source, AL10.AL_CONE_OUTER_GAIN, value);
 	}
 	
 	public void setLooping(boolean value){

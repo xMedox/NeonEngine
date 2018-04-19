@@ -360,6 +360,14 @@ public class TestGame extends Game{
 		spotLightObject.getTransform().setPos(10, 0, 6.6f);
 		spotLightObject.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f)));
 		
+		SoundComponent soundSpot = new SoundComponent("bullet.wav", new InputKey(Input.KEYBOARD, Input.KEY_RIGHT_CONTROL));
+		soundSpot.getSound().setRotation(spotLightObject.getTransform().getTransformedRot());
+		soundSpot.getSound().setInnerAngle(80f/*90f*//*75f*/);
+		soundSpot.getSound().setOuterAngle(90f/*180f 0f*//*90f*/);
+//		soundSpot.getSound().setOuterGain(0.1f);
+//		soundSpot.getSound().setGain(1f);
+		spotLightObject.addComponent(soundSpot);
+		
 		spotLightObject2.getTransform().setPos(10, 0, 0);
 		spotLightObject2.getTransform().setRot(new Quaternion(new Vector3f(0, 1, 0), (float)Math.toRadians(90.0f)));
 		
