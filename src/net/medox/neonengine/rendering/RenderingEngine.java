@@ -93,6 +93,8 @@ public class RenderingEngine{
 	private static Shader nullFilter;
 	private static Shader fxaaFilter;
 	private static Shader toneMappingFilter;
+	private static Shader copyShader;
+	private static Shader reflectionShader;
 	
 	private static Camera particleCamera;
 	private static Shader particleShader;
@@ -168,6 +170,7 @@ public class RenderingEngine{
 		samplerMap.put("irradianceMap", 5);
 		samplerMap.put("prefilterMap", 6);
 		samplerMap.put("brdfLUT", 7);
+		samplerMap.put("finalTexture", 8);
 		
 		lights = new ArrayList<BaseLight>();
 		
@@ -202,6 +205,8 @@ public class RenderingEngine{
 		nullFilter = new Shader("filterNull");
 		fxaaFilter = new Shader("filterFxaa");
 		toneMappingFilter = new Shader("filterToneMapping");
+		copyShader = new Shader("copyShader");
+		reflectionShader = new Shader("reflectionShader");
 		
 		filters = new ArrayList<Shader>();
 		
@@ -451,6 +456,19 @@ public class RenderingEngine{
 			GL11.glDepthFunc(GL11.GL_LESS);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+		GL11.glDepthMask(false);
+		GL11.glDepthFunc(GL11.GL_EQUAL);
+		
+		applyFilter(reflectionShader, getTexture("renderTexture"), getTexture("displayTexture"));
+		
+		GL11.glDepthMask(true);
+		GL11.glDepthFunc(GL11.GL_LESS);
+		GL11.glDisable(GL11.GL_BLEND);
+		
+		applyFilter(copyShader, getTexture("displayTexture"), getTexture("finalTexture"));
 		
 		if(wireframeMode){
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
@@ -781,6 +799,8 @@ public class RenderingEngine{
 		getTexture("displayTexture").cleanUp();
 		getTexture("postFilterTexture").cleanUp();
 		
+		getTexture("finalTexture").cleanUp();;
+		
 		getTexture("bloomTexture1").cleanUp();
 		getTexture("bloomTexture2").cleanUp();
 		
@@ -807,6 +827,8 @@ public class RenderingEngine{
 		
 		setTexture("displayTexture", new Texture(width, height, new ByteBuffer[]{(ByteBuffer)null, (ByteBuffer)null}, GL11.GL_TEXTURE_2D, new int[]{GL11.GL_LINEAR, GL11.GL_LINEAR}, new int[]{GL30.GL_RGB16F, GL30.GL_RGB16F}, new int[]{GL11.GL_RGB, GL11.GL_RGB}, new int[]{GL11.GL_FLOAT, GL11.GL_FLOAT}, true, new int[]{GL30.GL_COLOR_ATTACHMENT0, GL30.GL_COLOR_ATTACHMENT1}));
 		setTexture("postFilterTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL11.GL_RGB8, GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, true, GL30.GL_COLOR_ATTACHMENT0));
+		
+		setTexture("finalTexture", new Texture(width, height, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
 		
 		setTexture("bloomTexture1", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
 		setTexture("bloomTexture2", new Texture(width2, height2, (ByteBuffer)null, GL11.GL_TEXTURE_2D, GL11.GL_LINEAR, GL30.GL_RGB16F, GL11.GL_RGB, GL11.GL_FLOAT, true, GL30.GL_COLOR_ATTACHMENT0));
