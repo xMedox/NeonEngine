@@ -112,6 +112,15 @@ public class Matrix4f{
 							m[2][0] * v.getX() + m[2][1] * v.getY() + m[2][2] * v.getZ() + m[2][3]);
 	}
 	
+	public Matrix4f translate(Vector3f v){
+		m[3][0] += m[0][0] * v.getX() + m[1][0] * v.getY() + m[2][0] * v.getZ();
+		m[3][1] += m[0][1] * v.getX() + m[1][1] * v.getY() + m[2][1] * v.getZ();
+		m[3][2] += m[0][2] * v.getX() + m[1][2] * v.getY() + m[2][2] * v.getZ();
+		m[3][3] += m[0][3] * v.getX() + m[1][3] * v.getY() + m[2][3] * v.getZ();
+		
+		return this;
+	}
+	
 	public Matrix4f mul(Matrix4f m){
 		final Matrix4f res = new Matrix4f();
 		

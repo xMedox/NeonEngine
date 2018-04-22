@@ -101,6 +101,25 @@ public class Quaternion{
 		return this.mul((float)Math.sin((1.0f - lerpFactor) * angle) * invSin).add(correctedDest.mul((float)Math.sin((lerpFactor) * angle) * invSin));
 	}
 	
+	public static Quaternion interpolate(Quaternion a, Quaternion b, float blend){
+		Quaternion result = new Quaternion(0, 0, 0, 1);
+		float dot = a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
+		float blendI = 1f - blend;
+		if(dot < 0){
+			result.w = blendI * a.w + blend * -b.w;
+			result.x = blendI * a.x + blend * -b.x;
+			result.y = blendI * a.y + blend * -b.y;
+			result.z = blendI * a.z + blend * -b.z;
+		}else{
+			result.w = blendI * a.w + blend * b.w;
+			result.x = blendI * a.x + blend * b.x;
+			result.y = blendI * a.y + blend * b.y;
+			result.z = blendI * a.z + blend * b.z;
+		}
+		result.normalized();
+		return result;
+	}
+	
 	public Quaternion(Matrix4f rot){
 		final float trace = rot.get(0, 0) + rot.get(1, 1) + rot.get(2, 2);
 
