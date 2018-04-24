@@ -19,6 +19,19 @@ public class IndexedAnimatedModel{
 //	private Vector3f minVertex;
 //	private Vector3f maxVertex;
 	
+	public IndexedAnimatedModel(List<Vector3f> positions, List<Vector2f> texCoords, List<Vector3f> normals, List<Vector3f> tangents, List<Integer> joints, List<Float> weights, List<Integer> indices){
+		this.positions = positions;
+		this.texCoords = texCoords;
+		this.normals = normals;
+		this.tangents = tangents;
+		this.joints = joints;
+		this.weights = weights;
+		this.indices = indices;
+		
+//		minVertex = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+//		maxVertex = new Vector3f(-Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE);
+	}
+	
 	public IndexedAnimatedModel(){
 		positions = new ArrayList<Vector3f>();
 		texCoords = new ArrayList<Vector2f>();

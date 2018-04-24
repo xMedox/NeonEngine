@@ -663,6 +663,20 @@ public class RenderingEngine{
 		}
 	}
 	
+	public static boolean meshInFrustum(Transform transform, AnimatedMesh mesh, Camera camera){
+		final boolean inCameraFrustum = mesh.inFrustum(transform, camera);
+		
+		if(renderingState == LIGHTING_STATE){
+			if(activeLight.getType() == BaseLight.SPOT_LIGHT){
+				return inCameraFrustum && mesh.inFrustum(transform, lightCamera);
+			}else{
+				return inCameraFrustum;
+			}
+		}else{
+			return inCameraFrustum;
+		}
+	}
+	
 	public static void renderParticle(Transform trans, ParticleMaterial material){
 		renderParticle(trans, material, new Vector2f(0, 0), new Vector2f(1, 1));
 	}
@@ -694,6 +708,12 @@ public class RenderingEngine{
 	}
 	
 	public static void renderMesh(Shader shader, Transform trans, Mesh mesh, Material material, Camera camera){
+		shader.bind();
+		shader.updateUniforms(trans, material, camera);
+		mesh.draw();
+	}
+	
+	public static void renderMesh(Shader shader, Transform trans, AnimatedMesh mesh, Material material, Camera camera){
 		shader.bind();
 		shader.updateUniforms(trans, material, camera);
 		mesh.draw();

@@ -2,6 +2,7 @@ package net.medox.game;
 
 import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.LookComponent;
+import net.medox.neonengine.components.AnimatedMeshRenderer;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
 import net.medox.neonengine.components.ParticleRenderer;
@@ -32,6 +33,7 @@ import net.medox.neonengine.physics.CapsuleCollider;
 import net.medox.neonengine.physics.PhysicsEngine;
 import net.medox.neonengine.physics.PointConstraint;
 import net.medox.neonengine.physics.SphereCollider;
+import net.medox.neonengine.rendering.AnimatedMesh;
 import net.medox.neonengine.rendering.Camera;
 import net.medox.neonengine.rendering.Cursor;
 import net.medox.neonengine.rendering.Font;
@@ -598,6 +600,22 @@ public class TestGame extends Game{
 //		humanObject.addComponent(physc);
 		
 		addEntity(humanObject);
+		
+		
+		
+		AnimatedMesh animMesh = new AnimatedMesh("skeletalModel.dae");
+		Material animMaterial = new Material();
+		animMaterial.setDiffuseMap(new Texture("skeletalDifuse.png"));
+		animMaterial.setRoughness(0.85f);
+		animMaterial.setMetallic(0);
+		
+		Entity human2Object = new Entity();
+//		human2Object.getTransform().setScale(0.5f);
+		human2Object.getTransform().setPos(6f, 2f, 10f);
+		
+		human2Object.addComponent(new AnimatedMeshRenderer(animMesh, animMaterial));
+		
+		addEntity(human2Object);
 		
 //		addObject(ar_15Object);
 //		addObject(us_assaultObject);

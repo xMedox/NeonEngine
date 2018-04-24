@@ -148,6 +148,22 @@ public class Matrix4f{
 		return res;
 	}
 	
+	public static Quaternion transform(Matrix4f left, Quaternion right){
+		Quaternion dest = new Quaternion();
+		
+		float x = left.m[0][0] * right.getX() + left.m[1][0] * right.getY() + left.m[2][0] * right.getZ() + left.m[3][0] * right.getW();
+		float y = left.m[0][1] * right.getX() + left.m[1][1] * right.getY() + left.m[2][1] * right.getZ() + left.m[3][1] * right.getW();
+		float z = left.m[0][2] * right.getX() + left.m[1][2] * right.getY() + left.m[2][2] * right.getZ() + left.m[3][2] * right.getW();
+		float w = left.m[0][3] * right.getX() + left.m[1][3] * right.getY() + left.m[2][3] * right.getZ() + left.m[3][3] * right.getW();
+		
+		dest.setX(x);
+		dest.setY(y);
+		dest.setZ(z);
+		dest.setW(w);
+
+		return dest;
+	}
+	
 	public Matrix4f invert(){
 		float determinant = determinant();
 		

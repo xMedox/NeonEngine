@@ -6,9 +6,12 @@ import java.util.Map;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.physics.StaticMeshCollider;
+import net.medox.neonengine.rendering.meshLoading.ColladaModel;
 import net.medox.neonengine.rendering.resourceManagement.AnimatedMeshData;
 
 public class AnimatedMesh{
+	public static final int MAXWEIGHTS = 3;
+	
 	private static final Map<String, AnimatedMeshData> loadedModels = new HashMap<String, AnimatedMeshData>();
 //	private static final List<AnimatedMeshData> customModels = new ArrayList<MeshData>();
 	
@@ -87,7 +90,7 @@ public class AnimatedMesh{
 		final String ext = splitArray[splitArray.length - 1];
 		
 		if(ext.equals("dae")){
-//			resource = new MeshData(new OBJModel("./res/models/" + fileName).toIndexedModel());//TODO add this
+			resource = new AnimatedMeshData(new ColladaModel("./res/models/" + fileName).toIndexedModel());
 		}else{
 			NeonEngine.throwError("Error: '" + ext + "' file format not supported for mesh data.");
 		}
