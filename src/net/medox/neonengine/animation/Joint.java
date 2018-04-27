@@ -12,8 +12,8 @@ public class Joint{
 	
 	private final Matrix4f localBindTransform;
 	
-	private Matrix4f animatedTransform = new Matrix4f().initIdentity();
-	private Matrix4f inverseBindTransform = new Matrix4f().initIdentity();
+	private Matrix4f animatedTransform;
+	private Matrix4f inverseBindTransform;
 	
 	public Joint(int index, String name, Matrix4f bindLocalTransform){
 		this.index = index;
@@ -22,8 +22,8 @@ public class Joint{
 		
 		children = new ArrayList<Joint>();
 		
-//		animatedTransform = new Matrix4f().initIdentity();
-//		inverseBindTransform = new Matrix4f().initIdentity();
+		animatedTransform = new Matrix4f().initIdentity();
+		inverseBindTransform = new Matrix4f().initIdentity();
 	}
 	
 	protected void calcInverseBindTransform(Matrix4f parentBindTransform){

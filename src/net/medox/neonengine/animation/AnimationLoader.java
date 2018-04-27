@@ -21,7 +21,7 @@ public class AnimationLoader{
 		AnimationData animationData = loader.extractAnimation();
 		
 		KeyFrame[] frames = new KeyFrame[animationData.keyFrames.length];
-		for (int i = 0; i < frames.length; i++) {
+		for(int i = 0; i < frames.length; i++){
 			frames[i] = createKeyFrame(animationData.keyFrames[i]);
 		}
 		return new Animation(animationData.lengthSeconds, frames);

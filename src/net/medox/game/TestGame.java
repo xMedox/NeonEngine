@@ -613,7 +613,7 @@ public class TestGame extends Game{
 		animMaterial.setDiffuseMap(new Texture("skeletalDifuse.png"));
 		animMaterial.setRoughness(0.85f);
 		animMaterial.setMetallic(0);
-				
+		
 		Entity human2Object = new Entity();
 //		human2Object.getTransform().setScale(0.5f);
 		human2Object.getTransform().setPos(6f, 2f, 10f);
