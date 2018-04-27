@@ -14,9 +14,10 @@ public class JointTransform{
 	}
 	
 	protected Matrix4f getLocalTransform(){
-		Matrix4f matrix = new Matrix4f();
-		matrix.translate(position);
-		return matrix.mul(rotation.toRotationMatrix());
+		Matrix4f matrix = new Matrix4f().initIdentity();
+		matrix = matrix.translate(position);
+		matrix = Matrix4f.mul(matrix, rotation.toRotationMatrix2());
+		return matrix;
 	}
 	
 	protected static JointTransform interpolate(JointTransform frameA, JointTransform frameB, float progression){

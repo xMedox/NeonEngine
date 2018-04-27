@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
 
 import net.medox.neonengine.core.NeonEngine;
+import net.medox.neonengine.animation.AnimatedModel;
 import net.medox.neonengine.core.Entity;
 import net.medox.neonengine.core.Entity2D;
 import net.medox.neonengine.core.ProfileTimer;
@@ -81,9 +82,11 @@ public class RenderingEngine{
 	private static List<Shader> filters;
 	
 	private static Shader geometryPassShader;
+	private static Shader animatedGeometryPassShader;
 	private static Shader geometryPassParticleShader;
 	private static Shader ambientShader;
 	private static Shader shadowMappingShader;
+	private static Shader animatedShadowMappingShader;
 	private static Shader particleShadowMappingShader;
 	private static Shader skyboxShader;
 	private static Shader bloomCombineShader;
@@ -190,9 +193,11 @@ public class RenderingEngine{
 		setRenderTextures();
 		
 		geometryPassShader = new Shader("geometryPass");
+		animatedGeometryPassShader = new Shader("animatedGeometryPass");
 		geometryPassParticleShader = new Shader("geometryPassParticle");
 		ambientShader = new Shader("deferredAmbient");
 		shadowMappingShader =  new Shader("shadowMapping");
+		animatedShadowMappingShader = new Shader("animatedShadowMapping");
 		particleShadowMappingShader = new Shader("particleShadowMapping");
 		skyboxShader = new Shader("skyboxShader");
 		bloomCombineShader = new Shader("bloomCombine");
@@ -663,7 +668,7 @@ public class RenderingEngine{
 		}
 	}
 	
-	public static boolean meshInFrustum(Transform transform, AnimatedMesh mesh, Camera camera){
+	public static boolean meshInFrustum(Transform transform, AnimatedModel mesh, Camera camera){
 		final boolean inCameraFrustum = mesh.inFrustum(transform, camera);
 		
 		if(renderingState == LIGHTING_STATE){
@@ -713,10 +718,16 @@ public class RenderingEngine{
 		mesh.draw();
 	}
 	
-	public static void renderMesh(Shader shader, Transform trans, AnimatedMesh mesh, Material material, Camera camera){
-		shader.bind();
-		shader.updateUniforms(trans, material, camera);
-		mesh.draw();
+	public static void renderMesh(Shader shader, Transform trans, AnimatedModel mesh, Material material, Camera camera){
+		if(renderingState == DIFFUSE_STATE){
+			animatedGeometryPassShader.bind();
+			animatedGeometryPassShader.updateUniforms(trans, material, camera, mesh);
+			mesh.draw();
+		}else if(renderingState == SHADOW_STATE){
+			animatedShadowMappingShader.bind();
+			animatedShadowMappingShader.updateUniforms(trans, material, camera, mesh);
+			mesh.draw();
+		}
 	}
 	
 	public static void drawString(float xPos, float yPos, String text, Vector3f color){

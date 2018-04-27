@@ -1,7 +1,9 @@
 package net.medox.neonengine.animation;
 
+import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.rendering.AnimatedMesh;
+import net.medox.neonengine.rendering.Camera;
 
 public class AnimatedModel{
 	private final AnimatedMesh mesh;
@@ -9,13 +11,13 @@ public class AnimatedModel{
 	private final int jointCount;
 	private final Animator animator;
 	
-	public AnimatedModel(AnimatedMesh mesh, Joint rootJoint, int jointCount){
+	public AnimatedModel(AnimatedMesh mesh/*, Joint rootJoint, int jointCount*/){
 		this.mesh = mesh;
-		this.rootJoint = rootJoint;
-		this.jointCount = jointCount;
+		rootJoint = mesh.getRootJoint();
+		jointCount = mesh.getJointCount();
 		animator = new Animator(this);
 		
-		rootJoint.calcInverseBindTransform(new Matrix4f());
+		rootJoint.calcInverseBindTransform(new Matrix4f().initIdentity());
 	}
 	
 	public Joint getRootJoint(){
@@ -28,6 +30,14 @@ public class AnimatedModel{
 	
 	public void update(float delta){
 		animator.update(delta);
+	}
+	
+	public void draw(){
+		mesh.draw();
+	}
+	
+	public boolean inFrustum(Transform transform, Camera camera){
+		return mesh.inFrustum(transform, camera);
 	}
 	
 	public Matrix4f[] getJointTransforms(){

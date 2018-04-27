@@ -1,5 +1,7 @@
 package net.medox.neonengine.math;
 
+import java.nio.FloatBuffer;
+
 public class Matrix4f{
 	private float[][] m;
 	
@@ -135,7 +137,117 @@ public class Matrix4f{
 		
 		return res;
 	}
+	
+	public static Matrix4f mul(Matrix4f left, Matrix4f right){
+		Matrix4f dest = new Matrix4f();
 
+		float m00 = left.m[0][0] * right.m[0][0] + left.m[1][0] * right.m[0][1] + left.m[2][0] * right.m[0][2] + left.m[3][0] * right.m[0][3];
+		float m01 = left.m[0][1] * right.m[0][0] + left.m[1][1] * right.m[0][1] + left.m[2][1] * right.m[0][2] + left.m[3][1] * right.m[0][3];
+		float m02 = left.m[0][2] * right.m[0][0] + left.m[1][2] * right.m[0][1] + left.m[2][2] * right.m[0][2] + left.m[3][2] * right.m[0][3];
+		float m03 = left.m[0][3] * right.m[0][0] + left.m[1][3] * right.m[0][1] + left.m[2][3] * right.m[0][2] + left.m[3][3] * right.m[0][3];
+		float m10 = left.m[0][0] * right.m[1][0] + left.m[1][0] * right.m[1][1] + left.m[2][0] * right.m[1][2] + left.m[3][0] * right.m[1][3];
+		float m11 = left.m[0][1] * right.m[1][0] + left.m[1][1] * right.m[1][1] + left.m[2][1] * right.m[1][2] + left.m[3][1] * right.m[1][3];
+		float m12 = left.m[0][2] * right.m[1][0] + left.m[1][2] * right.m[1][1] + left.m[2][2] * right.m[1][2] + left.m[3][2] * right.m[1][3];
+		float m13 = left.m[0][3] * right.m[1][0] + left.m[1][3] * right.m[1][1] + left.m[2][3] * right.m[1][2] + left.m[3][3] * right.m[1][3];
+		float m20 = left.m[0][0] * right.m[2][0] + left.m[1][0] * right.m[2][1] + left.m[2][0] * right.m[2][2] + left.m[3][0] * right.m[2][3];
+		float m21 = left.m[0][1] * right.m[2][0] + left.m[1][1] * right.m[2][1] + left.m[2][1] * right.m[2][2] + left.m[3][1] * right.m[2][3];
+		float m22 = left.m[0][2] * right.m[2][0] + left.m[1][2] * right.m[2][1] + left.m[2][2] * right.m[2][2] + left.m[3][2] * right.m[2][3];
+		float m23 = left.m[0][3] * right.m[2][0] + left.m[1][3] * right.m[2][1] + left.m[2][3] * right.m[2][2] + left.m[3][3] * right.m[2][3];
+		float m30 = left.m[0][0] * right.m[3][0] + left.m[1][0] * right.m[3][1] + left.m[2][0] * right.m[3][2] + left.m[3][0] * right.m[3][3];
+		float m31 = left.m[0][1] * right.m[3][0] + left.m[1][1] * right.m[3][1] + left.m[2][1] * right.m[3][2] + left.m[3][1] * right.m[3][3];
+		float m32 = left.m[0][2] * right.m[3][0] + left.m[1][2] * right.m[3][1] + left.m[2][2] * right.m[3][2] + left.m[3][2] * right.m[3][3];
+		float m33 = left.m[0][3] * right.m[3][0] + left.m[1][3] * right.m[3][1] + left.m[2][3] * right.m[3][2] + left.m[3][3] * right.m[3][3];
+
+		dest.m[0][0] = m00;
+		dest.m[0][1] = m01;
+		dest.m[0][2] = m02;
+		dest.m[0][3] = m03;
+		dest.m[1][0] = m10;
+		dest.m[1][1] = m11;
+		dest.m[1][2] = m12;
+		dest.m[1][3] = m13;
+		dest.m[2][0] = m20;
+		dest.m[2][1] = m21;
+		dest.m[2][2] = m22;
+		dest.m[2][3] = m23;
+		dest.m[3][0] = m30;
+		dest.m[3][1] = m31;
+		dest.m[3][2] = m32;
+		dest.m[3][3] = m33;
+
+		return dest;
+	}
+	
+	public Matrix4f rotate(float angle, Vector3f axis){
+		Matrix4f dest = new Matrix4f().initIdentity();
+		
+		float c = (float) Math.cos(angle);
+		float s = (float) Math.sin(angle);
+		float oneminusc = 1.0f - c;
+		float xy = axis.getX()*axis.getY();
+		float yz = axis.getY()*axis.getZ();
+		float xz = axis.getX()*axis.getZ();
+		float xs = axis.getX()*s;
+		float ys = axis.getY()*s;
+		float zs = axis.getZ()*s;
+
+		float f00 = axis.getX()*axis.getX()*oneminusc+c;
+		float f01 = xy*oneminusc+zs;
+		float f02 = xz*oneminusc-ys;
+		// n[3] not used
+		float f10 = xy*oneminusc-zs;
+		float f11 = axis.getY()*axis.getY()*oneminusc+c;
+		float f12 = yz*oneminusc+xs;
+		// n[7] not used
+		float f20 = xz*oneminusc+ys;
+		float f21 = yz*oneminusc-xs;
+		float f22 = axis.getZ()*axis.getZ()*oneminusc+c;
+
+		float t00 = m[0][0] * f00 + m[1][0] * f01 + m[2][0] * f02;
+		float t01 = m[0][1] * f00 + m[1][1] * f01 + m[2][1] * f02;
+		float t02 = m[0][2] * f00 + m[1][2] * f01 + m[2][2] * f02;
+		float t03 = m[0][3] * f00 + m[1][3] * f01 + m[2][3] * f02;
+		float t10 = m[0][0] * f10 + m[1][0] * f11 + m[2][0] * f12;
+		float t11 = m[0][1] * f10 + m[1][1] * f11 + m[2][1] * f12;
+		float t12 = m[0][2] * f10 + m[1][2] * f11 + m[2][2] * f12;
+		float t13 = m[0][3] * f10 + m[1][3] * f11 + m[2][3] * f12;
+		dest.m[2][0] = m[0][0] * f20 + m[1][0] * f21 + m[2][0] * f22;
+		dest.m[2][1] = m[0][1] * f20 + m[1][1] * f21 + m[2][1] * f22;
+		dest.m[2][2] = m[0][2] * f20 + m[1][2] * f21 + m[2][2] * f22;
+		dest.m[2][3] = m[0][3] * f20 + m[1][3] * f21 + m[2][3] * f22;
+		dest.m[0][0] = t00;
+		dest.m[0][1] = t01;
+		dest.m[0][2] = t02;
+		dest.m[0][3] = t03;
+		dest.m[1][0] = t10;
+		dest.m[1][1] = t11;
+		dest.m[1][2] = t12;
+		dest.m[1][3] = t13;
+		
+		return dest;
+	}
+	
+	public Matrix4f load(FloatBuffer buf){
+		m[0][0] = buf.get();
+		m[0][1] = buf.get();
+		m[0][2] = buf.get();
+		m[0][3] = buf.get();
+		m[1][0] = buf.get();
+		m[1][1] = buf.get();
+		m[1][2] = buf.get();
+		m[1][3] = buf.get();
+		m[2][0] = buf.get();
+		m[2][1] = buf.get();
+		m[2][2] = buf.get();
+		m[2][3] = buf.get();
+		m[3][0] = buf.get();
+		m[3][1] = buf.get();
+		m[3][2] = buf.get();
+		m[3][3] = buf.get();
+		
+		return this;
+	}
+	
 	public float[][] getM(){
 		float[][] res = new float[4][4];
 		
@@ -162,6 +274,46 @@ public class Matrix4f{
 		dest.setW(w);
 
 		return dest;
+	}
+	
+	public Matrix4f transpose(){
+		Matrix4f result = new Matrix4f();
+		
+		float m00 = m[0][0];
+		float m01 = m[1][0];
+		float m02 = m[2][0];
+		float m03 = m[3][0];
+		float m10 = m[0][1];
+		float m11 = m[1][1];
+		float m12 = m[2][1];
+		float m13 = m[3][1];
+		float m20 = m[0][2];
+		float m21 = m[1][2];
+		float m22 = m[2][2];
+		float m23 = m[3][2];
+		float m30 = m[0][3];
+		float m31 = m[1][3];
+		float m32 = m[2][3];
+		float m33 = m[3][3];
+		
+		result.m[0][0] = m00;
+		result.m[0][1] = m01;
+		result.m[0][2] = m02;
+		result.m[0][3] = m03;
+		result.m[1][0] = m10;
+		result.m[1][1] = m11;
+		result.m[1][2] = m12;
+		result.m[1][3] = m13;
+		result.m[2][0] = m20;
+		result.m[2][1] = m21;
+		result.m[2][2] = m22;
+		result.m[2][3] = m23;
+		result.m[3][0] = m30;
+		result.m[3][1] = m31;
+		result.m[3][2] = m32;
+		result.m[3][3] = m33;
+		
+		return result;
 	}
 	
 	public Matrix4f invert(){

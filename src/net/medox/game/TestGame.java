@@ -1,5 +1,8 @@
 package net.medox.game;
 
+import net.medox.neonengine.animation.AnimatedModel;
+import net.medox.neonengine.animation.Animation;
+import net.medox.neonengine.animation.AnimationLoader;
 import net.medox.neonengine.audio.Listener;
 import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.AnimatedMeshRenderer;
@@ -587,7 +590,7 @@ public class TestGame extends Game{
 		Mesh humanmesh = new Mesh("human.obj");
 		Material humanmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		humanmaterial.setDiffuseMap(new Texture("white.png"));
-		humanmaterial.setRoughness(0.85f);
+		material2.setRoughness(0.2f/*0.85f*/);
 		humanmaterial.setMetallic(0);
 		
 		MeshRenderer humanmeshRenderer = new MeshRenderer(humanmesh, humanmaterial);
@@ -603,7 +606,9 @@ public class TestGame extends Game{
 		
 		
 		
-		AnimatedMesh animMesh = new AnimatedMesh("skeletalModel.dae");
+		AnimatedModel animMesh = new AnimatedModel(new AnimatedMesh("skeletalModel.dae"));
+		Animation anim = AnimationLoader.loadAnimation("skeletalModel.dae");
+		animMesh.doAnimation(anim);
 		Material animMaterial = new Material();
 		animMaterial.setDiffuseMap(new Texture("skeletalDifuse.png"));
 		animMaterial.setRoughness(0.85f);

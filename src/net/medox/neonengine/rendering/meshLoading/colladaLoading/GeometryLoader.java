@@ -12,8 +12,8 @@ import net.medox.neonengine.rendering.meshLoading.colladaLoading.data.Vertex;
 import net.medox.neonengine.rendering.meshLoading.colladaLoading.data.VertexSkinData;
 
 public class GeometryLoader{
-//	private static final Matrix4f CORRECTION = new Matrix4f().rotate((float)Math.toRadians(-90), new Vector3f(1, 0, 0));
-	private static final Matrix4f CORRECTION = new Matrix4f().initRotation(90, 0, 0);
+	private static final Matrix4f CORRECTION = new Matrix4f().initIdentity().rotate((float)Math.toRadians(-90), new Vector3f(1, 0, 0));
+//	private static final Matrix4f CORRECTION = new Matrix4f().initIdentity().initRotation(90, 0, 0);
 	
 	private final XmlNode meshData;
 	

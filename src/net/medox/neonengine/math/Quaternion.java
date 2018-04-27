@@ -101,8 +101,39 @@ public class Quaternion{
 		return this.mul((float)Math.sin((1.0f - lerpFactor) * angle) * invSin).add(correctedDest.mul((float)Math.sin((lerpFactor) * angle) * invSin));
 	}
 	
+	public Matrix4f toRotationMatrix2(){
+		Matrix4f matrix = new Matrix4f();
+		final float xy = x * y;
+		final float xz = x * z;
+		final float xw = x * w;
+		final float yz = y * z;
+		final float yw = y * w;
+		final float zw = z * w;
+		final float xSquared = x * x;
+		final float ySquared = y * y;
+		final float zSquared = z * z;
+		matrix.set(0, 0, (1 - 2 * (ySquared + zSquared)));
+		matrix.set(0, 1, (2 * (xy - zw)));
+		matrix.set(0, 2, (2 * (xz + yw)));
+		matrix.set(0, 3, 0);
+		matrix.set(1, 0, (2 * (xy + zw)));
+		matrix.set(1, 1, (1 - 2 * (xSquared + zSquared)));
+		matrix.set(1, 2, (2 * (yz - xw)));
+		matrix.set(1, 3, 0);
+		matrix.set(2, 0, (2 * (xz - yw)));
+		matrix.set(2, 1, (2 * (yz + xw)));
+		matrix.set(2, 2, (1 - 2 * (xSquared + ySquared)));
+		matrix.set(2, 3, 0);
+		matrix.set(3, 0, 0);
+		matrix.set(3, 1, 0);
+		matrix.set(3, 2, 0);
+		matrix.set(3, 3, 1);
+		return matrix;
+	}
+	
 	public static Quaternion interpolate(Quaternion a, Quaternion b, float blend){
-		Quaternion result = new Quaternion(0, 0, 0, 1);
+		Quaternion result = new Quaternion();
+		result = result.normalized();
 		float dot = a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
 		float blendI = 1f - blend;
 		if(dot < 0){
@@ -116,8 +147,43 @@ public class Quaternion{
 			result.y = blendI * a.y + blend * b.y;
 			result.z = blendI * a.z + blend * b.z;
 		}
-		result.normalized();
+		result = result.normalized();
 		return result;
+	}
+	
+	public static Quaternion fromMatrix(Matrix4f matrix){
+		float w, x, y, z;
+		float diagonal = matrix.get(0, 0) + matrix.get(1, 1) + matrix.get(2, 2);
+		if(diagonal > 0){
+			float w4 = (float) (Math.sqrt(diagonal + 1f) * 2f);
+			w = w4 / 4f;
+			x = (matrix.get(2, 1) - matrix.get(1, 2)) / w4;
+			y = (matrix.get(0, 2) - matrix.get(2, 0)) / w4;
+			z = (matrix.get(1, 0) - matrix.get(0, 1)) / w4;
+		}else if ((matrix.get(0, 0) > matrix.get(1, 1)) && (matrix.get(0, 0) > matrix.get(2, 2))){
+			float x4 = (float) (Math.sqrt(1f + matrix.get(0, 0) - matrix.get(1, 1) - matrix.get(2, 2)) * 2f);
+			w = (matrix.get(2, 1) - matrix.get(1, 2)) / x4;
+			x = x4 / 4f;
+			y = (matrix.get(0, 1) + matrix.get(1, 0)) / x4;
+			z = (matrix.get(0, 2) + matrix.get(2, 0)) / x4;
+		}else if (matrix.get(1, 1) > matrix.get(2, 2)){
+			float y4 = (float) (Math.sqrt(1f + matrix.get(1, 1) - matrix.get(0, 0) - matrix.get(2, 2)) * 2f);
+			w = (matrix.get(0, 2) - matrix.get(2, 0)) / y4;
+			x = (matrix.get(0, 1) + matrix.get(1, 0)) / y4;
+			y = y4 / 4f;
+			z = (matrix.get(1, 2) + matrix.get(2, 1)) / y4;
+		}else{
+			float z4 = (float) (Math.sqrt(1f + matrix.get(2, 2) - matrix.get(0, 0) - matrix.get(1, 1)) * 2f);
+			w = (matrix.get(1, 0) - matrix.get(0, 1)) / z4;
+			x = (matrix.get(0, 2) + matrix.get(2, 0)) / z4;
+			y = (matrix.get(1, 2) + matrix.get(2, 1)) / z4;
+			z = z4 / 4f;
+		}
+		
+		Quaternion quat = new Quaternion(x, y, z, w);
+		quat = quat.normalized();
+		
+		return quat;
 	}
 	
 	public Quaternion(Matrix4f rot){

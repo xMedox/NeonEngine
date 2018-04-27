@@ -3,6 +3,7 @@ package net.medox.neonengine.rendering;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.medox.neonengine.animation.Joint;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.physics.StaticMeshCollider;
@@ -10,7 +11,8 @@ import net.medox.neonengine.rendering.meshLoading.ColladaModel;
 import net.medox.neonengine.rendering.resourceManagement.AnimatedMeshData;
 
 public class AnimatedMesh{
-	public static final int MAXWEIGHTS = 3;
+	public static final int MAX_WEIGHTS = 3;
+	public static final int MAX_JOINTS = 50;
 	
 	private static final Map<String, AnimatedMeshData> loadedModels = new HashMap<String, AnimatedMeshData>();
 //	private static final List<AnimatedMeshData> customModels = new ArrayList<MeshData>();
@@ -19,6 +21,9 @@ public class AnimatedMesh{
 	
 	private AnimatedMeshData resource;
 	private boolean cleanedUp;
+	
+	private Joint rootJoint;
+	private int jointCount;
 	
 	public AnimatedMesh(String fileName){
 		this.fileName = fileName;
@@ -90,12 +95,24 @@ public class AnimatedMesh{
 		final String ext = splitArray[splitArray.length - 1];
 		
 		if(ext.equals("dae")){
-			resource = new AnimatedMeshData(new ColladaModel("./res/models/" + fileName).toIndexedModel());
+			ColladaModel model = new ColladaModel("./res/models/" + fileName);
+			
+			rootJoint = model.getRootJoint();
+			jointCount = model.getJointCount();
+			resource = new AnimatedMeshData(model.toIndexedModel());
 		}else{
 			NeonEngine.throwError("Error: '" + ext + "' file format not supported for mesh data.");
 		}
 		
 		return this;
+	}
+	
+	public Joint getRootJoint(){
+		return rootJoint;
+	}
+	
+	public int getJointCount(){
+		return jointCount;
 	}
 	
 	public static void dispose(){

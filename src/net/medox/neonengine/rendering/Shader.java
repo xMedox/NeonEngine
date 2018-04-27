@@ -3,6 +3,7 @@ package net.medox.neonengine.rendering;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.medox.neonengine.animation.AnimatedModel;
 import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.Transform;
 import net.medox.neonengine.lighting.DirectionalLight;
@@ -196,6 +197,161 @@ public class Shader{
 		}
 	}
 	
+	public void updateUniforms(Transform transform, Material material, Camera camera, AnimatedModel mesh){
+		final Matrix4f worldMatrix = transform.getTransformation();
+		final Matrix4f MVPMatrix = camera.getViewProjection().mul(worldMatrix);
+		
+		for(int i = 0; i < resource.getUniformNames().size(); i++){
+			final String uniformName = resource.getUniformNames().get(i);
+			final String uniformType = resource.getUniformTypes().get(i);
+			
+			if(uniformName.charAt(0) == 'X'){
+				setUniformi(uniformName, 0);
+			}else if(uniformName.charAt(0) == 'M'){
+				if(uniformName.charAt(1) == '_'){
+					final String unprefixedUniformName = uniformName.substring(2);
+					
+					if(unprefixedUniformName.equals("jointTransforms")){
+						int size = mesh.getJointTransforms().length;
+						if(size > AnimatedMesh.MAX_JOINTS){
+							size = AnimatedMesh.MAX_JOINTS;
+						}
+						
+						for(int f = 0; f < /*AnimatedMesh.MAX_JOINTS*//*mesh.getJointTransforms().length*/size; f++){
+//							if(f > mesh.getJointTransforms().length-1){
+//								setUniformMatrix4f(uniformName + "[" + f + "]", new Matrix4f().initIdentity());
+//							}else{
+								setUniformMatrix4f(uniformName + "[" + f + "]", mesh.getJointTransforms()[f], false);
+//							}
+						}
+					}
+				}
+			}else if(uniformName.charAt(0) == 'T'){
+				if(uniformName.charAt(1) == '_'){
+					final String unprefixedUniformName = uniformName.substring(2);
+					
+					if(unprefixedUniformName.equals("MVP")){
+						setUniformMatrix4f(uniformName, MVPMatrix);
+					}else if(unprefixedUniformName.equals("model")){
+						setUniformMatrix4f(uniformName, worldMatrix);
+					}else if(unprefixedUniformName.equals("textures")){
+						setUniformiVector(uniformName, RenderingEngine.getTextureIdsArray());
+					}else{
+						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Transform.");
+					}
+				}else if(uniformName.equals("TM_projMatrixInv")){
+					final Matrix4f projMatrixInv = RenderingEngine.getMainCamera().getProjection().invert();
+					
+					setUniformMatrix4f(uniformName, projMatrixInv);
+				}else if(uniformName.equals("TM_viewMatrixInv")){
+					final Matrix4f MVPMatrixInvert = RenderingEngine.getMainCamera().getView().invert();
+					
+					setUniformMatrix4f(uniformName, MVPMatrixInvert);
+				}
+			}else if(uniformName.charAt(0) == 'R'){
+				if(uniformName.charAt(1) == '_'){
+					final String unprefixedUniformName = uniformName.substring(2);
+					
+					if(unprefixedUniformName.equals("lightMatrix")){
+						setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix().mul(worldMatrix));
+					}else if(uniformType.equals("sampler2D")){
+						final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(samplerSlot);
+						setUniformi(uniformName, samplerSlot);
+					}else if(uniformType.equals("vec3")){
+						setUniformVector3f(uniformName, RenderingEngine.getVector3f(unprefixedUniformName));
+					}/*else if(uniformType.equals("vec2")){
+						setUniformVector2f(uniformName, RenderingEngine.getVector2f(unprefixedUniformName));
+					}*/else if(uniformType.equals("float")){
+						setUniformf(uniformName, RenderingEngine.getFloat(unprefixedUniformName));
+					}else if(uniformType.equals("DirectionalLight")){
+						setUniformDirectionalLight(uniformName, (DirectionalLight)RenderingEngine.getActiveLight());
+					}else if(uniformType.equals("PointLight")){
+						setUniformPointLight(uniformName, (PointLight)RenderingEngine.getActiveLight());
+					}else if(uniformType.equals("SpotLight")){
+						setUniformSpotLight(uniformName, (SpotLight)RenderingEngine.getActiveLight());
+					}else if(uniformType.equals("samplerCube")){
+						if(unprefixedUniformName.equals("prefilterMap")){
+							final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getMainSkybox().getPrefilterMap().bind(samplerSlot);
+							setUniformi(uniformName, samplerSlot);
+						}else if(unprefixedUniformName.equals("irradianceMap")){
+							final int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+							RenderingEngine.getMainSkybox().getIrradianceMap().bind(samplerSlot);
+							setUniformi(uniformName, samplerSlot);
+						}else{
+							NeonEngine.throwError("Error: " + uniformType + " is not a supported type in RenderingEngine.");
+						}
+					}else{
+						RenderingEngine.updateUniformStruct(transform, material, this, unprefixedUniformName, uniformType);
+					}
+				}else if(uniformName.equals("RM_lightMatrix")){
+					setUniformMatrix4f(uniformName, RenderingEngine.getLightMatrix());
+				}else if(uniformName.charAt(2) == '_'){
+					if(uniformName.charAt(1) == '0'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(10, 0);
+						setUniformi(uniformName, 10);
+					}else if(uniformName.charAt(1) == '1'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(11, 1);
+						setUniformi(uniformName, 11);
+					}else if(uniformName.charAt(1) == '2'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(12, 2);
+						setUniformi(uniformName, 12);
+					}else if(uniformName.charAt(1) == '3'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(13, 3);
+						setUniformi(uniformName, 13);
+					}else if(uniformName.charAt(1) == '4'){
+						final String unprefixedUniformName = uniformName.substring(3);
+						
+//						int samplerSlot = RenderingEngine.getSamplerSlot(unprefixedUniformName);
+						RenderingEngine.getTexture(unprefixedUniformName).bind(14, 4);
+						setUniformi(uniformName, 14);
+					}
+				}
+			}else if(uniformName.charAt(0) == 'C'){
+				if(uniformName.charAt(1) == '_'){
+					final String unprefixedUniformName = uniformName.substring(2);
+					
+					if(unprefixedUniformName.equals("eyePos")){
+						setUniformVector3f(uniformName, camera.getTransform().getTransformedPos());
+					}else if(unprefixedUniformName.equals("exposure")){
+						setUniformf(uniformName, RenderingEngine.getMainCamera().getExposure());
+					}else{
+						NeonEngine.throwError("Error: " + uniformName + " is not a valid component of Camera.");
+					}
+				}else if(uniformName.equals("CM_eyePos")){
+					setUniformVector3f(uniformName, RenderingEngine.getMainCamera().getTransform().getTransformedPos());
+				}
+			}else if(uniformType.equals("sampler2D")){
+				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
+				material.getTexture(uniformName).bind(samplerSlot);
+				setUniformi(uniformName, samplerSlot);
+			}else if(uniformType.equals("samplerCube")){
+				final int samplerSlot = RenderingEngine.getSamplerSlot(uniformName);
+				material.getCubeMap(uniformName).bind(samplerSlot);
+				setUniformi(uniformName, samplerSlot);
+			}else if(uniformType.equals("vec3")){
+				setUniformVector3f(uniformName, material.getVector3f(uniformName));
+			}else if(uniformType.equals("float")){
+				setUniformf(uniformName, material.getFloat(uniformName));
+			}else{
+				NeonEngine.throwError("Error: " + uniformType + " is not a supported type in Material.");
+			}
+		}
+	}
+	
 	private void setUniformi(String uniformName, int value){
 		resource.setUniformi(uniformName, value);
 	}
@@ -218,6 +374,10 @@ public class Shader{
 	
 	private void setUniformMatrix4f(String uniformName, Matrix4f value){
 		resource.setUniformMatrix4f(uniformName, value);
+	}
+	
+	private void setUniformMatrix4f(String uniformName, Matrix4f value, boolean value2){
+		resource.setUniformMatrix4f(uniformName, value, value2);
 	}
 	
 	private void setUniformDirectionalLight(String uniformName, DirectionalLight directionalLight){

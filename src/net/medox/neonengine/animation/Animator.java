@@ -26,7 +26,7 @@ public class Animator{
 		}
 		increaseAnimationTime(delta);
 		Map<String, Matrix4f> currentPose = calculateCurrentAnimationPose();
-		applyPoseToJoints(currentPose, entity.getRootJoint(), new Matrix4f());
+		applyPoseToJoints(currentPose, entity.getRootJoint(), new Matrix4f().initIdentity());
 	}
 	
 	private void increaseAnimationTime(float delta){
@@ -44,11 +44,11 @@ public class Animator{
 	
 	private void applyPoseToJoints(Map<String, Matrix4f> currentPose, Joint joint, Matrix4f parentTransform){
 		Matrix4f currentLocalTransform = currentPose.get(joint.name);
-		Matrix4f currentTransform = parentTransform.mul(currentLocalTransform);
+		Matrix4f currentTransform = Matrix4f.mul(parentTransform, currentLocalTransform);
 		for(Joint childJoint : joint.children){
 			applyPoseToJoints(currentPose, childJoint, currentTransform);
 		}
-		currentTransform = currentTransform.mul(joint.getInverseBindTransform());
+		currentTransform = Matrix4f.mul(currentTransform, joint.getInverseBindTransform());
 		joint.setAnimationTransform(currentTransform);
 	}
 	

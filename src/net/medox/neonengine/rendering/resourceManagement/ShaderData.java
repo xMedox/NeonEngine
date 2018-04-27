@@ -156,6 +156,35 @@ public class ShaderData extends ReferenceCounter{
 			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
 			
 			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+			
+//			boolean add = true;
+//			
+//			if(bracket >= 0){
+//				final int bracket2 = uniformName.indexOf(']');
+//				
+//				int number = Integer.parseInt(uniformName.substring(bracket+1, bracket2).trim());
+//				
+//				uniformName = uniformName.substring(0, bracket).trim();
+//				
+//				if(number == 50){
+//					for(int j = 0; j < number; j++){
+//						add = false;
+//						uniformNames.add(uniformName + "[" + j + "]");
+//						uniformTypes.add(uniformType);
+//						addUniform(uniformName + "[" + j + "]", uniformType, findUniformStructs(shaderText));
+//					}
+//					
+//					uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+//				}
+//			}
+//			
+//			if(add){
+//				uniformNames.add(uniformName);
+//				uniformTypes.add(uniformType);
+//				addUniform(uniformName, uniformType, findUniformStructs(shaderText));
+//				
+//				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+//			}
 		}
 	}
 	
@@ -356,7 +385,11 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void setUniformMatrix4f(String uniformName, Matrix4f value){
-		GL20.glUniformMatrix4fv(uniformMap.get(uniformName), true, DataUtil.createFlippedBuffer(value));
+		setUniformMatrix4f(uniformName, value, true);
+	}
+	
+	public void setUniformMatrix4f(String uniformName, Matrix4f value, boolean value2){
+		GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(program, uniformName), value2, DataUtil.createFlippedBuffer(value));
 	}
 	
 	public void dispose(){
