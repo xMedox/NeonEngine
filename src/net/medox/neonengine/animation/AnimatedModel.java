@@ -28,6 +28,18 @@ public class AnimatedModel{
 		animator.doAnimation(animation);
 	}
 	
+	public void start(){
+		animator.start();
+	}
+	
+	public void stop(){
+		animator.stop();
+	}
+	
+	public void reset(){
+		animator.reset();
+	}
+	
 	public void update(float delta){
 		animator.update(delta);
 	}

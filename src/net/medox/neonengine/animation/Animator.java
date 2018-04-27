@@ -10,21 +10,37 @@ public class Animator{
 	
 	private Animation currentAnimation;
 	private float animationTime = 0;
+	private boolean active;
 	
 	public Animator(AnimatedModel entity){
 		this.entity = entity;
 	}
 	
 	public void doAnimation(Animation animation){
-		this.animationTime = 0;
-		this.currentAnimation = animation;
+		animationTime = 0;
+		currentAnimation = animation;
+		active = true;
+	}
+	
+	public void start(){
+		active = true;
+	}
+	
+	public void stop(){
+		active = false;
+	}
+	
+	public void reset(){
+		animationTime = 0;
 	}
 	
 	public void update(float delta){
 		if(currentAnimation == null){
 			return;
 		}
-		increaseAnimationTime(delta);
+		if(active){
+			increaseAnimationTime(delta);
+		}
 		Map<String, Matrix4f> currentPose = calculateCurrentAnimationPose();
 		applyPoseToJoints(currentPose, entity.getRootJoint(), new Matrix4f().initIdentity());
 	}
