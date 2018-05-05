@@ -8,6 +8,7 @@ import net.medox.neonengine.components.LookComponent;
 import net.medox.neonengine.components.AnimatedMeshRenderer;
 import net.medox.neonengine.components.FullscreenSetter;
 import net.medox.neonengine.components.MeshRenderer;
+import net.medox.neonengine.components.MoveComponent;
 import net.medox.neonengine.components.ParticleRenderer;
 import net.medox.neonengine.components.PhysicsComponent;
 import net.medox.neonengine.components.PlayerComponent;
@@ -142,11 +143,12 @@ public class TestGame extends Game{
 		characterCollider.setSleepingThresholds(0, 0);
 //		characterCollider.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 		
-		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10/*, 2, 1 | 2 | 4*/);
-		p.setEnity(player);
-		
-//		player.addComponent(p);
-		playerHead.addComponent(p);
+//		PlayerComponent p = new PlayerComponent(characterCollider, cam, 6, 10/*, 2, 1 | 2 | 4*/);
+//		p.setEnity(player);
+//		
+////		player.addComponent(p);
+//		playerHead.addComponent(p);
+		playerHead.addComponent(new MoveComponent(6));
 		
 		Listener listener = new Listener();
 		
@@ -590,7 +592,7 @@ public class TestGame extends Game{
 		Mesh humanmesh = new Mesh("human.obj");
 		Material humanmaterial = new Material();//new Texture("white.png"), new Vector3f(1, 1, 1), 0, 4
 		humanmaterial.setDiffuseMap(new Texture("white.png"));
-		material2.setRoughness(0.2f/*0.85f*/);
+		humanmaterial.setRoughness(0.85f/*0.2f*/);
 		humanmaterial.setMetallic(0);
 		
 		MeshRenderer humanmeshRenderer = new MeshRenderer(humanmesh, humanmaterial);
@@ -610,7 +612,9 @@ public class TestGame extends Game{
 		Animation anim = AnimationLoader.loadAnimation("skeletalModel.dae");
 		animMesh.doAnimation(anim);
 		Material animMaterial = new Material();
-		animMaterial.setDiffuseMap(new Texture("skeletalDifuse.png"));
+//		animMaterial.setDiffuseMap(new Texture("skeletalDifuse.png"));
+		animMaterial.setDiffuseMap(new Texture("patchy_cement1_Base_Color.png"));
+		animMaterial.setNormalMap(new Texture("rockNormal2.png"));
 		animMaterial.setRoughness(0.85f);
 		animMaterial.setMetallic(0);
 		

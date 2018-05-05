@@ -212,7 +212,9 @@ public class Shader{
 					final String unprefixedUniformName = uniformName.substring(2);
 					
 					if(unprefixedUniformName.equals("jointTransforms")){
-						int size = mesh.getJointTransforms().length;
+						Matrix4f[] transforms = mesh.getJointTransforms();
+						
+						int size = transforms.length;
 						if(size > AnimatedMesh.MAX_JOINTS){
 							size = AnimatedMesh.MAX_JOINTS;
 						}
@@ -221,7 +223,7 @@ public class Shader{
 //							if(f > mesh.getJointTransforms().length-1){
 //								setUniformMatrix4f(uniformName + "[" + f + "]", new Matrix4f().initIdentity());
 //							}else{
-								setUniformMatrix4f(uniformName + "[" + f + "]", mesh.getJointTransforms()[f], false);
+								setUniformMatrix4f(uniformName + "[" + f + "]", transforms[f], false);
 //							}
 						}
 					}

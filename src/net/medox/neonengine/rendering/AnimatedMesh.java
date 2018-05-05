@@ -11,7 +11,7 @@ import net.medox.neonengine.rendering.meshLoading.ColladaModel;
 import net.medox.neonengine.rendering.resourceManagement.AnimatedMeshData;
 
 public class AnimatedMesh{
-	public static final int MAX_WEIGHTS = 3;
+	public static final int MAX_WEIGHTS = 4;
 	public static final int MAX_JOINTS = 50;
 	
 	private static final Map<String, AnimatedMeshData> loadedModels = new HashMap<String, AnimatedMeshData>();

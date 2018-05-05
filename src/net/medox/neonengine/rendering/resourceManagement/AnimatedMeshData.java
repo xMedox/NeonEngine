@@ -105,7 +105,7 @@ public class AnimatedMeshData extends ReferenceCounter{
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, DataUtil.createFlippedBuffer(vertexData5), GL15.GL_STATIC_DRAW);
 		
 		GL20.glEnableVertexAttribArray(4);
-		GL30.glVertexAttribIPointer(4, 3, GL11.GL_INT, 0, 0);
+		GL30.glVertexAttribIPointer(4, 4, GL11.GL_INT, 0, 0);
 		
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertexArrayBuffers.get(VERTEX_WEIGHTS_VB));
 		final Float[] vertexData6 = new Float[model.getWeights().size()];
@@ -113,7 +113,7 @@ public class AnimatedMeshData extends ReferenceCounter{
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, DataUtil.createFlippedBuffer(vertexData6), GL15.GL_STATIC_DRAW);
 		
 		GL20.glEnableVertexAttribArray(5);
-		GL20.glVertexAttribPointer(5, 3, GL11.GL_FLOAT, false, 0, 0);
+		GL20.glVertexAttribPointer(5, 4, GL11.GL_FLOAT, false, 0, 0);
 		
 		
 		

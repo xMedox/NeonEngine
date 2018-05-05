@@ -58,9 +58,11 @@ public class GeometryLoader{
 			jointIdsList.add(weights.jointIds.get(0));
 			jointIdsList.add(weights.jointIds.get(1));
 			jointIdsList.add(weights.jointIds.get(2));
+			jointIdsList.add(weights.jointIds.get(3));
 			vertexWeightsList.add(weights.weights.get(0));
 			vertexWeightsList.add(weights.weights.get(1));
 			vertexWeightsList.add(weights.weights.get(2));
+			vertexWeightsList.add(weights.weights.get(3));
 		}
 		
 		return new MeshData(verticesList, texCoordsList, normalsList, indices, jointIdsList, vertexWeightsList);
