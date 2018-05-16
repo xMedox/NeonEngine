@@ -207,7 +207,7 @@ public class Shader{
 			
 			if(uniformName.charAt(0) == 'X'){
 				setUniformi(uniformName, 0);
-			}else if(uniformName.charAt(0) == 'M'){
+			}else if(uniformName.charAt(0) == 'S'){
 				if(uniformName.charAt(1) == '_'){
 					final String unprefixedUniformName = uniformName.substring(2);
 					
@@ -220,11 +220,7 @@ public class Shader{
 						}
 						
 						for(int f = 0; f < /*AnimatedMesh.MAX_JOINTS*//*mesh.getJointTransforms().length*/size; f++){
-//							if(f > mesh.getJointTransforms().length-1){
-//								setUniformMatrix4f(uniformName + "[" + f + "]", new Matrix4f().initIdentity());
-//							}else{
-								setUniformMatrix4f(uniformName + "[" + f + "]", transforms[f]);
-//							}
+							setUniformMatrix4f(uniformName + "[" + f + "]", transforms[f]);
 						}
 					}
 				}

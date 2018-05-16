@@ -8,7 +8,7 @@ layout(location = 5) in vec4 weights;
 const int MAX_JOINTS = 50;
 const int MAX_WEIGHTS = 4;
 
-uniform mat4 M_jointTransforms[MAX_JOINTS];
+uniform mat4 S_jointTransforms[MAX_JOINTS];
 
 uniform mat4 T_MVP;
 
@@ -20,7 +20,7 @@ void main(){
 	mat4 mat = mat4(0.0);
 	
 	for(int i=0;i<MAX_WEIGHTS;i++){
-		mat4 jointTransform = M_jointTransforms[jointIndices[i]];
+		mat4 jointTransform = S_jointTransforms[jointIndices[i]];
 		
 		mat += jointTransform * weights[i];
 		
