@@ -19,26 +19,30 @@ out vec2 texCoord0;
 out mat3 tbnMatrix;
 
 void main(){
-	vec4 totalLocalPos = vec4(0.0);
-	vec4 totalNormal = vec4(0.0);
+	//vec4 totalLocalPos = vec4(0.0);
+	//vec4 totalNormal = vec4(0.0);
 	//vec4 totalTangent = vec4(0.0);
+	mat4 mat = mat4(0.0);
 	
 	for(int i=0;i<MAX_WEIGHTS;i++){
 		mat4 jointTransform = M_jointTransforms[jointIndices[i]];
-		vec4 posePosition = jointTransform * vec4(position, 1.0);
-		totalLocalPos += posePosition * weights[i];
 		
-		vec4 worldNormal = jointTransform * vec4(normal, 0.0);
-		totalNormal += worldNormal * weights[i];
+		mat += jointTransform * weights[i];
+		
+		//vec4 posePosition = jointTransform * vec4(position, 1.0);
+		//totalLocalPos += posePosition * fract(weights[i]);
+		
+		//vec4 worldNormal = jointTransform * vec4(normal, 0.0);
+		//totalNormal += worldNormal * weights[i];
 		
 		//vec4 worldTangent = jointTransform * vec4(tangent, 0.0);
 		//worldTangent += worldTangent * weights[i];
 	}
 	
-	gl_Position = T_MVP * totalLocalPos;
+	gl_Position = T_MVP * (vec4(position, 1.0) * mat);
 	texCoord0 = texCoord;
 	
-	vec3 n = normalize((T_model * totalNormal).xyz);
+	vec3 n = normalize((T_model * (vec4(normal, 0.0) * mat)).xyz);
 	//vec3 t = normalize((T_model * totalTangent).xyz);
 	vec3 t = normalize((T_model * vec4(tangent, 0.0)).xyz);
 	t = normalize(t - dot(t, n) * n);

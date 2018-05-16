@@ -385,11 +385,7 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void setUniformMatrix4f(String uniformName, Matrix4f value){
-		setUniformMatrix4f(uniformName, value, true);
-	}
-	
-	public void setUniformMatrix4f(String uniformName, Matrix4f value, boolean value2){
-		GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(program, uniformName), value2, DataUtil.createFlippedBuffer(value));
+		GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(program, uniformName), true, DataUtil.createFlippedBuffer(value));
 	}
 	
 	public void dispose(){

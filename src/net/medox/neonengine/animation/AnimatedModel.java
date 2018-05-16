@@ -11,11 +11,14 @@ public class AnimatedModel{
 	private final int jointCount;
 	private final Animator animator;
 	
+	private Matrix4f[] jointMatrices;
+	
 	public AnimatedModel(AnimatedMesh mesh/*, Joint rootJoint, int jointCount*/){
 		this.mesh = mesh;
 		rootJoint = mesh.getRootJoint();
 		jointCount = mesh.getJointCount();
 		animator = new Animator(this);
+		jointMatrices = new Matrix4f[jointCount];
 		
 		rootJoint.calcInverseBindTransform(new Matrix4f().initIdentity());
 	}
@@ -42,6 +45,7 @@ public class AnimatedModel{
 	
 	public void update(float delta){
 		animator.update(delta);
+		updateJointTransforms();
 	}
 	
 	public void draw(){
@@ -52,9 +56,12 @@ public class AnimatedModel{
 		return mesh.inFrustum(transform, camera);
 	}
 	
-	public Matrix4f[] getJointTransforms(){
-		Matrix4f[] jointMatrices = new Matrix4f[jointCount];
+	private void updateJointTransforms(){
+		jointMatrices = new Matrix4f[jointCount];
 		addJointsToArray(rootJoint, jointMatrices);
+	}
+	
+	public Matrix4f[] getJointTransforms(){
 		return jointMatrices;
 	}
 	

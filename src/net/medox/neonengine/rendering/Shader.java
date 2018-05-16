@@ -223,7 +223,7 @@ public class Shader{
 //							if(f > mesh.getJointTransforms().length-1){
 //								setUniformMatrix4f(uniformName + "[" + f + "]", new Matrix4f().initIdentity());
 //							}else{
-								setUniformMatrix4f(uniformName + "[" + f + "]", transforms[f], false);
+								setUniformMatrix4f(uniformName + "[" + f + "]", transforms[f]);
 //							}
 						}
 					}
@@ -376,10 +376,6 @@ public class Shader{
 	
 	private void setUniformMatrix4f(String uniformName, Matrix4f value){
 		resource.setUniformMatrix4f(uniformName, value);
-	}
-	
-	private void setUniformMatrix4f(String uniformName, Matrix4f value, boolean value2){
-		resource.setUniformMatrix4f(uniformName, value, value2);
 	}
 	
 	private void setUniformDirectionalLight(String uniformName, DirectionalLight directionalLight){
