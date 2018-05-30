@@ -5,7 +5,6 @@ layout(location = 1) in vec2 texCoord;
 layout(location = 4) in ivec4 jointIndices;
 layout(location = 5) in vec4 weights;
 
-const int MAX_JOINTS = 50;
 const int MAX_WEIGHTS = 4;
 
 uniform mat4 S_jointTransforms[MAX_JOINTS];

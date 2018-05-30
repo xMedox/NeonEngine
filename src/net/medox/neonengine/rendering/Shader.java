@@ -219,7 +219,7 @@ public class Shader{
 							size = AnimatedMesh.MAX_JOINTS;
 						}
 						
-						for(int f = 0; f < /*AnimatedMesh.MAX_JOINTS*//*mesh.getJointTransforms().length*/size; f++){
+						for(int f = 0; f < size; f++){
 							setUniformMatrix4f(uniformName + "[" + f + "]", transforms[f]);
 						}
 					}

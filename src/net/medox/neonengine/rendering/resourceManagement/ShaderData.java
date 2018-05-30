@@ -14,6 +14,7 @@ import net.medox.neonengine.core.NeonEngine;
 import net.medox.neonengine.core.ReferenceCounter;
 import net.medox.neonengine.math.Matrix4f;
 import net.medox.neonengine.math.Vector3f;
+import net.medox.neonengine.rendering.AnimatedMesh;
 import net.medox.neonengine.rendering.RenderingEngine;
 
 public class ShaderData extends ReferenceCounter{
@@ -147,44 +148,44 @@ public class ShaderData extends ReferenceCounter{
 			
 			final int bracket = uniformName.indexOf('[');
 			
+//			if(bracket >= 0){
+//				uniformName = uniformName.substring(0, bracket).trim();
+//			}
+//			
+//			uniformNames.add(uniformName);
+//			uniformTypes.add(uniformType);
+//			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
+//			
+//			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+			
+			boolean add = true;
+			
 			if(bracket >= 0){
+				final int bracket2 = uniformName.indexOf(']');
+				
+				int number = Integer.parseInt(uniformName.substring(bracket+1, bracket2).trim());
+				
 				uniformName = uniformName.substring(0, bracket).trim();
+				
+				if(!uniformType.equals("sampler2D") && !uniformType.equals("samplerCube")){
+					for(int j = 0; j < number; j++){
+//						add = false;
+						uniformNames.add(uniformName + "[" + j + "]");
+						uniformTypes.add(uniformType);
+						addUniform(uniformName + "[" + j + "]", uniformType, findUniformStructs(shaderText));
+					}
+					
+//					uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+				}
 			}
 			
-			uniformNames.add(uniformName);
-			uniformTypes.add(uniformType);
-			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
-			
-			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
-			
-//			boolean add = true;
-//			
-//			if(bracket >= 0){
-//				final int bracket2 = uniformName.indexOf(']');
-//				
-//				int number = Integer.parseInt(uniformName.substring(bracket+1, bracket2).trim());
-//				
-//				uniformName = uniformName.substring(0, bracket).trim();
-//				
-//				if(number == 50){
-//					for(int j = 0; j < number; j++){
-//						add = false;
-//						uniformNames.add(uniformName + "[" + j + "]");
-//						uniformTypes.add(uniformType);
-//						addUniform(uniformName + "[" + j + "]", uniformType, findUniformStructs(shaderText));
-//					}
-//					
-//					uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
-//				}
-//			}
-//			
-//			if(add){
-//				uniformNames.add(uniformName);
-//				uniformTypes.add(uniformType);
-//				addUniform(uniformName, uniformType, findUniformStructs(shaderText));
-//				
-//				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
-//			}
+			if(add){
+				uniformNames.add(uniformName);
+				uniformTypes.add(uniformType);
+				addUniform(uniformName, uniformType, findUniformStructs(shaderText));
+				
+				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+			}
 		}
 	}
 	
@@ -281,6 +282,8 @@ public class ShaderData extends ReferenceCounter{
 				}else{
 					if(line.contains("R_MAX_TEXTURE_IMAGE_UNITS")){
 						line = line.replace("R_MAX_TEXTURE_IMAGE_UNITS", Integer.toString(RenderingEngine.getMaxTextureImageUnits()));
+					}else if(line.contains("MAX_JOINTS")){
+						line = line.replace("MAX_JOINTS", Integer.toString(AnimatedMesh.MAX_JOINTS));
 					}
 					
 					shaderSource.append(line).append("\n");
@@ -385,7 +388,7 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void setUniformMatrix4f(String uniformName, Matrix4f value){
-		GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(program, uniformName), true, DataUtil.createFlippedBuffer(value));
+		GL20.glUniformMatrix4fv(uniformMap.get(uniformName), true, DataUtil.createFlippedBuffer(value));
 	}
 	
 	public void dispose(){
