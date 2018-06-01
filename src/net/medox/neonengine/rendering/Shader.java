@@ -111,9 +111,22 @@ public class Shader{
 					}else if(uniformType.equals("DirectionalLight")){
 						setUniformDirectionalLight(uniformName, (DirectionalLight)RenderingEngine.getActiveLight());
 					}else if(uniformType.equals("PointLight")){
-						for(int f = 0; f < RenderingEngine.lights.size(); f++){
-							setUniformPointLight(uniformName, (PointLight)RenderingEngine.lights.get(f), f);
-						}
+//						if(!uniformName.equals("R_pointLight")){
+//							final int bracket = uniformName.indexOf('[');
+//							
+//							final int bracket2 = uniformName.indexOf(']');
+//							
+//							int number = Integer.parseInt(uniformName.substring(bracket+1, bracket2).trim());
+//							
+//							if(number < RenderingEngine.lights.size()){
+								for(int f = 0; f < RenderingEngine.lights.size(); f++){
+//									System.out.println(uniformName + "[" + f + "]");
+									
+//									setUniformPointLight(uniformName, (PointLight)RenderingEngine.lights.get(number), number);
+									setUniformPointLight(uniformName + "[" + f + "]", (PointLight)RenderingEngine.lights.get(f), f);
+								}
+//							}
+//						}
 					}else if(uniformType.equals("SpotLight")){
 						setUniformSpotLight(uniformName, (SpotLight)RenderingEngine.getActiveLight());
 					}else if(uniformType.equals("samplerCube")){
@@ -229,13 +242,13 @@ public class Shader{
 	}
 	
 	private void setUniformPointLight(String uniformName, PointLight pointLight, int number){
-		setUniformVector3f(uniformName + "[" + number + "].base.color", pointLight.getColor());
-		setUniformf(uniformName + "[" + number + "].base.intensity", pointLight.getIntensity());
-		setUniformf(uniformName + "[" + number + "].atten.constant", pointLight.getAttenuation().getConstant());
-		setUniformf(uniformName + "[" + number + "].atten.linear", pointLight.getAttenuation().getLinear());
-		setUniformf(uniformName + "[" + number + "].atten.exponent", pointLight.getAttenuation().getExponent());
-		setUniformVector3f(uniformName + "[" + number + "].position", pointLight.getTransform().getTransformedPos());
-		setUniformf(uniformName + "[" + number + "].range", pointLight.getRange());
+		setUniformVector3f(uniformName + ".base.color", pointLight.getColor());
+		setUniformf(uniformName + ".base.intensity", pointLight.getIntensity());
+		setUniformf(uniformName + ".atten.constant", pointLight.getAttenuation().getConstant());
+		setUniformf(uniformName + ".atten.linear", pointLight.getAttenuation().getLinear());
+		setUniformf(uniformName + ".atten.exponent", pointLight.getAttenuation().getExponent());
+		setUniformVector3f(uniformName + ".position", pointLight.getTransform().getTransformedPos());
+		setUniformf(uniformName + ".range", pointLight.getRange());
 	}
 	
 	private void setUniformSpotLight(String uniformName, SpotLight spotLight){

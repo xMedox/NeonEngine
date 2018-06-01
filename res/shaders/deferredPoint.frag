@@ -9,7 +9,6 @@ uniform vec3 C0_eyePos;
 uniform mat4 TM_projMatrixInv;
 uniform mat4 TM_viewMatrixInv;
 
-const int NR_LIGHTS = 128;
 uniform PointLight R_pointLight[NR_LIGHTS];
 
 #include "sampling.glh"

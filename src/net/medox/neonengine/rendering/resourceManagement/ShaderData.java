@@ -147,15 +147,44 @@ public class ShaderData extends ReferenceCounter{
 			
 			final int bracket = uniformName.indexOf('[');
 			
+//			if(bracket >= 0){
+//			uniformName = uniformName.substring(0, bracket).trim();
+//		}
+//		
+//		uniformNames.add(uniformName);
+//		uniformTypes.add(uniformType);
+//		addUniform(uniformName, uniformType, findUniformStructs(shaderText));
+//		
+//		uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+		
+			boolean add = true;
+			
 			if(bracket >= 0){
+				final int bracket2 = uniformName.indexOf(']');
+				
+				int number = Integer.parseInt(uniformName.substring(bracket+1, bracket2).trim());
+				
 				uniformName = uniformName.substring(0, bracket).trim();
+				
+				if(!uniformType.equals("sampler2D") && !uniformType.equals("samplerCube")){
+					for(int j = 0; j < number; j++){
+	//					add = false;
+//						uniformNames.add(uniformName + "[" + j + "]");
+//						uniformTypes.add(uniformType);
+						addUniform(uniformName + "[" + j + "]", uniformType, findUniformStructs(shaderText));
+					}
+					
+	//				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+				}
 			}
-			
-			uniformNames.add(uniformName);
-			uniformTypes.add(uniformType);
-			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
-			
-			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+		
+			if(add){
+				uniformNames.add(uniformName);
+				uniformTypes.add(uniformType);
+				addUniform(uniformName, uniformType, findUniformStructs(shaderText));
+				
+				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
+			}
 		}
 	}
 	
@@ -167,6 +196,8 @@ public class ShaderData extends ReferenceCounter{
 			addThis = false;
 			
 			for(final GLSLStruct struct : structComponents){
+//				System.out.println("TESTING: " + uniformName + "." + struct.name);
+				
 				addUniform(uniformName + "." + struct.name, struct.type, structs);
 			}
 		}
@@ -180,6 +211,8 @@ public class ShaderData extends ReferenceCounter{
 		if(uniformLocation == -1){
 //			NeonEngine.throwError("Error: Could not find uniform \"" + uniformName + "\" in " + fileName + ".");
 		}
+		
+//		System.out.println("TESTING: " + uniformName);
 		
 		uniformMap.put(uniformName, uniformLocation);
 	}
@@ -252,6 +285,8 @@ public class ShaderData extends ReferenceCounter{
 				}else{
 					if(line.contains("R_MAX_TEXTURE_IMAGE_UNITS")){
 						line = line.replace("R_MAX_TEXTURE_IMAGE_UNITS", Integer.toString(RenderingEngine.maxTextureImageUnits));
+					}else if(line.contains("NR_LIGHTS")){
+						line = line.replace("NR_LIGHTS", Integer.toString(128));
 					}
 					
 					shaderSource.append(line).append("\n");
@@ -340,11 +375,11 @@ public class ShaderData extends ReferenceCounter{
 	}
 	
 	public void setUniformf(String uniformName, float value){
-		GL20.glUniform1f(GL20.glGetUniformLocation(program, uniformName), value);
+		GL20.glUniform1f(uniformMap.get(uniformName), value);
 	}
 	
 	public void setUniformVector3f(String uniformName, Vector3f value){
-		GL20.glUniform3f(GL20.glGetUniformLocation(program, uniformName), value.getX(), value.getY(), value.getZ());
+		GL20.glUniform3f(uniformMap.get(uniformName), value.getX(), value.getY(), value.getZ());
 	}
 	
 //	public void setUniformVector2f(String uniformName, Vector2f value){
