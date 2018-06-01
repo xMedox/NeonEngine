@@ -111,7 +111,7 @@ public class Shader{
 					}else if(uniformType.equals("DirectionalLight")){
 						setUniformDirectionalLight(uniformName, (DirectionalLight)RenderingEngine.getActiveLight());
 					}else if(uniformType.equals("PointLight")){
-//						if(!uniformName.equals("R_pointLight")){
+						if(uniformName.equals("R_pointLight")){
 //							final int bracket = uniformName.indexOf('[');
 //							
 //							final int bracket2 = uniformName.indexOf(']');
@@ -126,7 +126,7 @@ public class Shader{
 									setUniformPointLight(uniformName + "[" + f + "]", (PointLight)RenderingEngine.lights.get(f), f);
 								}
 //							}
-//						}
+						}
 					}else if(uniformType.equals("SpotLight")){
 						setUniformSpotLight(uniformName, (SpotLight)RenderingEngine.getActiveLight());
 					}else if(uniformType.equals("samplerCube")){
