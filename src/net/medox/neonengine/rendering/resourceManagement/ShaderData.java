@@ -157,9 +157,7 @@ public class ShaderData extends ReferenceCounter{
 //			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
 //			
 //			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
-			
-			boolean add = true;
-			
+						
 			if(bracket >= 0){
 				final int bracket2 = uniformName.indexOf(']');
 				
@@ -169,23 +167,18 @@ public class ShaderData extends ReferenceCounter{
 				
 				if(!uniformType.equals("sampler2D") && !uniformType.equals("samplerCube")){
 					for(int j = 0; j < number; j++){
-//						add = false;
-						uniformNames.add(uniformName + "[" + j + "]");
-						uniformTypes.add(uniformType);
+//						uniformNames.add(uniformName + "[" + j + "]");
+//						uniformTypes.add(uniformType);
 						addUniform(uniformName + "[" + j + "]", uniformType, findUniformStructs(shaderText));
 					}
-					
-//					uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
 				}
 			}
 			
-			if(add){
-				uniformNames.add(uniformName);
-				uniformTypes.add(uniformType);
-				addUniform(uniformName, uniformType, findUniformStructs(shaderText));
-				
-				uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
-			}
+			uniformNames.add(uniformName);
+			uniformTypes.add(uniformType);
+			addUniform(uniformName, uniformType, findUniformStructs(shaderText));
+			
+			uniformStartLocation = shaderText.indexOf(UNIFORM_KEYWORD, uniformStartLocation + UNIFORM_KEYWORD.length());
 		}
 	}
 	
